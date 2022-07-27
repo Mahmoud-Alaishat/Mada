@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using project.core.Domain;
 using project.infra.Domain;
+using System;
 
 namespace Project1
 {
@@ -30,6 +31,12 @@ namespace Project1
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);//We set Time here 
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +58,7 @@ namespace Project1
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
+
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
