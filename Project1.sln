@@ -5,9 +5,14 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project1", "Project1\Project1.csproj", "{D0CF5479-6D49-4522-9A36-ECBCCF827989}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project.core", "project.core\project.core.csproj", "{9D460BB5-7E8C-4AA3-8403-EADFD2E2FBB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "project.core", "project.core\project.core.csproj", "{9D460BB5-7E8C-4AA3-8403-EADFD2E2FBB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project.infra", "project.infra\project.infra.csproj", "{FC929011-BEC4-46AA-90D5-5D00783BC222}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "project.infra", "project.infra\project.infra.csproj", "{FC929011-BEC4-46AA-90D5-5D00783BC222}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3F8B2837-9573-4686-B174-D85D1CB54ADB}"
+	ProjectSection(SolutionItems) = preProject
+		test.txt = test.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
