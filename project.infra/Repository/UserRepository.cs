@@ -36,12 +36,12 @@ namespace project.infra.Repository
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
             if (operation == "read" | operation == "readbyid")
             {
-                var result = context.dbConnection.Query<User>("User.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                var result = context.dbConnection.Query<User>("User_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
                 return result.ToList();
             }
             else
             {
-                context.dbConnection.ExecuteAsync("User.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                context.dbConnection.ExecuteAsync("User_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
                 return re;
             }
         }
@@ -59,7 +59,16 @@ namespace project.infra.Repository
 
         public void Register(User user)
         {
-            throw new NotImplementedException();
+            var parameter = new DynamicParameters();
+            parameter.Add("userfname", user.FirstName, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("userlname", user.LastName, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("username", user.UserName, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("emailofuser", user.Email, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("phoneofuser", user.PhoneNumber, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("imageofuser", user.ProfilePath, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("passofuser", user.PasswordHash, dbType: DbType.String, direction: ParameterDirection.Input);
+
+            var result = context.dbConnection.Query<User>("User_package_api.Register", parameter, commandType: CommandType.StoredProcedure);
         }
     }
 }

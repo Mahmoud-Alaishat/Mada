@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using project.core.Data;
 using project.core.DTO;
 using project.core.Service;
 using System;
@@ -32,6 +33,7 @@ namespace Project1.Controllers
                 return Ok(token);
             }
         }
-    
+
+
     }
 }

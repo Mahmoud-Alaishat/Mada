@@ -71,7 +71,7 @@ namespace project.infra.Service
 
         public void Register(User user)
         {
-            throw new NotImplementedException();
+             userRepository.Register(user);
         }
 
         public User Update(User user)
