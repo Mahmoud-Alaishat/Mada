@@ -68,7 +68,7 @@ namespace project.infra.Repository
             parameter.Add("imageofuser", user.ProfilePath, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("passofuser", user.PasswordHash, dbType: DbType.String, direction: ParameterDirection.Input);
 
-            var result = context.dbConnection.Query<User>("User_package_api.Register", parameter, commandType: CommandType.StoredProcedure);
+            context.dbConnection.ExecuteAsync("User_package_api.Register", parameter, commandType: CommandType.StoredProcedure);
         }
     }
 }
