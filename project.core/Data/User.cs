@@ -9,9 +9,9 @@ namespace project.core.Data
 {
     public class User : IdentityUser
     {
-        public String FirstName { get; set; }
-        public String LastName { get; set; }
-        public String ProfilePath { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string ProfilePath { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
     }
