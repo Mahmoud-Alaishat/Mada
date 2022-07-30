@@ -60,6 +60,7 @@ namespace project.infra.Repository
         public void Register(User user)
         {
             var parameter = new DynamicParameters();
+            parameter.Add("idofuser", user.Id, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("userfname", user.FirstName, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("userlname", user.LastName, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("username", user.UserName, dbType: DbType.String, direction: ParameterDirection.Input);
