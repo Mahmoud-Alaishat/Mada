@@ -35,8 +35,8 @@ namespace Project1.Controllers
         }
 
         [HttpPost]
-        [Route("Rejister")]
-        public void Rejister([FromBody] User user)
+        [Route("Register")]
+        public void Register([FromBody] User user)
         {
             userService.Register(user);
         }
