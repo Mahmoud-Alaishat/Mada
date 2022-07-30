@@ -71,7 +71,8 @@ namespace project.infra.Service
 
         public void Register(User user)
         {
-             userRepository.Register(user);
+            user.Id = Guid.NewGuid().ToString();
+            userRepository.Register(user);
         }
 
         public User Update(User user)
