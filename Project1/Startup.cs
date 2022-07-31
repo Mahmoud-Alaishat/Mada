@@ -42,6 +42,8 @@ namespace Project1
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IAttachmentRepository, AttachmentRepository>();
             services.AddScoped<IAttachmentService, AttachmentService>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
+            services.AddScoped<ILikeService, LikeService>();
             
 
             services.AddControllersWithViews();
