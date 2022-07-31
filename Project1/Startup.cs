@@ -40,8 +40,8 @@ namespace Project1
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICommentService, CommentService>();
-            
 
+            
             services.AddControllersWithViews();
            
             // In production, the Angular files will be served from this directory
