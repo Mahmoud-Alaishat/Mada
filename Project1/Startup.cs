@@ -36,10 +36,10 @@ namespace Project1
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
-            services.AddScoped<ICommentRepository, CommentRepository>();
-            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IPostService, PostService>();
 
-         
+
 
             services.AddControllersWithViews();
            
