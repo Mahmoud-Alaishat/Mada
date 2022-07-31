@@ -13,10 +13,13 @@ namespace Project1.Controllers
     public class Admin : ControllerBase
     {
         private readonly IUserService userService;
+        private readonly ICommentService commentService;
 
-        public Admin(IUserService userService)
+        public Admin(IUserService userService,
+               ICommentService commentService)
         {
             this.userService = userService;
+            this.commentService = commentService;
         }
         [HttpGet]
         [Route("userCount")]
@@ -24,6 +27,13 @@ namespace Project1.Controllers
         {
             var uCount = userService.CountUsers();
             return Ok(uCount);
+        }
+        [HttpGet]
+        [Route("commentCount")]
+        public ActionResult CommentCount()
+        {
+            var cCount = commentService.CountComments();
+            return Ok(cCount);
         }
     }
 }
