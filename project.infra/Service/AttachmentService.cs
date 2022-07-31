@@ -36,9 +36,9 @@ namespace project.infra.Service
             Attachment attachment = new Attachment();
             return attachmentRepository.CRUDOP(attachment,"insert");
         }
-        public void Update(Attachment attachment)
+        public Attachment Update(Attachment attachment)
         {
-            attachmentRepository.CRUDOP(attachment, "update").ToList().SingleOrDefault();
+           return attachmentRepository.CRUDOP(attachment, "update").ToList().SingleOrDefault();
         }
        
         public AttachmentCount CountAttachment()
