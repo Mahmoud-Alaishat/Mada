@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using project.core.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,11 @@ namespace Project1.Controllers
     [ApiController]
     public class User : ControllerBase
     {
+        private readonly ICommentService commentService;
+
+        public User(ICommentService commentService)
+        {
+            this.commentService = commentService;
+        }
     }
 }
