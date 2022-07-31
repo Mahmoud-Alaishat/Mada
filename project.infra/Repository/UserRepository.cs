@@ -74,7 +74,7 @@ namespace project.infra.Repository
         }
         public UserCount CountUsers()
         {
-            var result = context.dbConnection.Query<UserCount>("User_package_api.Login", commandType: CommandType.StoredProcedure);
+            var result = context.dbConnection.Query<UserCount>("User_package_api.CountUsers", commandType: CommandType.StoredProcedure);
             return result.SingleOrDefault();
         }
     }

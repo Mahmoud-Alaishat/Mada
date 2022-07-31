@@ -18,6 +18,8 @@ namespace Project1.Controllers
         {
             this.userService = userService;
         }
+        [HttpGet]
+        [Route("userCount")]
         public ActionResult UserCount()
         {
             var uCount = userService.CountUsers();
