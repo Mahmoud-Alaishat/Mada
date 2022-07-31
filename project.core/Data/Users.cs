@@ -14,5 +14,9 @@ namespace project.core.Data
         public string ProfilePath { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
+        public ICollection<Post> Posts { get; set; }
+        public ICollection<Comments> Commentss { get; set; }
+        public ICollection<Likes> Likess { get; set; }
+
     }
 }
