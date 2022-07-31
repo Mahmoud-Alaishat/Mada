@@ -10,8 +10,9 @@ namespace project.core.Repository
 {
    public interface IUserRepository
     {
-        public List<User> CRUDOP(User user,string operation);
+        public List<Users> CRUDOP(Users user,string operation);
         public LoginResult Login(Login login);
-        public void Register(User user);
+        public void Register(Users user);
+        public UserCount CountUsers();
     }
 }

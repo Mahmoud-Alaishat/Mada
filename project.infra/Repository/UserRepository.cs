@@ -20,10 +20,11 @@ namespace project.infra.Repository
         {
             this.context = context;
         }
-        public List<User> CRUDOP(User user, string operation)
+
+        public List<Users> CRUDOP(Users user, string operation)
         {
             var parameter = new DynamicParameters();
-            List<User> re = new List<User>();
+            List<Users> re = new List<Users>();
             parameter.Add("idofuser", user.Id, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("userfname", user.FirstName, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("userlname", user.LastName, dbType: DbType.String, direction: ParameterDirection.Input);
@@ -36,7 +37,7 @@ namespace project.infra.Repository
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
             if (operation == "read" | operation == "readbyid")
             {
-                var result = context.dbConnection.Query<User>("User_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                var result = context.dbConnection.Query<Users>("User_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
                 return result.ToList();
             }
             else
@@ -57,7 +58,7 @@ namespace project.infra.Repository
             return result.SingleOrDefault();
         }
 
-        public void Register(User user)
+        public void Register(Users user)
         {
             var parameter = new DynamicParameters();
             parameter.Add("idofuser", user.Id, dbType: DbType.String, direction: ParameterDirection.Input);
@@ -70,6 +71,11 @@ namespace project.infra.Repository
             parameter.Add("passofuser", user.PasswordHash, dbType: DbType.String, direction: ParameterDirection.Input);
 
             context.dbConnection.ExecuteAsync("User_package_api.Register", parameter, commandType: CommandType.StoredProcedure);
+        }
+        public UserCount CountUsers()
+        {
+            var result = context.dbConnection.Query<UserCount>("User_package_api.Login", commandType: CommandType.StoredProcedure);
+            return result.SingleOrDefault();
         }
     }
 }

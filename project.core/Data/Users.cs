@@ -7,7 +7,7 @@ using System.Text;
 
 namespace project.core.Data
 {
-    public class User : IdentityUser
+    public class Users : IdentityUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

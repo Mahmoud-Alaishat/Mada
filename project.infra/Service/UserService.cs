@@ -23,19 +23,19 @@ namespace project.infra.Service
         }
         public void Delete(string userId)
         {
-            User user = new User();
+            Users user = new Users();
             user.Id = userId;
             userRepository.CRUDOP(user, "delete");
         }
 
-        public User GetUserById(string userId)
+        public Users GetUserById(string userId)
         {
-            User user = new User();
+            Users user = new Users();
             user.Id = userId;
            return userRepository.CRUDOP(user, "readbyid").ToList().SingleOrDefault();
         }
 
-        public List<User> GetUsers()
+        public List<Users> GetUsers()
         {
             throw new NotImplementedException();
         }
@@ -69,15 +69,20 @@ namespace project.infra.Service
             }
         }
 
-        public void Register(User user)
+        public void Register(Users user)
         {
             user.Id = Guid.NewGuid().ToString();
             userRepository.Register(user);
         }
 
-        public User Update(User user)
+        public Users Update(Users user)
         {
             throw new NotImplementedException();
         }
+        public UserCount CountUsers()
+        {
+            return userRepository.CountUsers();
+        }
+
     }
 }

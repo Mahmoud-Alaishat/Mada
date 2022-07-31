@@ -10,14 +10,15 @@ namespace project.core.Service
 {
    public interface IUserService
     {
-        public User Update(User user);
+        public Users Update(Users user);
 
         public void Delete(string userId);
 
-        public List<User> GetUsers();
+        public List<Users> GetUsers();
 
-        public User GetUserById(string userId);
+        public Users GetUserById(string userId);
         public string Login(Login login);
-        public void Register(User user);
+        public void Register(Users user);
+        public UserCount CountUsers();
     }
 }

@@ -37,9 +37,9 @@ namespace Project1.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public void Register([FromBody] User user)
+        public void Register([FromBody] Users user)
         {
-            userService.Register(user);
+           userService.Register(user);
         }
 
    
