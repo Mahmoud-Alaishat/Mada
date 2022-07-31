@@ -27,6 +27,56 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\assets\fonts\Brand-Icons.svg" />
+    <None Include="wwwroot\assets\fonts\Feather-Icons.svg" />
+    <None Include="wwwroot\assets\fonts\Line-Awesome.svg" />
+    <None Include="wwwroot\assets\fonts\Material-Icons.svg" />
+    <None Include="wwwroot\assets\fonts\unicons.svg" />
+    <None Include="wwwroot\assets\fonts\unicons.woff2" />
+    <None Include="wwwroot\assets\images\icon-play.svg" />
+    <None Include="wwwroot\assets\js\bootstrap-select.min.js" />
+    <None Include="wwwroot\assets\js\custom.js" />
+    <None Include="wwwroot\assets\js\jquery-3.3.1.min.js" />
+    <None Include="wwwroot\assets\js\simplebar.js" />
+    <None Include="wwwroot\assets\js\tippy.all.min.js" />
+    <None Include="wwwroot\assets\js\uikit.js" />
+    <None Include="wwwroot\assets\scss\elements\_buttons.scss" />
+    <None Include="wwwroot\assets\scss\elements\_card.scss" />
+    <None Include="wwwroot\assets\scss\elements\_checkbox.scss" />
+    <None Include="wwwroot\assets\scss\elements\_common-typography.scss" />
+    <None Include="wwwroot\assets\scss\elements\_form-styles.scss" />
+    <None Include="wwwroot\assets\scss\elements\_on-off-switch.scss" />
+    <None Include="wwwroot\assets\scss\elements\_radio-button.scss" />
+    <None Include="wwwroot\assets\scss\elements\_ripple-effect.scss" />
+    <None Include="wwwroot\assets\scss\features\_breadcrumb.scss" />
+    <None Include="wwwroot\assets\scss\features\_contacts.scss" />
+    <None Include="wwwroot\assets\scss\features\_create-post.scss" />
+    <None Include="wwwroot\assets\scss\features\_stories.scss" />
+    <None Include="wwwroot\assets\scss\features\_tabs.scss" />
+    <None Include="wwwroot\assets\scss\icons.scss" />
+    <None Include="wwwroot\assets\scss\icons\_brand-icons.scss" />
+    <None Include="wwwroot\assets\scss\icons\_feather-icons.scss" />
+    <None Include="wwwroot\assets\scss\icons\_line-awesome-icons.scss" />
+    <None Include="wwwroot\assets\scss\icons\_material-icons.scss" />
+    <None Include="wwwroot\assets\scss\icons\_unicons.scss" />
+    <None Include="wwwroot\assets\scss\layout\_bootstrap-grid.scss" />
+    <None Include="wwwroot\assets\scss\layout\_general.scss" />
+    <None Include="wwwroot\assets\scss\layout\_header.scss" />
+    <None Include="wwwroot\assets\scss\layout\_message.scss" />
+    <None Include="wwwroot\assets\scss\layout\_profile.scss" />
+    <None Include="wwwroot\assets\scss\layout\_sidebar.scss" />
+    <None Include="wwwroot\assets\scss\style.scss" />
+    <None Include="wwwroot\assets\scss\vendor\_bootstrap-select.scss" />
+    <None Include="wwwroot\assets\scss\vendor\_popups.scss" />
+    <None Include="wwwroot\assets\scss\vendor\_simplebar.scss" />
+    <None Include="wwwroot\assets\scss\vendor\_tooltips.scss" />
+    <None Include="wwwroot\assets\scss\_custom.scss" />
+    <None Include="wwwroot\assets\scss\_dark.scss" />
+    <None Include="wwwroot\assets\scss\_media-screen.scss" />
+    <None Include="wwwroot\assets\scss\_variables.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\project.core\project.core.csproj" />
     <ProjectReference Include="..\project.infra\project.infra.csproj" />
   </ItemGroup>

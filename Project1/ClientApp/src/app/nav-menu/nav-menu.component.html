@@ -1,44 +1,43 @@
-<header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">Project1</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div
-        class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-        [ngClass]="{ show: isExpanded }"
-      >
-        <ul class="navbar-nav flex-grow">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']"
-              >Counter</a
-            >
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Fetch data</a
-            >
-          </li>
-        </ul>
+<header class="border-none bg-transparent" uk-sticky="cls-active: is_fixed ; cls-inactive: bg-transparent">
+  <div class="header_inner">
+    <div class="left-side">
+
+      <!-- Logo -->
+      <div id="logo">
+        <a href="index.html">
+          <img src="assets/images/logo.png" alt="">
+          <img src="assets/images/logo-light.png" class="logo_inverse" alt="">
+          <img src="assets/images/logo-mobile.png" class="logo_mobile" alt="">
+        </a>
       </div>
+
+      <div class="triger" uk-toggle="target: .header_menu ; cls: is-visible">
+        <i class="uil-bars"></i>
+      </div>
+      <div class="overly" uk-toggle="target: .header_menu ; cls: is-visible"></div>
+
     </div>
-  </nav>
+    <div class="right-side uk-visible@s">
+
+      <ul class="header_menu" uk-scrollspy-nav="closest: li; scroll: true">
+        <li [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+          <a [routerLink]="['/']" uk-scroll> Home</a>
+        </li>
+        <li [routerLinkActive]="['link-active']">
+          <a [routerLink]="['/counter']" uk-scroll> Counter</a>
+        </li>
+        <li [routerLinkActive]="['link-active']">
+          <a [routerLink]="['/fetch-data']" uk-scroll> Fetch data</a>
+        </li>
+      </ul>
+      <a href="#" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-8 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
+        Sign In
+      </a>
+      <a href="#" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-2 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
+        Sign Up
+      </a>
+
+    </div>
+  </div>
 </header>

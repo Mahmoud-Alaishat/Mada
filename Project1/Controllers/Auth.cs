@@ -21,6 +21,7 @@ namespace Project1.Controllers
             this.userService = userService;
         }
         [HttpPost]
+        [Route("Login")]
         public ActionResult Login([FromBody]Login login)
         {
             var token = userService.Login(login);
