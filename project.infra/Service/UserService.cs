@@ -37,7 +37,8 @@ namespace project.infra.Service
 
         public List<Users> GetUsers()
         {
-            throw new NotImplementedException();
+            Users user = new Users();
+            return userRepository.CRUDOP(user, "read");
         }
 
         public string Login(Login login)
@@ -77,7 +78,7 @@ namespace project.infra.Service
 
         public Users Update(Users user)
         {
-            throw new NotImplementedException();
+            return userRepository.CRUDOP(user, "update").ToList().SingleOrDefault();
         }
         public UserCount CountUsers()
         {
