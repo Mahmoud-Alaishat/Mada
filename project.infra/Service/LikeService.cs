@@ -29,7 +29,7 @@ namespace project.infra.Service
             likeRepository.CRUDOP(like, "delete");
         }
 
-        public List<Likes> GetAlllikes()
+        public List<Likes> GetAllikes()
         {
             Likes like = new Likes();
             return likeRepository.CRUDOP(like, "read");

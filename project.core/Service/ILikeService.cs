@@ -10,7 +10,7 @@ namespace project.core.Service
     {
         public void Delete(int likeId);
         public Likes GetLikeById(int likeId);
-        public List<Likes> GetAlllikes();
+        public List<Likes> GetAllikes();
         public Likes Update(Likes like);
         public LikesCount Countlike();
     }
