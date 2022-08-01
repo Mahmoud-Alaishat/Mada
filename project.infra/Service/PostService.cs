@@ -24,6 +24,11 @@ namespace project.infra.Service
             return postRepository.CountLikesAndCommments(id);   
         }
 
+        public PostCount CountPosts()
+        {
+            return postRepository.CountPosts();
+        }
+
         public void deletepost(int id)
         {
             Post p = new Post();

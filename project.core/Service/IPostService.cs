@@ -14,6 +14,7 @@ namespace project.core.Service
         public List<Post> read ();
         public Post readbyid (int id);
         public CommentLikeCount CountLikesAndCommments(int id);
+        public PostCount CountPosts();
 
     }
 }

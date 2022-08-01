@@ -10,5 +10,6 @@ namespace project.core.Repository
     {
         public List<Post> CRUDOP(Post post,string operation);
         public CommentLikeCount CountLikesAndCommments(int id);
+        public PostCount CountPosts();
     }
 }

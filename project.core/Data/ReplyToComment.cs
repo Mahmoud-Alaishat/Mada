@@ -7,14 +7,14 @@ using System.Text;
 
 namespace project.core.Data
 {
-    public class ReplayToComment
+    public class ReplyToComment
     {
         [Key]
         public int Id { get; set; }
         public string UserId { get; set; }
         public int CommentId { get; set; }
         public string Content { get; set; }
-        public DateTime ReplayDate { get; set; }
+        public DateTime ReplyDate { get; set; }
         public string Item { get; set; }
 
         [NotMapped]

@@ -25,8 +25,14 @@ namespace project.infra.Repository
             parameter.Add("idofpost", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = context.dbConnection.Query<CommentLikeCount>("Post_package_api.CountLikesAndCommments", parameter, commandType: CommandType.StoredProcedure);
-            return result.ToList().FirstOrDefault();
+            return result.ToList().SingleOrDefault();
 
+        }
+
+        public PostCount CountPosts()
+        {
+            var result = context.dbConnection.Query<PostCount>("Post_package_api.CountPost", commandType: CommandType.StoredProcedure);
+            return result.ToList().SingleOrDefault();
         }
 
         public List<Post> CRUDOP(Post post, string operation)

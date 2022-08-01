@@ -23,7 +23,7 @@ namespace project.core.Data
         public virtual Post Post { get; set; }
         [ForeignKey("USERID")]
         public virtual Users Users { get; set; }
-        public ICollection<ReplayToComment> ReplayToComments { get; set; }
+        public ICollection<ReplyToComment> ReplyToComments { get; set; }
 
     }
 }

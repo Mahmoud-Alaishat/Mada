@@ -44,6 +44,8 @@ namespace Project1
             services.AddScoped<IAttachmentService, AttachmentService>();
             services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped<ILikeService, LikeService>();
+            services.AddScoped<IReplyRepository,ReplyRepository>();
+            services.AddScoped<IReplyService,ReplyService>();
             
 
             services.AddControllersWithViews();
