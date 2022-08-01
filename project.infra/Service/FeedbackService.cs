@@ -16,7 +16,7 @@ namespace project.infra.Service
         {
             this.feedbackRepository = feedbackRepository;
         }
-        public Feedback Insert(Feedback feedback)
+        public Feedback Create(Feedback feedback)
         {
            var result= feedbackRepository.CRUDOP(feedback, "insert").ToList().SingleOrDefault();
            return result;

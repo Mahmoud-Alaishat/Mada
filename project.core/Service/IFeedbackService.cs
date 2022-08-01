@@ -7,7 +7,7 @@ namespace project.core.Service
 {
    public interface IFeedbackService
     {
-        public Feedback Insert(Feedback feedback);
+        public Feedback Create(Feedback feedback);
         public void Delete(int feedbackId);
         public Feedback GetFeedbackById(int feedbackId);
         public List<Feedback> GetAllFeedbacks();

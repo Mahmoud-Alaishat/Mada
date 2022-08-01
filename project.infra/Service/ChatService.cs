@@ -17,6 +17,11 @@ namespace project.infra.Service
             this.chatRepository = chatRepository;
         }
 
+        public Chat Create(Chat chat)
+        {
+            return chatRepository.CRUDOP(chat, "insert").ToList().SingleOrDefault();
+        }
+
         public void Delete(int chatId)
         {
             Chat chat = new Chat();

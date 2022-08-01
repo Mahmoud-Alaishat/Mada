@@ -7,6 +7,7 @@ namespace project.core.Service
 {
    public interface IContentTypeService
     {
+        public ContentType Create(ContentType ContentType);
         public void Delete(int contentTypeId);
         public ContentType GetLikeById(int contentTypeId);
         public List<ContentType> GetAlllikes();

@@ -8,6 +8,7 @@ namespace project.core.Service
 {
    public interface ICommentService
     {
+        public Comments Create(Comments comment);
         public Comments Update(Comments comment);
 
         public void Delete(int commentId);

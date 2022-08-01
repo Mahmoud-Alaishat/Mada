@@ -8,10 +8,12 @@ namespace project.core.Service
 {
     public interface ILikeService
     {
+        public Likes Create(Likes like);
+
         public void Delete(int likeId);
         public Likes GetLikeById(int likeId);
         public List<Likes> GetAllikes();
-        public Likes Update(Likes like);
+    
         public LikesCount Countlike();
     }
 }

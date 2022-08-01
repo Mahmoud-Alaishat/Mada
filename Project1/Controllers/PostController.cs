@@ -41,10 +41,10 @@ namespace Project1.Controllers
         }
 
         [HttpPost]//insert new record in database
-        public string insertpost([FromBody] Post pp)
+        public string Createpost([FromBody] Post pp)
         {
 
-            return postService.Insert(pp).Id.ToString() + " Was Added";
+            return postService.Create(pp).Id.ToString() + " Was Added";
         }
 
         [HttpGet("CommentLikeCount/{id}")] // retrive data by id

@@ -8,6 +8,7 @@ namespace project.core.Service
 {
    public interface IReplyService
     {
+        public ReplyToComment Create(ReplyToComment reply);
         public ReplyToComment Update(ReplyToComment reply);
 
         public void Delete(int replyId);

@@ -46,5 +46,9 @@ namespace project.infra.Service
             return replyRepository.CountReply(commentId);
         }
 
+        public ReplyToComment Create(ReplyToComment reply)
+        {
+            return replyRepository.CRUDOP(reply, "insert").ToList().SingleOrDefault();
+        }
     }
 }

@@ -22,6 +22,11 @@ namespace project.infra.Service
             return commentRepository.CountComments();
         }
 
+        public Comments Create(Comments comment)
+        {
+            return commentRepository.CRUDOP(comment, "insert").ToList().SingleOrDefault();
+        }
+
         public void Delete(int commentId)
         {
             Comments comment = new Comments();

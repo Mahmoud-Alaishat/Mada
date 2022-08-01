@@ -15,6 +15,12 @@ namespace project.infra.Service
         {
             this.contentTypeRepository = contentTypeRepository;
         }
+
+        public ContentType Create(ContentType ContentType)
+        {
+            return contentTypeRepository.CRUDOP(ContentType, "insert").ToList().SingleOrDefault();
+        }
+
         public void Delete(int contentTypeId)
         {
 

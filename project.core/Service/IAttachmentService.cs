@@ -8,6 +8,7 @@ namespace project.core.Service
 {
     public interface IAttachmentService
     {
+        public Attachment Create(Attachment attachment);
         public void Delete(int attachmentId);
         public Attachment GetAttachmentById(int attachmentId);
         public List<Attachment> GetAllAttachments();

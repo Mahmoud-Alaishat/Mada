@@ -7,7 +7,7 @@ namespace project.core.Service
 {
     public interface IMessageService
     {
-        public Message Insert(Message  message);
+        public Message Create(Message  message);
         public Message Update(Message  message);
         public void Delete(int id);
         public List<Message> GetAllMessage();
