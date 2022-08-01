@@ -31,7 +31,7 @@ namespace project.infra.Service
             return messageRepository.CRUDOP(m, "readbyid").ToList().FirstOrDefault();
         }
 
-        public Message Insert(Message message)
+        public Message Create(Message message)
         {
             messageRepository.CRUDOP(message,"insert").ToList().FirstOrDefault();
             return message;
