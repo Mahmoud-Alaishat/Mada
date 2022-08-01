@@ -46,8 +46,9 @@ namespace project.infra.Repository
             parameter.Add("dateofpost", post.PostDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             parameter.Add("isblockedpost", post.IsBlocked, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("numOfclicks", post.Clicks, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
-            if(operation == "read" || operation== "readbyid")
+            if (operation == "read" || operation== "readbyid")
             {
                 var result = context.dbConnection.Query<Post>("Post_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
                 return result.ToList();
@@ -59,6 +60,20 @@ namespace project.infra.Repository
                 return re;
             }
 
+        }
+
+        public List<Post> Top10SeenPost()
+        {
+            var parameter = new DynamicParameters();
+            var result = context.dbConnection.Query<Post>("Post_package_api.Top10SeenPost", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
+        public List<Post> Top2SeenPost()
+        {
+            var parameter = new DynamicParameters();
+            var result = context.dbConnection.Query<Post>("Post_package_api.Top2SeenPost", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
         }
     }
 }

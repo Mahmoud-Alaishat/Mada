@@ -29,32 +29,42 @@ namespace project.infra.Service
             return postRepository.CountPosts();
         }
 
-        public void deletepost(int id)
+        public void Delete(int id)
         {
             Post p = new Post();
             p.Id = id;
             postRepository.CRUDOP(p,"delete").ToList().FirstOrDefault();
         }
 
-        public Post insertpost(Post post)
+        public Post Insert(Post post)
         {
             postRepository.CRUDOP(post,"insert").ToList().FirstOrDefault();
             return post;
         }
 
-        public List<Post> read()
+        public List<Post> GetAllPost()
         {
             return postRepository.CRUDOP(new Post(), "read");
         }
 
-        public Post readbyid(int id)
+        public Post GetPostById(int id)
         {
             Post p = new Post();
             p.Id = id;
             return postRepository.CRUDOP(p, "readbyid").ToList().FirstOrDefault();
         }
 
-        public Post updatepost(Post post)
+        public List<Post> Top10SeenPost()
+        {
+            return postRepository.Top10SeenPost();
+        }
+
+        public List<Post> Top2SeenPost()
+        {
+            return postRepository.Top2SeenPost();
+        }
+
+        public Post Update(Post post)
         {
             postRepository.CRUDOP(post, "update").ToList().FirstOrDefault();
             return post;
