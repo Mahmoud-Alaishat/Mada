@@ -52,6 +52,8 @@ namespace Project1
             services.AddScoped<IChatService,ChatService>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IFeedbackRepository,FeedbackRepository>();
+            services.AddScoped<IFeedbackService,FeedbackService>();
             
 
             services.AddControllersWithViews();
