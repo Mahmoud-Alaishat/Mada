@@ -8,13 +8,15 @@ namespace project.core.Service
 {
     public interface IPostService
     {
-        public Post insertpost (Post post);
-        public Post updatepost (Post post);
-        public void deletepost (int id);
-        public List<Post> read ();
-        public Post readbyid (int id);
+        public Post Insert (Post post);
+        public Post Update (Post post);
+        public void Delete (int id);
+        public List<Post> GetAllPost ();
+        public Post GetPostById (int id);
         public CommentLikeCount CountLikesAndCommments(int id);
         public PostCount CountPosts();
+        public List<Post> Top2SeenPost();
+        public List<Post> Top10SeenPost();
 
     }
 }

@@ -19,32 +19,32 @@ namespace Project1.Controllers
         [HttpDelete("delete/{id}")]
         public string deletepost(int id)
         {
-            postService.deletepost(id);
+            postService.Delete(id);
             return "Deleted successfully";
         }
         [HttpGet]//retrevie all data 
         public List<Post> read()
         {
-            return postService.read();
+            return postService.GetAllPost();
         }
         [HttpPut] //update
         public string updatepost([FromBody] Post pp)
         {
-            return "Updated successfully-new post: " + postService.updatepost(pp).Id.ToString();
+            return "Updated successfully-new post: " + postService.Update(pp).Id.ToString();
         }
 
         [HttpGet("{id}")] // retrive data by id
         public Post readbyid(int id)
         {
 
-            return postService.readbyid(id);
+            return postService.GetPostById(id);
         }
 
         [HttpPost]//insert new record in database
         public string insertpost([FromBody] Post pp)
         {
 
-            return postService.insertpost(pp).Id.ToString() + " Was Added";
+            return postService.Insert(pp).Id.ToString() + " Was Added";
         }
 
         [HttpGet("CommentLikeCount/{id}")] // retrive data by id
@@ -52,6 +52,17 @@ namespace Project1.Controllers
         {
 
             return postService.CountLikesAndCommments(id);
+        }
+
+        [HttpGet("top2")]//retrevie all data 
+        public List<Post> Top2SeenPost()
+        {
+            return postService.Top2SeenPost();
+        }
+        [HttpGet("top10")]//retrevie all data 
+        public List<Post> Top10SeenPost()
+        {
+            return postService.Top10SeenPost();
         }
 
 

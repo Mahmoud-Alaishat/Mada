@@ -13,6 +13,7 @@ namespace project.core.Data
         public string Content { get; set; }
         public int TypePost { get; set; }
         public DateTime PostDate { get; set; }
+        public int Clicks  { get; set; }
         public int IsBlocked { get; set; }
         [ForeignKey("UserId")]
         public virtual Users Users { get; set; }
