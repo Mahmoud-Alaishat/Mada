@@ -22,6 +22,11 @@ namespace project.infra.Service
             return likeRepository.CountLikes();
         }
 
+        public Likes Create(Likes like)
+        {
+            return likeRepository.CRUDOP(like, "insert").ToList().SingleOrDefault();
+        }
+
         public void Delete(int likeId)
         {
             Likes like = new Likes();
@@ -42,9 +47,6 @@ namespace project.infra.Service
             return likeRepository.CRUDOP(like, "readbyid").ToList().SingleOrDefault();
         }
 
-        public Likes Update(Likes like)
-        {
-            return likeRepository.CRUDOP(like, "update").ToList().SingleOrDefault();
-        }
+      
     }
 }

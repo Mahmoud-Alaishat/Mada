@@ -46,5 +46,9 @@ namespace project.infra.Service
             return attachmentRepository.CountAttachment();
         }
 
+        public Attachment Create(Attachment attachment)
+        {
+            return attachmentRepository.CRUDOP(attachment, "insert").ToList().SingleOrDefault();
+        }
     }
 }

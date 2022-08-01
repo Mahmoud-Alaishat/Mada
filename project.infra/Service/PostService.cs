@@ -36,7 +36,7 @@ namespace project.infra.Service
             postRepository.CRUDOP(p,"delete").ToList().FirstOrDefault();
         }
 
-        public Post Insert(Post post)
+        public Post Create(Post post)
         {
             postRepository.CRUDOP(post,"insert").ToList().FirstOrDefault();
             return post;

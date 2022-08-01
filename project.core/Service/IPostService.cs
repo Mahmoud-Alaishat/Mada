@@ -8,7 +8,7 @@ namespace project.core.Service
 {
     public interface IPostService
     {
-        public Post Insert (Post post);
+        public Post Create(Post post);
         public Post Update (Post post);
         public void Delete (int id);
         public List<Post> GetAllPost ();
