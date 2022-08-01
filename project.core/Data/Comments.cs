@@ -18,6 +18,7 @@ namespace project.core.Data
         public string CONTENT { get; set; }
         public DateTime COMMENTDAT { get; set; }
         public string ITEM { get; set; }
+        [NotMapped]
         public IFormFile ImgVid { get; set; }
         [ForeignKey("POSTID")]
         public virtual Post Post { get; set; }
