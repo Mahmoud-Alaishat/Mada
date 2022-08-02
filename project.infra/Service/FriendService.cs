@@ -19,9 +19,9 @@ namespace project.infra.Service
 
         }
 
-        public FriendsCount CountFriends()
+        public FriendsCount CountFriends(string userId)
         {
-            return friendRepository.CountFriends();
+            return friendRepository.CountFriends(userId);
         }
 
         public Friend Create(Friend friend)
