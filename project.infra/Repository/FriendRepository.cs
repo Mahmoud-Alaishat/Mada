@@ -19,9 +19,12 @@ namespace project.infra.Repository
         {
             this.context = context;
         }
-        public FriendsCount CountFriends()
+        public FriendsCount CountFriends(string userId)
         {
-            var result = context.dbConnection.Query<FriendsCount>("Friend_package_api.CountFriends", commandType: CommandType.StoredProcedure);
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+
+            var result = context.dbConnection.Query<FriendsCount>("Friend_package_api.CountFriends", parameter, commandType: CommandType.StoredProcedure);
             return result.SingleOrDefault();
         }
 

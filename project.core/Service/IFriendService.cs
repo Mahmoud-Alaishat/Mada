@@ -13,6 +13,6 @@ namespace project.core.Service
         public Friend GetFriendById(string friendId);
         public List<Friend> GetAllFriends(string userId);
 
-        public FriendsCount CountFriends();
+        public FriendsCount CountFriends(string userId);
     }
 }

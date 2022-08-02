@@ -9,6 +9,6 @@ namespace project.core.Repository
     public interface IFriendRepository
     {
         public List<Friend> CRUDOP(Friend friend, string operation);
-        public FriendsCount CountFriends();
+        public FriendsCount CountFriends(string userId);
     }
 }
