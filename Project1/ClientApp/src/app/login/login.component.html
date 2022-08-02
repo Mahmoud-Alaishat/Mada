@@ -19,25 +19,22 @@
       <div class="lg:p-12 max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
 
         <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md">
-          <mat-form-field class="example-full-width" appearance="fill">
-            <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Login </h1>
-            <div>
-              <mat-label class="mb-0"> Email Address </mat-label>
-              <input name="email" matInput [formControl]="emailFormControl" type="email" placeholder="Enter your email" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
-            </div>
-          </mat-form-field>
-          <mat-form-field class="example-full-width" appearance="fill">
+          <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Login </h1>
+          <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password.</div>
+          <div>
+            <mat-label class="mb-0"> Email Address </mat-label>
+            <input name="email" matInput [formControl]="emailFormControl" type="email" placeholder="Enter your email" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
+          </div>
 
-            <div>
-              <mat-label class="mb-0"> Password </mat-label>
-              <input name="password" matInput [formControl]="passFormControl" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
-            </div>
-            </mat-form-field>
-            <div>
-              <button (click)="submit()" type="button" class="bg-blue-600 font-semibold p-2 mt-3 rounded-md text-center text-white w-full">
-                Sign In
-              </button>
-            </div>
+          <div>
+            <mat-label class="mb-0"> Password </mat-label>
+            <input name="passwordhash" matInput [formControl]="passFormControl" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
+          </div>
+          <div>
+            <button (click)="login()" type="button" class="bg-blue-600 font-semibold p-2 mt-3 rounded-md text-center text-white w-full">
+              Sign In
+            </button>
+          </div>
         </form>
 
       </div>

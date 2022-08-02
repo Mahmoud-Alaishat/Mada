@@ -61,7 +61,16 @@ namespace Project1
             services.AddScoped<IBankRepository, BankRepository>();
             services.AddScoped<IBankService, BankService>();
             services.AddControllersWithViews();
-           
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -122,6 +131,8 @@ namespace Project1
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors("EnableCORS");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

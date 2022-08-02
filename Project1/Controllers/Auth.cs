@@ -31,7 +31,7 @@ namespace Project1.Controllers
             }
             else
             {
-                return Ok(token);
+                return Ok(new AuthenticatedResponse { Token = token });
             }
         }
 
