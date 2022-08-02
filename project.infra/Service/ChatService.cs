@@ -22,10 +22,11 @@ namespace project.infra.Service
             return chatRepository.CRUDOP(chat, "insert").ToList().SingleOrDefault();
         }
 
-        public void Delete(int chatId)
+        public void Delete(int chatId,string userId)
         {
             Chat chat = new Chat();
             chat.Id = chatId;
+            chat.FirstUserId = userId;
             chatRepository.CRUDOP(chat, "delete");
         }
 

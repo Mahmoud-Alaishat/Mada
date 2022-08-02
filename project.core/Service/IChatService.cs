@@ -8,7 +8,7 @@ namespace project.core.Service
    public interface IChatService
     {
         public Chat Create(Chat chat);
-        public void Delete(int chatId);
+        public void Delete(int chatId, string userId);
         public Chat GetChatById(int chatId);
         public List<Chat> GetAllChats();
       

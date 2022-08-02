@@ -27,7 +27,8 @@ namespace project.infra.Repository
             parameter.Add("suserid", chat.SecondUserId, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("statusfuser", chat.StatusInFUser, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("statussuser", chat.StatusInSUser, dbType: DbType.Int32, direction: ParameterDirection.Input);
-
+           
+    
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
             if (operation == "read" | operation == "readbyid")
             {
