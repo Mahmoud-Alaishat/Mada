@@ -18,7 +18,7 @@ namespace project.core.Data
         public ICollection<Comments> Commentss { get; set; }
         public ICollection<Likes> Likess { get; set; }
         public ICollection<ReplyToComment> ReplyToComments { get; set; }
-        
+        public ICollection<Request> Request { get; set; }
 
     }
 }
