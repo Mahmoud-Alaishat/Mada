@@ -56,6 +56,8 @@ namespace Project1
             services.AddScoped<IFeedbackService,FeedbackService>();
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<IFriendService, FriendService>();
+            services.AddScoped<IBankRepository, BankRepository>();
+            services.AddScoped<IBankService, BankService>();
             services.AddControllersWithViews();
            
             // In production, the Angular files will be served from this directory
