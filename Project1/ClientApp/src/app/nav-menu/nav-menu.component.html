@@ -31,13 +31,17 @@
           <a [routerLink]="['/fetch-data']" uk-scroll> Fetch data</a>
         </li>
       </ul>
-      <a [routerLink]="['/login']" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-8 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
+
+      <a *ngIf="!isUserAuthenticated()" [routerLink]="['/login']" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-8 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
         Sign In
       </a>
-      <a href="#" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-2 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
+      <a *ngIf="!isUserAuthenticated()" href="#" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-2 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
         Sign Up
       </a>
-      <a href="#" (click)="logOut()" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-2 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
+      <a *ngIf="isUserAuthenticated()" href="#"  class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-2 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
+        Welcome 
+      </a>
+      <a *ngIf="isUserAuthenticated()" href="#" (click)="logOut()" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-2 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
         Log Out
       </a>
 
