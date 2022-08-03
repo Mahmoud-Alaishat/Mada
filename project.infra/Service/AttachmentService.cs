@@ -34,7 +34,7 @@ namespace project.infra.Service
         public List<Attachment> GetAllAttachments()
         {
             Attachment attachment = new Attachment();
-            return attachmentRepository.CRUDOP(attachment,"insert");
+            return attachmentRepository.CRUDOP(attachment,"read");
         }
         public Attachment Update(Attachment attachment)
         {
