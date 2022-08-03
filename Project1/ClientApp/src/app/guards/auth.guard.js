@@ -16,6 +16,7 @@ var AuthGuard = /** @class */ (function () {
     AuthGuard.prototype.canActivate = function (route, state) {
         var token = localStorage.getItem("token");
         if (token && !this.jwtHelper.isTokenExpired(token)) {
+            console.log(this.jwtHelper.decodeToken(token));
             return true;
         }
         this.router.navigate(["login"]);

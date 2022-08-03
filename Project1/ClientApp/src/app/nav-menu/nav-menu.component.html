@@ -38,12 +38,13 @@
       <a *ngIf="!isUserAuthenticated()" href="#" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-2 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
         Sign Up
       </a>
-      <a *ngIf="isUserAuthenticated()" href="#"  class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-2 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
-        Welcome 
+      <a *ngIf="isUserAuthenticated()" href="#" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-2 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
+        {{email}}
       </a>
       <a *ngIf="isUserAuthenticated()" href="#" (click)="logOut()" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-2 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">
         Log Out
       </a>
+      <div *ngIf="isAdmin() && isUserAuthenticated()">Ok</div>
 
     </div>
   </div>

@@ -17,6 +17,15 @@ var NavMenuComponent = /** @class */ (function () {
         this.isUserAuthenticated = function () {
             var token = localStorage.getItem("token");
             if (token && !_this.jwtHelper.isTokenExpired(token)) {
+                _this.result = _this.jwtHelper.decodeToken(token);
+                _this.email = _this.result["email"];
+                _this.role = _this.result["role"];
+                return true;
+            }
+            return false;
+        };
+        this.isAdmin = function () {
+            if (_this.role == "Admin") {
                 return true;
             }
             return false;

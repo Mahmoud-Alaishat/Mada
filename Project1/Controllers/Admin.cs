@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using project.core.Service;
 using System;
@@ -21,7 +22,7 @@ namespace Project1.Controllers
             this.userService = userService;
             this.commentService = commentService;
         }
-        [HttpGet]
+        [HttpGet,Authorize(Roles ="Admin")]
         [Route("userCount")]
         public ActionResult UserCount()
         {
