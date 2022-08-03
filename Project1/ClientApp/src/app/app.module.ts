@@ -14,6 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthGuard } from './guards/auth.guard';
+import { UserModule } from './user/user.module';
+import { AdminModule } from './admin/admin.module';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -26,8 +28,7 @@ export function tokenGetter() {
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    LoginComponent,
-   
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -36,6 +37,8 @@ export function tokenGetter() {
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
+    UserModule,
+    AdminModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

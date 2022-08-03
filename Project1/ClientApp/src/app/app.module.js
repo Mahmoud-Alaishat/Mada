@@ -23,6 +23,8 @@ var input_1 = require("@angular/material/input");
 var form_field_1 = require("@angular/material/form-field");
 var angular_jwt_1 = require("@auth0/angular-jwt");
 var auth_guard_1 = require("./guards/auth.guard");
+var user_module_1 = require("./user/user.module");
+var admin_module_1 = require("./admin/admin.module");
 function tokenGetter() {
     return localStorage.getItem("token");
 }
@@ -38,7 +40,7 @@ var AppModule = /** @class */ (function () {
                 home_component_1.HomeComponent,
                 counter_component_1.CounterComponent,
                 fetch_data_component_1.FetchDataComponent,
-                login_component_1.LoginComponent,
+                login_component_1.LoginComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -47,6 +49,8 @@ var AppModule = /** @class */ (function () {
                 forms_2.ReactiveFormsModule,
                 input_1.MatInputModule,
                 form_field_1.MatFormFieldModule,
+                user_module_1.UserModule,
+                admin_module_1.AdminModule,
                 angular_jwt_1.JwtModule.forRoot({
                     config: {
                         tokenGetter: tokenGetter,
