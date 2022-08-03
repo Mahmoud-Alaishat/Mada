@@ -20,7 +20,7 @@ namespace project.infra.Repository
         public List<Design> CRUDOP(Design design, string operation)
         {
             var parameter = new DynamicParameters();
-            List<Attachment> re = new List<Attachment>();
+            List<Design> re = new List<Design>();
             parameter.Add("idofdesign", design.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("SlideImagee1", design.SlideImage1, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("SlideImagee2", design.SlideImage2, dbType: DbType.String, direction: ParameterDirection.Input);
