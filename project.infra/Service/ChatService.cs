@@ -43,9 +43,6 @@ namespace project.infra.Service
            return chatRepository.CRUDOP(chat, "readbyid").ToList().SingleOrDefault();
         }
 
-        public Chat Update(Chat chat)
-        {
-            return chatRepository.CRUDOP(chat, "update").ToList().SingleOrDefault();
-        }
+    
     }
 }

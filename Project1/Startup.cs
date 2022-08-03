@@ -60,6 +60,8 @@ namespace Project1
             services.AddScoped<IRequestService, RequestService>();
             services.AddScoped<IBankRepository, BankRepository>();
             services.AddScoped<IBankService, BankService>();
+            services.AddScoped<IContactUsRepository, ContactUsRepository>();
+            services.AddScoped<IContactUsService,ContactUsService>();
             services.AddControllersWithViews();
             services.AddCors(options =>
             {
