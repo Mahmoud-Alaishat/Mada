@@ -14,6 +14,7 @@ var NavMenuComponent = /** @class */ (function () {
         this.router = router;
         this.jwtHelper = jwtHelper;
         this.isExpanded = false;
+        this.IsAdmin = false;
         this.isUserAuthenticated = function () {
             var token = localStorage.getItem("token");
             if (token && !_this.jwtHelper.isTokenExpired(token)) {
@@ -26,9 +27,11 @@ var NavMenuComponent = /** @class */ (function () {
         };
         this.isAdmin = function () {
             if (_this.role == "Admin") {
-                return true;
+                _this.IsAdmin = true;
+                return _this.IsAdmin;
             }
-            return false;
+            _this.IsAdmin = false;
+            return _this.IsAdmin;
         };
         this.logOut = function () {
             localStorage.removeItem("token");
