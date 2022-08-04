@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 
 
+
 @NgModule({
   declarations: [DashboardComponent],
   imports: [
@@ -12,6 +13,7 @@ import { RouterModule } from '@angular/router';
     RouterModule.forChild(
       [
         { path: "admin", component: DashboardComponent },
+        
       ]
     )
   ],
