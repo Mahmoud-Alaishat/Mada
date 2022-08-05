@@ -1,0 +1,11 @@
+.header_dropdown {
+  width: 340px;
+  margin-top: 50px;
+  border-radius: 5px;
+  padding: 15px;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+  margin: auto;
+  right: 10px !important;
+  left: auto !important;
+}
