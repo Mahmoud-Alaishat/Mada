@@ -36,4 +36,8 @@ export class AppComponent {
     localStorage.removeItem("token");
     this.router.navigate(["/"]);
   }
+
+
 }
+
+  
