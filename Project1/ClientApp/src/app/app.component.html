@@ -1,7 +1,8 @@
+<app-nav-bar *ngIf="isUserAuthenticated() && !isAdmin()"></app-nav-bar>
 
-  <app-nav-menu></app-nav-menu>
-  <div>
-    <router-outlet></router-outlet>
-  </div>
+<app-nav-menu *ngIf="!isUserAuthenticated()"></app-nav-menu>
+<div>
+  <router-outlet></router-outlet>
+</div>
 
 

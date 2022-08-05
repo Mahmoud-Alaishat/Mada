@@ -19,6 +19,8 @@ import { AdminModule } from './admin/admin.module';
 import { RegisterComponent } from './register/register.component';
 
 
+
+
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
@@ -56,7 +58,7 @@ export function tokenGetter() {
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent }
-    ])
+    ]),
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
