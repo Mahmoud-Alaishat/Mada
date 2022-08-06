@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Data } from 'popper.js';
 
 @Component({
   selector: 'app-register',
@@ -40,7 +39,7 @@ interface UserRegister {
   PhoneNumber: string
   PhoneNumberConfirmed:number
   TwoFactorEnabled: number
-  LockoutEnd: Data
+  LockoutEnd: Date
   LockoutEnabled:number
   AccessFailedCount:number
   FirstName: string
