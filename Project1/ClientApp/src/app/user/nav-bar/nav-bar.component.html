@@ -74,16 +74,11 @@
               <div class="drop_headline">
                 <h4>Notifications </h4>
                 <div class="btn_action">
-                  <a href="#" class="is_icon" uk-tooltip="title: Notifications">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         x="0px" y="0px"
-                         width="50" height="50"
-                         viewBox="0 0 172 172"
-                         style=" fill:#26e07f;">
-                    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#1fb141"><path d="M21.5,21.5v129h64.5v-32.25v-64.5v-32.25zM86,53.75c0,17.7805 14.4695,32.25 32.25,32.25c17.7805,0 32.25,-14.4695 32.25,-32.25c0,-17.7805 -14.4695,-32.25 -32.25,-32.25c-17.7805,0 -32.25,14.4695 -32.25,32.25zM118.25,86c-17.7805,0 -32.25,14.4695 -32.25,32.25c0,17.7805 14.4695,32.25 32.25,32.25c17.7805,0 32.25,-14.4695 32.25,-32.25c0,-17.7805 -14.4695,-32.25 -32.25,-32.25z"></path></g></g></svg>                    <span>3</span>
+                  <a href="#" data-tippy-placement="left" title="Settings">
+                    <i style="color: #5833fd" class="icon ion-md-settings"></i>
                   </a>
                   <a href="#" data-tippy-placement="left" title="Mark as read all">
-                    <i style="color: #5833fd" class="icon ion-md-settings"></i>
+                    <i class="icon ion-md-checkmark-circle-outline"></i>
                   </a>
                 </div>
               </div>
@@ -256,7 +251,7 @@
           </div>
 
           <!-- Message -->
-          <!--<a href="#" class="is_icon" uk-tooltip="title: Message">
+          <a href="#" class="is_icon" uk-tooltip="title: Message">
             <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path></svg>
             <span>4</span>
           </a>
@@ -265,11 +260,11 @@
               <div class="drop_headline">
                 <h4>Messages </h4>
                 <div class="btn_action">
-                  <a href="#" data-tippy-placement="left" title="Notifications">
-                    <ion-icon name="settings-outline" uk-tooltip="title: Message settings ; pos: left"></ion-icon>
+                  <a href="#" data-tippy-placement="left" title="Settings">
+                    <i style="color: #5833fd" class="icon ion-md-settings"></i>
                   </a>
                   <a href="#" data-tippy-placement="left" title="Mark as read all">
-                    <ion-icon name="checkbox-outline"></ion-icon>
+                    <i class="icon ion-md-checkmark-circle-outline"></i>
                   </a>
                 </div>
               </div>
@@ -386,7 +381,7 @@
             <hr>
             <a href="pages-upgrade.html" class="is-link">
               <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path></svg>
-              Upgrade To Premium  </span>
+              Upgrade To Premium  
             </a>
             <hr>
             <a href="page-setting.html">
@@ -412,7 +407,7 @@
                 <span class="uk-switch-button"></span>
               </span>
             </a>
-            <a href="form-login.html">
+            <a href="#" (click)="logOut()">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
               </svg>
@@ -420,7 +415,7 @@
             </a>
 
 
-          </div>-->
+          </div>
 
         </div>
 
@@ -428,5 +423,4 @@
     </div>
   </div>
 </header>
-
 
