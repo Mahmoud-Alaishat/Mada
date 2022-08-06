@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
     this.credentials.email = this.emailFormControl.value;
     this.credentials.passwordhash = this.passFormControl.value
 
-    this.http.post<AuthenticatedResponse>("https://localhost:44328/api/Auth/Login", this.credentials, {
+    this.http.post<AuthenticatedResponse>("https://localhost:44328/api/Auth/Login",  this.credentials, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     })
       .subscribe({
