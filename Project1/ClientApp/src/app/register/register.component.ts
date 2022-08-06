@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -8,23 +8,52 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  RegisterForm: FormGroup = new FormGroup({
-    FirstName: new FormControl('', [Validators.required]),
-    LastName: new FormControl('', [Validators.required]),
-    PhoneNumber: new FormControl('', [Validators.required]),
-    Email: new FormControl('', [Validators.required, Validators.email]),
-    PasswordHash: new FormControl('', [Validators.required]),
-  })
+
+  RegisterForm: FormGroup;
+  
+
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.RegisterForm = new FormGroup({
+      FirstName: new FormControl('', [Validators.required]),
+      LastName: new FormControl('', [Validators.required]),
+      PhoneNumber: new FormControl('', [Validators.required]),
+      Email: new FormControl('', [Validators.required, Validators.email]),
+      PasswordHash: new FormControl('', [Validators.required]),
+      PasswordHashConfiramd: new FormControl('')
+    }
+    )
   }
   show() {
-    alert(this.RegisterForm.value)
+    console.log(this.RegisterForm.value)
+
+
   }
 
+  passwordMatchValidator(): boolean {
+    console.log(this.RegisterForm.get('PasswordHashConfiramd').value)
+    return (this.RegisterForm.get('PasswordHash').value === this.RegisterForm.get('PasswordHashConfiramd').value) 
+
+  }
+
+  Register() {
+    //if (this.RegisterForm.valid) {
+     
+    //}
+    this.http.post("https://localhost:44328/api/Auth/Register", this.RegisterForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
+      next: () => {
+        this.RegisterForm.reset()
+      },
+      error: () => {
+        console.log("HHHHIIII")
+      }
+    })
+   
+  }
 }
+
 
 interface UserRegister {
   Id: string
