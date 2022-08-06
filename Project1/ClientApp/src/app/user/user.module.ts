@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FeedComponent } from './feed/feed.component';
 import { RouterModule } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { SideBarComponent } from './side-bar/side-bar.component';
 
 
 
 @NgModule({
-  declarations: [FeedComponent, NavBarComponent],
+  declarations: [FeedComponent, NavBarComponent, SideBarComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(
@@ -16,6 +17,6 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
           ]
         )
   ],
-  exports: [FeedComponent, NavBarComponent]
+  exports: [FeedComponent, NavBarComponent, SideBarComponent],
 })
 export class UserModule { }
