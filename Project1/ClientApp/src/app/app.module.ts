@@ -17,7 +17,6 @@ import { AuthGuard } from './guards/auth.guard';
 import { UserModule } from './user/user.module';
 import { AdminModule } from './admin/admin.module';
 import { RegisterComponent } from './register/register.component';
-import { MatDialogModule } from '@angular/material/dialog';
 
 
 
