@@ -11,7 +11,7 @@ export class RegisterComponent implements OnInit {
 
   RegisterForm: FormGroup;
   
-
+  passV: boolean;
 
   constructor(private http: HttpClient) { }
 
@@ -26,17 +26,14 @@ export class RegisterComponent implements OnInit {
     }
     )
   }
-  show() {
-    console.log(this.RegisterForm.value)
 
-
-  }
-
-  passwordMatchValidator(): boolean {
+ passwordMatchValidator(): boolean {
     console.log(this.RegisterForm.get('PasswordHashConfiramd').value)
-    return (this.RegisterForm.get('PasswordHash').value === this.RegisterForm.get('PasswordHashConfiramd').value) 
+    return (this.RegisterForm.get('PasswordHash').value === this.RegisterForm.get('PasswordHashConfiramd').value)
 
   }
+
+  
 
   Register() {
     //if (this.RegisterForm.valid) {
