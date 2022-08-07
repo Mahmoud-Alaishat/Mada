@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,8 @@ export class RegisterComponent implements OnInit {
   
   passV: boolean;
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.RegisterForm = new FormGroup({
@@ -22,33 +24,41 @@ export class RegisterComponent implements OnInit {
       PhoneNumber: new FormControl('', [Validators.required]),
       Email: new FormControl('', [Validators.required, Validators.email]),
       PasswordHash: new FormControl('', [Validators.required]),
-      PasswordHashConfiramd: new FormControl('')
+      PasswordHashConfiramd: new FormControl('', [Validators.required])
     }
     )
   }
 
- passwordMatchValidator(): boolean {
-    console.log(this.RegisterForm.get('PasswordHashConfiramd').value)
-    return (this.RegisterForm.get('PasswordHash').value === this.RegisterForm.get('PasswordHashConfiramd').value)
+  }
 
+  passwordMatchValidator(): boolean {
+    console.log(this.RegisterForm.get('PasswordHashConfiramd').value)
+    return (this.RegisterForm.get('PasswordHash').value === this.RegisterForm.get('PasswordHashConfiramd').value) 
+
+  }
+  Validator(): boolean {
+    return this.passwordMatchValidator() && this.RegisterForm.valid
   }
 
   
 
   Register() {
-    //if (this.RegisterForm.valid) {
-     
-    //}
-    this.http.post("https://localhost:44328/api/Auth/Register", this.RegisterForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
-      next: () => {
-        this.RegisterForm.reset()
-      },
-      error: () => {
-        console.log("HHHHIIII")
-      }
-    })
+    if (this.Validator()) {
+      this.http.post<IUserData>("https://localhost:44328/api/Auth/Register", this.RegisterForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
+        next: (response: IUserData) => {
+          localStorage.setItem("userid", response.userid)
+          this.RegisterForm.reset()
+
+          this.router.navigate(["emailconfirmation"])
+        },
+        error: () => {
+          console.log("HHHHIIII")
+        }
+      })
+
+    }
+    }
    
-  }
 }
 
 
@@ -71,4 +81,7 @@ interface UserRegister {
   FirstName: string
   LastName:string
   ProfilePath:string
+}
+interface IUserData {
+  userid: string
 }

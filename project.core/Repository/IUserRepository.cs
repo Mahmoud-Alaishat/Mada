@@ -12,7 +12,8 @@ namespace project.core.Repository
     {
         public List<Users> CRUDOP(Users user,string operation);
         public LoginResult Login(Login login);
-        public void Register(Users user);
+        public string Register(Users user);
         public UserCount CountUsers();
+        public void ConfirmEmail(ConfirmEmail confirmEmail);
     }
 }

@@ -70,10 +70,28 @@ namespace project.infra.Service
             }
         }
 
-        public void Register(Users user)
+        public string Register(Users user)
         {
             user.Id = Guid.NewGuid().ToString();
+            //var tokenHandler = new JwtSecurityTokenHandler();
+            //var tokenKey = Encoding.ASCII.GetBytes("[SECRET USED TO SIGN AND VERIFY JWT TOKENS, IT CAN BE ANYSTRING]");
+            //var tokenDescriptor = new SecurityTokenDescriptor
+            //{
+
+            //    Subject = new ClaimsIdentity(new Claim[]
+            //    {
+            //            new Claim(ClaimTypes.Name, user.UserName),
+                        
+            //    }),
+            //    Expires = DateTime.UtcNow.AddHours(1),
+            //    SigningCredentials = new SigningCredentials(new
+            //    SymmetricSecurityKey(tokenKey),
+            //    SecurityAlgorithms.HmacSha256Signature)
+            //};
+            //var token = tokenHandler.CreateToken(tokenDescriptor);
+            
             userRepository.Register(user);
+            return user.Id; //tokenHandler.WriteToken(token);
         }
 
         public Users Update(Users user)
@@ -85,5 +103,9 @@ namespace project.infra.Service
             return userRepository.CountUsers();
         }
 
+        public void ConfirmEmail(ConfirmEmail confirmEmail)
+        {
+             userRepository.ConfirmEmail(confirmEmail);
+        }
     }
 }

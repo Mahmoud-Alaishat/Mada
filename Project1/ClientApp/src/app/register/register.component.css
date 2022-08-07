@@ -1,0 +1,19 @@
+input, .bootstrap-select.btn-group button {
+  background-color: #f3f4f6 !important;
+  height: 44px !important;
+  box-shadow: none !important;
+}
+
+.err {
+  color: red;
+  margin-left: 8px;
+}
+
+button:disabled,
+button[disabled] {
+  cursor: default;
+  background-color: darkgrey
+}
+input{
+    margin-bottom:7px;
+}
