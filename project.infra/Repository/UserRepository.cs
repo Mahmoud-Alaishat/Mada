@@ -58,7 +58,7 @@ namespace project.infra.Repository
             return result.SingleOrDefault();
         }
 
-        public void Register(Users user)
+        public string Register(Users user)
         {
             var parameter = new DynamicParameters();
             parameter.Add("idofuser", user.Id, dbType: DbType.String, direction: ParameterDirection.Input);
@@ -71,11 +71,20 @@ namespace project.infra.Repository
             parameter.Add("passofuser", user.PasswordHash, dbType: DbType.String, direction: ParameterDirection.Input);
 
             context.dbConnection.ExecuteAsync("User_package_api.Register", parameter, commandType: CommandType.StoredProcedure);
+            return "Yes";
         }
         public UserCount CountUsers()
         {
             var result = context.dbConnection.Query<UserCount>("User_package_api.CountUsers", commandType: CommandType.StoredProcedure);
             return result.SingleOrDefault();
+        }
+
+        public void ConfirmEmail(ConfirmEmail  confirmEmail)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", confirmEmail.Id, dbType: DbType.String, direction: ParameterDirection.Input);
+            context.dbConnection.ExecuteAsync("User_package_api.ConfirmEmail", parameter, commandType: CommandType.StoredProcedure);
+
         }
     }
 }

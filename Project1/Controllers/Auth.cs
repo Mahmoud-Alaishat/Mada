@@ -37,12 +37,31 @@ namespace Project1.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public void Register([FromBody] Users user)
+        public IActionResult Register([FromBody] Users user)
         {
-           userService.Register(user);
+            return Ok(new UserToken {Userid= userService.Register(user) } ); 
+            
+        }
+        [HttpGet]
+        [Route("GenerateCode")]
+        public IActionResult GenerateCode([FromBody] CodeVerification code)
+        {
+            var random = new Random().Next(100000,1000000).ToString();
+            if(random == code.Code)
+            {
+                return Ok(random);
+            }
+            return BadRequest();             
+        }
+        [HttpPost]
+        [Route("EmailConfirmation")]
+        public void EmailConfirmation([FromBody] ConfirmEmail confirmEmail)
+        {
+            userService.ConfirmEmail(confirmEmail);
+            
         }
 
-   
+
 
 
     }

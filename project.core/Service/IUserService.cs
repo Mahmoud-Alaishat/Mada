@@ -18,7 +18,9 @@ namespace project.core.Service
 
         public Users GetUserById(string userId);
         public string Login(Login login);
-        public void Register(Users user);
+        public string Register(Users user);
         public UserCount CountUsers();
+        public void ConfirmEmail(ConfirmEmail confirmEmail);
+
     }
 }

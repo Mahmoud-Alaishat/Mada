@@ -17,6 +17,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { UserModule } from './user/user.module';
 import { AdminModule } from './admin/admin.module';
 import { RegisterComponent } from './register/register.component';
+import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
 
 
 
@@ -35,6 +36,7 @@ export function tokenGetter() {
     FetchDataComponent,
     LoginComponent,
     RegisterComponent,
+    EmailConfirmationComponent,
     
   ],
   imports: [
@@ -58,7 +60,8 @@ export function tokenGetter() {
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent }
+      { path: 'register', component: RegisterComponent },
+      { path: 'emailconfirmation', component: EmailConfirmationComponent }
     ]),
   ],
   providers: [AuthGuard],
