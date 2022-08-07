@@ -7,6 +7,7 @@ using project.core.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Project1.Controllers
@@ -45,20 +46,28 @@ namespace Project1.Controllers
         [Route("Register")]
         public IActionResult Register([FromBody] Users user)
         {
-            return Ok(new UserToken {Userid= userService.Register(user) } ); 
+            var vCode = new Random().Next(100000, 1000000).ToString();
+            EmailDto email = new EmailDto();
+
+            email.To = user.Email;
+            email.Subject = "Confirm your email";
+            email.Body = "Your verification code is " +"<b>"+ vCode+"</b>";
+            emailService.SendEmail(email);
+            return Ok(new UserToken {Userid= userService.Register(user) ,Code=vCode} ); 
+        }
+        //[HttpGet]
+        //[Route("GenerateCode")]
+        //public IActionResult GenerateCode([FromBody] CodeVerification code)
+        //{
+
             
-        }
-        [HttpGet]
-        [Route("GenerateCode")]
-        public IActionResult GenerateCode([FromBody] CodeVerification code)
-        {
-            var random = new Random().Next(100000,1000000).ToString();
-            if(random == code.Code)
-            {
-                return Ok(random);
-            }
-            return BadRequest();             
-        }
+           
+        //    if(vCode == code.Code)
+        //    {
+        //        return Ok(vCode);
+        //    }
+        //    return BadRequest();             
+        //}
         [HttpPost]
         [Route("EmailConfirmation")]
         public void EmailConfirmation([FromBody] ConfirmEmail confirmEmail)

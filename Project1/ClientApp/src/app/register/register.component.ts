@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RegisterService } from '../register.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
   passV: boolean;
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private regService: RegisterService) { }
 
   ngOnInit() {
     this.RegisterForm = new FormGroup({
@@ -47,6 +48,7 @@ export class RegisterComponent implements OnInit {
       this.http.post<IUserData>("https://localhost:44328/api/Auth/Register", this.RegisterForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
         next: (response: IUserData) => {
           localStorage.setItem("userid", response.userid)
+          this.regService.setCode(response.code);
           this.RegisterForm.reset()
 
           this.router.navigate(["emailconfirmation"])
@@ -84,4 +86,5 @@ interface UserRegister {
 }
 interface IUserData {
   userid: string
+  code: string
 }
