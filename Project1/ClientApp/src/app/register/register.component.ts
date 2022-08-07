@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     )
   }
 
-  }
+
 
   passwordMatchValidator(): boolean {
     console.log(this.RegisterForm.get('PasswordHashConfiramd').value)
