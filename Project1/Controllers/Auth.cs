@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using project.core.Data;
 using project.core.DTO;
 using project.core.Service;
@@ -15,10 +16,15 @@ namespace Project1.Controllers
     public class Auth : ControllerBase
     {
         private readonly IUserService userService;
+        private readonly IConfiguration config;
+        private readonly IEmailService emailService;
 
-        public Auth(IUserService userService)
+
+        public Auth(IUserService userService, IConfiguration config, IEmailService emailService)
         {
             this.userService = userService;
+            this.config = config;
+            this.emailService = emailService;
         }
         [HttpPost]
         [Route("Login")]
