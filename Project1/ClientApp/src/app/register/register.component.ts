@@ -12,8 +12,12 @@ import { RegisterService } from '../register.service';
 export class RegisterComponent implements OnInit {
 
   RegisterForm: FormGroup;
-  
+
   passV: boolean;
+  chkemail: boolean;
+  chkusername: boolean;
+  Checkemail: ICheckEmailSender = { Email: '' };
+  Checkusername: ICheckUserNameSender = { UserName:'' };
 
 
   constructor(private http: HttpClient, private router: Router, private regService: RegisterService) { }
@@ -22,28 +26,31 @@ export class RegisterComponent implements OnInit {
     this.RegisterForm = new FormGroup({
       FirstName: new FormControl('', [Validators.required]),
       LastName: new FormControl('', [Validators.required]),
+      UserName: new FormControl('', [Validators.required]),
       PhoneNumber: new FormControl('', [Validators.required]),
       Email: new FormControl('', [Validators.required, Validators.email]),
       PasswordHash: new FormControl('', [Validators.required]),
       PasswordHashConfiramd: new FormControl('', [Validators.required])
     }
     )
+    this.chkemail = true;
   }
 
 
 
   passwordMatchValidator(): boolean {
     console.log(this.RegisterForm.get('PasswordHashConfiramd').value)
-    return (this.RegisterForm.get('PasswordHash').value === this.RegisterForm.get('PasswordHashConfiramd').value) 
+    return (this.RegisterForm.get('PasswordHash').value === this.RegisterForm.get('PasswordHashConfiramd').value)
 
   }
   Validator(): boolean {
-    return this.passwordMatchValidator() && this.RegisterForm.valid
+    return this.passwordMatchValidator() && this.RegisterForm.valid && this.chkemail && this.chkusername;
   }
 
-  
+
 
   Register() {
+
     if (this.Validator()) {
       this.http.post<IUserData>("https://localhost:44328/api/Auth/Register", this.RegisterForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
         next: (response: IUserData) => {
@@ -59,8 +66,48 @@ export class RegisterComponent implements OnInit {
       })
 
     }
-    }
-   
+  }
+
+  CheckEmail() {
+    this.chkemail = true;
+    this.Checkemail.Email = this.RegisterForm.controls['Email'].value;
+    this.http.post<ICheckEmail>("https://localhost:44328/api/Auth/CheckEmail", this.Checkemail, { headers: new HttpHeaders({ "Content-Type": "application/json" }) })
+      .subscribe({
+        next: (response: ICheckEmail) => {
+          if (response.Email == null) {
+            this.chkemail = false;
+          }
+          else {
+            this.chkemail = true;
+          }
+        },
+        error: () => {
+          console.log("HHHHIIII")
+        }
+      })
+
+  }
+
+  CheckUserName() {
+    this.chkusername = true;
+    this.Checkusername.UserName = this.RegisterForm.controls['UserName'].value;
+    this.http.post<ICheckUserName>("https://localhost:44328/api/Auth/CheckUserName", this.Checkusername, { headers: new HttpHeaders({ "Content-Type": "application/json" }) })
+      .subscribe({
+        next: (response: ICheckUserName) => {
+          if (response.UserName == null) {
+            this.chkusername = false;
+          }
+          else {
+            this.chkusername = true;
+          }
+        },
+        error: () => {
+          console.log("HHHHIIII")
+        }
+      })
+
+  }
+
 }
 
 
@@ -75,16 +122,30 @@ interface UserRegister {
   SecurityStamp: string
   ConcurrencyStamp: string
   PhoneNumber: string
-  PhoneNumberConfirmed:number
+  PhoneNumberConfirmed: number
   TwoFactorEnabled: number
   LockoutEnd: Date
-  LockoutEnabled:number
-  AccessFailedCount:number
+  LockoutEnabled: number
+  AccessFailedCount: number
   FirstName: string
-  LastName:string
-  ProfilePath:string
+  LastName: string
+  ProfilePath: string
 }
 interface IUserData {
   userid: string
   code: string
 }
+interface ICheckEmail {
+  Email: string
+}
+interface ICheckEmailSender {
+  Email: string
+}
+interface ICheckUserName {
+  UserName: string
+}
+interface ICheckUserNameSender {
+  UserName: string
+}
+
+

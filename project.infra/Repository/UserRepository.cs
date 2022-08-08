@@ -86,5 +86,23 @@ namespace project.infra.Repository
             context.dbConnection.ExecuteAsync("User_package_api.ConfirmEmail", parameter, commandType: CommandType.StoredProcedure);
 
         }
+
+        public CheckEmailReceiver CheckEmail(CheckEmailSender checkEmail)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("emailofuser", checkEmail.Email, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<CheckEmailReceiver>("User_package_api.CheckEmail", parameter, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+
+
+        }
+
+        public CheckUserNameReceiver CheckUserName(CheckUserNameSender checkUserName)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("username", checkUserName.UserName, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<CheckUserNameReceiver>("User_package_api.CheckUserName", parameter, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
     }
 }

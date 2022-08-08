@@ -107,5 +107,15 @@ namespace project.infra.Service
         {
              userRepository.ConfirmEmail(confirmEmail);
         }
+
+        public CheckEmailReceiver CheckEmail(CheckEmailSender checkEmail)
+        {
+            return userRepository.CheckEmail(checkEmail);
+        }
+
+        public CheckUserNameReceiver CheckUserName(CheckUserNameSender checkUserName)
+        {
+            return userRepository.CheckUserName(checkUserName); 
+        }
     }
 }

@@ -15,5 +15,9 @@ namespace project.core.Repository
         public string Register(Users user);
         public UserCount CountUsers();
         public void ConfirmEmail(ConfirmEmail confirmEmail);
+        public CheckEmailReceiver CheckEmail(CheckEmailSender  checkEmail);
+        public CheckUserNameReceiver CheckUserName(CheckUserNameSender checkUserName);
+
+
     }
 }

@@ -8,7 +8,7 @@
     <!-- Content-->
     <div>
       <div class="lg:p-12 max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
-        <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" [formGroup]="RegisterForm" (ngSubmit)="Register()" >
+        <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" [formGroup]="RegisterForm" (ngSubmit)="Register()">
 
           <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Register </h1>
 
@@ -21,17 +21,21 @@
             <div>
               <label class="mb-0"> Last  Name </label>
               <input type="text" name="LastName" matInput formControlName="LastName" placeholder="Last  Name" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
-              <mat-error class="err" *ngIf="RegisterForm.controls['LastName'].hasError('required')&&(RegisterForm.controls['LastName'].dirty || RegisterForm.controls['LastName'].touched)">FirstName is <strong >required</strong></mat-error>
-
+              <mat-error class="err" *ngIf="RegisterForm.controls['LastName'].hasError('required')&&(RegisterForm.controls['LastName'].dirty || RegisterForm.controls['LastName'].touched)">FirstName is <strong>required</strong></mat-error>
             </div>
           </div>
           <div>
-            
+            <label class="mb-0"> User Name  </label>
+            <input type="text" name="UserName" matInput formControlName="UserName" placeholder="Your User Name" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" (change)="CheckUserName()" required>
+            <mat-error class="err" *ngIf="RegisterForm.controls['UserName'].hasError('required')&&(RegisterForm.controls['UserName'].dirty || RegisterForm.controls['UserName'].touched)">UserName is <strong>required</strong></mat-error>
+            <mat-error class="err" *ngIf="!chkusername&&(RegisterForm.controls['UserName'].dirty || RegisterForm.controls['UserName'].touched)">UserName is alredy<strong>Taken</strong></mat-error>
+          </div>
+          <div>
             <label class="mb-0"> Email Address </label>
-            <input type="email" name="Email" matInput formControlName="Email" placeholder="Info@example.com" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
+            <input type="email"  name="Email" matInput formControlName="Email" placeholder="Info@example.com" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" (change)="CheckEmail()" required >
             <mat-error class="err" *ngIf="RegisterForm.controls['Email'].hasError('required')&&(RegisterForm.controls['Email'].dirty || RegisterForm.controls['Email'].touched)">Email is <strong>required</strong></mat-error>
             <mat-error class="err" *ngIf="RegisterForm.controls['Email'].hasError('email')&&(RegisterForm.controls['Email'].dirty || RegisterForm.controls['Email'].touched)">Please enter a <strong>valid email</strong></mat-error>
-              
+            <mat-error class="err" *ngIf="!chkemail&&(RegisterForm.controls['Email'].dirty || RegisterForm.controls['Email'].touched)">The Email alredy <strong>Taken</strong></mat-error>
           </div>
           <div>
             <label class="mb-0"> Phone: optional  </label>
@@ -39,25 +43,25 @@
             <mat-error class="err" *ngIf="RegisterForm.controls['PhoneNumber'].hasError('required')&&(RegisterForm.controls['PhoneNumber'].dirty || RegisterForm.controls['PhoneNumber'].touched)">PhoneNumber is <strong>required</strong></mat-error>
           </div>
           <div>
-              <label class="mb-0"> Password </label>
-              <input type="password" name="PasswordHash" matInput formControlName="PasswordHash" placeholder="******" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
-              <mat-error class="err" *ngIf="RegisterForm.controls['PasswordHash'].hasError('required')&&(RegisterForm.controls['PasswordHash'].dirty || RegisterForm.controls['PasswordHash'].touched)">Password is <strong>required</strong></mat-error>
-            </div>
-          <div>
-              <label class="mb-0">Confirm Password </label>
-              <input type="password" name="PasswordHashConfiramd" matInput formControlName="PasswordHashConfiramd" placeholder="******" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
-              <mat-error class="err" *ngIf="!passwordMatchValidator()&&(RegisterForm.controls['PasswordHashConfiramd'].dirty || RegisterForm.controls['PasswordHashConfiramd'].touched)">The password not <strong>equal</strong></mat-error>
+            <label class="mb-0"> Password </label>
+            <input type="password" name="PasswordHash" matInput formControlName="PasswordHash" placeholder="******" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
+            <mat-error class="err" *ngIf="RegisterForm.controls['PasswordHash'].hasError('required')&&(RegisterForm.controls['PasswordHash'].dirty || RegisterForm.controls['PasswordHash'].touched)">Password is <strong>required</strong></mat-error>
           </div>
-          
+          <div>
+            <label class="mb-0">Confirm Password </label>
+            <input type="password" name="PasswordHashConfiramd" matInput formControlName="PasswordHashConfiramd" placeholder="******" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
+            <mat-error class="err" *ngIf="!passwordMatchValidator()&&(RegisterForm.controls['PasswordHashConfiramd'].dirty || RegisterForm.controls['PasswordHashConfiramd'].touched)">The password not <strong>equal</strong></mat-error>
+          </div>
+
           <!--<div class="grid lg:grid-cols-2 gap-3">
-            <div>
-              <label class="mb-0"> Gender </label>
-              <select class="selectpicker mt-2">
-                <option>Male</option>
-                <option>Female</option>
-              </select>
-            </div>
-          </div>-->
+    <div>
+      <label class="mb-0"> Gender </label>
+      <select class="selectpicker mt-2">
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+    </div>
+  </div>-->
           <div class="checkbox">
             <input type="checkbox" id="chekcbox1" checked="">
             <label for="chekcbox1">
@@ -66,7 +70,7 @@
           </div>
 
           <div>
-            <button type="submit" [disabled]="!Validator()"  class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full">
+            <button type="submit" [disabled]="!Validator()" class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full">
               Get Started
             </button>
           </div>
