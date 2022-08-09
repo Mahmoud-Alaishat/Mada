@@ -11,7 +11,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public token: LoginResult[];
   credentials: LoginModel = { email: '', passwordhash: '' };
 
   invalidLogin: boolean;
@@ -87,10 +86,6 @@ interface LoginModel {
   passwordhash: string;
 }
 
-interface LoginResult {
-  date: string;
-  RoleName: string;
-}
 
 interface AuthenticatedResponse {
   token: string;

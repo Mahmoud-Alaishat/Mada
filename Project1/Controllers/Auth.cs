@@ -78,25 +78,17 @@ namespace Project1.Controllers
 
         [HttpPost]
         [Route("CheckEmail")]
-        public IActionResult CheckEmail([FromBody]CheckEmailSender checkEmail)
+        public IActionResult CheckEmail([FromBody] CheckEmailSender checkEmail)
         {
-            var result = userService.CheckEmail(checkEmail);
-            if(result == null)
-            {
-                return Ok(result);    
-            }
-            else
-            {
-                return Ok(new CheckEmailReceiver { Email=null});
-            }
+            return Ok(userService.CheckEmail(checkEmail));
         }
 
 
         [HttpPost]
         [Route("CheckUserName")]
-        public CheckUserNameReceiver CheckUserName(CheckUserNameSender checkUserName)
+        public IActionResult CheckUserName([FromBody] CheckUserNameSender checkUserName)
         {
-            return userService.CheckUserName(checkUserName);
+            return Ok(userService.CheckUserName(checkUserName));
         }
 
 
