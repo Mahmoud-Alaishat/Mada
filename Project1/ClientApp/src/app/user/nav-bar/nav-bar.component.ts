@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,8 +8,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  result: object;
+  email: string;
+  role: string;
+  fname: string;
+  lname: string;
+  uname: string;
+  constructor(private router: Router, private jwtHelper: JwtHelperService) { }
 
   ngOnInit() {
     (function (window, document, undefined) {
@@ -48,4 +54,19 @@ export class NavBarComponent implements OnInit {
     localStorage.removeItem("token");
     this.router.navigate(["/"]);
   }
+  isUserAuthenticated = (): boolean => {
+    const token = localStorage.getItem("token");
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      this.result = this.jwtHelper.decodeToken(token);
+      this.email = this.result["email"];
+      this.role = this.result["role"];
+      this.fname = this.result["name"];
+      this.lname = this.result["givenname"];
+      this.uname = this.result["nameidentifier"];
+      return true;
+    }
+    return false;
+  }
+
 }
+

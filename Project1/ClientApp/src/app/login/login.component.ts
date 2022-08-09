@@ -18,6 +18,9 @@ export class LoginComponent implements OnInit {
   result: object;
   email: string;
   role: string;
+  fname: string;
+  lname: string;
+  uname: string;
   IsAdmin = false;
   emailFormControl = new FormControl('', [Validators.email, Validators.required]);
   passFormControl = new FormControl('', Validators.minLength(6));
@@ -41,6 +44,9 @@ export class LoginComponent implements OnInit {
       this.result = this.jwtHelper.decodeToken(token);
       this.email = this.result["email"];
       this.role = this.result["role"];
+      this.fname = this.result["name"];
+      this.lname = this.result["givenname"];
+      this.uname = this.result["nameidentifier"];
       return true;
     }
     return false;
@@ -90,6 +96,9 @@ interface LoginModel {
 interface LoginResult {
   date: string;
   RoleName: string;
+  FirstName: string;
+  LastName: string;
+  UserName: string;
 }
 
 interface AuthenticatedResponse {
