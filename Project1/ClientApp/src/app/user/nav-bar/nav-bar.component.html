@@ -369,13 +369,13 @@
           </a>
           <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
 
-            <a href="timeline.html" class="user">
+            <a [routerLink]="['user/timeline']" class="user">
               <div class="user_avatar">
                 <img src="assets/assets/images/avatars/avatar-2.jpg" alt="">
               </div>
               <div class="user_name">
-                <div> {{fname}} {{lname}} </div>
-                <span> @{{uname}}</span>
+                <div> {{firstname}} {{lastname}} </div>
+                <span> @{{username}}</span>
               </div>
             </a>
             <hr>

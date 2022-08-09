@@ -11,9 +11,9 @@ export class NavBarComponent implements OnInit {
   result: object;
   email: string;
   role: string;
-  fname: string;
-  lname: string;
-  uname: string;
+  firstname: string;
+  lastname: string;
+  username: string;
   constructor(private router: Router, private jwtHelper: JwtHelperService) { }
 
   ngOnInit() {
@@ -49,6 +49,7 @@ export class NavBarComponent implements OnInit {
       }, false);
 
     })(window, document);
+    this.isUserAuthenticated()
   }
   logOut = () => {
     localStorage.removeItem("token");
@@ -60,9 +61,9 @@ export class NavBarComponent implements OnInit {
       this.result = this.jwtHelper.decodeToken(token);
       this.email = this.result["email"];
       this.role = this.result["role"];
-      this.fname = this.result["name"];
-      this.lname = this.result["givenname"];
-      this.uname = this.result["nameidentifier"];
+      this.firstname = this.result["given_name"];
+      this.lastname = this.result["family_name"];
+      this.username = this.result["unique_name"];
       return true;
     }
     return false;
