@@ -26,6 +26,10 @@
             [routerLinkActiveOptions]="{ exact: true }">
           <a [routerLink]="['/']" uk-scroll> Home</a>
         </li>
+        <li [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+          <a [routerLink]="['/contact-us']" uk-scroll> Contact Us</a>
+        </li>
         <li [routerLinkActive]="['link-active']">
           <a [routerLink]="['/counter']" uk-scroll> Counter</a>
         </li>
