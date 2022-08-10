@@ -21,6 +21,7 @@ namespace project.infra.Repository
         public List<ContactUs> CRUDOP(ContactUs contact, string operation)
         {
             var parameter = new DynamicParameters();
+            DateTime localDate = DateTime.Now;
             List<ContactUs> re = new List<ContactUs>();
             parameter.Add("idofcontactus", contact.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("nameofuser", contact.Name, dbType: DbType.String, direction: ParameterDirection.Input);
@@ -28,7 +29,7 @@ namespace project.infra.Repository
             parameter.Add("phoneofuser", contact.Phone, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("subjectt", contact.Subject, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("messageofcontactus", contact.Message, dbType: DbType.String, direction: ParameterDirection.Input);
-            parameter.Add("dateofcontactus", contact.Date, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            parameter.Add("dateofcontactus", localDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             parameter.Add("showhidee", contact.ShowHide, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
 

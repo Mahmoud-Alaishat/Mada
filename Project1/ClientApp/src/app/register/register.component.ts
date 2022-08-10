@@ -54,14 +54,14 @@ export class RegisterComponent implements OnInit {
     if (this.Validator()) {
       this.http.post<IUserData>("https://localhost:44328/api/Auth/Register", this.RegisterForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
         next: (response: IUserData) => {
-          localStorage.setItem("userid", response.userid)
+          localStorage.setItem("userid", response.userid);
           this.regService.setCode(response.code);
-          this.RegisterForm.reset()
+          this.RegisterForm.reset();
 
-          this.router.navigate(["emailconfirmation"])
+          this.router.navigate(["emailconfirmation"]);
         },
         error: () => {
-          console.log("HHHHIIII")
+          console.log("HHHHIIII");
         }
       })
 

@@ -1,0 +1,14 @@
+.err {
+  color: red;
+  margin-left: 8px;
+}
+
+button:disabled,
+button[disabled] {
+  cursor: default;
+  background-color: darkgrey
+}
+
+input {
+  margin-bottom: 7px;
+}
