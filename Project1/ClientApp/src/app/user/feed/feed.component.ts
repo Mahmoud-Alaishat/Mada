@@ -11,6 +11,9 @@ export class FeedComponent implements OnInit {
   result: object;
   email: string;
   role: string;
+  firstname: string;
+  lastname: string;
+  username: string;
   IsAdmin = false;
 
   constructor(private router: Router, private jwtHelper: JwtHelperService) { }
@@ -24,6 +27,9 @@ export class FeedComponent implements OnInit {
       this.result = this.jwtHelper.decodeToken(token);
       this.email = this.result["email"];
       this.role = this.result["role"];
+      this.firstname = this.result["given_name"];
+      this.lastname = this.result["family_name"];
+      this.username = this.result["unique_name"];
       return true;
     }
     return false;
