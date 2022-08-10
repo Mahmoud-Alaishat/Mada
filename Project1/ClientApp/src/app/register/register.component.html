@@ -26,16 +26,16 @@
           </div>
           <div>
             <label class="mb-0"> User Name  </label>
-            <input type="text" name="UserName" matInput formControlName="UserName" placeholder="Your User Name" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" (change)="CheckUserName()" required>
+            <input type="text" name="UserName" matInput formControlName="UserName" placeholder="Your User Name" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" (keyup)="CheckUserName()" required>
             <mat-error class="err" *ngIf="RegisterForm.controls['UserName'].hasError('required')&&(RegisterForm.controls['UserName'].dirty || RegisterForm.controls['UserName'].touched)">UserName is <strong>required</strong></mat-error>
-            <mat-error class="err" *ngIf="!chkusername&&(RegisterForm.controls['UserName'].dirty || RegisterForm.controls['UserName'].touched)">UserName is alredy<strong>Taken</strong></mat-error>
+            <mat-error class="err" *ngIf="!chkusername&&(RegisterForm.controls['UserName'].dirty || RegisterForm.controls['UserName'].touched)">Username already<strong>Taken</strong></mat-error>
           </div>
           <div>
             <label class="mb-0"> Email Address </label>
-            <input type="email"  name="Email" matInput formControlName="Email" placeholder="Info@example.com" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" (change)="CheckEmail()" required >
+            <input type="email"  name="Email" matInput formControlName="Email" placeholder="Info@example.com" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" (keyup)="CheckEmail($event)" required >
             <mat-error class="err" *ngIf="RegisterForm.controls['Email'].hasError('required')&&(RegisterForm.controls['Email'].dirty || RegisterForm.controls['Email'].touched)">Email is <strong>required</strong></mat-error>
             <mat-error class="err" *ngIf="RegisterForm.controls['Email'].hasError('email')&&(RegisterForm.controls['Email'].dirty || RegisterForm.controls['Email'].touched)">Please enter a <strong>valid email</strong></mat-error>
-            <mat-error class="err" *ngIf="!chkemail&&(RegisterForm.controls['Email'].dirty || RegisterForm.controls['Email'].touched)">The Email alredy <strong>Taken</strong></mat-error>
+            <mat-error class="err" *ngIf="!chkemail&&(RegisterForm.controls['Email'].dirty || RegisterForm.controls['Email'].touched)">Email already <strong>Taken</strong></mat-error>
           </div>
           <div>
             <label class="mb-0"> Phone: optional  </label>
