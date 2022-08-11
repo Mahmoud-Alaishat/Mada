@@ -19,6 +19,11 @@ namespace project.core.Data
         public ICollection<Likes> Likess { get; set; }
         public ICollection<ReplyToComment> ReplyToComments { get; set; }
         public ICollection<Request> Request { get; set; }
-
+        public string CoverPath { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile1 { get; set; }
+        public string Address { get; set; }
+        public string Relationship { get; set; }
+        public string Bio { get; set; }
     }
 }

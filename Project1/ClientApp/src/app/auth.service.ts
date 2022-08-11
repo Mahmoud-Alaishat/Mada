@@ -1,49 +1,47 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  result: object;
+  email: string;
+  role: string;
+  Id: string;
+  username: string;
 
-  url: string;
-  errorData: {};
-  constructor(private router: Router, private http: HttpClient,
-    @Inject('BASE_URL') baseUrl: string) { baseUrl = this.url; }
+  IsAdmin = false;
 
-  login(email: any, password: any) {
-    localStorage.setItem('currentUser', "Hello");
+  constructor(private router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
-    return this.http.post<any>(this.url + 'Login', { email: email, password: password })
 
-      .pipe(map(user => {
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-      }),
-        catchError(this.handleError)
-      );
-  }
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
+  isUserAuthenticated = (): boolean => {
+    const token = localStorage.getItem("token");
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      this.result = this.jwtHelper.decodeToken(token);
+      this.email = this.result["email"];
+      this.role = this.result["role"];
+      this.username = this.result["unique_name"];
+      this.Id = this.result["Id"];
 
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
-      console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
+      return true;
     }
-
-    // return an observable with a user-facing error message
-    this.errorData = {
-      errorTitle: 'Oops! Request for document failed',
-      errorDesc: 'Something bad happened. Please try again later.'
-    };
-    return throwError(this.errorData);
+    return false;
+  }
+  isAdmin = () => {
+    if (this.role == "Admin") {
+      this.IsAdmin = true;
+      return this.IsAdmin;
+    }
+    this.IsAdmin = false;
+    return this.IsAdmin;
+  }
+  getUserName = () => {
+    return this.username;
   }
 }
+

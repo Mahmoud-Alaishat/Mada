@@ -1,6 +1,8 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-feed',
@@ -8,39 +10,33 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-  result: object;
-  email: string;
-  role: string;
-  firstname: string;
-  lastname: string;
-  username: string;
-  IsAdmin = false;
+  userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
 
-  constructor(private router: Router, private jwtHelper: JwtHelperService) { }
+  isAuthenticate: boolean = false;
+  isAdmin: boolean = false;
+
+  constructor(private http: HttpClient,private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
-  }
-
-  isUserAuthenticated = (): boolean => {
-    const token = localStorage.getItem("token");
-    if (token && !this.jwtHelper.isTokenExpired(token)) {
-      this.result = this.jwtHelper.decodeToken(token);
-      this.email = this.result["email"];
-      this.role = this.result["role"];
-      this.firstname = this.result["given_name"];
-      this.lastname = this.result["family_name"];
-      this.username = this.result["unique_name"];
-      return true;
-    }
-    return false;
-  }
-  isAdmin = () => {
-    if (this.role == "Admin") {
-      this.IsAdmin = true;
-      return this.IsAdmin;
-    }
-    this.IsAdmin = false;
-    return this.IsAdmin;
+    this.isAuthenticate = this.auth.isUserAuthenticated();
+    this.isAdmin = this.auth.isAdmin();
+    this.http.get<UserInfo>("https://localhost:44328/api/User/GetUserInfo/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: UserInfo) => {
+        this.userData = response;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
   }
   
+}
+interface UserInfo {
+  firstName: string;
+  lastName: string;
+  profilePath: string;
+  coverPath: string;
+  address: string;
+  relationship: string;
+  bio: string;
 }

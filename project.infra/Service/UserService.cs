@@ -59,9 +59,15 @@ namespace project.infra.Service
                     {
                         new Claim(ClaimTypes.Email, result.Email),
                         new Claim(ClaimTypes.Role, result.RoleName),
-                        new Claim(ClaimTypes.GivenName, result.FirstName),
-                        new Claim(ClaimTypes.Surname, result.LastName),
+                        //new Claim(ClaimTypes.GivenName, result.FirstName),
+                        //new Claim(ClaimTypes.Surname, result.LastName),
                         new Claim(ClaimTypes.Name, result.UserName),
+                        //new Claim("profileImage",result.ProfilePath),
+                        //new Claim("coverImage",result.CoverPath),
+                        //new Claim("bio",result.Bio),
+                        //new Claim("address",result.Address),
+                        //new Claim("relationship",result.Relationship),
+                        new Claim("Id",result.Id),
                     }),
                     Expires = DateTime.UtcNow.AddHours(1),
                     SigningCredentials = new SigningCredentials(new

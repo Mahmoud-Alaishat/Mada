@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,13 +10,12 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  result: object;
-  email: string;
-  role: string;
-  firstname: string;
-  lastname: string;
+
+  userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
+  isAuthenticate: boolean = false;
+  isAdmin: boolean = false;
   username: string;
-  constructor(private router: Router, private jwtHelper: JwtHelperService) { }
+  constructor(private http: HttpClient,private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
     (function (window, document, undefined) {
@@ -49,25 +50,29 @@ export class NavBarComponent implements OnInit {
       }, false);
 
     })(window, document);
-    this.isUserAuthenticated()
+    this.isAuthenticate = this.auth.isUserAuthenticated();
+    this.isAdmin = this.auth.isAdmin();
+    this.http.get<UserInfo>("https://localhost:44328/api/User/GetUserInfo/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: UserInfo) => {
+        this.userData = response;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+    this.username = this.auth.getUserName();
   }
   logOut = () => {
     localStorage.removeItem("token");
     this.router.navigate(["/"]);
   }
-  isUserAuthenticated = (): boolean => {
-    const token = localStorage.getItem("token");
-    if (token && !this.jwtHelper.isTokenExpired(token)) {
-      this.result = this.jwtHelper.decodeToken(token);
-      this.email = this.result["email"];
-      this.role = this.result["role"];
-      this.firstname = this.result["given_name"];
-      this.lastname = this.result["family_name"];
-      this.username = this.result["unique_name"];
-      return true;
-    }
-    return false;
-  }
-
 }
-
+interface UserInfo {
+  firstName: string;
+  lastName: string;
+  profilePath: string;
+  coverPath: string;
+  address: string;
+  relationship: string;
+  bio: string;
+}

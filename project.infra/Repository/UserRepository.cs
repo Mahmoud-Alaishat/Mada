@@ -30,9 +30,13 @@ namespace project.infra.Repository
             parameter.Add("userlname", user.LastName, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("username", user.UserName, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("emailofuser", user.Email, dbType: DbType.String, direction: ParameterDirection.Input);
-            parameter.Add("nemailofuser", user.NormalizedEmail, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("phoneofuser", user.PhoneNumber, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("imageofuser", user.ProfilePath, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("usercove", user.CoverPath, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("useraddress", user.Address, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("userbio", user.Bio, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("userrelationship", user.Relationship, dbType: DbType.String, direction: ParameterDirection.Input);
+
 
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
             if (operation == "read" | operation == "readbyid")

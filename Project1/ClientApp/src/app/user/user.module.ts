@@ -5,22 +5,23 @@ import { RouterModule } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { TimelineComponent } from './timeline/timeline.component';
-import { Setting1Component } from './setting1/setting1.component';
+import { SettingsComponent } from './settings/settings.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 
 
 @NgModule({
-  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, Setting1Component],
+  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(
       [
-        { path: "user/feed", component: FeedComponent },
-        { path: "user/timeline", component: TimelineComponent },
-        { path: "user/setting1", component: Setting1Component }
+        { path: "user/feed", component: FeedComponent, canActivate: [AuthGuard] },
+        { path: "user/timeline", component: TimelineComponent, canActivate: [AuthGuard] },
+        { path: "user/settings", component: SettingsComponent, canActivate: [AuthGuard] }
       ]
     )
   ],
-  exports: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent],
+  exports: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent],
 })
 export class UserModule { }
