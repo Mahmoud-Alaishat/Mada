@@ -1,279 +1,110 @@
  <!-- Main Contents -->
-<div id="wrapper" class="is-collapse">
-  <div class="main_content">
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+<div class="main_content" style="margin:0 auto;padding:0px">
 
-    <!--<div class="bg-gradient-to-tr flex from-blue-400 h-52 items-center justify-center lg:h-80  pb-10 relative to-blue-300 via-blue-400 w-full">
-  </div>-->
+  <div class="bg-gradient-to-tr flex from-blue-400 h-52 items-center justify-center lg:h-80  pb-10 relative to-blue-300 via-blue-400 w-full">
+
     <div class="text-center max-w-xl mx-auto z-10 relative px-5">
       <div class="lg:text-4xl text-2xl text-white font-semibold mb-3"> Leave a message </div>
       <div class="text-white text-lg font-medium text-opacity-90"> Contact us if you have any questions about our company   We will try to provide an answer </div>
     </div>
+  </div>
 
+  <div class="mcontainer">
 
-    <div class="mcontainer">
+    <div class="-mt-16 bg-white max-w-4xl mx-auto p-10 relative rounded-md shadow">
 
-      <div class="-mt-6 bg-white max-w-4xl mx-auto p-10 relative rounded-md shadow">
-        <form [formGroup]="ContactForm" (ngSubmit)="SendMessage()">
-          <div class="grid md:grid-cols-2 md:gap-y-7 md:gap-x-6 gap-10">
+      <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" [formGroup]="ContactForm" (ngSubmit)="SendMessage()">
 
-            <input type="text" formControlName="Name" placeholder="Your Name" class="with-border">
-            <input type="email" formControlName="Email" placeholder="Email address" class="with-border">
-            <input type="text" formControlName="Subject" placeholder="Subject" class="with-border">
-            <input type="text" formControlName="Phone" placeholder="Contact Number" class="with-border">
-            <textarea formControlName="Message" placeholder="How can we help?" rows="5" class="with-border md:col-span-2 p-5 px-7 resize-none h-72"></textarea>
-            <div class="md:col-span-2 md:flex items-center justify-between">
-              <div>
-                <div class="checkbox">
-                  <input type="checkbox" id="chekcbox2">
-                  <label for="chekcbox2">
-                    <span class="checkbox-icon"></span> <span class="font-medium text-gray-400">I agree to the Terms &amp; Conditions</span>
-                  </label>
-                </div>
-              </div>
-              <button type="submit" class="button bg-blue-700 w-full md:w-auto md:mt-0 mt-4"> Submit </button>
-
-            </div>
+        <div class="grid lg:grid-cols-2 gap-3">
+          <div>
+            <label class="mb-0">  Name </label>
+            <input type="text" name="Name" matInput formControlName="Name" placeholder="Your Name" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
+            <mat-error class="err" *ngIf="ContactForm.controls['Name'].hasError('required')&&(ContactForm.controls['Name'].dirty || ContactForm.controls['Name'].touched)">FirstName is <strong>required</strong></mat-error>
+          </div>
+          <div>
+            <label class="mb-0"> Email </label>
+            <input type="text" name="Email" matInput formControlName="Email" placeholder="Your Email" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
+            <mat-error class="err" *ngIf="ContactForm.controls['Email'].hasError('required')&&(ContactForm.controls['Email'].dirty || ContactForm.controls['Email'].touched)">Email is <strong>required</strong></mat-error>
+            <mat-error class="err" *ngIf="ContactForm.controls['Email'].hasError('email')&&(ContactForm.controls['Email'].dirty || ContactForm.controls['Email'].touched)">Please enter a <strong>valid email</strong></mat-error>
 
           </div>
-        </form>
-
-
-      </div>
-
-
-    </div>
-  </div>
-
-  <!-- Main Contents -->
-  <div class="main_content" hidden>
-
-    <div class="w-full lg:h-80 h-52 pb-10 bg-cover flex justify-center items-center relative" data-src="assets/images/group/group-cover-1.jpg" uk-img>
-
-      <div class="text-center max-w-xl mx-auto z-10 relative">
-        <div class="lg:text-4xl text-2xl text text-white font-semibold mb-3"> About Socialite</div>
-        <div class="text-white text-lg font-medium text-opacity-90"> Socialite Is a template for developers who want to start their next social web application UI</div>
-      </div>
-
-      <div class="absolute w-full h-full inset-0 bg-gray-600 bg-opacity-20"> </div>
-
-    </div>
-    <div class="mcontainer">
-
-      <div class="-mt-16 bg-white max-w-3xl mx-auto p-10 relative rounded-md shadow">
-
-        <div class="md:space-y-6 space-y-5 text-gray-400 md:text-base">
-
-          <div class="font-semibold md:text-2xl text-lg text-gray-700">Write about your website here</div>
-          <div class="md:leading-8">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</div>
-
-          <div class="font-semibold md:text-xl text-lg text-gray-700"> Remote is not for everyone</div>
-          <div class="md:leading-8">Laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</div>
-          <div class="md:leading-8">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</div>
-          <div class="md:leading-8">Aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</div>
-
         </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <!-- open chat box -->
-  <div uk-toggle="target: #offcanvas-chat" class="start-chat">
-    <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
-    </svg>
-  </div>
-
-  <div id="offcanvas-chat" uk-offcanvas="flip: true; overlay: true">
-    <div class="uk-offcanvas-bar bg-white p-0 w-full lg:w-80 shadow-2xl">
-
-
-      <div class="relative pt-5 px-4">
-
-        <h3 class="text-2xl font-bold mb-2"> Chats </h3>
-
-        <div class="absolute right-3 top-4 flex items-center space-x-2">
-
-          <!--<button class="uk-offcanvas-close  px-2 -mt-1 relative rounded-full inset-0 lg:hidden blcok"
-                  type="button" uk-close></button>-->
-
-          <a href="#" uk-toggle="target: #search;animation: uk-animation-slide-top-small">
-            <i class="icon-feather-search text-gray-700 dark:text-gray-100 text-xl hover:bg-gray-100 p-1 rounded-full"></i>
-          </a>
-          <a href="#">
-            <i class="icon-feather-settings text-gray-700 dark:text-gray-100 text-xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i>
-            <!--<i class="icon ion-md-settings text-xl hover:bg-gray-100 p-1 rounded-full"></i>-->
-          </a>
-          <a href="#">
-            <i class="icon-feather-more-vertical text-gray-700 dark:text-gray-100 text-xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i>
-            <!--<i class="icon ion-md-ellipsis-horizontal-outline text-xl hover:bg-gray-100 p-1 rounded-full"></i>-->
-          </a>
-          <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700"
-               uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small; offset:5">
-            <ul>
-              <li>
-                <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                  <i class="icon-feather-check-circle  pr-2 text-xl"></i> Mark all as read
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                  <i class="icon ion-md-settings pr-2 text-xl"></i>  Chat setting
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                  <i class="icon ion-md-notifications-off  pr-2 text-lg"></i>   Disable notifications
-
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                  <i class="icon ion-md-star pr-2 text-xl"></i>  Create a group chat
-                </a>
-              </li>
-            </ul>
+        <div class="grid lg:grid-cols-2 gap-3">
+          <div>
+            <label class="mb-0">Subject </label>
+            <input type="text" name="Subject" matInput formControlName="Subject" placeholder="Your Subject" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
+            <mat-error class="err" *ngIf="ContactForm.controls['Subject'].hasError('required')&&(ContactForm.controls['Subject'].dirty || ContactForm.controls['Subject'].touched)">Subject is <strong>required</strong></mat-error>
           </div>
-
-
+          <div>
+            <label class="mb-0"> Phone number </label>
+            <input type="text" name="Phone" matInput formControlName="Phone" placeholder="Your Phone number" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
+            <mat-error class="err" *ngIf="ContactForm.controls['Phone'].hasError('required')&&(ContactForm.controls['Phone'].dirty || ContactForm.controls['Phone'].touched)">Phone Number is <strong>required</strong></mat-error>
+          </div>
+        </div>
+        <div>
+          <textarea formControlName="Message" placeholder="How can we help?" rows="5" class="with-border md:col-span-2 p-5 px-7 resize-none h-72" required></textarea>
+          <mat-error class="err" *ngIf="ContactForm.controls['Message'].hasError('required')&&(ContactForm.controls['Message'].dirty || ContactForm.controls['Message'].touched)">Message is <strong>required</strong></mat-error>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="chekcbox1" checked="">
+          <label for="chekcbox1">
+            <span class="checkbox-icon"></span> I agree to the <a href="pages-terms.html" target="_blank" class="uk-text-bold uk-text-small uk-link-reset"> Terms and Conditions </a>
+          </label>
         </div>
 
-
-      </div>
-
-      <div class="absolute bg-white z-10 w-full -mt-5 lg:-mt-2 transform translate-y-1.5 py-2 border-b items-center flex"
-           id="search" hidden>
-        <input type="text" placeholder="Search.." class="flex-1 ml-2">
-        <i class="icon ion-md-close text-xl hover:bg-gray-100 p-1 rounded-full mr-4 cursor-pointer"
-           uk-toggle="target: #search;animation: uk-animation-slide-top-small"></i>
-      </div>
-
-      <nav class="responsive-nav border-b extanded mb-2 -mt-2">
-        <ul uk-switcher="connect: #chats-tab; animation: uk-animation-fade">
-          <li class="uk-active"><a class="active" href="#0"> Friends </a></li>
-          <li><a href="#0">Groups <span> 10 </span> </a></li>
-        </ul>
-      </nav>
-
-      <div class="contact-list px-2 uk-switcher" id="chats-tab">
-
-        <div class="p-1">
-          <a href="chats-friend.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-7.jpg" alt="">
-            </div>
-            <div class="contact-username"> Alex Dolgove</div>
-          </a>
-          <a href="chats-friend.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-8.jpg" alt="">
-              <span class="user_status status_online"></span>
-            </div>
-            <div class="contact-username"> Dennis Han</div>
-          </a>
-          <a href="chats-friend.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-2.jpg" alt="">
-              <span class="user_status"></span>
-            </div>
-            <div class="contact-username"> Erica Jones</div>
-          </a>
-          <a href="chats-friend.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-3.jpg" alt="">
-            </div>
-            <div class="contact-username">Stella Johnson</div>
-          </a>
-
-          <a href="chats-friend.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-5.jpg" alt="">
-            </div>
-            <div class="contact-username">Adrian Mohani </div>
-          </a>
-          <a href="chats-friend.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-6.jpg" alt="">
-            </div>
-            <div class="contact-username"> Jonathan Madano</div>
-          </a>
-          <a href="chats-friend.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-2.jpg" alt="">
-              <span class="user_status"></span>
-            </div>
-            <div class="contact-username"> Erica Jones</div>
-          </a>
-          <a href="chats-friend.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-1.jpg" alt="">
-              <span class="user_status status_online"></span>
-            </div>
-            <div class="contact-username"> Dennis Han</div>
-          </a>
-
-
+        <div>
+          <button type="submit" [disabled]="!ContactForm.valid" class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full">
+            Get Started
+          </button>
         </div>
-        <div class="p-1">
-          <a href="chats-group.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-7.jpg" alt="">
-            </div>
-            <div class="contact-username"> Alex Dolgove</div>
-          </a>
-          <a href="chats-group.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-8.jpg" alt="">
-              <span class="user_status status_online"></span>
-            </div>
-            <div class="contact-username"> Dennis Han</div>
-          </a>
-          <a href="chats-group.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-2.jpg" alt="">
-              <span class="user_status"></span>
-            </div>
-            <div class="contact-username"> Erica Jones</div>
-          </a>
-          <a href="chats-group.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-3.jpg" alt="">
-            </div>
-            <div class="contact-username">Stella Johnson</div>
-          </a>
-
-          <a href="chats-group.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-5.jpg" alt="">
-            </div>
-            <div class="contact-username">Adrian Mohani </div>
-          </a>
-          <a href="chats-group.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-6.jpg" alt="">
-            </div>
-            <div class="contact-username"> Jonathan Madano</div>
-          </a>
-          <a href="chats-group.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-2.jpg" alt="">
-              <span class="user_status"></span>
-            </div>
-            <div class="contact-username"> Erica Jones</div>
-          </a>
-          <a href="chats-group.html">
-            <div class="contact-avatar">
-              <img src="assets/assets/images/avatars/avatar-1.jpg" alt="">
-              <span class="user_status status_online"></span>
-            </div>
-            <div class="contact-username"> Dennis Han</div>
-          </a>
+      </form>
 
 
-        </div>
 
-      </div>
+
+
+
     </div>
+
+
   </div>
+</div>
+
+<!-- Main Contents -->
+<div class="main_content" hidden>
+
+  <div class="w-full lg:h-80 h-52 pb-10 bg-cover flex justify-center items-center relative" data-src="assets/images/group/group-cover-1.jpg" uk-img>
+
+    <div class="text-center max-w-xl mx-auto z-10 relative">
+      <div class="lg:text-4xl text-2xl text text-white font-semibold mb-3"> About Socialite</div>
+      <div class="text-white text-lg font-medium text-opacity-90"> Socialite Is a template for developers who want to start their next social web application UI</div>
+    </div>
+
+    <div class="absolute w-full h-full inset-0 bg-gray-600 bg-opacity-20"> </div>
+
   </div>
+  <div class="mcontainer">
+
+    <div class="-mt-16 bg-white max-w-3xl mx-auto p-10 relative rounded-md shadow">
+
+      <div class="md:space-y-6 space-y-5 text-gray-400 md:text-base">
+
+        <div class="font-semibold md:text-2xl text-lg text-gray-700">Write about your website here</div>
+        <div class="md:leading-8">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</div>
+
+        <div class="font-semibold md:text-xl text-lg text-gray-700"> Remote is not for everyone</div>
+        <div class="md:leading-8">Laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</div>
+        <div class="md:leading-8">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</div>
+        <div class="md:leading-8">Aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+

@@ -9,6 +9,6 @@ button[disabled] {
   background-color: darkgrey
 }
 
-input {
+input, textarea {
   margin-bottom: 7px;
 }

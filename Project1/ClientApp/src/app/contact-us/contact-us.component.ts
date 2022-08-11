@@ -9,6 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ContactUsComponent implements OnInit {
 
+
   ContactForm: FormGroup;
   constructor(private http: HttpClient) { }
 
@@ -18,20 +19,26 @@ export class ContactUsComponent implements OnInit {
       Email: new FormControl('', [Validators.required, Validators.email]),
       Phone: new FormControl('', [Validators.required]),
       Subject: new FormControl('', [Validators.required]),
-      Message: new FormControl('', [Validators.required])
+      Message: new FormControl('', [Validators.required]),
+
     })
+
   }
 
   SendMessage() {
-    console.log(this.ContactForm.value);
-    this.http.post("https://localhost:44328/api/User/ContactUs", this.ContactForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
-      next: () => {
-        this.ContactForm.reset();
-        
-      },
-      error: () => {
-      }
-    })
+    if (this.ContactForm.valid) {
+
+
+      console.log(this.ContactForm.value);
+      this.http.post("https://localhost:44328/api/User/ContactUs", this.ContactForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
+        next: () => {
+          this.ContactForm.reset();
+
+        },
+        error: () => {
+        }
+      })
+    }
   }
 
 }
