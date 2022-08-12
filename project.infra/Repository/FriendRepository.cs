@@ -50,5 +50,22 @@ namespace project.infra.Repository
                 return re;
             }
         }
+
+        public List<FirendPost> GetFriendPosts(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<FirendPost>("Friend_package_api.GetFriendPosts", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+
+        }
+
+        public List<UserFriend> GetFriends(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<UserFriend>("Friend_package_api.GetFriends", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
     }
 }
