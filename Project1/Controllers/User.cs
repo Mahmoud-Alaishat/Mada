@@ -89,13 +89,6 @@ namespace Project1.Controllers
 
         }
 
-
-
-
-
-
-
-
         [HttpGet]
         [Route("ReplyToComment/{commentId}")]
         public IActionResult ReplyToComment(int commentId)
