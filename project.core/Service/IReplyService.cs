@@ -18,7 +18,5 @@ namespace project.core.Service
         public ReplyToComment GetReplyById(int replyId);
         public ReplyCount CountReply(int commentId);
         public List<ReplyData> GetReplayByCommentId(int commentId);
-
-
     }
 }

@@ -24,8 +24,7 @@ namespace Project1.Controllers
 
         private readonly IAttachmentService attachmentService;
         public User(ICommentService commentService, IContactUsService contactUsService,
-            IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService)
-            IUserService userService, IFriendService friendService, IPostService postService,
+            IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
             IAttachmentService attachmentService)
         {
             this.commentService = commentService;
