@@ -19,16 +19,18 @@ namespace Project1.Controllers
         private readonly IUserService userService;
         private readonly IFriendService friendService;
         private readonly IPostService postService;
+        private readonly IReplyService  replyService;
         
 
         public User(ICommentService commentService, IContactUsService contactUsService,
-            IUserService userService, IFriendService friendService, IPostService postService)
+            IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService)
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
             this.userService = userService;
             this.friendService = friendService;
             this.postService = postService;
+            this.replyService = replyService;   
         }
 
         [HttpPost]
@@ -77,11 +79,27 @@ namespace Project1.Controllers
         }
 
         [HttpGet]
-        [Route("PostComment/{userId}")]
-        public IActionResult PostComment(int userId)
+        [Route("PostComment/{PostId}")]
+        public IActionResult PostComment(int PostId)
         {
-            return Ok(commentService.GetCommentByPostId(userId));
+            return Ok(commentService.GetCommentByPostId(PostId));
 
         }
+
+
+
+
+
+
+
+
+        [HttpGet]
+        [Route("ReplyToComment/{commentId}")]
+        public IActionResult ReplyToComment(int commentId)
+        {
+            return Ok(replyService.GetReplayByCommentId(commentId));    
+        }
+
+
     }
 }

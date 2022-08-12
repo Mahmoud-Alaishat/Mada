@@ -50,5 +50,10 @@ namespace project.infra.Service
         {
             return replyRepository.CRUDOP(reply, "insert").ToList().SingleOrDefault();
         }
+
+        public List<ReplyData> GetReplayByCommentId(int commentId)
+        {
+            return replyRepository.GetReplayByCommentId(commentId);
+        }
     }
 }

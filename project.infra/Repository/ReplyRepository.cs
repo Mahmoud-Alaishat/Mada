@@ -49,5 +49,12 @@ namespace project.infra.Repository
             return result.ToList().SingleOrDefault();
         }
 
+        public List<ReplyData> GetReplayByCommentId(int commentId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofcomment", commentId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<ReplyData>("Replay_package_api.GetReplayByCommentId", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
     }
 }
