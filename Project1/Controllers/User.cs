@@ -19,6 +19,7 @@ namespace Project1.Controllers
         private readonly IUserService userService;
         private readonly IFriendService friendService;
         private readonly IPostService postService;
+        
 
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService)
@@ -76,10 +77,10 @@ namespace Project1.Controllers
         }
 
         [HttpGet]
-        [Route("MyPosts/{userId}")]
-        public IActionResult MyPosts(string userId)
+        [Route("PostComment/{userId}")]
+        public IActionResult PostComment(int userId)
         {
-            return Ok(postService.MyPosts(userId));
+            return Ok(commentService.GetCommentByPostId(userId));
 
         }
     }

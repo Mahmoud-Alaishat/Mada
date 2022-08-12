@@ -17,6 +17,8 @@ namespace project.core.Service
 
         public Comments GetCommentById(int commentId);
         public CommentCount CountComments();
+        public List<CommentData> GetCommentByPostId(int postId);
+
 
     }
 }

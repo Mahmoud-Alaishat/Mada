@@ -10,6 +10,7 @@ namespace project.core.Repository
     {
         public List<Comments> CRUDOP(Comments comments, string operation);
         public CommentCount CountComments();
+        public List<CommentData> GetCommentByPostId(int postId);
 
     }
 }

@@ -41,6 +41,11 @@ namespace project.infra.Service
            return commentRepository.CRUDOP(comment, "readbyid").ToList().SingleOrDefault();
         }
 
+        public List<CommentData> GetCommentByPostId(int postId)
+        {
+            return commentRepository.GetCommentByPostId(postId);
+        }
+
         public List<Comments> GetComments()
         {
             Comments comment = new Comments();

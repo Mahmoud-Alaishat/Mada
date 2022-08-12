@@ -49,5 +49,14 @@ namespace project.infra.Repository
                 return re;
             }
         }
+
+        public List<CommentData> GetCommentByPostId(int postId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofpost", postId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<CommentData>("Comments_package_api.GetCommentByPostId", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+
+        }
     }
 }
