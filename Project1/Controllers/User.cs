@@ -18,13 +18,16 @@ namespace Project1.Controllers
         private readonly IContactUsService contactUsService;
         private readonly IUserService userService;
         private readonly IFriendService friendService;
+        private readonly IPostService postService;
 
-        public User(ICommentService commentService, IContactUsService contactUsService, IUserService userService, IFriendService friendService)
+        public User(ICommentService commentService, IContactUsService contactUsService,
+            IUserService userService, IFriendService friendService, IPostService postService)
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
             this.userService = userService;
-            this.friendService = friendService; 
+            this.friendService = friendService;
+            this.postService = postService;
         }
 
         [HttpPost]
@@ -65,10 +68,18 @@ namespace Project1.Controllers
         }
 
         [HttpGet]
-        [Route("UserFriend/{userId}")]
-        public IActionResult UserFriend(string userId)
+        [Route("MyFriends/{userId}")]
+        public IActionResult MyFriends(string userId)
         {
             return Ok(friendService.GetFriends(userId));
+
+        }
+
+        [HttpGet]
+        [Route("MyPosts/{userId}")]
+        public IActionResult MyPosts(string userId)
+        {
+            return Ok(postService.MyPosts(userId));
 
         }
     }

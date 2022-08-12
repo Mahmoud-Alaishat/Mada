@@ -69,5 +69,10 @@ namespace project.infra.Service
             postRepository.CRUDOP(post, "update").ToList().FirstOrDefault();
             return post;
         }
+
+        public List<Post> MyPosts(string userId)
+        {
+            return postRepository.MyPosts(userId);
+        }
     }
 }

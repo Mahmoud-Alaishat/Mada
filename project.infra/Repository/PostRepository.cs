@@ -62,6 +62,15 @@ namespace project.infra.Repository
 
         }
 
+        public List<Post> MyPosts(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+
+            var result = context.dbConnection.Query<Post>("Post_package_api.GetPostByUserId", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
         public List<Post> Top10SeenPost()
         {
             var parameter = new DynamicParameters();

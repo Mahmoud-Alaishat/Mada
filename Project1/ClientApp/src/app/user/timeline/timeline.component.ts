@@ -35,6 +35,14 @@ export class TimelineComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
+    this.http.get<UserInfo>("https://localhost:44328/api/User/MyFriends/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: UserInfo) => {
+        this.userData = response;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
   }
 
 
@@ -52,4 +60,8 @@ interface UserInfo {
 
 interface UserCount {
   count: number;
+}
+
+interface MyFriends {
+
 }

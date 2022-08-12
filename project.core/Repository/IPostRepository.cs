@@ -13,5 +13,6 @@ namespace project.core.Repository
         public PostCount CountPosts();
         public List<Post> Top2SeenPost();
         public List<Post> Top10SeenPost();
+        public List<Post> MyPosts(string userId);
     }
 }
