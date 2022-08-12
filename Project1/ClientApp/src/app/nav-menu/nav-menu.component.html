@@ -30,11 +30,13 @@
             [routerLinkActiveOptions]="{ exact: true }">
           <a [routerLink]="['/contact-us']" uk-scroll> Contact Us</a>
         </li>
-        <li [routerLinkActive]="['link-active']">
-          <a [routerLink]="['/counter']" uk-scroll> Counter</a>
+        <li [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+          <a [routerLink]="['/about']" uk-scroll> About Us</a>
         </li>
-        <li [routerLinkActive]="['link-active']">
-          <a [routerLink]="['/fetch-data']" uk-scroll> Fetch data</a>
+        <li [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+          <a [routerLink]="['/privacy']" uk-scroll> Privecy Policy</a>
         </li>
       </ul>
 

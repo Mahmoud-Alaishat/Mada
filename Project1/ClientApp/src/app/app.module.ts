@@ -19,6 +19,8 @@ import { AdminModule } from './admin/admin.module';
 import { RegisterComponent } from './register/register.component';
 import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { AboutComponent } from './about/about.component';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 
 
@@ -39,6 +41,8 @@ export function tokenGetter() {
     RegisterComponent,
     EmailConfirmationComponent,
     ContactUsComponent,
+    AboutComponent,
+    PrivacyComponent,
     
   ],
   imports: [
@@ -64,7 +68,10 @@ export function tokenGetter() {
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'emailconfirmation', component: EmailConfirmationComponent },
-      { path: "contact-us", component: ContactUsComponent }
+      { path: "contact-us", component: ContactUsComponent },
+      { path: "about", component: AboutComponent },
+      { path: "privacy", component: PrivacyComponent }
+
     ]),
   ],
   providers: [AuthGuard],
