@@ -834,7 +834,7 @@
             <div class="flex items-center justify-between mb-4">
               <div>
                 <h4 class="text-lg font-semibold"> Friends </h4>
-                <p class="text-sm"> 3,4510 Friends</p>
+                <p class="text-sm"> {{friendsCount}} Friends</p>
               </div>
               <a href="#" class="text-blue-600 ">See all</a>
             </div>
@@ -959,103 +959,20 @@
 
         <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 mt-3">
 
-          <div class="card p-2">
+          <div *ngFor="let friend of friends" class="card p-2">
             <a href="timeline.html">
               <img src="assets/assets/images/avatars/avatar-2.jpg" class="h-36 object-cover rounded-md shadow-sm w-full">
             </a>
             <div class="pt-3 px-1">
-              <a href="timeline.html" class="text-base font-semibold mb-0.5">  James Lewis </a>
-              <p class="font-medium text-sm">843K Following </p>
-              <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                Following
-              </button>
+              <div class="flex justify-content-center ">
+                <a href="timeline.html" class="text-base font-semibold mb-0.5">  {{friend.firstName}}  {{friend.lastName}}</a>
+                </div>
+  <!--<p class="font-medium text-sm">843K Following </p>
+    <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
+      Following
+    </button>-->
+              </div>
             </div>
-          </div>
-          <div class="card p-2">
-            <a href="timeline.html">
-              <img src="assets/assets/images/avatars/avatar-3.jpg" class="h-36 object-cover rounded-md shadow-sm w-full">
-            </a>
-            <div class="pt-3 px-1">
-              <a href="timeline.html" class="text-base font-semibold mb-0.5"> Monroe Parker  </a>
-              <p class="font-medium text-sm">843K Following </p>
-              <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                Following
-              </button>
-            </div>
-          </div>
-          <div class="card p-2">
-            <a href="timeline.html">
-              <img src="assets/assets/images/avatars/avatar-4.jpg" class="h-36 object-cover rounded-md shadow-sm w-full">
-            </a>
-            <div class="pt-3 px-1">
-              <a href="timeline.html" class="text-base font-semibold mb-0.5">  Martin Gray  </a>
-              <p class="font-medium text-sm">843K Following </p>
-              <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                Following
-              </button>
-            </div>
-          </div>
-          <div class="card p-2">
-            <a href="timeline.html">
-              <img src="assets/assets/images/avatars/avatar-7.jpg" class="h-36 object-cover rounded-md shadow-sm w-full">
-            </a>
-            <div class="pt-3 px-1">
-              <a href="timeline.html" class="text-base font-semibold mb-0.5">  Alex Michael </a>
-              <p class="font-medium text-sm">843K Following </p>
-              <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                Following
-              </button>
-            </div>
-          </div>
-          <div class="card p-2">
-            <a href="timeline.html">
-              <img src="assets/assets/images/avatars/avatar-5.jpg" class="h-36 object-cover rounded-md shadow-sm w-full">
-            </a>
-            <div class="pt-3 px-1">
-              <a href="timeline.html" class="text-base font-semibold mb-0.5"> Jesse Stevens  </a>
-              <p class="font-medium text-sm">843K Following </p>
-              <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                Following
-              </button>
-            </div>
-          </div>
-          <div class="card p-2">
-            <a href="timeline.html">
-              <img src="assets/assets/images/avatars/avatar-6.jpg" class="h-36 object-cover rounded-md shadow-sm w-full">
-            </a>
-            <div class="pt-3 px-1">
-              <a href="timeline.html" class="text-base font-semibold mb-0.5"> Erica Jones  </a>
-              <p class="font-medium text-sm">843K Following </p>
-              <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                Following
-              </button>
-            </div>
-          </div>
-          <div class="card p-2">
-            <a href="timeline.html">
-              <img src="assets/assets/images/avatars/avatar-2.jpg" class="h-36 object-cover rounded-md shadow-sm w-full">
-            </a>
-            <div class="pt-3 px-1">
-              <a href="timeline.html" class="text-base font-semibold mb-0.5">  James Lewis </a>
-              <p class="font-medium text-sm">843K Following </p>
-              <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                Following
-              </button>
-            </div>
-          </div>
-          <div class="card p-2">
-            <a href="timeline.html">
-              <img src="assets/assets/images/avatars/avatar-3.jpg" class="h-36 object-cover rounded-md shadow-sm w-full">
-            </a>
-            <div class="pt-3 px-1">
-              <a href="timeline.html" class="text-base font-semibold mb-0.5"> Monroe Parker  </a>
-              <p class="font-medium text-sm">843K Following </p>
-              <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                Following
-              </button>
-            </div>
-          </div>
-
         </div>
 
         <div class="flex justify-center mt-6">

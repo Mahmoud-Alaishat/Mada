@@ -11,6 +11,7 @@ import { AuthService } from '../../auth.service';
 export class TimelineComponent implements OnInit {
 
   userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
+  friends: MyFriends = { friendId: '', firstName: '', lastName:'',profilePath:'' }
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   friendsCount: number = 0;
@@ -35,11 +36,11 @@ export class TimelineComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-    this.http.get<UserInfo>("https://localhost:44328/api/User/MyFriends/" + this.auth.Id, {
+    this.http.get<MyFriends>("https://localhost:44328/api/User/MyFriends/" + this.auth.Id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
-      next: (response: UserInfo) => {
-        this.userData = response;
+      next: (response: MyFriends) => {
+        this.friends = response;
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
@@ -63,5 +64,8 @@ interface UserCount {
 }
 
 interface MyFriends {
-
+  friendId: string;
+  firstName: string;
+  lastName: string;
+  profilePath: string;
 }
