@@ -10,5 +10,6 @@ namespace project.core.Repository
     {
         public List<Friend> CRUDOP(Friend friend, string operation);
         public FriendsCount CountFriends(string userId);
+        
     }
 }

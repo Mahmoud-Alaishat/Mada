@@ -17,12 +17,14 @@ namespace Project1.Controllers
         private readonly ICommentService commentService;
         private readonly IContactUsService contactUsService;
         private readonly IUserService userService;
+        private readonly IFriendService friendService;
 
-        public User(ICommentService commentService, IContactUsService contactUsService, IUserService userService)
+        public User(ICommentService commentService, IContactUsService contactUsService, IUserService userService, IFriendService friendService)
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
             this.userService = userService;
+            this.friendService = friendService; 
         }
 
         [HttpPost]
@@ -46,6 +48,13 @@ namespace Project1.Controllers
             userInfo.Bio = user.Bio;
             userInfo.Relationship = user.Relationship;
             return Ok(userInfo);
+        }
+        [HttpGet]
+        [Route("CountFriends/{userId}")]
+        public IActionResult CountFriends(string userId)
+        {
+            return Ok(friendService.CountFriends(userId));
+
         }
     }
 }
