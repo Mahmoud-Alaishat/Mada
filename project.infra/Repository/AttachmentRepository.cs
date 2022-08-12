@@ -46,5 +46,12 @@ namespace project.infra.Repository
                 return re;
             }
         }
+        public List<AttachmentData> GetPostAttachment(int postId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofpost", postId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<AttachmentData>("Attachment_package_api.GetPostAttachment", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
     }
 }

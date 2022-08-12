@@ -19,16 +19,17 @@ namespace Project1.Controllers
         private readonly IUserService userService;
         private readonly IFriendService friendService;
         private readonly IPostService postService;
-        
-
+        private readonly IAttachmentService attachmentService;
         public User(ICommentService commentService, IContactUsService contactUsService,
-            IUserService userService, IFriendService friendService, IPostService postService)
+            IUserService userService, IFriendService friendService, IPostService postService,
+            IAttachmentService attachmentService)
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
             this.userService = userService;
             this.friendService = friendService;
             this.postService = postService;
+            this.attachmentService = attachmentService;
         }
 
         [HttpPost]
@@ -81,6 +82,14 @@ namespace Project1.Controllers
         public IActionResult PostComment(int userId)
         {
             return Ok(commentService.GetCommentByPostId(userId));
+
+        }
+
+        [HttpGet]
+        [Route("PostAttachment/{postId}")]
+        public IActionResult PostAttachment(int postId)
+        {
+            return Ok(attachmentService.GetPostAttachment(postId));
 
         }
     }

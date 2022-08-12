@@ -50,5 +50,10 @@ namespace project.infra.Service
         {
             return attachmentRepository.CRUDOP(attachment, "insert").ToList().SingleOrDefault();
         }
+        public List<AttachmentData> GetPostAttachment(int postId)
+        {
+            return attachmentRepository.GetPostAttachment(postId);
+        }
+
     }
 }

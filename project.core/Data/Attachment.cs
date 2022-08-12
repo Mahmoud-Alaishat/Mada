@@ -13,7 +13,7 @@ namespace project.core.Data
         public int Id { get; set; }
         public int PostId { get; set; }
         
-        public int Item { get; set; }
+        public string Item { get; set; }
 
         [NotMapped]
         public IFormFile ItemFile { get; set; }

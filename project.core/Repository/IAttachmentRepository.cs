@@ -10,5 +10,7 @@ namespace project.core.Repository
     {
         public List<Attachment> CRUDOP(Attachment attachment, string operation);
         public AttachmentCount CountAttachment();
+        public List<AttachmentData> GetPostAttachment(int postId);
+
     }
 }

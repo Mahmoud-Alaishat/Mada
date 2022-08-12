@@ -14,5 +14,7 @@ namespace project.core.Service
         public List<Attachment> GetAllAttachments();
         public Attachment Update(Attachment attachment);
         public AttachmentCount CountAttachment();
+        public List<AttachmentData> GetPostAttachment(int postId);
+
     }
 }
