@@ -10,5 +10,6 @@ namespace project.core.Repository
     {
         public List<ReplyToComment> CRUDOP(ReplyToComment reply, string operation);
         public ReplyCount CountReply(int commentId);
+        public List<ReplyData> GetReplayByCommentId(int commentId);
     }
 }
