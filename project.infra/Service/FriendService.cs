@@ -50,6 +50,14 @@ namespace project.infra.Service
             return friendRepository.CRUDOP(friend, "readbyid").ToList().SingleOrDefault();
         }
 
+        public List<FirendPost> GetFriendPosts(string userId)
+        {
+            return friendRepository.GetFriendPosts(userId);
+        }
 
+        public List<UserFriend> GetFriends(string userId)
+        {
+            return friendRepository.GetFriends(userId);
+        }
     }
 }

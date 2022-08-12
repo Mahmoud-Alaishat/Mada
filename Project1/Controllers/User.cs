@@ -56,5 +56,20 @@ namespace Project1.Controllers
             return Ok(friendService.CountFriends(userId));
 
         }
+        [HttpGet]
+        [Route("FirendPost/{userId}")]
+        public IActionResult FirendPost(string userId)
+        {
+            return Ok(friendService.GetFriendPosts(userId));
+
+        }
+
+        [HttpGet]
+        [Route("UserFriend/{userId}")]
+        public IActionResult UserFriend(string userId)
+        {
+            return Ok(friendService.GetFriends(userId));
+
+        }
     }
 }
