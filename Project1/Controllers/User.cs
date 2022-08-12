@@ -66,8 +66,8 @@ namespace Project1.Controllers
 
         }
         [HttpGet]
-        [Route("FirendPost/{userId}")]
-        public IActionResult FirendPost(string userId)
+        [Route("FriendPost/{userId}")]
+        public IActionResult FriendPost(string userId)
         {
             return Ok(friendService.GetFriendPosts(userId));
 
@@ -104,6 +104,13 @@ namespace Project1.Controllers
         {
             return Ok(attachmentService.GetPostAttachment(postId));
 
+        }
+
+        [HttpGet]
+        [Route("MyPost/{userId}")]
+        public IActionResult MyPost(string userId)
+        {
+            return Ok(postService.MyPosts(userId));
         }
     }
 }
