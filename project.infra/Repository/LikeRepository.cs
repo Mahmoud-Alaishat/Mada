@@ -48,5 +48,13 @@ namespace project.infra.Repository
                         return re;
                     }
         }
+
+        public List<PostLikeData> GetPostLikes(int postId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofpost", postId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<PostLikeData>("Likes_package_api.GetPostLikes", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
     }
 }

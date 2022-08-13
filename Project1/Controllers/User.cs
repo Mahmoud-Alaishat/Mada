@@ -20,12 +20,13 @@ namespace Project1.Controllers
         private readonly IFriendService friendService;
         private readonly IPostService postService;
         private readonly IReplyService  replyService;
+        private readonly ILikeService likeService;
         
 
         private readonly IAttachmentService attachmentService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
-            IAttachmentService attachmentService)
+            IAttachmentService attachmentService, ILikeService likeService)
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
@@ -34,6 +35,7 @@ namespace Project1.Controllers
             this.postService = postService;
             this.replyService = replyService;   
             this.attachmentService = attachmentService;
+            this.likeService = likeService; 
         }
 
         [HttpPost]
@@ -111,6 +113,13 @@ namespace Project1.Controllers
         public IActionResult MyPost(string userId)
         {
             return Ok(postService.MyPosts(userId));
+        }
+
+        [HttpGet]
+        [Route("PostLike/{postId}")]
+        public IActionResult PostLike(int postId)
+        {
+            return Ok(likeService.GetPostLikes(postId));
         }
     }
 }

@@ -47,6 +47,9 @@ namespace project.infra.Service
             return likeRepository.CRUDOP(like, "readbyid").ToList().SingleOrDefault();
         }
 
-      
+        public List<PostLikeData> GetPostLikes(int postId)
+        {
+            return likeRepository.GetPostLikes(postId); 
+        }
     }
 }

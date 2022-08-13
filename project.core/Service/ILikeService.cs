@@ -15,5 +15,7 @@ namespace project.core.Service
         public List<Likes> GetAllikes();
     
         public LikesCount Countlike();
+        public List<PostLikeData> GetPostLikes(int postId);
+
     }
 }
