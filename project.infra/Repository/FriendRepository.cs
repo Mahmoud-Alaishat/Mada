@@ -51,11 +51,11 @@ namespace project.infra.Repository
             }
         }
 
-        public List<FirendPost> GetFriendPosts(string userId)
+        public List<FriendPost> GetFriendPosts(string userId)
         {
             var parameter = new DynamicParameters();
             parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
-            var result = context.dbConnection.Query<FirendPost>("Friend_package_api.GetFriendPosts", parameter, commandType: CommandType.StoredProcedure);
+            var result = context.dbConnection.Query<FriendPost>("Friend_package_api.GetFriendPosts", parameter, commandType: CommandType.StoredProcedure);
             return result.ToList();
 
         }

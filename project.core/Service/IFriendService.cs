@@ -14,7 +14,7 @@ namespace project.core.Service
         public List<Friend> GetAllFriends(string userId);
 
         public FriendsCount CountFriends(string userId);
-        public List<FirendPost> GetFriendPosts(string userId);
+        public List<FriendPost> GetFriendPosts(string userId);
         public List<UserFriend> GetFriends(string userId);
 
     }

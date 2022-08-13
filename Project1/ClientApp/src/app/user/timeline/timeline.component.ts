@@ -15,6 +15,9 @@ export class TimelineComponent implements OnInit {
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   friendsCount: number = 0;
+  public posts: MyPosts[];
+  currentDate: any;
+  imgstyle: string[] = ["class='col-span-2'", "class= 'rounded-md w-full lg:h-44 object-cover'", "", "class= 'rounded-md w-full h-full'", "class= 'relative'", "class= 'rounded-md w-full h-full'"]
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -44,9 +47,72 @@ export class TimelineComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
+    this.currentDate = new Date().toLocaleString();
+
+    this.http.get<MyPosts[]>("https://localhost:44328/api/User/MyPost/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: MyPosts[]) => {
+        this.posts = response;
+        for (let index = 0; index < this.posts.length; index++) {
+          this.http.get<Attachment[]>("https://localhost:44328/api/User/PostAttachment/" + this.posts[index].id, {
+            headers: new HttpHeaders({ "Content-Type": "application/json" })
+          }).subscribe({
+            next: (response: Attachment[]) => {
+              this.posts[index].attachment = response;
+            },
+            error: (err: HttpErrorResponse) => console.log("no data")
+          })
+
+          this.http.get<Comment[]>("https://localhost:44328/api/User/PostComment/" + this.posts[index].id, {
+            headers: new HttpHeaders({ "Content-Type": "application/json" })
+          }).subscribe({
+            next: (response: Comment[]) => {
+              this.posts[index].comment = response;
+              for (let indx = 0; indx < this.posts[index].comment.length; indx++) {
+                this.http.get<Reply[]>("https://localhost:44328/api/User/ReplyToComment/" + this.posts[index].comment[indx].id, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe({
+                  next: (response: Reply[]) => {
+                    this.posts[index].comment[indx].reply = response;
+                    console.log(this.posts);
+                  },
+                  error: (err: HttpErrorResponse) => console.log("no data")
+                })
+              }
+
+            },
+            error: (err: HttpErrorResponse) => console.log("no data")
+          })
+        }
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
   }
 
+  getHoursDiff(hour: number): number {
 
+    return new Date().getHours() - hour;
+  }
+
+  isToday(date: Date): boolean {
+
+    if (new Date() == date) {
+      return true;
+    }
+   else{
+      return false;
+    }
+  }
+  isNextToThirdImg(index: number): boolean {
+    if (index > 2) {
+      return true;
+    }
+    return false;
+  }
+  getClass(index:number): string {
+    if (index > 2) return "class='display:none'";
+  }
 }
 
 interface UserInfo {
@@ -69,3 +135,34 @@ interface MyFriends {
   lastName: string;
   profilePath: string;
 }
+
+interface MyPosts {
+  id: number;
+  content: string;
+  postDate: Date;
+  attachment: Attachment[];
+  comment: Comment[];
+}
+
+interface Attachment {
+  item: string;
+}
+interface Comment {
+  id: number;
+  content: string;
+  commentdat: Date;
+  item: string;
+  firstName: string;
+  lastName: string;
+  profilePath: string;
+  reply: Reply[];
+}
+interface Reply {
+  firstName: string;
+  lastName: string;
+  content: string;
+  profilePath: string;
+  item: string;
+  replaydate: Date;
+}
+ 

@@ -261,6 +261,11 @@
     <ProjectReference Include="..\project.infra\project.infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientApp\src\assets\assets\Img\user\cover\" />
+    <Folder Include="ClientApp\src\assets\assets\Img\user\profile\" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

@@ -59,14 +59,7 @@ namespace project.infra.Service
                     {
                         new Claim(ClaimTypes.Email, result.Email),
                         new Claim(ClaimTypes.Role, result.RoleName),
-                        //new Claim(ClaimTypes.GivenName, result.FirstName),
-                        //new Claim(ClaimTypes.Surname, result.LastName),
                         new Claim(ClaimTypes.Name, result.UserName),
-                        //new Claim("profileImage",result.ProfilePath),
-                        //new Claim("coverImage",result.CoverPath),
-                        //new Claim("bio",result.Bio),
-                        //new Claim("address",result.Address),
-                        //new Claim("relationship",result.Relationship),
                         new Claim("Id",result.Id),
                     }),
                     Expires = DateTime.UtcNow.AddHours(1),
@@ -82,25 +75,9 @@ namespace project.infra.Service
         public string Register(Users user)
         {
             user.Id = Guid.NewGuid().ToString();
-            //var tokenHandler = new JwtSecurityTokenHandler();
-            //var tokenKey = Encoding.ASCII.GetBytes("[SECRET USED TO SIGN AND VERIFY JWT TOKENS, IT CAN BE ANYSTRING]");
-            //var tokenDescriptor = new SecurityTokenDescriptor
-            //{
 
-            //    Subject = new ClaimsIdentity(new Claim[]
-            //    {
-            //            new Claim(ClaimTypes.Name, user.UserName),
-                        
-            //    }),
-            //    Expires = DateTime.UtcNow.AddHours(1),
-            //    SigningCredentials = new SigningCredentials(new
-            //    SymmetricSecurityKey(tokenKey),
-            //    SecurityAlgorithms.HmacSha256Signature)
-            //};
-            //var token = tokenHandler.CreateToken(tokenDescriptor);
-            
             userRepository.Register(user);
-            return user.Id; //tokenHandler.WriteToken(token);
+            return user.Id; 
         }
 
         public Users Update(Users user)

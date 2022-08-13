@@ -10,7 +10,7 @@ namespace project.core.Repository
     {
         public List<Friend> CRUDOP(Friend friend, string operation);
         public FriendsCount CountFriends(string userId);
-        public List<FirendPost> GetFriendPosts(string userId);
+        public List<FriendPost> GetFriendPosts(string userId);
 
         public List<UserFriend> GetFriends(string userId);  
 
