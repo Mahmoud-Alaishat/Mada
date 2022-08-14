@@ -31,10 +31,10 @@
           </div>
           <div class="flex justify-content-center ">
             <p class="align-content-center">{{userData.bio}}</p>
-            </div>
           </div>
-
         </div>
+
+      </div>
 
       <div class="flex justify-between lg:border-t border-gray-100 flex-col-reverse lg:flex-row pt-2">
         <nav class="responsive-nav pl-3">
@@ -128,7 +128,7 @@
             </div>
             <div class="grid grid-flow-col pt-3 -mx-1 -mb-1 font-semibold text-sm">
               <div class="hover:bg-gray-100 flex items-center p-1.5 rounded-md cursor-pointer">
-                <svg class="bg-blue-100 h-9 mr-2 p-1.5 rounded-full text-blue-600 w-9 -my-0.5 hidden lg:block" data-tippy-placement="top"  fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <svg class="bg-blue-100 h-9 mr-2 p-1.5 rounded-full text-blue-600 w-9 -my-0.5 hidden lg:block" data-tippy-placement="top" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 Photo/Video
               </div>
               <div class="hover:bg-gray-100 flex items-center p-1.5 rounded-md cursor-pointer">
@@ -173,7 +173,7 @@
                         <i class="uil-edit-alt mr-1"></i>  Edit Post
                       </a>
                     </li>
-                    <li>
+                    <!--  <li>
                       <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                         <i class="uil-comment-slash mr-1"></i>   Disable comments
                       </a>
@@ -182,12 +182,12 @@
                       <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                         <i class="uil-favorite mr-1"></i>  Add favorites
                       </a>
-                    </li>
+                    </li>-->
                     <li>
                       <hr class="-mx-2 my-2 dark:border-gray-800">
                     </li>
                     <li>
-                      <a href="https://localhost:44328/user/DeletePost/{{post.id}}" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                      <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600" (click)="deletePost(post.id)">
                         <i class="uil-trash-alt mr-1"></i>  Delete
                       </a>
                     </li>
@@ -482,14 +482,14 @@
           </div>
 
 
-            <div class="flex justify-center mt-6">
-              <a href="#" class="bg-white font-semibold my-3 px-6 py-2 rounded-full text-gray-700 dark:text-gray-100 shadow-md dark:bg-gray-800 ">
-                Load more
-              </a>
-            </div>
-
-
+          <div class="flex justify-center mt-6">
+            <a href="#" class="bg-white font-semibold my-3 px-6 py-2 rounded-full text-gray-700 dark:text-gray-100 shadow-md dark:bg-gray-800 ">
+              Load more
+            </a>
           </div>
+
+
+        </div>
 
         <!-- Sidebar -->
         <div class="w-full space-y-6">
@@ -501,7 +501,7 @@
                 <i class="uil-globe rounded-full bg-gray-200 text-xl p-1 mr-3"></i>
                 Lives in <strong> {{userData.address}}  </strong>
               </li>
-              
+
               <li class="flex items-center space-x-2">
                 <i class="uil-heart-alt  rounded-full bg-gray-200 text-xl p-1 mr-2"></i>
                 <strong>{{userData.relationship}}  </strong>
@@ -525,10 +525,12 @@
               <a href="#" class="text-blue-600 ">See all</a>
             </div>
             <div class="grid grid-cols-3 gap-3 text-gray-600 font-semibold">
+              <a *ngFor="let friend of friends" style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" href="#">
               <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;"  href="#">
                 <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
                   <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="w-full h-full object-cover absolute">
                 </div>
+                <div class="text-sm truncate capitalize">  {{trimName(friend.firstName,friend.lastName)}} </div>
                 <div class="text-sm truncate"> Dennis Han </div>
               </a>
               <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" href="#">
@@ -652,13 +654,13 @@
             <div class="pt-3 px-1">
               <div class="flex justify-content-center ">
                 <a href="timeline.html" class="text-base font-semibold mb-0.5">  {{friend.firstName}}  {{friend.lastName}}</a>
-                </div>
-  <!--<p class="font-medium text-sm">843K Following </p>
-    <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-      Following
-    </button>-->
               </div>
+              <!--<p class="font-medium text-sm">843K Following </p>
+                <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
+                  Following
+                </button>-->
             </div>
+          </div>
         </div>
 
         <div class="flex justify-center mt-6">

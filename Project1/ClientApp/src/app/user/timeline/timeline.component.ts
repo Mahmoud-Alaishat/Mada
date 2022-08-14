@@ -17,7 +17,8 @@ export class TimelineComponent implements OnInit {
   friendsCount: number = 0;
   public posts: MyPosts[];
   currentDate: any;
-  imgstyle: string[] = ["class='col-span-2'", "class= 'rounded-md w-full lg:h-44 object-cover'", "", "class= 'rounded-md w-full h-full'", "class= 'relative'", "class= 'rounded-md w-full h-full'"]
+  last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }
+
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -44,6 +45,14 @@ export class TimelineComponent implements OnInit {
     }).subscribe({
       next: (response: MyFriends) => {
         this.friends = response;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+    this.http.get<MyFriends>("https://localhost:44328/api/User/MyFriends/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: MyFriends) => {
+        this.last6friends = response;
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
@@ -84,7 +93,6 @@ export class TimelineComponent implements OnInit {
                 }).subscribe({
                   next: (response: Reply[]) => {
                     this.posts[index].comment[indx].reply = response;
-                    console.log(this.posts);
                   },
                   error: (err: HttpErrorResponse) => console.log("no data")
                 })
@@ -118,8 +126,6 @@ export class TimelineComponent implements OnInit {
       d[1] = "0" + d[1];
     }
     var result=d[0]+"/"+d[1]+"/"+d[2]
-    console.log(result);
-    console.log(date);
     if (result == date.toString()) {
       return true;
     }
@@ -142,6 +148,26 @@ export class TimelineComponent implements OnInit {
 
   setUkTogglePostLike(id: string): void {
     document.getElementById("post-like-" + id).setAttribute('uk-toggle', 'target: #post-like-' + id);
+  }
+
+  trimName(name: string, name1: string): string {
+    var fullName = name + " " + name1;
+    if (fullName.length >9) {
+      fullName = fullName.substring(0, 8);
+      return fullName + "..";
+    }
+    return fullName;
+  }
+  deletePost(id: number) {
+    this.http.delete("https://localhost:44328/api/User/DeletePost/" + id)
+      .subscribe({
+        next: () => {
+         
+        },
+        error: () => {
+          
+        }
+      })
   }
 
 }
