@@ -7,11 +7,12 @@ import { SideBarComponent } from './side-bar/side-bar.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { SubscriptionComponent } from './subscription/subscription.component';
 
 
 
 @NgModule({
-  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent],
+  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, SubscriptionComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(
