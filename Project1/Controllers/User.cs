@@ -121,5 +121,12 @@ namespace Project1.Controllers
         {
             return Ok(likeService.GetPostLikes(postId));
         }
+        [HttpGet]
+        [Route("MyLast6Friends/{userId}")]
+        public IActionResult MyLast6Friends(string userId)
+        {
+            return Ok(friendService.GetLast6Friends(userId));
+
+        }
     }
 }
