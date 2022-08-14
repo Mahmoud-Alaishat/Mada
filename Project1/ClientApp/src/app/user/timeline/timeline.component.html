@@ -525,45 +525,13 @@
               <a href="#" class="text-blue-600 ">See all</a>
             </div>
             <div class="grid grid-cols-3 gap-3 text-gray-600 font-semibold">
-              <a *ngFor="let friend of friends" style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" href="#">
-              <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;"  href="#">
-                <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
-                  <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="w-full h-full object-cover absolute">
-                </div>
-                <div class="text-sm truncate capitalize">  {{trimName(friend.firstName,friend.lastName)}} </div>
-                <div class="text-sm truncate"> Dennis Han </div>
-              </a>
-              <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" href="#">
-                <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
-                  <img src="assets/assets/images/avatars/avatar-2.jpg" alt="" class="w-full h-full object-cover absolute">
-                </div>
-                <div class="text-sm truncate"> Erica Jones </div>
-              </a>
-              <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" href="#">
-                <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
-                  <img src="assets/assets/images/avatars/avatar-3.jpg" alt="" class="w-full h-full object-cover absolute">
-                </div>
-                <div class="text-sm truncate"> Stella Johnson </div>
-              </a>
-              <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;"href="#">
-                <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
-                  <img src="assets/assets/images/avatars/avatar-4.jpg" alt="" class="w-full h-full object-cover absolute">
-                </div>
-                <div class="text-sm truncate"> Alex Dolgove</div>
-              </a>
-              <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" href="#">
-                <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
-                  <img src="assets/assets/images/avatars/avatar-5.jpg" alt="" class="w-full h-full object-cover absolute">
-                </div>
-                <div  class="text-sm truncate"> Jonathan Ali </div>
-              </a>
-              <a  href="#">
-                <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
-                  <img src="assets/assets/images/avatars/avatar-6.jpg" alt="" class="w-full h-full object-cover absolute">
-                </div>
-                <div  class="text-sm truncate"> Erica Han </div>
-              </a>
-            </div>
+                <a *ngFor="let friend of friends" style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" href="#">
+                  <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
+                    <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="w-full h-full object-cover absolute">
+                  </div>
+                  <div class="text-sm truncate capitalize">  {{trimName(friend.firstName,friend.lastName)}} </div>
+                  </a>
+           </div>
             <a href="#" class="button gray mt-3 w-full">  See all </a>
           </div>
 
