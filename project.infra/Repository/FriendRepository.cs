@@ -67,5 +67,13 @@ namespace project.infra.Repository
             var result = context.dbConnection.Query<UserFriend>("Friend_package_api.GetFriends", parameter, commandType: CommandType.StoredProcedure);
             return result.ToList();
         }
+
+        public List<UserFriend> GetLast6Friends(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<UserFriend>("Friend_package_api.GetLast6Friends", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
     }
 }

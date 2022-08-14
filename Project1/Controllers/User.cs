@@ -127,5 +127,12 @@ namespace Project1.Controllers
         {
             postService.Delete(postId);
         }
+        [HttpGet]
+        [Route("MyLast6Friends/{userId}")]
+        public IActionResult MyLast6Friends(string userId)
+        {
+            return Ok(friendService.GetLast6Friends(userId));
+
+        }
     }
 }

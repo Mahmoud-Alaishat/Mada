@@ -12,7 +12,9 @@ namespace project.core.Repository
         public FriendsCount CountFriends(string userId);
         public List<FriendPost> GetFriendPosts(string userId);
 
-        public List<UserFriend> GetFriends(string userId);  
+        public List<UserFriend> GetFriends(string userId);
+        public List<UserFriend> GetLast6Friends(string userId);
+
 
 
     }
