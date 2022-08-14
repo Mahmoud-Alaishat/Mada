@@ -26,5 +26,6 @@ namespace project.core.Data
         public string Address { get; set; }
         public string Relationship { get; set; }
         public string Bio { get; set; }
+        public int SubscriptionId { get; set; }
     }
 }
