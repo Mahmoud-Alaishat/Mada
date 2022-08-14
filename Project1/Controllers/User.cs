@@ -121,7 +121,7 @@ namespace Project1.Controllers
         {
             return Ok(likeService.GetPostLikes(postId));
         }
-        [HttpGet]
+        [HttpDelete]
         [Route("DeletePost/{postId}")]
         public void DeletePost(int postId)
         {

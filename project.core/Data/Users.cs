@@ -12,6 +12,7 @@ namespace project.core.Data
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ProfilePath { get; set; }
+        public int SubscriptionId { get; set; } 
         [NotMapped]
         public IFormFile ImageFile { get; set; }
         public ICollection<Post> Posts { get; set; }
