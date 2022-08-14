@@ -121,5 +121,11 @@ namespace Project1.Controllers
         {
             return Ok(likeService.GetPostLikes(postId));
         }
+        [HttpGet]
+        [Route("DeletePost/{postId}")]
+        public void DeletePost(int postId)
+        {
+            postService.Delete(postId);
+        }
     }
 }

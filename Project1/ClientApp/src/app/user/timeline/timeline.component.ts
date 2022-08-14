@@ -96,23 +96,45 @@ export class TimelineComponent implements OnInit {
   }
 
   isToday(date: Date): boolean {
+    var today = new Date();
 
-    if (new Date() == date) {
+    var dateTime = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+
+    var d = new Date(dateTime).toLocaleDateString().split('/');
+    if (d[0].length == 1) {
+      d[0] = "0" + d[0];
+    }
+    if (d[1].length == 1) {
+      d[1] = "0" + d[1];
+    }
+    var result=d[0]+"/"+d[1]+"/"+d[2]
+    console.log(result);
+    console.log(date);
+    if (result == date.toString()) {
       return true;
     }
    else{
       return false;
     }
   }
-  isNextToThirdImg(index: number): boolean {
-    if (index > 2) {
-      return true;
-    }
-    return false;
+
+  getPostId(id: string): string {
+    return "post-"+id+"";
   }
-  getClass(index:number): string {
-    if (index > 2) return "class='display:none'";
+
+  setUkTogglePost(id: string): void {
+    document.getElementById("post-" + id).setAttribute('uk-toggle', 'target: #post-comment-' + id);
   }
+
+  getPostIdLike(id: string): string {
+    return "post-like-" + id + "";
+  }
+
+  setUkTogglePostLike(id: string): void {
+    document.getElementById("post-like-" + id).setAttribute('uk-toggle', 'target: #post-like-' + id);
+  }
+
 }
 
 interface UserInfo {
