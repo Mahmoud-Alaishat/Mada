@@ -19,7 +19,8 @@ import { SubscriptionComponent } from './subscription/subscription.component';
       [
         { path: "user/feed", component: FeedComponent, canActivate: [AuthGuard] },
         { path: "user/timeline", component: TimelineComponent, canActivate: [AuthGuard] },
-        { path: "user/settings", component: SettingsComponent, canActivate: [AuthGuard] }
+        { path: "user/settings", component: SettingsComponent, canActivate: [AuthGuard] },
+        { path: "user/subscription", component: SubscriptionComponent, canActivate: [AuthGuard] }
       ]
     )
   ],
