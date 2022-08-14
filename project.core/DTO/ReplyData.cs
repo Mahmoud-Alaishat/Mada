@@ -12,5 +12,6 @@ namespace project.core.DTO
         public DateTime Replaydate { get; set; }
         public string ProfilePath { get; set; }
         public string Item { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -282,7 +282,7 @@
                   <img src="assets/assets/images/avatars/avatar-2.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
                 </div>
                 <div class="dark:text-gray-100">
-                  Liked <strong> Johnson</strong> and <strong> 209 Others </strong>
+                    <strong> {{post.like.length}} Likes  </strong>
                 </div>
               </div>
 
@@ -299,127 +299,16 @@
 
                   <div class="border-t py-4 space-y-4 dark:border-gray-600">
                     <div style="max-height:490px" class="dropdown_scrollbar" data-simplebar>
-                      <div class="flex">
-                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+                      <div *ngFor="let lik of post.like" class="flex mb-4">
+                        <div class="w-10 h-10 rounded-full relative flex-shrink-0 mr-1">
                           <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
                         </div>
-                        <div>
-                          <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
+                          <div class="font-bold text-gray-700 py-2 px-1 rounded-md  relative ">
                             <p class="leading-6">
-                              In ut odio libero vulputate <i class="uil-heart"></i> <i class="uil-grin-tongue-wink"> </i>
+                              {{lik.firstName}} {{lik.lastName}}
                             </p>
-                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+                            <!--<div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>-->
                           </div>
-                          <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                            <a href="#" class="text-red-600"> <i class="uil-heart"></i> Love </a>
-                            <a class="text-gray-700 dark:text-gray-100" href="#"> Replay </a>
-                            <span> 3d </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flex">
-                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                          <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                        </div>
-                        <div>
-                          <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                            <p class="leading-6">
-                              In ut odio libero vulputate <i class="uil-heart"></i> <i class="uil-grin-tongue-wink"> </i>
-                            </p>
-                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                          </div>
-                          <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                            <a href="#" class="text-red-600"> <i class="uil-heart"></i> Love </a>
-                            <a class="text-gray-700 dark:text-gray-100" href="#"> Replay </a>
-                            <span> 3d </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flex">
-                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                          <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                        </div>
-                        <div>
-                          <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                            <p class="leading-6">
-                              In ut odio libero vulputate <i class="uil-heart"></i> <i class="uil-grin-tongue-wink"> </i>
-                            </p>
-                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                          </div>
-                          <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                            <a href="#" class="text-red-600"> <i class="uil-heart"></i> Love </a>
-                            <a class="text-gray-700 dark:text-gray-100" href="#"> Replay </a>
-                            <span> 3d </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flex">
-                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                          <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                        </div>
-                        <div>
-                          <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                            <p class="leading-6">
-                              In ut odio libero vulputate <i class="uil-heart"></i> <i class="uil-grin-tongue-wink"> </i>
-                            </p>
-                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                          </div>
-                          <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                            <a href="#" class="text-red-600"> <i class="uil-heart"></i> Love </a>
-                            <a class="text-gray-700 dark:text-gray-100" href="#"> Replay </a>
-                            <span> 3d </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flex">
-                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                          <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                        </div>
-                        <div>
-                          <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                            <p class="leading-6">
-                              In ut odio libero vulputate <i class="uil-heart"></i> <i class="uil-grin-tongue-wink"> </i>
-                            </p>
-                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                          </div>
-                          <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                            <a href="#" class="text-red-600"> <i class="uil-heart"></i> Love </a>
-                            <a class="text-gray-700 dark:text-gray-100" href="#"> Replay </a>
-                            <span> 3d </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flex">
-                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                          <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                        </div>
-                        <div>
-                          <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                            <p class="leading-6"> sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. David !<i class="uil-grin-tongue-wink-alt"></i> </p>
-                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                          </div>
-                          <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                            <a href="#" class="text-red-600"> <i class="uil-heart"></i> Love </a>
-                            <a class="text-gray-700 dark:text-gray-100" href="#"> Replay </a>
-                            <span> 3d </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flex">
-                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                          <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                        </div>
-                        <div>
-                          <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                            <p class="leading-6"> sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. David !<i class="uil-grin-tongue-wink-alt"></i> </p>
-                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                          </div>
-                          <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                            <a href="#" class="text-red-600"> <i class="uil-heart"></i> Love </a>
-                            <a class="text-gray-700 dark:text-gray-100" href="#"> Replay </a>
-                            <span> 3d </span>
-                          </div>
-                        </div>
                       </div>
                     </div>
 
@@ -636,41 +525,41 @@
               <a href="#" class="text-blue-600 ">See all</a>
             </div>
             <div class="grid grid-cols-3 gap-3 text-gray-600 font-semibold">
-              <a href="#">
+              <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;"  href="#">
                 <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
                   <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="w-full h-full object-cover absolute">
                 </div>
                 <div class="text-sm truncate"> Dennis Han </div>
               </a>
-              <a href="#">
+              <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" href="#">
                 <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
                   <img src="assets/assets/images/avatars/avatar-2.jpg" alt="" class="w-full h-full object-cover absolute">
                 </div>
                 <div class="text-sm truncate"> Erica Jones </div>
               </a>
-              <a href="#">
+              <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" href="#">
                 <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
                   <img src="assets/assets/images/avatars/avatar-3.jpg" alt="" class="w-full h-full object-cover absolute">
                 </div>
                 <div class="text-sm truncate"> Stella Johnson </div>
               </a>
-              <a href="#">
+              <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;"href="#">
                 <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
                   <img src="assets/assets/images/avatars/avatar-4.jpg" alt="" class="w-full h-full object-cover absolute">
                 </div>
                 <div class="text-sm truncate"> Alex Dolgove</div>
               </a>
-              <a href="#">
+              <a style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" href="#">
                 <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
                   <img src="assets/assets/images/avatars/avatar-5.jpg" alt="" class="w-full h-full object-cover absolute">
                 </div>
-                <div class="text-sm truncate"> Jonathan Ali </div>
+                <div  class="text-sm truncate"> Jonathan Ali </div>
               </a>
-              <a href="#">
+              <a  href="#">
                 <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
                   <img src="assets/assets/images/avatars/avatar-6.jpg" alt="" class="w-full h-full object-cover absolute">
                 </div>
-                <div class="text-sm truncate"> Erica Han </div>
+                <div  class="text-sm truncate"> Erica Han </div>
               </a>
             </div>
             <a href="#" class="button gray mt-3 w-full">  See all </a>

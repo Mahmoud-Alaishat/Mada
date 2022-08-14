@@ -64,6 +64,15 @@ export class TimelineComponent implements OnInit {
             error: (err: HttpErrorResponse) => console.log("no data")
           })
 
+          this.http.get<Like[]>("https://localhost:44328/api/User/PostLike/" + this.posts[index].id, {
+            headers: new HttpHeaders({ "Content-Type": "application/json" })
+          }).subscribe({
+            next: (response: Like[]) => {
+              this.posts[index].like = response;
+            },
+            error: (err: HttpErrorResponse) => console.log("no data")
+          })
+
           this.http.get<Comment[]>("https://localhost:44328/api/User/PostComment/" + this.posts[index].id, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
@@ -164,6 +173,7 @@ interface MyPosts {
   postDate: Date;
   attachment: Attachment[];
   comment: Comment[];
+  like: Like[];
 }
 
 interface Attachment {
@@ -178,6 +188,7 @@ interface Comment {
   lastName: string;
   profilePath: string;
   reply: Reply[];
+  userId: string;
 }
 interface Reply {
   firstName: string;
@@ -186,5 +197,13 @@ interface Reply {
   profilePath: string;
   item: string;
   replaydate: Date;
+  userId: string;
+}
+
+interface Like {
+  Id: string;
+  firstName: string;
+  lastName: string;
+  profilePath: string;
 }
  
