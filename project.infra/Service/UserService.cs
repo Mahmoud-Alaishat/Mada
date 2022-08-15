@@ -103,5 +103,10 @@ namespace project.infra.Service
         {
             return userRepository.CheckUserName(checkUserName); 
         }
+        public bool UpdateUserProfile(string userId, UserInfo user)
+        {
+
+            return userRepository.UpdateUserProfile(userId, user);
+        }
     }
 }
