@@ -19,7 +19,7 @@ export class TimelineComponent implements OnInit {
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   friendsCount: number = 0;
-  likeCount: number = 0;
+
 
   public posts: MyPosts[];
   public Like: CountLikes[]
@@ -201,16 +201,15 @@ export class TimelineComponent implements OnInit {
           this.http.post("https://localhost:44328/api/User/InsertLike", this.putLike, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
-            next: () => {
-              //this.numberOfLikes.next()              
-              this.likeCount++;
+            next: () => {                                         
               var a = (document.getElementById("likes-" + this.putLike.postId).innerHTML);
-              a = a.split(" ")[0];
-              var likes = parseInt(a);
-              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes+1 ) +" Likes";
               console.log(a);
-              
-              //window.location.reload();
+              a = a.split(" ",2)[0];
+              console.log(a);
+              var likes = parseInt(a);
+              console.log(likes);
+              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes+1 ) +" Likes";
+                                          
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
@@ -221,25 +220,16 @@ export class TimelineComponent implements OnInit {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
             next: () => {
-              this.likeCount--;
               var a = (document.getElementById("likes-" + this.putLike.postId).innerHTML);
-              a = a.split(" ")[0];
+              console.log(a);
+              a = a.split(" ",2)[0];
+              console.log(a);
               var likes = parseInt(a);
-              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes - 1) + " Likes";
-              
-              
-              //window.location.reload();
+              console.log(likes);
+              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes - 1) + " Likes";                                         
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
-          //this.http.delete<Like>("https://localhost:44328/api/User/DeleteLike/" + response.id).pipe(
-          //  tap(([Like, numberOfLikes]) => {
-          //    this.numberOfLikes.next(
-          //      this.numberOfLikes.value.filter((like: Like) => response.id !== deletedHero.id)
-          //    );
-          //  })
-          //)
-
         }
 
       },
@@ -247,6 +237,11 @@ export class TimelineComponent implements OnInit {
     })
 
 
+  }
+  preventdefault(id: number) {
+    document.getElementById("mutasem-"+id).addEventListener("click", function (event) {
+      event.preventDefault()
+    });
   }
   
 
