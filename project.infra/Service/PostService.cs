@@ -19,9 +19,9 @@ namespace project.infra.Service
 
         }
 
-        public CommentLikeCount CountLikesAndCommments(int id)
+        public LikeCount CountLikes(int id)
         {
-            return postRepository.CountLikesAndCommments(id);   
+            return postRepository.CountLikes(id);   
         }
 
         public PostCount CountPosts()

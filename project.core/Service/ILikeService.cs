@@ -8,7 +8,7 @@ namespace project.core.Service
 {
     public interface ILikeService
     {
-        public Likes Create(Likes like);
+        public void Create(Likes like);
 
         public void Delete(int likeId);
         public Likes GetLikeById(int likeId);
@@ -16,6 +16,8 @@ namespace project.core.Service
     
         public LikesCount Countlike();
         public List<PostLikeData> GetPostLikes(int postId);
+        public LikeId HitLike(HitLikeByUser likeByUser);
+
 
     }
 }

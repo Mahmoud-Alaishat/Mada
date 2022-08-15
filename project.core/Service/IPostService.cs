@@ -13,7 +13,7 @@ namespace project.core.Service
         public void Delete (int id);
         public List<Post> GetAllPost ();
         public Post GetPostById (int id);
-        public CommentLikeCount CountLikesAndCommments(int id);
+        public LikeCount CountLikes(int id);
         public PostCount CountPosts();
         public List<Post> Top2SeenPost();
         public List<Post> Top10SeenPost();

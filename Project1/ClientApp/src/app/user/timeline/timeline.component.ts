@@ -1,7 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../auth.service';
+import { tap, withLatestFrom } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-timeline',
@@ -11,20 +14,27 @@ import { AuthService } from '../../auth.service';
 export class TimelineComponent implements OnInit {
 
   userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
-  friends: MyFriends = { friendId: '', firstName: '', lastName:'',profilePath:'' }
+  friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' };
+  putLike: HitLike = { userId: '', postId: 0 }
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   friendsCount: number = 0;
+  likeCount: number = 0;
+
   public posts: MyPosts[];
+  public Like: CountLikes[]
   currentDate: any;
   last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }
+  //numberOfLikes = new BehaviorSubject(0);
+  private numberOfLikes = new BehaviorSubject<Like[]>(null);
+  numberOfLikes$ = this.numberOfLikes.asObservable();
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService) { }
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.isAuthenticate = this.auth.isUserAuthenticated();
-    this.isAdmin= this.auth.isAdmin();
-    this.http.get<UserInfo>("https://localhost:44328/api/User/GetUserInfo/"+this.auth.Id, {
+    this.isAdmin = this.auth.isAdmin();
+    this.http.get<UserInfo>("https://localhost:44328/api/User/GetUserInfo/" + this.auth.Id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: (response: UserInfo) => {
@@ -82,6 +92,15 @@ export class TimelineComponent implements OnInit {
             error: (err: HttpErrorResponse) => console.log("no data")
           })
 
+          //this.http.get<CountLikes[]>("https://localhost:44328/api/User/GetLikes/" + this.posts[index].id, {
+          //  headers: new HttpHeaders({ "Content-Type": "application/json" })
+          //}).subscribe({
+          //  next: (response: CountLikes[]) => {
+
+          //  },
+          //  error: (err: HttpErrorResponse) => console.log("no data")
+          //})
+
           this.http.get<Comment[]>("https://localhost:44328/api/User/PostComment/" + this.posts[index].id, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
@@ -125,17 +144,17 @@ export class TimelineComponent implements OnInit {
     if (d[1].length == 1) {
       d[1] = "0" + d[1];
     }
-    var result=d[0]+"/"+d[1]+"/"+d[2]
+    var result = d[0] + "/" + d[1] + "/" + d[2]
     if (result == date.toString()) {
       return true;
     }
-   else{
+    else {
       return false;
     }
   }
 
   getPostId(id: string): string {
-    return "post-"+id+"";
+    return "post-" + id + "";
   }
 
   setUkTogglePost(id: string): void {
@@ -152,7 +171,7 @@ export class TimelineComponent implements OnInit {
 
   trimName(name: string, name1: string): string {
     var fullName = name + " " + name1;
-    if (fullName.length >9) {
+    if (fullName.length > 9) {
       fullName = fullName.substring(0, 8);
       return fullName + "..";
     }
@@ -162,15 +181,79 @@ export class TimelineComponent implements OnInit {
     this.http.delete("https://localhost:44328/api/User/DeletePost/" + id)
       .subscribe({
         next: () => {
-         
+
         },
         error: () => {
-          
+
         }
       })
   }
 
+  HitLikes(postId: number) {
+    this.putLike.postId = postId;
+    this.putLike.userId = this.auth.Id;
+    this.http.post<IdOfLike>("https://localhost:44328/api/User/HitLike", this.putLike, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: IdOfLike) => {
+        if (response == null) {
+          console.log(response);
+          this.http.post("https://localhost:44328/api/User/InsertLike", this.putLike, {
+            headers: new HttpHeaders({ "Content-Type": "application/json" })
+          }).subscribe({
+            next: () => {
+              //this.numberOfLikes.next()              
+              this.likeCount++;
+              var a = (document.getElementById("likes-" + this.putLike.postId).innerHTML);
+              a = a.split(" ")[0];
+              var likes = parseInt(a);
+              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes+1 ) +" Likes";
+              console.log(a);
+              
+              //window.location.reload();
+            },
+            error: (err: HttpErrorResponse) => console.log("no data")
+          })
+
+        }
+        else {
+          this.http.delete("https://localhost:44328/api/User/DeleteLike/" + response.id, {
+            headers: new HttpHeaders({ "Content-Type": "application/json" })
+          }).subscribe({
+            next: () => {
+              this.likeCount--;
+              var a = (document.getElementById("likes-" + this.putLike.postId).innerHTML);
+              a = a.split(" ")[0];
+              var likes = parseInt(a);
+              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes - 1) + " Likes";
+              
+              
+              //window.location.reload();
+            },
+            error: (err: HttpErrorResponse) => console.log("no data")
+          })
+          //this.http.delete<Like>("https://localhost:44328/api/User/DeleteLike/" + response.id).pipe(
+          //  tap(([Like, numberOfLikes]) => {
+          //    this.numberOfLikes.next(
+          //      this.numberOfLikes.value.filter((like: Like) => response.id !== deletedHero.id)
+          //    );
+          //  })
+          //)
+
+        }
+
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+
+
+  }
+  
+
 }
+
+
+
 
 interface UserInfo {
   firstName: string;
@@ -200,6 +283,7 @@ interface MyPosts {
   attachment: Attachment[];
   comment: Comment[];
   like: Like[];
+  
 }
 
 interface Attachment {
@@ -232,4 +316,15 @@ interface Like {
   lastName: string;
   profilePath: string;
 }
- 
+
+interface HitLike {
+  userId: string;
+  postId: number;
+}
+interface IdOfLike {
+  id: number;
+}
+interface CountLikes {
+  countOfLikes: number;
+}
+

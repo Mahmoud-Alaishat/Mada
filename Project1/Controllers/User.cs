@@ -134,5 +134,33 @@ namespace Project1.Controllers
             return Ok(friendService.GetLast6Friends(userId));
 
         }
+
+        [HttpPost]
+        [Route("HitLike")]
+        public IActionResult HitLike(HitLikeByUser likeByUser)
+        {
+            return Ok(likeService.HitLike(likeByUser)); 
+        }
+        [HttpPost]
+        [Route("InsertLike")]
+        public IActionResult InsertLike( Likes likes)
+        {
+            likeService.Create(likes);
+            return Ok();
+        }
+        [HttpDelete]
+        [Route("DeleteLike/{LikeId}")]
+        public IActionResult DeleteLike(int likeId)
+        {
+
+            likeService.Delete(likeId);
+            return Ok();
+        }
+        [HttpGet]
+        [Route("GetLikes/{postId}")]
+        public IActionResult GetLikes(int postId)
+        {
+            return Ok(postService.CountLikes(postId));
+        }
     }
 }

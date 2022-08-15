@@ -22,9 +22,9 @@ namespace project.infra.Service
             return likeRepository.CountLikes();
         }
 
-        public Likes Create(Likes like)
+        public void Create(Likes like)
         {
-            return likeRepository.CRUDOP(like, "insert").ToList().SingleOrDefault();
+             likeRepository.CRUDOP(like, "insert").ToList().SingleOrDefault();
         }
 
         public void Delete(int likeId)
@@ -50,6 +50,11 @@ namespace project.infra.Service
         public List<PostLikeData> GetPostLikes(int postId)
         {
             return likeRepository.GetPostLikes(postId); 
+        }
+
+        public LikeId HitLike(HitLikeByUser likeByUser)
+        {
+            return likeRepository.HitLike(likeByUser);
         }
     }
 }

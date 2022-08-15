@@ -11,6 +11,7 @@ namespace project.core.Repository
         public List<Likes> CRUDOP(Likes like, string operation);
         public LikesCount CountLikes();
         public List<PostLikeData> GetPostLikes(int postId);
+        public LikeId HitLike(HitLikeByUser likeByUser);
 
     }
 }

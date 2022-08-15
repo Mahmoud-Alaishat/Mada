@@ -19,12 +19,12 @@ namespace project.infra.Repository
             this.context = context; 
         }
 
-        public CommentLikeCount CountLikesAndCommments(int id)
+        public LikeCount CountLikes(int id)
         {
             var parameter = new DynamicParameters();
             parameter.Add("idofpost", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
-            var result = context.dbConnection.Query<CommentLikeCount>("Post_package_api.CountLikesAndCommments", parameter, commandType: CommandType.StoredProcedure);
+            var result = context.dbConnection.Query<LikeCount>("Post_package_api.CountLikes", parameter, commandType: CommandType.StoredProcedure);
             return result.ToList().SingleOrDefault();
 
         }

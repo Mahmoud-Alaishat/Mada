@@ -47,12 +47,7 @@ namespace Project1.Controllers
             return postService.Create(pp).Id.ToString() + " Was Added";
         }
 
-        [HttpGet("CommentLikeCount/{id}")] // retrive data by id
-        public CommentLikeCount CommentLikeCount(int id)
-        {
-
-            return postService.CountLikesAndCommments(id);
-        }
+        
 
         [HttpGet("top2")]//retrevie all data 
         public List<Post> Top2SeenPost()

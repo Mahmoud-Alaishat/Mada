@@ -9,7 +9,7 @@ namespace project.core.Repository
     public interface IPostRepository
     {
         public List<Post> CRUDOP(Post post,string operation);
-        public CommentLikeCount CountLikesAndCommments(int id);
+        public LikeCount CountLikes(int id);
         public PostCount CountPosts();
         public List<Post> Top2SeenPost();
         public List<Post> Top10SeenPost();
