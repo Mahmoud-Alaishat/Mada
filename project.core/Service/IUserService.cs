@@ -23,6 +23,7 @@ namespace project.core.Service
         public void ConfirmEmail(ConfirmEmail confirmEmail);
         public CheckEmailReceiver CheckEmail(CheckEmailSender checkEmail);
         public CheckUserNameReceiver CheckUserName(CheckUserNameSender checkUserName);
+        public bool UpdateUserProfile(string userId, UserInfo user);
 
 
 

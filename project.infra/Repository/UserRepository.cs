@@ -109,5 +109,22 @@ namespace project.infra.Repository
             var result = context.dbConnection.Query<CheckUserNameReceiver>("User_package_api.CheckUserName", parameter, commandType: CommandType.StoredProcedure);
             return result.FirstOrDefault();
         }
+        public bool UpdateUserProfile(string userId, UserInfo user)
+        {
+
+            var parameter = new DynamicParameters();
+            List<UserInfo> re = new List<UserInfo>();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("userfname", user.FirstName, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("userlname", user.LastName, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("imageofuser", user.ProfilePath, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("usercove", user.CoverPath, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("useraddress", user.Address, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("userbio", user.Bio, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("userrelationship", user.Relationship, dbType: DbType.String, direction: ParameterDirection.Input);
+
+            context.dbConnection.ExecuteAsync("User_package_api.UpdateUserProfile", parameter, commandType: CommandType.StoredProcedure);
+            return true;
+        }
     }
 }

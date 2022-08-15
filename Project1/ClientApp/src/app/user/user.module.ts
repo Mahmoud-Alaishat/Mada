@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { FormsModule } from '@angular/forms';
 import { FeedComponent } from './feed/feed.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { TimelineComponent } from './timeline/timeline.component';
@@ -14,7 +17,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 @NgModule({
   declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, SubscriptionComponent],
   imports: [
-    CommonModule,
+    CommonModule, ReactiveFormsModule, FormsModule,
     RouterModule.forChild(
       [
         { path: "user/feed", component: FeedComponent, canActivate: [AuthGuard] },
