@@ -29,6 +29,6 @@ import { ChatComponent } from './chat/chat.component';
       ]
     )
   ],
-  exports: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent],
+  exports: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, ChatComponent],
 })
 export class UserModule { }

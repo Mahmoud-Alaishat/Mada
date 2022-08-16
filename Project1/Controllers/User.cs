@@ -135,7 +135,7 @@ namespace Project1.Controllers
             return Ok(friendService.GetLast6Friends(userId));
 
         }
-         [HttpPut]
+         [HttpPost, DisableRequestSizeLimit]
         [Route("UpdateUserProfile/{userId}")]
         public IActionResult UpdateUserProfile(string userId, [FromBody] UserInfo user)
         {

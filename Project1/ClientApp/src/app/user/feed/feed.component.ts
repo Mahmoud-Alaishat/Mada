@@ -10,12 +10,15 @@ import { AuthService } from '../../auth.service';
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-  userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
 
+  userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
+  friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' };
+  putLike: HitLike = { userId: '', postId: 0 }
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
-  public posts: FriendPost[];
-  putLike: HitLike = { userId: '', postId: 0 }
+  friendsCount: number = 0;
+  friendPosts: FriendPost[];
+  last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }
 
   constructor(private http: HttpClient,private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -30,43 +33,66 @@ export class FeedComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
+    this.http.get<UserCount>("https://localhost:44328/api/User/CountFriends/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: UserCount) => {
+        this.friendsCount = response.count;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+    this.http.get<MyFriends>("https://localhost:44328/api/User/MyFriends/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: MyFriends) => {
+        this.friends = response;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+    this.http.get<MyFriends>("https://localhost:44328/api/User/MyLast6Friends/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: MyFriends) => {
+        this.last6friends = response;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
 
     this.http.get<FriendPost[]>("https://localhost:44328/api/User/FriendPost/" + this.auth.Id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: (response: FriendPost[]) => {
-        this.posts = response;
-        for (let index = 0; index < this.posts.length; index++) {
-          this.http.get<Attachment[]>("https://localhost:44328/api/User/PostAttachment/" + this.posts[index].postId, {
+        this.friendPosts = response;
+        for (let index = 0; index < this.friendPosts.length; index++) {
+          this.http.get<Attachment[]>("https://localhost:44328/api/User/PostAttachment/" + this.friendPosts[index].postId, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
             next: (response: Attachment[]) => {
-              this.posts[index].attachment = response;
+              this.friendPosts[index].attachment = response;
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
 
-          this.http.get<Like[]>("https://localhost:44328/api/User/PostLike/" + this.posts[index].postId, {
+          this.http.get<Like[]>("https://localhost:44328/api/User/PostLike/" + this.friendPosts[index].postId, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
             next: (response: Like[]) => {
-              this.posts[index].like = response;
+              this.friendPosts[index].like = response;
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
 
-          this.http.get<Comment[]>("https://localhost:44328/api/User/PostComment/" + this.posts[index].postId, {
+          this.http.get<Comment[]>("https://localhost:44328/api/User/PostComment/" + this.friendPosts[index].postId, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
             next: (response: Comment[]) => {
-              this.posts[index].comment = response;
-              for (let indx = 0; indx < this.posts[index].comment.length; indx++) {
-                this.http.get<Reply[]>("https://localhost:44328/api/User/ReplyToComment/" + this.posts[index].comment[indx].id, {
+              this.friendPosts[index].comment = response;
+              for (let indx = 0; indx < this.friendPosts[index].comment.length; indx++) {
+                this.http.get<Reply[]>("https://localhost:44328/api/User/ReplyToComment/" + this.friendPosts[index].comment[indx].id, {
                   headers: new HttpHeaders({ "Content-Type": "application/json" })
                 }).subscribe({
                   next: (response: Reply[]) => {
-                    this.posts[index].comment[indx].reply = response;
-                    console.log(this.posts);
+                    this.friendPosts[index].comment[indx].reply = response;
                   },
                   error: (err: HttpErrorResponse) => console.log("no data")
                 })
@@ -137,7 +163,8 @@ export class FeedComponent implements OnInit {
     this.http.delete("https://localhost:44328/api/User/DeletePost/" + id)
       .subscribe({
         next: () => {
-
+          this.router.navigate(['user/feed'])
+          window.location.reload();
         },
         error: () => {
 
@@ -204,6 +231,10 @@ interface UserInfo {
   bio: string;
 }
 
+interface UserCount {
+  count: number;
+}
+
 interface FriendPost {
   userId: string;
   firstName: string;
@@ -216,6 +247,13 @@ interface FriendPost {
   comment: Comment[];
   like: Like[];
 
+}
+
+interface MyFriends {
+  friendId: string;
+  firstName: string;
+  lastName: string;
+  profilePath: string;
 }
 
 interface Attachment {

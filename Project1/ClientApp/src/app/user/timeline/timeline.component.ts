@@ -19,7 +19,7 @@ export class TimelineComponent implements OnInit {
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   friendsCount: number = 0;
-  public posts: MyPosts[];
+  posts: MyPosts[];
   last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }
   //numberOfLikes = new BehaviorSubject(0);
   private numberOfLikes = new BehaviorSubject<Like[]>(null);
@@ -167,7 +167,8 @@ export class TimelineComponent implements OnInit {
     this.http.delete("https://localhost:44328/api/User/DeletePost/" + id)
       .subscribe({
         next: () => {
-
+          this.router.navigate(['user/timeline'])
+          window.location.reload();
         },
         error: () => {
 
