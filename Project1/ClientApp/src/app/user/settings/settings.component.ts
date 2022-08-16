@@ -17,6 +17,7 @@ export class SettingsComponent implements OnInit {
   userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
+  displayImage: any;
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -48,25 +49,48 @@ export class SettingsComponent implements OnInit {
     })
 
   }
-  uploadeProfileImage(file:any) {
+  uploadeProfileImage(file: any) {
+    alert("Befro Yessssss");
+
     if (file.length === 0)
       return;
     let fileUploade = <File>file[0];
     const formData = new FormData();
+
     formData.append('file', fileUploade, fileUploade.name);
+    alert(fileUploade.name);
+    this.uploadAttachment(formData);
     
   }
+  uploadAttachment(file: FormData) {
+    alert("Befro Nooooooooooooo");
 
-  Update() {
+    this.http.post<prof>("https://localhost:44328/api/User/UploadImage/", file).subscribe({
+      next: (response: prof) => {
+        //this.UserForm.controls['ProfilePath'].setValue(response.profilePath);
+        this.displayImage = response.profilePath;
+        alert(this.displayImage+"No");
+
+      },
+      error: () => {
+        alert(this.displayImage + "Errrrrrrror");
+      }
+    })
+    this.UserForm.controls['ProfilePath'].setValue(this.displayImage);
+  }
+
+  Update(file: any) {
+    alert("Befro Upload");
+    this.uploadeProfileImage(file);
+    alert("After Upload");
+
+
 
     if (this.UserForm.controls['FirstName'].value == null) {
       this.UserForm.controls['FirstName'].setValue(this.userData.firstName);
     }
     if (this.UserForm.controls['LastName'].value == null) {
       this.UserForm.controls['LastName'].setValue(this.userData.lastName);
-    }
-    if (this.UserForm.controls['ProfilePath'].value == null) {
-      this.UserForm.controls['ProfilePath'].setValue(this.userData.profilePath);
     }
     if (this.UserForm.controls['Address'].value == null) {
       this.UserForm.controls['Address'].setValue(this.userData.address);
@@ -80,17 +104,22 @@ export class SettingsComponent implements OnInit {
     if (this.UserForm.controls['Relationship'].value == null) {
       this.UserForm.controls['Relationship'].setValue(this.userData.relationship);
     }
+    alert(this.displayImage+"Yes");
+    
 
     this.http.post("https://localhost:44328/api/User/UpdateUserProfile/" + this.auth.Id, this.UserForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
       next: () => {
-        window.location.reload();
+        alert(this.displayImage + "Yes");
 
       },
       error: () => {
       }
     })
 
+    
+
   }
+
 
 
 }
@@ -103,4 +132,8 @@ interface UserInfo {
   address: string;
   relationship: string;
   bio: string;
+}
+interface prof {
+  profilePath: string;
+
 }

@@ -23,7 +23,7 @@
           <p> Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit</p>
         </div>
         <div class="bg-white rounded-md lg:shadow-md shadow col-span-2 lg:mx-16">
-          <form [formGroup]="UserForm" (ngSubmit)="Update()"  enctype="multipart/form-data" method="post">
+          <form [formGroup]="UserForm" (ngSubmit)="Update(file.files)"  enctype="multipart/form-data"  >
             <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
               <div>
                 <label for=""> First name</label>
@@ -37,11 +37,11 @@
 
               <div class="uplode-div">
                 <label for="">Profile Image</label>
-                <input formControlName="ProfilePath" #file  style="padding-left: 0px;"  type="file" class="uploade" accept="image/*" (change)="uploadeProfileImage(file.files)" />
+                <input formControlName="ProfilePath" #file placeholder="{{userData.profilePath}}" style="padding-left: 0px;"  type="file" class="uploade" accept="image/*"  />
               </div>
               <div class="uplode-div">
                 <label for="">Cover Iamge</label>
-                <input formControlName="CoverPath" (change)="uploadeCoverImage(file.files)"  style="padding-left: 0px;"   type="file" class="uploade" accept="image/*" />
+                <input formControlName="CoverPath"   style="padding-left: 0px;"   type="file" class="uploade" accept="image/*" />
               </div>
   
               <div class="col-span-2">

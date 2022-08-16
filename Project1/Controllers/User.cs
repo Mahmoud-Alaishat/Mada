@@ -20,9 +20,9 @@ namespace Project1.Controllers
         private readonly IUserService userService;
         private readonly IFriendService friendService;
         private readonly IPostService postService;
-        private readonly IReplyService  replyService;
+        private readonly IReplyService replyService;
         private readonly ILikeService likeService;
-        
+
 
         private readonly IAttachmentService attachmentService;
         public User(ICommentService commentService, IContactUsService contactUsService,
@@ -34,9 +34,9 @@ namespace Project1.Controllers
             this.userService = userService;
             this.friendService = friendService;
             this.postService = postService;
-            this.replyService = replyService;   
+            this.replyService = replyService;
             this.attachmentService = attachmentService;
-            this.likeService = likeService; 
+            this.likeService = likeService;
         }
 
         [HttpPost]
@@ -96,7 +96,7 @@ namespace Project1.Controllers
         [Route("ReplyToComment/{commentId}")]
         public IActionResult ReplyToComment(int commentId)
         {
-            return Ok(replyService.GetReplayByCommentId(commentId));    
+            return Ok(replyService.GetReplayByCommentId(commentId));
         }
 
 
@@ -135,36 +135,12 @@ namespace Project1.Controllers
             return Ok(friendService.GetLast6Friends(userId));
 
         }
-         [HttpPost]
+        [HttpPost]
         [Route("UpdateUserProfile/{userId}")]
-        public async Task<IActionResult> UpdateUserProfile(string userId, [FromBody] UserInfo user)
+        public  IActionResult UpdateUserProfile(string userId, [FromBody] UserInfo user)
         {
-            try
-            {
-                var file = Request.Form.Files[0];
-                var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                var fullPath = Path.Combine("./ClientApp/src/assets/assets/Img/user/profile"+ fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                   await file.CopyToAsync(stream);
-
-                }
-                user.ProfilePath = fileName;
-
-                var file1 = Request.Form.Files[1];
-                var fileName1 = Guid.NewGuid().ToString() + "_" + file1.FileName;
-                var fullPath1 = Path.Combine("./ClientApp/src/assets/assets/Img/user/cover"+ fileName1);
-                using (var stream1 = new FileStream(fullPath1, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream1);
-                }
-                user.CoverPath = fileName1;
-            }
-            catch(Exception e)
-            {
-
-            }
-            userService.UpdateUserProfile(userId,user);
+           
+            userService.UpdateUserProfile(userId, user);
             return Ok();
         }
 
@@ -172,11 +148,11 @@ namespace Project1.Controllers
         [Route("HitLike")]
         public IActionResult HitLike(HitLikeByUser likeByUser)
         {
-            return Ok(likeService.HitLike(likeByUser)); 
+            return Ok(likeService.HitLike(likeByUser));
         }
         [HttpPost]
         [Route("InsertLike")]
-        public IActionResult InsertLike( Likes likes)
+        public IActionResult InsertLike(Likes likes)
         {
             likeService.Create(likes);
             return Ok();
@@ -194,6 +170,31 @@ namespace Project1.Controllers
         public IActionResult GetLikes(int postId)
         {
             return Ok(postService.CountLikes(postId));
+        }
+        [HttpPost]
+        [Route("UploadImage")]
+        public IActionResult UploadImage()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                var fullPath = Path.Combine("C:\\Users\\DELL\\source\\repos\\Mahmoud-Alaishat\\Social-Network-Website\\Project1\\ClientApp\\src\\assets\\assets\\Img\\user\\profile\\" + fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                     file.CopyTo(stream);
+
+                }
+                UserInfo userInfo = new UserInfo();
+                userInfo.ProfilePath = fileName;
+                return Ok(userInfo);    
+                
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);   
+            }
+
         }
     }
 }
