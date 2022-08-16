@@ -26,7 +26,7 @@
         </div>
 
         <div class="profile_info">
-          <div class="flex justify-content-center ">
+          <div class="flex justify-content-center capitalize">
             <h1 class="align-content-center"> {{userData.firstName}} {{userData.lastName}} </h1>
           </div>
           <div class="flex justify-content-center ">
@@ -124,7 +124,7 @@
           <div class="card lg:mx-0 p-4" uk-toggle="target: #create-post-modal">
             <div class="flex space-x-3">
               <img src="assets/assets/images/avatars/avatar-2.jpg" class="w-10 h-10 rounded-full">
-              <input placeholder="What's on your mind? {{userData.firstName}}!" class="bg-gray-100 hover:bg-gray-200 flex-1 h-10 px-6 rounded-full">
+              <input placeholder="What's on your mind? {{userData.firstName}}!" class="bg-gray-100 hover:bg-gray-200 flex-1 h-10 px-6 rounded-full capitalize">
             </div>
             <div class="grid grid-flow-col pt-3 -mx-1 -mb-1 font-semibold text-sm">
               <div class="hover:bg-gray-100 flex items-center p-1.5 rounded-md cursor-pointer">
@@ -304,7 +304,7 @@
                           <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
                         </div>
                           <div class="font-bold text-gray-700 py-2 px-1 rounded-md  relative ">
-                            <p class="leading-6">
+                            <p class="leading-6 capitalize">
                               {{lik.firstName}} {{lik.lastName}}
                             </p>
                             <!--<div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>-->
@@ -336,7 +336,7 @@
                           </div>
 
                           <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                            <div class="font-bold"> {{com.firstName}} {{com.lastName}} </div>
+                            <div class="font-bold capitalize"> {{com.firstName}} {{com.lastName}} </div>
                             <p style="word-break:break-word;" class="leading-6 mt-0.5">
                               {{com.content}}
                             </p>
@@ -363,7 +363,7 @@
                               </div>
 
                               <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                                <div class="font-bold"> {{re.firstName}} {{re.lastName}} </div>
+                                <div class="font-bold capitalize"> {{re.firstName}} {{re.lastName}} </div>
                                 <p style="word-break:break-word;" class="leading-6 mt-0.5">
                                   {{re.content}}
                                 </p>
@@ -557,7 +557,7 @@
               <img src="assets/assets/images/avatars/avatar-2.jpg" class="h-36 object-cover rounded-md shadow-sm w-full">
             </a>
             <div class="pt-3 px-1">
-              <div class="flex justify-content-center ">
+              <div class="flex justify-content-center capitalize">
                 <a href="timeline.html" class="text-base font-semibold mb-0.5">  {{friend.firstName}}  {{friend.lastName}}</a>
               </div>
               <!--<p class="font-medium text-sm">843K Following </p>

@@ -5,6 +5,7 @@ using project.core.DTO;
 using project.core.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -136,8 +137,32 @@ namespace Project1.Controllers
         }
          [HttpPut]
         [Route("UpdateUserProfile/{userId}")]
-        public IActionResult UpdateUserProfile(string userId,[FromBody]UserInfo user)
+        public IActionResult UpdateUserProfile(string userId, [FromBody] UserInfo user)
         {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                var fullPath = Path.Combine("C:\\Users\\ghost\\Source\\Repos\\Social-Network-Website\\Project1\\ClientApp\\src\\assets\\assets\\images",fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                user.ProfilePath = fileName;
+
+                var file1 = Request.Form.Files[1];
+                var fileName1 = Guid.NewGuid().ToString() + "_" + file1.FileName;
+                var fullPath1 = Path.Combine("C:\\Users\\ghost\\Source\\Repos\\Social-Network-Website\\Project1\\ClientApp\\src\\assets\\assets\\images", fileName1);
+                using (var stream1 = new FileStream(fullPath1, FileMode.Create))
+                {
+                    file.CopyTo(stream1);
+                }
+                user.CoverPath = fileName1;
+            }
+            catch(Exception e)
+            {
+
+            }
             userService.UpdateUserProfile(userId,user);
             return Ok();
         }
