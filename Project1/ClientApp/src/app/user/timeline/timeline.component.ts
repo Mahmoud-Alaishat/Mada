@@ -19,11 +19,7 @@ export class TimelineComponent implements OnInit {
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   friendsCount: number = 0;
-
-
   public posts: MyPosts[];
-  public Like: CountLikes[]
-  currentDate: any;
   last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }
   //numberOfLikes = new BehaviorSubject(0);
   private numberOfLikes = new BehaviorSubject<Like[]>(null);
@@ -58,7 +54,7 @@ export class TimelineComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-    this.http.get<MyFriends>("https://localhost:44328/api/User/MyFriends/" + this.auth.Id, {
+    this.http.get<MyFriends>("https://localhost:44328/api/User/MyLast6Friends/" + this.auth.Id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: (response: MyFriends) => {
@@ -66,7 +62,6 @@ export class TimelineComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-    this.currentDate = new Date().toLocaleString();
 
     this.http.get<MyPosts[]>("https://localhost:44328/api/User/MyPost/" + this.auth.Id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -91,15 +86,6 @@ export class TimelineComponent implements OnInit {
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
-
-          //this.http.get<CountLikes[]>("https://localhost:44328/api/User/GetLikes/" + this.posts[index].id, {
-          //  headers: new HttpHeaders({ "Content-Type": "application/json" })
-          //}).subscribe({
-          //  next: (response: CountLikes[]) => {
-
-          //  },
-          //  error: (err: HttpErrorResponse) => console.log("no data")
-          //})
 
           this.http.get<Comment[]>("https://localhost:44328/api/User/PostComment/" + this.posts[index].id, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -197,17 +183,13 @@ export class TimelineComponent implements OnInit {
     }).subscribe({
       next: (response: IdOfLike) => {
         if (response == null) {
-          console.log(response);
           this.http.post("https://localhost:44328/api/User/InsertLike", this.putLike, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
             next: () => {                                         
               var a = (document.getElementById("likes-" + this.putLike.postId).innerHTML);
-              console.log(a);
               a = a.split(" ",2)[0];
-              console.log(a);
               var likes = parseInt(a);
-              console.log(likes);
               document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes+1 ) +" Likes";
                                           
             },
@@ -221,11 +203,8 @@ export class TimelineComponent implements OnInit {
           }).subscribe({
             next: () => {
               var a = (document.getElementById("likes-" + this.putLike.postId).innerHTML);
-              console.log(a);
               a = a.split(" ",2)[0];
-              console.log(a);
               var likes = parseInt(a);
-              console.log(likes);
               document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes - 1) + " Likes";                                         
             },
             error: (err: HttpErrorResponse) => console.log("no data")
@@ -246,8 +225,6 @@ export class TimelineComponent implements OnInit {
   
 
 }
-
-
 
 
 interface UserInfo {
@@ -319,7 +296,5 @@ interface HitLike {
 interface IdOfLike {
   id: number;
 }
-interface CountLikes {
-  countOfLikes: number;
-}
+
 
