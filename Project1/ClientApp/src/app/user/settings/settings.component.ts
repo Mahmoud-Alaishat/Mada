@@ -39,10 +39,10 @@ export class SettingsComponent implements OnInit {
     }).subscribe({
       next: (response: UserInfo) => {
         this.userData = response;
-        this.UserForm.controls['ProfilePath'].setValue(response.profilePath);
-        this.UserForm.controls['CoverPath'].setValue(response.coverPath);
-        this.UserForm.controls['Relationship'].setValue(response.relationship);
-        this.UserForm.controls['Address'].setValue(response.address);
+        //this.UserForm.controls['ProfilePath'].setValue(response.profilePath);
+        //this.UserForm.controls['CoverPath'].setValue(response.coverPath);
+        //this.UserForm.controls['Relationship'].setValue(response.relationship);
+        //this.UserForm.controls['Address'].setValue(response.address);
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
@@ -52,35 +52,36 @@ export class SettingsComponent implements OnInit {
     if (file.length === 0)
       return;
     let fileUploade = <File>file[0];
-    this.UserForm.controls['ProfilePath'].setValue(fileUploade.name);
+    const formData = new FormData();
+    formData.append('file', fileUploade, fileUploade.name);
+    
   }
 
   Update() {
 
-    if (this.UserForm.controls['FirstName'].value == "") {
+    if (this.UserForm.controls['FirstName'].value == null) {
       this.UserForm.controls['FirstName'].setValue(this.userData.firstName);
-
     }
-    if (this.UserForm.controls['LastName'].value == "") {
+    if (this.UserForm.controls['LastName'].value == null) {
       this.UserForm.controls['LastName'].setValue(this.userData.lastName);
     }
-    if (this.UserForm.controls['ProfilePath'].value == "") {
+    if (this.UserForm.controls['ProfilePath'].value == null) {
       this.UserForm.controls['ProfilePath'].setValue(this.userData.profilePath);
     }
-    if (this.UserForm.controls['Address'].value == "") {
+    if (this.UserForm.controls['Address'].value == null) {
       this.UserForm.controls['Address'].setValue(this.userData.address);
     }
-    if (this.UserForm.controls['CoverPath'].value == "") {
+    if (this.UserForm.controls['CoverPath'].value == null) {
       this.UserForm.controls['CoverPath'].setValue(this.userData.coverPath);
     }
-    if (this.UserForm.controls['Bio'].value == "") {
+    if (this.UserForm.controls['Bio'].value == null) {
       this.UserForm.controls['Bio'].setValue(this.userData.bio);
     }
-    if (this.UserForm.controls['Relationship'].value == "") {
+    if (this.UserForm.controls['Relationship'].value == null) {
       this.UserForm.controls['Relationship'].setValue(this.userData.relationship);
     }
 
-    this.http.put("https://localhost:44328/api/User/UpdateUserProfile/" + this.auth.Id, this.UserForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
+    this.http.post("https://localhost:44328/api/User/UpdateUserProfile/" + this.auth.Id, this.UserForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
       next: () => {
         window.location.reload();
 

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace project.core.DTO
@@ -9,6 +11,8 @@ namespace project.core.DTO
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ProfilePath { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
         public string CoverPath { get; set; }
         public string Address { get; set; }
         public string Relationship { get; set; }

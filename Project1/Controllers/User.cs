@@ -135,27 +135,28 @@ namespace Project1.Controllers
             return Ok(friendService.GetLast6Friends(userId));
 
         }
-         [HttpPut]
+         [HttpPost]
         [Route("UpdateUserProfile/{userId}")]
-        public IActionResult UpdateUserProfile(string userId, [FromBody] UserInfo user)
+        public async Task<IActionResult> UpdateUserProfile(string userId, [FromBody] UserInfo user)
         {
             try
             {
                 var file = Request.Form.Files[0];
                 var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                var fullPath = Path.Combine("C:\\Users\\ghost\\Source\\Repos\\Social-Network-Website\\Project1\\ClientApp\\src\\assets\\assets\\images",fileName);
+                var fullPath = Path.Combine("./ClientApp/src/assets/assets/Img/user/profile"+ fileName);
                 using (var stream = new FileStream(fullPath, FileMode.Create))
                 {
-                    file.CopyTo(stream);
+                   await file.CopyToAsync(stream);
+
                 }
                 user.ProfilePath = fileName;
 
                 var file1 = Request.Form.Files[1];
                 var fileName1 = Guid.NewGuid().ToString() + "_" + file1.FileName;
-                var fullPath1 = Path.Combine("C:\\Users\\ghost\\Source\\Repos\\Social-Network-Website\\Project1\\ClientApp\\src\\assets\\assets\\images", fileName1);
+                var fullPath1 = Path.Combine("./ClientApp/src/assets/assets/Img/user/cover"+ fileName1);
                 using (var stream1 = new FileStream(fullPath1, FileMode.Create))
                 {
-                    file.CopyTo(stream1);
+                    await file.CopyToAsync(stream1);
                 }
                 user.CoverPath = fileName1;
             }
