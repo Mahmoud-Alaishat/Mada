@@ -41,7 +41,7 @@
               </div>
               <div class="uplode-div">
                 <label for="">Cover Iamge</label>
-                <input formControlName="CoverPath"  style="padding-left: 0px;"  value="{{userData.CoverPath}}" type="file" class="uploade" accept="image/*" />
+                <input formControlName="CoverPath"   style="padding-left: 0px;"  value="{{userData.CoverPath}}" type="file" class="uploade" accept="image/*" />
               </div>
   
               <div class="col-span-2">
@@ -51,29 +51,28 @@
 
               <div>
                 <label for=""> Location</label>
-                <select id="location" formControlName="Address" class="shadow-none selectpicker with-border ">
-                  <option value="0">Amman , Jordan</option>
-                  <option value="1">Irbd , Jordan</option>
-                  <option value="2">Zarqa , Jordan</option>
-                  <option value="3">Madaba , Jordan</option>
-                  <option value="4">Al-Mafraq , Jordan</option>
-                  <option value="5">Jerash , Jordan</option>
-                  <option value="6">Ma'an , Jordan</option>
-                  <option value="7">At-Tafila , Jordan</option>
-                  <option value="8">Al-Karak , Jordan</option>
-                  <option value="9">Aqaba , Jordan</option>
-                  <option value="10">As-Salt , Jordan</option>
-                  <option value="11">Ajloun , Jordan</option>
+                <select id="location" formControlName="Address"  class="shadow-none selectpicker with-border ">                 
+                  <option value="Amman , Jordan">Amman , Jordan</option>
+                  <option value="Irbd , Jordan">Irbd , Jordan</option>
+                  <option value="Irbd , Jordan">Zarqa , Jordan</option>
+                  <option value="Madaba , Jordan">Madaba , Jordan</option>
+                  <option value="Al-Mafraq , Jordan">Al-Mafraq , Jordan</option>
+                  <option value="Jerash , Jordan">Jerash , Jordan</option>
+                  <option value="Ma'an , Jorda">Ma'an , Jordan</option>
+                  <option value="At-Tafila , Jordan">At-Tafila , Jordan</option>
+                  <option value="Al-Karak , Jordan">Al-Karak , Jordan</option>
+                  <option value="Aqaba , Jordan">Aqaba , Jordan</option>
+                  <option value="As-Salt , Jordan">As-Salt , Jordan</option>
+                  <option value="Ajloun , Jordan">Ajloun , Jordan</option>
                 </select>
               </div>
               <div>
                 <label for=""> Relationship </label>
-                <select id="relationship" formControlName="Relationship" class="shadow-none selectpicker with-border ">
-                  <option value="0">None</option>
-                  <option value="1">Single</option>
-                  <option value="2">In a relationship</option>
-                  <option value="3">Married</option>
-                  <option value="4">Engaged</option>
+                <select id="relationship" formControlName="Relationship" value="{{userData.relationship}}" class="shadow-none selectpicker with-border ">
+                  <option value="Single">Single</option>
+                  <option value="In a relationship">In a relationship</option>
+                  <option value="Married">Married</option>
+                  <option value="Engaged">Engaged</option>
                 </select>
               </div>
             </div>

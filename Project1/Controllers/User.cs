@@ -134,9 +134,9 @@ namespace Project1.Controllers
             return Ok(friendService.GetLast6Friends(userId));
 
         }
-         [HttpPost]
-        [Route("UpdateUserProfile")]
-        public IActionResult UpdateUserProfile(string userId,UserInfo user)
+         [HttpPut]
+        [Route("UpdateUserProfile/{userId}")]
+        public IActionResult UpdateUserProfile(string userId,[FromBody]UserInfo user)
         {
             userService.UpdateUserProfile(userId,user);
             return Ok();

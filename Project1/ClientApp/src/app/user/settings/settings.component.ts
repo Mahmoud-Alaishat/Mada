@@ -43,22 +43,40 @@ export class SettingsComponent implements OnInit {
 
   }
 
-
   Update() {
 
-    if (this.UserForm.valid) {
-
-
-      console.log(this.UserForm.value);
-      this.http.post("https://localhost:44328/api/User/UpdateUserProfile", this.auth.Id + this.UserForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
-        next: () => {
-          this.UserForm.reset();
-
-        },
-        error: () => {
-        }
-      })
+    if (this.UserForm.controls['FirstName'].value == "") {
+      this.UserForm.controls['FirstName'].setValue(this.userData.firstName);
+      
     }
+    if (this.UserForm.controls['LastName'].value == "") {
+      this.UserForm.controls['LastName'].setValue(this.userData.lastName);
+    }
+    if (this.UserForm.controls['ProfilePath'].value == "") {
+      this.UserForm.controls['ProfilePath'].setValue(this.userData.profilePath);
+    }
+    if (this.UserForm.controls['Address'].value == "") {
+      this.UserForm.controls['Address'].setValue(this.userData.address);
+    }
+    if (this.UserForm.controls['CoverPath'].value == "") {
+      this.UserForm.controls['CoverPath'].setValue(this.userData.coverPath);
+    }
+    if (this.UserForm.controls['Bio'].value == "") {
+      this.UserForm.controls['Bio'].setValue(this.userData.bio);
+    }
+    if (this.UserForm.controls['Relationship'].value == "") {
+      this.UserForm.controls['Relationship'].setValue(this.userData.relationship);
+    }
+      
+    this.http.put("https://localhost:44328/api/User/UpdateUserProfile/" + this.auth.Id , this.UserForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
+      next: () => {
+        window.location.reload();
+
+      },
+      error: () => {
+      }
+    })
+
   }
 
 
