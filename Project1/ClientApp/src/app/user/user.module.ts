@@ -11,11 +11,12 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 
 @NgModule({
-  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, SubscriptionComponent],
+  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, SubscriptionComponent, ChatComponent],
   imports: [
     CommonModule, ReactiveFormsModule, FormsModule,
     RouterModule.forChild(
@@ -23,7 +24,8 @@ import { SubscriptionComponent } from './subscription/subscription.component';
         { path: "user/feed", component: FeedComponent, canActivate: [AuthGuard] },
         { path: "user/timeline", component: TimelineComponent, canActivate: [AuthGuard] },
         { path: "user/settings", component: SettingsComponent, canActivate: [AuthGuard] },
-        { path: "user/subscription", component: SubscriptionComponent, canActivate: [AuthGuard] }
+        { path: "user/subscription", component: SubscriptionComponent, canActivate: [AuthGuard] },
+        { path: "user/chat", component: ChatComponent, canActivate: [AuthGuard] },
       ]
     )
   ],
