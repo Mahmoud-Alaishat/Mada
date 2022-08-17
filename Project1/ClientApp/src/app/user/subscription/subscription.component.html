@@ -17,13 +17,13 @@
       <div class="grid md:grid-cols-3 gap-7 mt-12">
 
         <!-- Card 1 -->
-        <div class="bg-white border border-gray-100 hover:shadow-md p-6 rounded-xl">
+        <div *ngFor="let obj of this.subscription" class="bg-white border border-gray-100 hover:shadow-md p-6 rounded-xl">
 
-          <div class="font-bold mb-4 text-2xl "> Starter </div>
+          <div class="font-bold mb-4 text-2xl "> {{obj.name}} </div>
           <div class="font-medium mb-6 text-gray-400 text-base"> For a small company that wants to show what it's worth. </div>
 
           <div class="border-b-2 border-blue-50 flex items-baseline mb-10 pb-8 space-x-2">
-            <div class="font-semibold text-4xl">$19</div>
+            <div class="font-semibold text-4xl">$ {{obj.price}}</div>
             <div class="font-medium text-gray-400">/Year</div>
           </div>
 
@@ -52,7 +52,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="bg-white border border-gray-100 hover:shadow-md p-6 rounded-xl relative">
+        <!--<div class="bg-white border border-gray-100 hover:shadow-md p-6 rounded-xl relative">
 
           <span class="absolute bg-blue-100 font-semibold px-2.5 py-1 right-4 rounded-full text-blue-600 text-xs"> Popular </span>
 
@@ -89,10 +89,10 @@
           </div>
 
           <button class="mt-8 py-3 rounded-md bg-blue-500 text-white w-full font-semibold">Start 14 Days Free Trial</button>
-        </div>
+        </div>-->
 
         <!-- Card 4 -->
-        <div class="bg-white border border-gray-100 hover:shadow-md p-6 rounded-xl relative">
+        <!--<div class="bg-white border border-gray-100 hover:shadow-md p-6 rounded-xl relative">
 
           <div class="font-bold mb-4 text-2xl ">  Ultimate</div>
           <div class="font-medium mb-6 text-gray-400 text-base"> For a small company that wants to show what it's worth. </div>
@@ -127,7 +127,7 @@
           </div>
 
           <button class="bg-blue-50 mt-8 py-3 rounded-md text-blue-500 w-full font-semibold">Start 14 Days Free Trial</button>
-        </div>
+        </div>-->
 
       </div>
 

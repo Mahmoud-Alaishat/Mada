@@ -11,7 +11,7 @@ namespace project.core.Service
         public Subscription Update(Subscription subscription);
         public void Delete(int subscriptionId);
 
-        public List<Subscription> GetSubscriptions(int subscriptionId);
+        public List<Subscription> GetAllSubscriptions();
 
         public Subscription GetSubscriptionById(int subscriptionId);
         public Subscription Create(Subscription subscription);

@@ -44,10 +44,10 @@ namespace project.infra.Service
             return subscriptionRepository.CRUDOP(subscription, "readbyid").ToList().SingleOrDefault();
         }
 
-        public List<Subscription> GetSubscriptions(int subscriptionId)
+        public List<Subscription> GetAllSubscriptions()
         {
-            Subscription subscription = new Subscription();
-            return subscriptionRepository.CRUDOP(subscription, "read");
+
+            return subscriptionRepository.CRUDOP(new Subscription(), "read");
         }
 
         public Subscription Update(Subscription subscription)
