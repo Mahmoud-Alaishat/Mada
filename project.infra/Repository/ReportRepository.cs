@@ -24,8 +24,8 @@ namespace project.infra.Repository
             var parameter = new DynamicParameters();
             List<Reports> re = new List<Reports>();
             parameter.Add("idofRepoet", report.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            parameter.Add("idofPost", report, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            parameter.Add("idofStatus", report, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("idofPost", report.PostId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("idofStatus", report.StatusId, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
             if (operation == "read" )
