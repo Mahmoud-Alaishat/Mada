@@ -23,11 +23,13 @@ namespace Project1.Controllers
         private readonly IReplyService  replyService;
         private readonly ILikeService likeService; 
         private readonly ISubscriptionService subscriptionService;
+        private readonly IBankService bankService;
+
 
         private readonly IAttachmentService attachmentService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
-            IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService)
+            IAttachmentService attachmentService, ILikeService likeService)
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
@@ -36,6 +38,7 @@ namespace Project1.Controllers
             this.postService = postService;
             this.replyService = replyService;
             this.attachmentService = attachmentService;
+            this.likeService = likeService;
             this.likeService = likeService;
             this.subscriptionService = subscriptionService; 
         }
@@ -146,10 +149,9 @@ namespace Project1.Controllers
         }
         [HttpPost]
         [Route("UpdateUserProfile/{userId}")]
-        public  IActionResult UpdateUserProfile(string userId,  UserInfo user)
+        public  IActionResult UpdateUserProfile(string userId, [FromBody] UserInfo user)
         {
-          
-
+           
             userService.UpdateUserProfile(userId, user);
             return Ok();
         }
@@ -189,7 +191,7 @@ namespace Project1.Controllers
             {
                 var file = Request.Form.Files[0];
                 var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                var fullPath = Path.Combine("C:\\Users\\DELL\\source\\repos\\Mahmoud-Alaishat\\Social-Network-Website\\Project1\\ClientApp\\src\\assets\\assets\\Img\\user\\profile\\" + fileName);
+                var fullPath = Path.Combine("C:\\Users\\Lenovo\\source\\repos\\Mahmoud-Alaishat\\Social-Network-Website\\Project1\\ClientApp\\src\\assets\\assets\\Img\\user\\profile\\" + fileName);
                 using (var stream = new FileStream(fullPath, FileMode.Create))
                 {
                      file.CopyTo(stream);
@@ -205,12 +207,6 @@ namespace Project1.Controllers
                 return BadRequest(e.Message);   
             }
 
-        }
-        [HttpPost]
-        [Route("GetSubscriptionByUserId/{userId}")]
-        public IActionResult GetSubscriptionByUserId(string userId)
-        {
-            return Ok(userService.GetSubscriptionByUserId(userId));
         }
     }
 }

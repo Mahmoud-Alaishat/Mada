@@ -1,4 +1,44 @@
- <!-- Main Contents -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+<style>
+  .mask {
+    position: absolute;
+    background-size: cover;
+    background-position: center center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+  .shadow-xl {
+    box-shadow: 0 23px 45px -11px rgba(20, 20, 20, 0.25) !important;
+  }
+  .overflow-hidden {
+    overflow: hidden !important;
+  }
+  .position-relative {
+    position: relative !important;
+  }
+  .border-radius-xl {
+    border-radius: 1rem;
+  }
+  .bg-gradient-dark {
+    background-image: linear-gradient(310deg, #141727 0%, #3A416F 100%);
+  }
+  .card-body {
+    flex: 1 1 auto;
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    color: var(--bs-card-color);
+  }
+  .d-flex {
+    display: flex !important;
+  }
+  .me-4 {
+    margin-right: 1.5rem !important;
+  }
+</style>
+<!-- Main Contents -->
 <div class="main_content">
   <div class="mcontainer">
 
@@ -8,10 +48,8 @@
         <ul uk-switcher="connect: #form-type; animation: uk-animation-fade">
           <li><a href="#" class="lg:px-2"> Profile</a></li>
           <li><a href="#" class="lg:px-2"> Privacy</a></li>
-          <li><a href="#" class="lg:px-2"> Notification</a></li>
-          <li><a href="#" class="lg:px-2"> Social links </a></li>
           <li><a href="#" class="lg:px-2"> Billing </a></li>
-          <li><a href="#" class="lg:px-2"> Security </a></li>
+          <li><a href="#" class="lg:px-2"> Account </a></li>
         </ul>
       </nav>
     </div>
@@ -23,27 +61,27 @@
           <p> Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit</p>
         </div>
         <div class="bg-white rounded-md lg:shadow-md shadow col-span-2 lg:mx-16">
-          <form [formGroup]="UserForm" (ngSubmit)="Update(file.files)"  enctype="multipart/form-data"  >
+          <form [formGroup]="UserForm" (ngSubmit)="Update(file.files)" enctype="multipart/form-data">
             <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
               <div>
                 <label for=""> First name</label>
-                <input formControlName="FirstName" type="text" placeholder="{{userData.firstName}}" class="shadow-none with-border">
+                <input formControlName="FirstName" type="text" value="{{userData.firstName}}" class="shadow-none with-border">
               </div>
               <div>
                 <label for=""> Last name</label>
-                <input formControlName="LastName" type="text" placeholder="{{userData.lastName}}" class="shadow-none with-border">
+                <input formControlName="LastName" type="text" value="{{userData.lastName}}" class="shadow-none with-border">
               </div>
-    
+
 
               <div class="uplode-div">
                 <label for="">Profile Image</label>
-                <input formControlName="ProfilePath" #file placeholder="{{userData.profilePath}}" style="padding-left: 0px;"  type="file" class="uploade" accept="image/*"  />
+                <input formControlName="ProfilePath" #file value="{{userData.profilePath}}" style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
               </div>
               <div class="uplode-div">
                 <label for="">Cover Iamge</label>
-                <input formControlName="CoverPath"   style="padding-left: 0px;"   type="file" class="uploade" accept="image/*" />
+                <input formControlName="CoverPath" style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
               </div>
-  
+
               <div class="col-span-2">
                 <label for="">Bio</label>
                 <textarea formControlName="Bio" value="{{userData.bio}}" id="bio" rows="3" class="with-border"></textarea>
@@ -79,10 +117,10 @@
 
 
             <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
-                <!--<button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>-->
-                <button  type="submit" class="button bg-blue-700"> Change </button>
-          </div>
-  </form>
+              <!--<button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>-->
+              <button type="submit" class="button bg-blue-700"> Change </button>
+            </div>
+          </form>
         </div>
 
       </div>
@@ -147,6 +185,70 @@
         </div>
 
       </div>
+      <div class="grid lg:grid-cols-2 mt-12 gap-4">
+
+        <div>
+          <h3 class="text-xl mb-2 font-semibold"> Billing</h3>
+          <p> You can manage your cards here</p>
+        </div>
+        <div class="bg-white rounded-md lg:shadow-lg shadow col-span-2 lg:p-6 p-4 lg:mx-16">
+
+          <div class="space-y-3">
+            <div style="padding:0px" *ngFor="let v of visa" class="flex justify-between items-center lg:shadow-lg shadow col-span-2 lg:p-6 p-4 lg:mx-16">
+              <div class="col-span-2">
+                <div class="card bg-transparent shadow-xl col-span-2">
+                  <div class="col-span-2 overflow-hidden position-relative border-radius-xl" style="background-image: url('../../../assets/assets/Img/card/curved14.jpg');">
+                    <span style="position: absolute; background-size: cover; background-position: center center; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8; background-image: linear-gradient(310deg, #141727 0%, #3A416F 100%);"></span>
+                    <div style="padding:14px;" class="card-body position-relative z-index-1 p-3 col-span-2">
+                      <i class="icon-feather-wifi"></i>
+                      <h5 class="text-white mt-4 mb-5 pb-2">{{chunkString(v.cardNumber)}}</h5>
+                      <div class="d-flex">
+                        <div class="d-flex">
+                          <div class="me-4">
+                            <p class="text-white text-sm opacity-8 mb-0">Card Holder</p>
+                            <h6 class="text-white mb-0">{{v.holderName}}</h6>
+                          </div>
+                          <div>
+                            <p class="text-white text-sm opacity-8 mb-0">Expires</p>
+                            <h6 class="text-white mb-0">{{v.expiryMonth}}/{{v.expiryYear}}</h6>
+                          </div>
+                        </div>
+                        <div class="ms-auto w-20 d-flex align-items-end justify-content-end">
+                          <img style="width:60% !important" class="w-60 mt-2" src="../../../assets/assets/Img/card/mastercard.png" alt="logo">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-column">
+                <div class="font-bold" style="margin-bottom:20px">Balance : {{v.balance}}</div>
+                <div class="flex">
+                  <div class="switch-container">
+                    <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                  </div>
+                  <button uk-toggle="target: #modal-example" type="button" class="button bg-gradient-dark"> Delete </button>
+
+                </div>
+              </div>
+              <hr>
+              <div id="modal-example" uk-modal>
+                <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
+                  <h2 class="mb-2 uk-modal-title">Headline</h2>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  <div class="uk-modal-footer text-right mt-6 px-0 space-x-1">
+                    <button class="button gray uk-modal-close" type="button">Cancel</button>
+                    <button (click)="DeleteCard(v.id)" class="button" type="button">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-between items-center lg:shadow-lg shadow col-span-2 lg:p-6 p-4 lg:mx-16 font-bold justify-content-center">Total Balance : {{this.totalBalance}}</div>
+          </div>
+
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -185,7 +287,7 @@
         </a>
         <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700"
              uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small; offset:5">
-          <ul >
+          <ul>
             <li>
               <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                 <i class="icon-feather-check-circle  pr-2 text-xl"></i> Mark all as read
@@ -199,7 +301,7 @@
             <li>
               <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                 <i class="icon ion-md-notifications-off  pr-2 text-lg"></i>   Disable notifications
-                
+
               </a>
             </li>
             <li>

@@ -11,6 +11,6 @@ namespace project.core.Service
         public Bank Update(Bank bank);
         public void Delete(int id);
         public List<Bank> GetAllBank();
-        public Bank GetBankById(int id);
+        public List<Bank> GetUserVisa(string userId);
     }
 }
