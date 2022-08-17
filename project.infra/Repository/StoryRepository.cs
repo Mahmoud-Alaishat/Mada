@@ -24,7 +24,7 @@ namespace project.infra.Repository
             parameter.Add("idofStory", story.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("itemofStory", story.Item, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("idofUser", story.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
-            parameter.Add("dateofStory", story.StoryDate, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("dateofStory", story.StoryDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
        
             if (operation == "read" || operation == "readbyid")
             {
