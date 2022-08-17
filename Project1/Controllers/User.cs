@@ -23,8 +23,6 @@ namespace Project1.Controllers
         private readonly IReplyService  replyService;
         private readonly ILikeService likeService; 
         private readonly ISubscriptionService subscriptionService;
-        private readonly IReplyService replyService;
-        private readonly ILikeService likeService;
         private readonly IBankService bankService;
 
 
