@@ -20,6 +20,9 @@ namespace Project1.Controllers
         private readonly IUserService userService;
         private readonly IFriendService friendService;
         private readonly IPostService postService;
+        private readonly IReplyService  replyService;
+        private readonly ILikeService likeService; 
+        private readonly ISubscriptionService subscriptionService;
         private readonly IReplyService replyService;
         private readonly ILikeService likeService;
         private readonly IBankService bankService;
@@ -28,7 +31,7 @@ namespace Project1.Controllers
         private readonly IAttachmentService attachmentService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
-            IAttachmentService attachmentService, ILikeService likeService,IBankService bankService)
+            IAttachmentService attachmentService, ILikeService likeService)
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
@@ -38,7 +41,6 @@ namespace Project1.Controllers
             this.replyService = replyService;
             this.attachmentService = attachmentService;
             this.likeService = likeService;
-            this.bankService = bankService;
         }
 
         [HttpPost]
@@ -63,6 +65,14 @@ namespace Project1.Controllers
             userInfo.Relationship = user.Relationship;
             return Ok(userInfo);
         }
+
+        [HttpGet]
+        [Route("GetAllSubscriptions")]
+        public List<Subscription> GetAllSubscriptions()
+        {
+            return subscriptionService.GetAllSubscriptions();
+        }
+
         [HttpGet]
         [Route("CountFriends/{userId}")]
         public IActionResult CountFriends(string userId)
