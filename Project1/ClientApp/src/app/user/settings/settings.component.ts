@@ -14,11 +14,11 @@ export class SettingsComponent implements OnInit {
 
   imageSrc: string;
   UserForm: FormGroup;
-  userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
+  userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: ''  };
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   displayImage: any;
-
+  
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -30,6 +30,8 @@ export class SettingsComponent implements OnInit {
       CoverPath: new FormControl(),
       Bio: new FormControl(),
       Relationship: new FormControl()
+
+      
     })
 
 
@@ -49,8 +51,7 @@ export class SettingsComponent implements OnInit {
     })
 
   }
-  uploadeProfileImage(file: any) {
-    alert("Befro Yessssss");
+  uploadeProfileImage(file: any) {   
 
     if (file.length === 0)
       return;
@@ -58,32 +59,36 @@ export class SettingsComponent implements OnInit {
     const formData = new FormData();
 
     formData.append('file', fileUploade, fileUploade.name);
-    alert(fileUploade.name);
-    this.uploadAttachment(formData);
+    alert(fileUploade.name);    
     
   }
   uploadAttachment(file: FormData) {
-    alert("Befro Nooooooooooooo");
+    
 
     this.http.post<prof>("https://localhost:44328/api/User/UploadImage/", file).subscribe({
       next: (response: prof) => {
         //this.UserForm.controls['ProfilePath'].setValue(response.profilePath);
         this.displayImage = response.profilePath;
-        alert(this.displayImage+"No");
+        
 
       },
       error: () => {
-        alert(this.displayImage + "Errrrrrrror");
+        
       }
     })
     this.UserForm.controls['ProfilePath'].setValue(this.displayImage);
   }
 
   Update(file: any) {
-    alert("Befro Upload");
-    this.uploadeProfileImage(file);
-    alert("After Upload");
+    
+    if (file.length === 0)
+      return;
+    let fileUploade = <File>file[0];
+    const formData = new FormData();
 
+    formData.append('file', fileUploade, fileUploade.name);
+    
+    
 
 
     if (this.UserForm.controls['FirstName'].value == null) {
@@ -107,7 +112,7 @@ export class SettingsComponent implements OnInit {
     alert(this.displayImage+"Yes");
     
 
-    this.http.post("https://localhost:44328/api/User/UpdateUserProfile/" + this.auth.Id, this.UserForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
+    this.http.post("https://localhost:44328/api/User/UpdateUserProfile/" + this.auth.Id, this.UserForm.value,  { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
       next: () => {
         alert(this.displayImage + "Yes");
 
@@ -132,6 +137,7 @@ interface UserInfo {
   address: string;
   relationship: string;
   bio: string;
+  
 }
 interface prof {
   profilePath: string;

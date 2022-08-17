@@ -137,9 +137,10 @@ namespace Project1.Controllers
         }
         [HttpPost]
         [Route("UpdateUserProfile/{userId}")]
-        public  IActionResult UpdateUserProfile(string userId, [FromBody] UserInfo user)
+        public  IActionResult UpdateUserProfile(string userId,  UserInfo user)
         {
-           
+          
+
             userService.UpdateUserProfile(userId, user);
             return Ok();
         }
