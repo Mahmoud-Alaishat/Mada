@@ -33,11 +33,11 @@ namespace project.infra.Service
             return bankRepository.CRUDOP(b, "read");
         }
 
-        public Bank GetBankById(int id)
+        public List<Bank> GetUserVisa(string userId)
         {
             Bank b = new Bank(); 
-            b.Id=id;
-            return bankRepository.CRUDOP(b, "readbyid").ToList().FirstOrDefault();
+            b.HolderId=userId;
+            return bankRepository.CRUDOP(b, "readbyid");
         }
 
         public Bank Update(Bank bank)

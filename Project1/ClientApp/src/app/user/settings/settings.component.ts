@@ -18,7 +18,8 @@ export class SettingsComponent implements OnInit {
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   displayImage: any;
-
+  visa: Bank[];
+  totalBalance: number;
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -48,6 +49,37 @@ export class SettingsComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
 
+    this.http.get<Bank[]>("https://localhost:44328/api/User/GetUserVisa/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: Bank[]) => {
+        this.visa = response;
+        this.totalBalance = this.TotalBalance(response);
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
+  TotalBalance(arr: Bank[]):number {
+    var sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+      sum += arr[i].balance;
+    }
+    return sum;
+}
+  chunkString(str: string) {
+    return str.match(/.{1,4}/g).join('  -  ');
+  }
+  DeleteCard(id: number) {
+    this.http.delete("https://localhost:44328/api/User/DeleteVisa/" + id)
+      .subscribe({
+        next: () => {
+          this.router.navigate(['user/settings'])
+          window.location.reload();
+        },
+        error: () => {
+
+        }
+      })
   }
   uploadeProfileImage(file: any) {
     alert("Befro Yessssss");
@@ -136,4 +168,16 @@ interface UserInfo {
 interface prof {
   profilePath: string;
 
+}
+
+
+interface Bank {
+  id: number;
+  cardNumber: string;
+  cCV: number;
+  expiryMonth: number;
+  expiryYear: number;
+  holderId: string;
+  balance: number;
+  holderName: string;
 }
