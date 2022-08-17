@@ -126,5 +126,14 @@ namespace project.infra.Repository
             context.dbConnection.ExecuteAsync("User_package_api.UpdateUserProfile", parameter, commandType: CommandType.StoredProcedure);
             return true;
         }
+
+        public SubscriptionID GetSubscriptionByUserId(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<SubscriptionID>("User_package_api.GetSubscriptionByUserId", parameter, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+
+        }
     }
 }

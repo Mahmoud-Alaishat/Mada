@@ -13,6 +13,7 @@ import { AuthService } from '../../auth.service';
 })
 export class SubscriptionComponent implements OnInit {
   public subscription: Subscription[];
+  subscriptionid: Subscriptionid = { subscriptionId:0 };
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService, private router: Router) { }
@@ -25,10 +26,35 @@ export class SubscriptionComponent implements OnInit {
     }).subscribe({
       next: (response: Subscription[]) => {
         this.subscription = response;
+        this.http.post<Subscriptionid>("https://localhost:44328/api/User/GetSubscriptionByUserId/" + this.auth.Id, { headers: new HttpHeaders({ "Content-Type": "application/json" }) })
+      .subscribe({
+        next: (response: Subscriptionid) => {
+          console.log(response.subscriptionId)
+
+          for (let i = 0; i < 3; i++) {
+            if (this.subscription[i].id != response.subscriptionId)
+              document.getElementById("sub-" + this.subscription[i].id).setAttribute('disabled', 'true');
+            console.log(response.subscriptionId)
+            console.log(this.subscription[i].feature.split(','))
+            for (let j = 0; j < 4; j++) {
+              document.getElementById("fu-" + j).innerHTML = this.subscription[i].feature.split(',')[j]
+          }
+          }
+          
+          
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+
+    
+
+
   }
+
+
   }
 
 
@@ -40,4 +66,8 @@ interface Subscription {
   description: string;
   feature: string;
   limitPost: number;
+}
+
+interface Subscriptionid {
+  subscriptionId:number
 }

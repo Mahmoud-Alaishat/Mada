@@ -36,7 +36,8 @@ namespace Project1.Controllers
             this.postService = postService;
             this.replyService = replyService;
             this.attachmentService = attachmentService;
-            this.likeService = likeService; 
+            this.likeService = likeService;
+            this.subscriptionService = subscriptionService; 
         }
 
         [HttpPost]
@@ -204,6 +205,12 @@ namespace Project1.Controllers
                 return BadRequest(e.Message);   
             }
 
+        }
+        [HttpPost]
+        [Route("GetSubscriptionByUserId/{userId}")]
+        public IActionResult GetSubscriptionByUserId(string userId)
+        {
+            return Ok(userService.GetSubscriptionByUserId(userId));
         }
     }
 }

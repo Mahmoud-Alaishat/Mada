@@ -36,6 +36,7 @@ namespace project.infra.Repository
             parameter.Add("desSubscription", subscription.Description, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("fetSubscription", subscription.Feature, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("limitofpost", subscription.LimitPost, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("durationSubscription", subscription.Duration, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
             if (operation == "read" | operation == "readbyid")

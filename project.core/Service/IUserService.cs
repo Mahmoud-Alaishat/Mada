@@ -24,6 +24,8 @@ namespace project.core.Service
         public CheckEmailReceiver CheckEmail(CheckEmailSender checkEmail);
         public CheckUserNameReceiver CheckUserName(CheckUserNameSender checkUserName);
         public bool UpdateUserProfile(string userId, UserInfo user);
+        public SubscriptionID GetSubscriptionByUserId(string userId);
+
 
 
 

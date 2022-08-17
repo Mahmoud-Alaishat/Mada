@@ -65,6 +65,8 @@ namespace Project1
             services.AddScoped<IDesignRepository, DesignRepository>();
             services.AddScoped<IDesignService, DesignService>();
             services.AddScoped<IEmailService,EmailService>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
             services.AddControllersWithViews();
             services.AddCors(options =>
             {
