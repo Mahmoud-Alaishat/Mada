@@ -231,9 +231,10 @@ namespace Project1.Controllers
         }
         [HttpPost]
         [Route("AddCard")]
-        public IActionResult AddCard([FromBody] Bank bank)
+        public IActionResult AddCard(Bank bank)
         {
-            return Ok(bankService.Create(bank));
+            bankService.Create(bank);
+            return Ok();
         }
     }
 }
