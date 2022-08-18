@@ -30,6 +30,7 @@ namespace Project1.Controllers
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
             IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService)
+            IAttachmentService attachmentService, ILikeService likeService,IBankService bankService, ISubscriptionService subscriptionService)
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
@@ -39,6 +40,8 @@ namespace Project1.Controllers
             this.replyService = replyService;
             this.attachmentService = attachmentService;
             this.likeService = likeService;
+            this.bankService = bankService;
+            this.subscriptionService = subscriptionService;
             this.bankService = bankService; 
             this.subscriptionService = subscriptionService; 
         }
@@ -225,6 +228,13 @@ namespace Project1.Controllers
         public IActionResult DeleteVisa(int visaId)
         {
             bankService.Delete(visaId);
+            return Ok();
+        }
+        [HttpPost]
+        [Route("AddCard")]
+        public IActionResult AddCard(Bank bank)
+        {
+            bankService.Create(bank);
             return Ok();
         }
     }

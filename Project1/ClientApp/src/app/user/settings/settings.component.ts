@@ -20,6 +20,17 @@ export class SettingsComponent implements OnInit {
   displayImage: any;
   visa: Bank[];
   totalBalance: number;
+  CardForm: FormGroup;
+  card: Bank = { cardNumber: '', holderName: '', balance: 0, cCV: '', expiryMonth: '', expiryYear: '', holderId: '', id: 0 };
+  userId: string = this.auth.Id;
+  balance: number = Math.floor(Math.random() * (1000 - 400 + 1)) + 400;
+
+  CardNumber: string = '';
+  FullName: string = '';
+  CCV: number = 0;
+  ExpiryMonth: number = 1;
+  ExpiryYear: number = 1;
+
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -35,6 +46,15 @@ export class SettingsComponent implements OnInit {
       
     })
 
+    this.CardForm = new FormGroup({
+      CardNumber: new FormControl('', [Validators.required]),
+      FullName: new FormControl('', [Validators.required]),
+      CCV: new FormControl('', [Validators.required]),
+      ExpiryMonth: new FormControl('', [Validators.required]),
+      ExpiryYear: new FormControl('', [Validators.required]),
+    }
+    )
+ 
 
     this.isAuthenticate = this.auth.isUserAuthenticated();
     this.isAdmin = this.auth.isAdmin();
@@ -84,6 +104,43 @@ export class SettingsComponent implements OnInit {
       })
   }
   uploadeProfileImage(file: any) {   
+
+  setUkToggleDelete(id: string): void {
+    document.getElementById("delete-btn-" + id).setAttribute('uk-toggle', 'target: #delete-' + id);
+  }
+
+  Validator(): boolean {
+    return this.CardForm.valid;
+  }
+
+  AddCard() {
+    if (this.Validator) {
+      this.card.cardNumber = this.CardForm.controls['CardNumber'].value;
+      this.card.holderName = this.CardForm.controls['FullName'].value;
+      this.card.cCV = this.CardForm.controls['CCV'].value;
+      this.card.expiryMonth = this.CardForm.controls['ExpiryMonth'].value;
+      this.card.expiryYear = this.CardForm.controls['ExpiryYear'].value;
+      this.card.holderId = this.auth.Id;
+      this.card.balance = Math.floor(Math.random() * (1000 - 400 + 1)) + 400;
+      console.log(this.card);
+      this.http.post<Bank>("https://localhost:44328/api/User/AddCard/", this.card,
+        { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
+        next: (response: Bank) => {
+          this.CardForm.reset();
+            this.router.navigate(["user/settings"]);
+            window.location.reload();
+        },
+        error: () => {
+          console.log("HHHHIIII");
+        }
+      })
+    }
+
+    
+  }
+
+  uploadeProfileImage(file: any) {
+    alert("Befro Yessssss");
 
     if (file.length === 0)
       return;
@@ -180,9 +237,9 @@ interface prof {
 interface Bank {
   id: number;
   cardNumber: string;
-  cCV: number;
-  expiryMonth: number;
-  expiryYear: number;
+  cCV: string;
+  expiryMonth: string;
+  expiryYear: string;
   holderId: string;
   balance: number;
   holderName: string;

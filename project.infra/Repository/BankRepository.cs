@@ -23,9 +23,9 @@ namespace project.infra.Repository
             List<Bank> re = new List<Bank>();
             parameter.Add("idofbank", bank.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("cardnumberr", bank.CardNumber, dbType: DbType.String, direction: ParameterDirection.Input);
-            parameter.Add("ccvnumber", bank.CCV, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            parameter.Add("expirymonthh", bank.ExpiryMonth, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            parameter.Add("expiryyearr", bank.ExpiryYear, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("ccvnumber", bank.CCV, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("expirymonthh", bank.ExpiryMonth, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("expiryyearr", bank.ExpiryYear, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("holderidd", bank.HolderId, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("Balancee", bank.Balance, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("holdername", bank.HolderName, dbType: DbType.String, direction: ParameterDirection.Input);
