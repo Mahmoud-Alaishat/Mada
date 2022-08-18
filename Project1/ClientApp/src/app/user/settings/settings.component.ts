@@ -31,6 +31,7 @@ export class SettingsComponent implements OnInit {
   ExpiryMonth: number = 1;
   ExpiryYear: number = 1;
 
+
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -109,7 +110,19 @@ export class SettingsComponent implements OnInit {
   Validator(): boolean {
     return this.CardForm.valid;
   }
+  DeleteAccount() {
+    this.http.delete("https://localhost:44328/api/User/DeleteAccount/" + this.auth.Id)
+      .subscribe({
+        next: () => {
+          localStorage.removeItem("token");
+          this.router.navigate(["/"]);
+          window.location.reload();
+        },
+        error: () => {
 
+        }
+      })
+  }
   AddCard() {
     if (this.Validator) {
       this.card.cardNumber = this.CardForm.controls['CardNumber'].value;
@@ -132,6 +145,9 @@ export class SettingsComponent implements OnInit {
         }
       })
     }
+
+
+
 
     
   }

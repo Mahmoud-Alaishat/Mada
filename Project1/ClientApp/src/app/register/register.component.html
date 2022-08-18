@@ -65,10 +65,15 @@
           <div class="checkbox">
             <input type="checkbox" id="chekcbox1" checked="">
             <label for="chekcbox1">
+             
               <span class="checkbox-icon"></span> I agree to the <a href="pages-terms.html" target="_blank" class="uk-text-bold uk-text-small uk-link-reset"> Terms and Conditions </a>
             </label>
           </div>
-
+          <div>
+            <p style="font-size:small">
+              By clicking on "Get Started", you agree to the Terms ,<a style="color:blue;" [routerLink]="['/privacy']" uk-scroll> Privacy Policy</a>.
+            </p>
+          </div>
           <div>
             <button type="submit" [disabled]="!Validator()" class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full">
               Get Started

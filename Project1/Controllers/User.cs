@@ -236,5 +236,12 @@ namespace Project1.Controllers
             bankService.Create(bank);
             return Ok();
         }
+        [HttpDelete]
+        [Route("DeleteAccount/{userId}")]
+        public IActionResult DeleteAccount(string userId)
+        {
+            userService.Delete(userId);
+            return Ok();
+        }
     }
 }
