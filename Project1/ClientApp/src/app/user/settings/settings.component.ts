@@ -83,9 +83,6 @@ export class SettingsComponent implements OnInit {
         }
       })
   }
-  uploadeProfileImage(file: any) {
-    alert("Befro Yessssss");
-  }
   uploadeProfileImage(file: any) {   
 
     if (file.length === 0)

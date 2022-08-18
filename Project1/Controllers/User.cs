@@ -29,7 +29,7 @@ namespace Project1.Controllers
         private readonly IAttachmentService attachmentService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
-            IAttachmentService attachmentService, ILikeService likeService)
+            IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService)
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
@@ -39,7 +39,7 @@ namespace Project1.Controllers
             this.replyService = replyService;
             this.attachmentService = attachmentService;
             this.likeService = likeService;
-            this.likeService = likeService;
+            this.bankService = bankService; 
             this.subscriptionService = subscriptionService; 
         }
 
@@ -207,6 +207,25 @@ namespace Project1.Controllers
                 return BadRequest(e.Message);   
             }
 
+        }
+        [HttpPost]
+        [Route("GetSubPostNumByUserId/{userId}")]
+        public IActionResult GetSubPostNumByUserId(string userId)
+        {
+            return Ok(userService.GetSubPostNumByUserId(userId));
+        }
+        [HttpGet]
+        [Route("GetUserVisa/{userId}")]
+        public IActionResult GetUserVisa(string userId)
+        {
+            return Ok(bankService.GetUserVisa(userId));
+        }
+        [HttpDelete]
+        [Route("DeleteVisa/{visaId}")]
+        public IActionResult DeleteVisa(int visaId)
+        {
+            bankService.Delete(visaId);
+            return Ok();
         }
     }
 }

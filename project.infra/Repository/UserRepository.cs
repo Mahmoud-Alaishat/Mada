@@ -127,13 +127,14 @@ namespace project.infra.Repository
             return true;
         }
 
-        public SubscriptionID GetSubscriptionByUserId(string userId)
+        public SubscriptionIDPostNum GetSubPostNumByUserId(string userId)
         {
             var parameter = new DynamicParameters();
             parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
-            var result = context.dbConnection.Query<SubscriptionID>("User_package_api.GetSubscriptionByUserId", parameter, commandType: CommandType.StoredProcedure);
+            var result = context.dbConnection.Query<SubscriptionIDPostNum>("User_package_api.GetSubPostNumByUserId", parameter, commandType: CommandType.StoredProcedure);
             return result.FirstOrDefault();
 
         }
+
     }
 }

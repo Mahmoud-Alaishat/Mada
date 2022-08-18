@@ -109,9 +109,10 @@ namespace project.infra.Service
             return userRepository.UpdateUserProfile(userId, user);
         }
 
-        public SubscriptionID GetSubscriptionByUserId(string userId)
+        public SubscriptionIDPostNum GetSubPostNumByUserId(string userId)
         {
-            return userRepository.GetSubscriptionByUserId(userId);  
+            return userRepository.GetSubPostNumByUserId(userId);  
         }
+
     }
 }
