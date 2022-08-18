@@ -46,6 +46,8 @@
 
   }
 
-
-
-
+button:disabled,
+button[disabled] {
+  cursor: default;
+  background-color: darkgrey
+}

@@ -227,23 +227,67 @@
                   <div class="switch-container">
                     <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
                   </div>
-                  <button uk-toggle="target: #modal-example" type="button" class="button bg-gradient-dark"> Delete </button>
-
+                  <button id="delete-btn-{{v.id}}" uk-toggle="" type="button" class="button bg-gradient-dark"> Delete </button>
                 </div>
+                {{setUkToggleDelete((v.id))}}
               </div>
               <hr>
-              <div id="modal-example" uk-modal>
+              <div id="delete-{{v.id}}" uk-modal>
                 <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
-                  <h2 class="mb-2 uk-modal-title">Headline</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                  <div class="uk-modal-footer text-right mt-6 px-0 space-x-1">
+                  <h2 class="mb-2 uk-modal-title">Alert</h2>
+                  <p>Are you sure you want to delete this card <span class="font-bold font-semibold">{{chunkString(v.cardNumber)}}</span> ?</p>
+                  <div class="uk-modal-footer text-right bg-gray-200 dark:bg-gray-900 mt-6 px-0 space-x-1">
                     <button class="button gray uk-modal-close" type="button">Cancel</button>
-                    <button (click)="DeleteCard(v.id)" class="button" type="button">Delete</button>
+                    <button style="background-color: #e82a35" (click)="DeleteCard(v.id)" class="button" type="button">Delete</button>
                   </div>
                 </div>
               </div>
             </div>
             <div class="flex justify-between items-center lg:shadow-lg shadow col-span-2 lg:p-6 p-4 lg:mx-16 font-bold justify-content-center">Total Balance : {{this.totalBalance}}</div>
+            <div  class="flex justify-between items-center lg:shadow-lg shadow col-span-2 lg:p-6 p-4 lg:mx-16 font-bold justify-content-center">
+              <ul uk-accordion>
+                  <li>
+                    <a class="uk-accordion-title" href="#"><i class="icon-feather-plus-square mr-2"></i>Add card   </a>
+                    <div class="uk-accordion-content">
+                      <div style="padding:0px">
+                        <div style="padding:0px" class="lg:p-12 max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+                          <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" [formGroup]="CardForm" (ngSubmit)="AddCard()">
+                            <div>
+                              <label class="mb-0"> Card Number </label>
+                              <input formControlName="CardNumber" type="text" maxlength="16" placeholder="Card Number" class="bg-gray-100 dark:bg-gray-700 h-12 mt-2 px-3 rounded-md w-full">
+                            </div>
+                            <div class="grid lg:grid-cols-2 gap-3">
+                              <div>
+                                <label class="mb-0"> Full Name </label>
+                                <input formControlName="FullName" type="text" placeholder="Full Name" class="bg-gray-100 dark:bg-gray-700 h-12 mt-2 px-3 rounded-md w-full">
+                              </div>
+                              <div>
+                                <label class="mb-0"> CCV  </label>
+                                <input formControlName="CCV" type="text" maxlength="4" placeholder="CCV" class="bg-gray-100 dark:bg-gray-700 h-12 mt-2 px-3 rounded-md w-full">
+                              </div>
+                            </div>
+                            <div class="grid lg:grid-cols-2 gap-3">
+                              <div>
+                                <label class="mb-0"> Expiry Month </label>
+                                <input formControlName="ExpiryMonth" type="text" maxlength="2" placeholder="Expiry Month" class="bg-gray-100 dark:bg-gray-700 h-12 mt-2 px-3 rounded-md w-full">
+                              </div>
+                              <div>
+                                <label class="mb-0"> Expiry Year  </label>
+                                <input formControlName="ExpiryYear" type="text" maxlength="2" placeholder="Expiry Year" class="bg-gray-100 dark:bg-gray-700 h-12 mt-2 px-3 rounded-md w-full">
+                              </div>
+                            </div>
+                            <div>
+                              <button [disabled]="!Validator()" type="submit" class="bg-gradient-dark font-semibold p-2 mt-5 rounded-md text-center text-white w-full">
+                                Add
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+              </ul>
+            </div>
           </div>
 
         </div>

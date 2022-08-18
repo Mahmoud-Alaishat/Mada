@@ -20,6 +20,8 @@ export class SettingsComponent implements OnInit {
   displayImage: any;
   visa: Bank[];
   totalBalance: number;
+  CardForm: FormGroup;
+  card: Bank;
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -33,6 +35,14 @@ export class SettingsComponent implements OnInit {
       Relationship: new FormControl()
     })
 
+    this.CardForm = new FormGroup({
+      CardNumber: new FormControl('', [Validators.required]),
+      FullName: new FormControl('', [Validators.required]),
+      CCV: new FormControl('', [Validators.required]),
+      ExpiryMonth: new FormControl('', [Validators.required]),
+      ExpiryYear: new FormControl('', [Validators.required]), 
+    }
+    )
 
     this.isAuthenticate = this.auth.isUserAuthenticated();
     this.isAdmin = this.auth.isAdmin();
@@ -81,6 +91,40 @@ export class SettingsComponent implements OnInit {
         }
       })
   }
+
+  setUkToggleDelete(id: string): void {
+    document.getElementById("delete-btn-" + id).setAttribute('uk-toggle', 'target: #delete-' + id);
+  }
+
+  Validator(): boolean {
+    return this.CardForm.valid;
+  }
+
+  AddCard() {
+
+    if (this.Validator()) {
+      this.card.cardNumber = this.CardForm.controls['CardNumber'].value;
+      this.card.holderName = this.CardForm.controls['FullName'].value;
+      this.card.cCV = this.CardForm.controls['CCV'].value;
+      this.card.expiryMonth = this.CardForm.controls['ExpiryMonth'].value;
+      this.card.expiryYear = this.CardForm.controls['ExpiryYear'].value;
+      this.card.holderId = this.auth.Id;
+      this.card.balance = Math.floor(Math.random() * (1000 - 400 + 1)) + 400;
+
+      this.http.post<Bank>("https://localhost:44328/api/User/AddCard", this.card, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
+        next: (response: Bank) => {
+          this.CardForm.reset();
+          this.router.navigate(["user/settings"]);
+
+        },
+        error: () => {
+          console.log("HHHHIIII");
+        }
+      })
+
+    }
+  }
+
   uploadeProfileImage(file: any) {
     alert("Befro Yessssss");
 

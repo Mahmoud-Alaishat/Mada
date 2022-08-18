@@ -71,6 +71,8 @@ namespace Project1
             services.AddScoped<IStoryService, StoryService>();
             services.AddScoped<IRevenueRepository, RevenueRepository>();
             services.AddScoped<IRevenueService, RevenueService>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
             services.AddControllersWithViews();
             services.AddCors(options =>
             {
