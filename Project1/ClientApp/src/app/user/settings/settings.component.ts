@@ -1,5 +1,5 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../../auth.service';
@@ -22,14 +22,13 @@ export class SettingsComponent implements OnInit {
   totalBalance: number;
   CardForm: FormGroup;
   card: Bank = { cardNumber: '', holderName: '', balance: 0, cCV: '', expiryMonth: '', expiryYear: '', holderId: '', id: 0 };
-  userId: string = this.auth.Id;
-  balance: number = Math.floor(Math.random() * (1000 - 400 + 1)) + 400;
+  progress: number;
+  message: string;
+  @Output() public onUploadFinished = new EventEmitter();
+  @Output() public onUploadFinished1 = new EventEmitter();
 
-  CardNumber: string = '';
-  FullName: string = '';
-  CCV: number = 0;
-  ExpiryMonth: number = 1;
-  ExpiryYear: number = 1;
+  profileImage: any;
+  coverImage: any;
 
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
@@ -53,7 +52,7 @@ export class SettingsComponent implements OnInit {
       ExpiryYear: new FormControl('', [Validators.required]),
     }
     )
- 
+
 
     this.isAuthenticate = this.auth.isUserAuthenticated();
     this.isAdmin = this.auth.isAdmin();
@@ -62,10 +61,7 @@ export class SettingsComponent implements OnInit {
     }).subscribe({
       next: (response: UserInfo) => {
         this.userData = response;
-        //this.UserForm.controls['ProfilePath'].setValue(response.profilePath);
-        //this.UserForm.controls['CoverPath'].setValue(response.coverPath);
-        //this.UserForm.controls['Relationship'].setValue(response.relationship);
-        //this.UserForm.controls['Address'].setValue(response.address);
+
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
@@ -80,13 +76,58 @@ export class SettingsComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
   }
-  TotalBalance(arr: Bank[]):number {
+
+ 
+
+  onCreate() {
+
+    if (this.UserForm.controls['FirstName'].value == null) {
+      this.UserForm.controls['FirstName'].setValue(this.userData.firstName);
+    }
+    if (this.UserForm.controls['LastName'].value == null) {
+      this.UserForm.controls['LastName'].setValue(this.userData.lastName);
+    }
+    if (this.UserForm.controls['Address'].value == null) {
+      this.UserForm.controls['Address'].setValue(this.userData.address);
+    }
+    if (this.profileImage != '' && this.profileImage != undefined) {
+      this.userData.profilePath = this.profileImage;
+    }
+    if (this.coverImage != '' && this.coverImage != undefined) {
+      this.userData.coverPath = this.coverImage;
+    }
+    if (this.UserForm.controls['Bio'].value == null) {
+      this.UserForm.controls['Bio'].setValue(this.userData.bio);
+    }
+    if (this.UserForm.controls['Relationship'].value == null) {
+      this.UserForm.controls['Relationship'].setValue(this.userData.relationship);
+    }
+
+    this.userData = {
+      firstName: this.UserForm.controls['FirstName'].value,
+      lastName: this.UserForm.controls['LastName'].value,
+      address: this.UserForm.controls['Address'].value,
+      bio: this.UserForm.controls['Bio'].value,
+      relationship: this.UserForm.controls['Relationship'].value,
+      profilePath: this.userData.profilePath,
+      coverPath: this.userData.coverPath
+    }
+    console.log(this.userData);
+    this.http.post("https://localhost:44328/api/User/UpdateUserProfile/" + this.auth.Id, this.userData, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
+      next: () => {
+      },
+      error: () => {
+      }
+    })
+  }
+
+  TotalBalance(arr: Bank[]): number {
     var sum = 0;
     for (let i = 0; i < arr.length; i++) {
       sum += arr[i].balance;
     }
     return sum;
-}
+  }
   chunkString(str: string) {
     return str.match(/.{1,4}/g).join('  -  ');
   }
@@ -135,98 +176,66 @@ export class SettingsComponent implements OnInit {
       console.log(this.card);
       this.http.post<Bank>("https://localhost:44328/api/User/AddCard/", this.card,
         { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
-        next: (response: Bank) => {
-          this.CardForm.reset();
+          next: (response: Bank) => {
+            this.CardForm.reset();
             this.router.navigate(["user/settings"]);
             window.location.reload();
-        },
-        error: () => {
-          console.log("HHHHIIII");
-        }
-      })
+          },
+          error: () => {
+            console.log("someting went wrong");
+          }
+        })
     }
-
-
-
-
-    
   }
 
-  uploadeProfileImage(file: any) {
-    alert("Befro Yessssss");
-
-    if (file.length === 0)
+  uploadProfileImg = (files) => {
+    if (files.length === 0) {
       return;
-    let fileUploade = <File>file[0];
+    }
+    let fileToUpload = <File>files[0];
     const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
 
-    formData.append('file', fileUploade, fileUploade.name);
-    alert(fileUploade.name);
-    this.uploadAttachment(formData);
-    
-  }
-  uploadAttachment(file: FormData) {
-    alert("Befro Nooooooooooooo");
-
-    this.http.post<prof>("https://localhost:44328/api/User/UploadImage/", file).subscribe({
-      next: (response: prof) => {
-        //this.UserForm.controls['ProfilePath'].setValue(response.profilePath);
-        this.displayImage = response.profilePath;
-        alert(this.displayImage+"No");
-
-      },
-      error: () => {
-        alert(this.displayImage + "Errrrrrrror");
-      }
-    })
-    this.UserForm.controls['ProfilePath'].setValue(this.displayImage);
-  }
-
-  Update(file: any) {
-    alert("Befro Upload");
-    this.uploadeProfileImage(file);
-    alert("After Upload");
-
-
-
-    if (this.UserForm.controls['FirstName'].value == null) {
-      this.UserForm.controls['FirstName'].setValue(this.userData.firstName);
-    }
-    if (this.UserForm.controls['LastName'].value == null) {
-      this.UserForm.controls['LastName'].setValue(this.userData.lastName);
-    }
-    if (this.UserForm.controls['Address'].value == null) {
-      this.UserForm.controls['Address'].setValue(this.userData.address);
-    }
-    if (this.UserForm.controls['CoverPath'].value == null) {
-      this.UserForm.controls['CoverPath'].setValue(this.userData.coverPath);
-    }
-    if (this.UserForm.controls['Bio'].value == null) {
-      this.UserForm.controls['Bio'].setValue(this.userData.bio);
-    }
-    if (this.UserForm.controls['Relationship'].value == null) {
-      this.UserForm.controls['Relationship'].setValue(this.userData.relationship);
-    }
-    alert(this.displayImage+"Yes");
-    
-
-    this.http.post("https://localhost:44328/api/User/UpdateUserProfile/" + this.auth.Id, this.UserForm.value, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
-      next: () => {
-        alert(this.displayImage + "Yes");
-
-      },
-      error: () => {
-      }
-    })
-
-    
+    this.http.post('https://localhost:44328/api/User/UploadProfileImg', formData, { reportProgress: true, observe: 'events' })
+      .subscribe({
+        next: (event) => {
+          if (event.type === HttpEventType.UploadProgress)
+            this.progress = Math.round(100 * event.loaded / event.total);
+          else if (event.type === HttpEventType.Response) {
+            this.message = 'Upload success.';
+            this.onUploadFinished.emit(event.body);
+            this.profileImage = event.body['profilePath'];
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log(err)
+      });
 
   }
 
+  uploadCoverImg = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file1', fileToUpload, fileToUpload.name);
 
+    this.http.post('https://localhost:44328/api/User/UploadCoverImg', formData, { reportProgress: true, observe: 'events' })
+      .subscribe({
+        next: (event) => {
+
+           if (event.type === HttpEventType.Response) {
+            this.message = 'Upload success.';
+            this.onUploadFinished1.emit(event.body);
+             this.coverImage = event.body['coverPath'];
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log(err)
+      });
+
+  }
 
 }
-
 interface UserInfo {
   firstName: string;
   lastName: string;

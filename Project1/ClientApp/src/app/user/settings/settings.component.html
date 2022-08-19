@@ -43,7 +43,7 @@
   <div class="mcontainer">
 
     <div class="mb-6">
-      <h2 class="text-2xl font-semibold"> Setting </h2>
+      <h2 class="text-2xl font-semibold"> Settings </h2>
       <nav class="responsive-nav border-b md:m-0 -mx-4">
         <ul uk-switcher="connect: #form-type; animation: uk-animation-fade">
           <li><a href="#" class="lg:px-2"> Profile</a></li>
@@ -57,34 +57,35 @@
 
       <div class="grid lg:grid-cols-3 mt-12 gap-8">
         <div>
-          <h3 class="text-xl mb-2 font-semibold"> Basic</h3>
-          <p> Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit</p>
+          <h3 class="text-xl mb-2 font-semibold"> Profile</h3>
+          <p> You can update your profile information here</p>
         </div>
         <div class="bg-white rounded-md lg:shadow-md shadow col-span-2 lg:mx-16">
-          <form [formGroup]="UserForm" (ngSubmit)="Update(file.files)" enctype="multipart/form-data">
+          <form [formGroup]="UserForm" enctype="multipart/form-data" >
             <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
               <div>
                 <label for=""> First name</label>
-                <input formControlName="FirstName" type="text" value="{{userData.firstName}}" class="shadow-none with-border">
+                <input name="FirstName" formControlName="FirstName" type="text" value="{{userData.firstName}}" class="shadow-none with-border">
               </div>
               <div>
                 <label for=""> Last name</label>
-                <input formControlName="LastName" type="text" value="{{userData.lastName}}" class="shadow-none with-border">
+                <input name="LastName" formControlName="LastName" type="text" value="{{userData.lastName}}" class="shadow-none with-border">
               </div>
 
 
               <div class="uplode-div">
                 <label for="">Profile Image</label>
-                <input formControlName="ProfilePath" #file value="{{userData.profilePath}}" style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
+                  <input formControlName="ProfilePath"  (change)="uploadProfileImg(file.files)" #file  style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
               </div>
               <div class="uplode-div">
                 <label for="">Cover Iamge</label>
-                <input formControlName="CoverPath" style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
+                <input formControlName="CoverPath" (change)="uploadCoverImg(file1.files)" #file1 style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
+
               </div>
 
               <div class="col-span-2">
                 <label for="">Bio</label>
-                <textarea formControlName="Bio" value="{{userData.bio}}" id="bio" rows="3" class="with-border"></textarea>
+                <textarea name="Bio" formControlName="Bio" value="{{userData.bio}}" id="bio" rows="3" class="with-border"></textarea>
               </div>
 
               <div>
@@ -92,7 +93,7 @@
                 <select id="location" formControlName="Address" class="shadow-none selectpicker with-border ">
                   <option value="Amman , Jordan">Amman , Jordan</option>
                   <option value="Irbd , Jordan">Irbd , Jordan</option>
-                  <option value="Irbd , Jordan">Zarqa , Jordan</option>
+                  <option value="Zarqa , Jordan">Zarqa , Jordan</option>
                   <option value="Madaba , Jordan">Madaba , Jordan</option>
                   <option value="Al-Mafraq , Jordan">Al-Mafraq , Jordan</option>
                   <option value="Jerash , Jordan">Jerash , Jordan</option>
@@ -116,9 +117,9 @@
             </div>
 
 
-            <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
+            <div class="bg-gray-10 p-6 pt-0 flex justify-content-center space-x-3">
               <!--<button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>-->
-              <button type="submit" class="button bg-blue-700"> Change </button>
+              <button (click)="onCreate()" type="button" class="button bg-gradient-dark"> Update </button>
             </div>
           </form>
         </div>
@@ -546,5 +547,3 @@
     </div>
   </div>
 </div>
-
-
