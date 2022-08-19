@@ -103,7 +103,7 @@ export class SettingsComponent implements OnInit {
         }
       })
   }
-  uploadeProfileImage(file: any) {   
+ 
 
   setUkToggleDelete(id: string): void {
     document.getElementById("delete-btn-" + id).setAttribute('uk-toggle', 'target: #delete-' + id);

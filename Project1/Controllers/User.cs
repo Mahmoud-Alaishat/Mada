@@ -30,7 +30,7 @@ namespace Project1.Controllers
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
             IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService)
-            IAttachmentService attachmentService, ILikeService likeService,IBankService bankService, ISubscriptionService subscriptionService)
+            
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
