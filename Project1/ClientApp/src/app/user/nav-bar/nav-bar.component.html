@@ -365,13 +365,13 @@
 
 
           <a href="#">
-            <img src="assets/assets/images/avatars/avatar-2.jpg" class="is_avatar" alt="">
+            <img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" class="is_avatar" alt="">
           </a>
           <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
 
             <a [routerLink]="['user/timeline']" class="user">
               <div class="user_avatar">
-                <img src="assets/assets/images/avatars/avatar-2.jpg" alt="">
+                <img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" alt="">
               </div>
               <div class="user_name">
                 <div class="capitalize"> {{userData.firstName}} {{userData.lastName}} </div>
