@@ -283,5 +283,11 @@ namespace Project1.Controllers
             userService.BuySubscription(buySubscription);   
             return Ok();
         }
+        [HttpPost]
+        [Route("GetSubPostNumByUserId/{userId}")]
+        public IActionResult GetSubPostNumByUserId(string userId)
+        {
+            return Ok(userService.GetSubPostNumByUserId(userId));
+        }
     }
 }
