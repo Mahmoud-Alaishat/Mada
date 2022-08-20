@@ -14,7 +14,7 @@ export class SettingsComponent implements OnInit {
 
   imageSrc: string;
   UserForm: FormGroup;
-  userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: ''  };
+  userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   displayImage: any;
@@ -42,8 +42,6 @@ export class SettingsComponent implements OnInit {
       CoverPath: new FormControl(),
       Bio: new FormControl(),
       Relationship: new FormControl()
-
-      
     })
 
     this.CardForm = new FormGroup({
@@ -79,7 +77,7 @@ export class SettingsComponent implements OnInit {
     })
   }
 
- 
+
 
   onCreate() {
 
@@ -145,7 +143,6 @@ export class SettingsComponent implements OnInit {
         }
       })
   }
- 
 
   setUkToggleDelete(id: string): void {
     document.getElementById("delete-btn-" + id).setAttribute('uk-toggle', 'target: #delete-' + id);
@@ -213,25 +210,24 @@ export class SettingsComponent implements OnInit {
         error: (err: HttpErrorResponse) => console.log(err)
       });
 
-    this.UserForm.controls['ProfilePath'].setValue(this.displayImage);
   }
+
   uploadCoverImg = (files) => {
     if (files.length === 0) {
       return;
-      this.UserForm.controls['Relationship'].setValue(this.userData.relationship);
     }
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file1', fileToUpload, fileToUpload.name);
+
     this.http.post('https://localhost:44328/api/User/UploadCoverImg', formData, { reportProgress: true, observe: 'events' })
       .subscribe({
         next: (event) => {
-        alert(this.displayImage + "Yes");
 
-           if (event.type === HttpEventType.Response) {
+          if (event.type === HttpEventType.Response) {
             this.message = 'Upload success.';
             this.onUploadFinished1.emit(event.body);
-             this.coverImage = event.body['coverPath'];
+            this.coverImage = event.body['coverPath'];
           }
         },
         error: (err: HttpErrorResponse) => console.log(err)
@@ -248,7 +244,6 @@ interface UserInfo {
   address: string;
   relationship: string;
   bio: string;
-  
 }
 interface prof {
   profilePath: string;

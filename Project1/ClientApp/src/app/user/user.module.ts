@@ -12,12 +12,12 @@ import { SettingsComponent } from './settings/settings.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ChatComponent } from './chat/chat.component';
-import { ProfileComponent } from './profile/profile.component';
+
 
 
 
 @NgModule({
-  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, SubscriptionComponent, ChatComponent, ProfileComponent],
+  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, SubscriptionComponent, ChatComponent],
   imports: [
     CommonModule, ReactiveFormsModule, FormsModule,
     RouterModule.forChild(

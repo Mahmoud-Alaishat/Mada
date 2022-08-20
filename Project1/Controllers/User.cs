@@ -43,8 +43,6 @@ namespace Project1.Controllers
             this.likeService = likeService;
             this.bankService = bankService;
             this.subscriptionService = subscriptionService;
-            this.bankService = bankService; 
-            this.subscriptionService = subscriptionService; 
         }
 
         [HttpPost]
@@ -153,17 +151,8 @@ namespace Project1.Controllers
         }
         [HttpPost]
         [Route("UpdateUserProfile/{userId}")]
-        public  IActionResult UpdateUserProfile(string userId, [FromBody] UserInfo user)
+        public IActionResult UpdateUserProfile(string userId, [FromBody] UserInfo user)
         {
-            var file = Request.Form.Files[0];
-            var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-            var fullPath = Path.Combine("C:\\Users\\Lenovo\\source\\repos\\Mahmoud-Alaishat\\Social-Network-Website\\Project1\\ClientApp\\src\\assets\\assets\\Img\\user\\profile\\" + fileName);
-            using (var stream = new FileStream(fullPath, FileMode.Create))
-            {
-                file.CopyTo(stream);
-
-            }
-            user.ProfilePath = fileName;
             userService.UpdateUserProfile(userId, user);
             return Ok();
         }
@@ -195,31 +184,7 @@ namespace Project1.Controllers
         {
             return Ok(postService.CountLikes(postId));
         }
-        [HttpPost]
-        [Route("UploadImage")]
-        public IActionResult UploadImage()
-        {
-            try
-            {
-                var file = Request.Form.Files[0];
-                var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                var fullPath = Path.Combine("C:\\Users\\Lenovo\\source\\repos\\Mahmoud-Alaishat\\Social-Network-Website\\Project1\\ClientApp\\src\\assets\\assets\\Img\\user\\profile\\" + fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                     file.CopyTo(stream);
-
-                }
-                UserInfo userInfo = new UserInfo();
-                userInfo.ProfilePath = fileName;
-                return Ok(userInfo);    
-                
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);   
-            }
-
-        }
+      
         [HttpGet]
         [Route("GetUserVisa/{userId}")]
         public IActionResult GetUserVisa(string userId)
