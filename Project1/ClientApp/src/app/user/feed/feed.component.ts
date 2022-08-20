@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../../auth.service';
@@ -18,7 +19,9 @@ export class FeedComponent implements OnInit {
   isAdmin: boolean = false;
   friendsCount: number = 0;
   friendPosts: FriendPost[];
-  last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }
+  last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }  
+  sendcomment: SendComment = { postId: 0, userId: '', content: '', item: '' };
+  content = new FormControl();
 
   constructor(private http: HttpClient,private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -105,6 +108,9 @@ export class FeedComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
+
+
+    //this.http.post("https://localhost:44328/api/User/PostComment/")
   }
 
 
@@ -214,10 +220,37 @@ export class FeedComponent implements OnInit {
 
 
   }
+
+  MakeComment(postId: number) {
+    
+    this.sendcomment.content = this.content.value;
+    this.sendcomment.postId = postId;
+    this.sendcomment.userId = this.auth.Id;
+    this.sendcomment.item = null;
+    alert(this.sendcomment.content);
+    alert(this.sendcomment.postId);
+    alert(this.sendcomment.userId);
+    alert(this.sendcomment.item);
+
+    this.http.post("https://localhost:44328/api/User/MakeComment/" , this.sendcomment, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+        alert("Yesss")
+
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+    
+
+  }
   preventdefault(id: number) {
     document.getElementById("mutasem-" + id).addEventListener("click", function (event) {
       event.preventDefault()
     });
+  }
+  GetUserId(id:string) {
+    return "https://localhost:44328/user/profile/"+id;
   }
   
 }
@@ -293,4 +326,11 @@ interface HitLike {
 }
 interface IdOfLike {
   id: number;
+}
+
+interface SendComment {
+  postId: number;
+  userId: string;
+  content: string;
+  item: string;
 }

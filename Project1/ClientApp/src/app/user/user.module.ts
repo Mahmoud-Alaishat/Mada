@@ -12,12 +12,13 @@ import { SettingsComponent } from './settings/settings.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ChatComponent } from './chat/chat.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
 
 @NgModule({
-  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, SubscriptionComponent, ChatComponent],
+  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, SubscriptionComponent, ChatComponent, ProfileComponent],
   imports: [
     CommonModule, ReactiveFormsModule, FormsModule,
     RouterModule.forChild(
@@ -27,9 +28,10 @@ import { ChatComponent } from './chat/chat.component';
         { path: "user/settings", component: SettingsComponent, canActivate: [AuthGuard] },
         { path: "user/subscription", component: SubscriptionComponent, canActivate: [AuthGuard] },
         { path: "user/chat", component: ChatComponent, canActivate: [AuthGuard] },
+        { path: "user/profile/:id", component: ProfileComponent, canActivate: [AuthGuard] }
       ]
     )
   ],
-  exports: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, ChatComponent],
+  exports: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, ChatComponent, ProfileComponent],
 })
 export class UserModule { }

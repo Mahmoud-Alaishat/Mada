@@ -4,16 +4,15 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../auth.service';
 import { tap, withLatestFrom } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
-
 @Component({
-  selector: 'app-timeline',
-  templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class TimelineComponent implements OnInit {
+export class ProfileComponent implements OnInit {
 
   userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
   friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' };
@@ -28,13 +27,14 @@ export class TimelineComponent implements OnInit {
   //numberOfLikes = new BehaviorSubject(0);
   private numberOfLikes = new BehaviorSubject<Like[]>(null);
   numberOfLikes$ = this.numberOfLikes.asObservable();
-
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService, private router: Router) { }
+  id: any;
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id');
     this.isAuthenticate = this.auth.isUserAuthenticated();
     this.isAdmin = this.auth.isAdmin();
-    this.http.get<UserInfo>("https://localhost:44328/api/User/GetUserInfo/" + this.auth.Id, {
+    this.http.get<UserInfo>("https://localhost:44328/api/User/GetUserInfo/" + this.id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: (response: UserInfo) => {
@@ -42,7 +42,7 @@ export class TimelineComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-    this.http.get<UserCount>("https://localhost:44328/api/User/CountFriends/" + this.auth.Id, {
+    this.http.get<UserCount>("https://localhost:44328/api/User/CountFriends/" + this.id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: (response: UserCount) => {
@@ -50,7 +50,7 @@ export class TimelineComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-    this.http.get<MyFriends>("https://localhost:44328/api/User/MyFriends/" + this.auth.Id, {
+    this.http.get<MyFriends>("https://localhost:44328/api/User/MyFriends/" + this.id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: (response: MyFriends) => {
@@ -58,7 +58,7 @@ export class TimelineComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-    this.http.get<MyFriends>("https://localhost:44328/api/User/MyLast6Friends/" + this.auth.Id, {
+    this.http.get<MyFriends>("https://localhost:44328/api/User/MyLast6Friends/" + this.id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: (response: MyFriends) => {
@@ -67,7 +67,7 @@ export class TimelineComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
 
-    this.http.get<MyPosts[]>("https://localhost:44328/api/User/MyPost/" + this.auth.Id, {
+    this.http.get<MyPosts[]>("https://localhost:44328/api/User/MyPost/" + this.id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: (response: MyPosts[]) => {
@@ -182,7 +182,7 @@ export class TimelineComponent implements OnInit {
 
   HitLikes(postId: number) {
     this.putLike.postId = postId;
-    this.putLike.userId = this.auth.Id;
+    this.putLike.userId = this.id;
     this.http.post<IdOfLike>("https://localhost:44328/api/User/HitLike", this.putLike, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
@@ -191,12 +191,12 @@ export class TimelineComponent implements OnInit {
           this.http.post("https://localhost:44328/api/User/InsertLike", this.putLike, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
-            next: () => {                                         
+            next: () => {
               var a = (document.getElementById("likes-" + this.putLike.postId).innerHTML);
-              a = a.split(" ",2)[0];
+              a = a.split(" ", 2)[0];
               var likes = parseInt(a);
-              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes+1 ) +" Likes";
-                                          
+              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes + 1) + " Likes";
+
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
@@ -208,9 +208,9 @@ export class TimelineComponent implements OnInit {
           }).subscribe({
             next: () => {
               var a = (document.getElementById("likes-" + this.putLike.postId).innerHTML);
-              a = a.split(" ",2)[0];
+              a = a.split(" ", 2)[0];
               var likes = parseInt(a);
-              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes - 1) + " Likes";                                         
+              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes - 1) + " Likes";
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
@@ -218,14 +218,15 @@ export class TimelineComponent implements OnInit {
 
       },
       error: (err: HttpErrorResponse) => console.log("no data")
-    })   
+    })
+
 
   }
+
   MakeComment(postId: number) {
 
     this.sendcomment.content = this.content.value;
     this.sendcomment.postId = postId;
-    alert(postId);
     this.sendcomment.userId = this.auth.Id;
     this.sendcomment.item = null;
     alert(this.sendcomment.content);
@@ -246,15 +247,20 @@ export class TimelineComponent implements OnInit {
 
   }
   preventdefault(id: number) {
-    document.getElementById("mutasem-"+id).addEventListener("click", function (event) {
+    document.getElementById("mutasem-" + id).addEventListener("click", function (event) {
       event.preventDefault()
     });
   }
-  GetUserId(id: string) {
-    return "https://localhost:44328/user/profile/" + id;
+
+  SetHref(id: string) {
+    if (this.auth.Id == id) {
+      return "timeline";
+    }
+    else {
+      return "profile/" + id;
+    }
   }
 
-  
 
 }
 
@@ -287,7 +293,7 @@ interface MyPosts {
   attachment: Attachment[];
   comment: Comment[];
   like: Like[];
-  
+
 }
 
 interface Attachment {
@@ -328,12 +334,10 @@ interface HitLike {
 interface IdOfLike {
   id: number;
 }
-
 interface SendComment {
   postId: number;
   userId: string;
   content: string;
   item: string;
 }
-
 

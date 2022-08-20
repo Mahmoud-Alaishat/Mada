@@ -29,12 +29,14 @@ namespace project.infra.Repository
         public List<Comments> CRUDOP(Comments comments, string operation)
         {
             var parameter = new DynamicParameters();
+            DateTime localDate = DateTime.Now;
+
             List<Comments> re = new List<Comments>();
             parameter.Add("idofcomment", comments.ID, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("idofpost", comments.POSTID, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("idofuser", comments.USERID, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("contentofcomment", comments.CONTENT, dbType: DbType.String, direction: ParameterDirection.Input);
-            parameter.Add("datefcomment", comments.COMMENTDAT, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            parameter.Add("datefcomment", localDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             parameter.Add("item", comments.ITEM, dbType: DbType.String, direction: ParameterDirection.Input);
 
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
