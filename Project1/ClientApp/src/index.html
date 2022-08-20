@@ -72,6 +72,16 @@
   <script src="assets/assets/js/simplebar.js"></script>
   <script src="assets/assets/js/custom.js"></script>
   <script src="assets/assets/js/bootstrap-select.min.js"></script>
+  <script>
+
+    function cbChange(obj) {
+      var cbs = document.getElementsByClassName("cb");
+      for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+      }
+      obj.checked = true;
+    }
+  </script>
 
 </body>
 </html>

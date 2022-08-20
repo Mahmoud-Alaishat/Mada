@@ -136,5 +136,18 @@ namespace project.infra.Repository
 
         }
 
+        public void BuySubscription(BuySubscription buySubscription)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", buySubscription.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("idofsubscription", buySubscription.SubscriptionId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("priceofsubscription", buySubscription.Price, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("visaid", buySubscription.VisaID, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
+            context.dbConnection.ExecuteAsync("User_package_api.BuySubscription", parameter, commandType: CommandType.StoredProcedure);
+
+
+
+        }
     }
 }

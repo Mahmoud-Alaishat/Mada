@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { element } from 'protractor';
 import { AuthService } from '../../auth.service';
 
 @Component({
@@ -10,10 +11,15 @@ import { AuthService } from '../../auth.service';
   styleUrls: ['./subscription.component.css']
 })
 export class SubscriptionComponent implements OnInit {
-  public subscription: Subscription[];
 
+  public subscriptions: Subscription[];
   public subsid: number;
   public NumPost: number;
+  public selectecarid: number;
+  public selectecarbalance:number;
+  public selectedsubid: number;
+  public priceselectedsub: number;
+  public buy = { userId: '', subscriptionId: 0, price: 0, visaID:0 }
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   visa: Bank[];
@@ -27,17 +33,14 @@ export class SubscriptionComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: (response: Subscription[]) => {
-        this.subscription = response;
+        this.subscriptions = response.slice(0, 3);
         this.http.post<SubscriptionidPostNUm>("https://localhost:44328/api/User/GetSubPostNumByUserId/" + this.auth.Id, { headers: new HttpHeaders({ "Content-Type": "application/json" }) })
           .subscribe({
             next: (response: SubscriptionidPostNUm) => {
               this.subsid = response.subscriptionId;
               this.NumPost = response.numberOfPost;
-              for (let i = 0; i < 3; i++) {
-                if (this.subscription[i].id == response.subscriptionId) {
-                  document.getElementById("sub-" + this.subscription[i].id).removeAttribute("disabled");
-                }
-              }
+              console.log(this.NumPost);
+
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
@@ -71,20 +74,49 @@ export class SubscriptionComponent implements OnInit {
     return feature.split(',');
   }
 
-  getSelectItemThat(id) {
-    console.log(id)
-    console.log('------')
-    document.getElementById('chkk-' + id).setAttribute("checked", "true");
-
-    for (let i = 0; i < this.visa.length; i++) {
-      if (this.visa[i].id != id) {
-        console.log(this.visa[i].id)
-        document.getElementById('chkk-' +this.visa[i].id).setAttribute('checked', 'false');
-      }
-      
+  selectedCardId(id,balance) {
+    this.selectecarid = id;
+    this.selectecarbalance = balance;
+    console.log(this.selectecarid);
   }
 
-}
+selectedSubId(id,price) {
+  this.selectedsubid = id;
+  this.priceselectedsub = price;
+  console.log(this.selectedsubid + " " + this.priceselectedsub);
+  }
+
+  BuySubscription() {
+    if (this.priceselectedsub > this.selectecarbalance) {
+      alert("Please select another card")
+      return;
+    }
+    this.buy.userId = this.auth.Id;
+    this.buy.price = this.priceselectedsub;
+    this.buy.subscriptionId = this.selectedsubid;
+    this.buy.visaID = this.selectecarid;
+    if (this.selectecarid != null) {
+      this.http.post("https://localhost:44328/api/User/BuySubscription/", this.buy, { headers: new HttpHeaders({ "Content-Type": "application/json" }) })
+            .subscribe({
+              next: () => {
+                alert("Purchase completed successfully");
+              },
+             error: (err: HttpErrorResponse) => console.log("no data")
+
+            })
+    }
+
+    
+
+  }
+  ButtonDisabled(id: number) {
+    console.log(this.subsid);
+    if (this.subsid == 4) {
+      document.getElementById(id.toString()).removeAttribute('disabled');
+      console.log(this.subsid);
+
+    }
+  }
 
 
 }

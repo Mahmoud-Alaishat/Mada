@@ -19,6 +19,7 @@ namespace project.core.Repository
         public CheckUserNameReceiver CheckUserName(CheckUserNameSender checkUserName);
         public bool UpdateUserProfile(string userId, UserInfo user);
         public SubscriptionIDPostNum GetSubPostNumByUserId(string userId);
+        public void BuySubscription(BuySubscription buySubscription);
 
 
     }

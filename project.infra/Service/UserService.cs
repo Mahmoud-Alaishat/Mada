@@ -114,5 +114,9 @@ namespace project.infra.Service
             return userRepository.GetSubPostNumByUserId(userId);  
         }
 
+        public void BuySubscription(BuySubscription buySubscription)
+        {
+            userRepository.BuySubscription(buySubscription); 
+        }
     }
 }

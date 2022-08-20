@@ -244,5 +244,12 @@ namespace Project1.Controllers
             userService.Delete(userId);
             return Ok();
         }
+        [HttpPost]
+        [Route("BuySubscription")]
+        public IActionResult BuySubscription([FromBody]BuySubscription buySubscription)
+        {
+            userService.BuySubscription(buySubscription);   
+            return Ok();
+        }
     }
 }
