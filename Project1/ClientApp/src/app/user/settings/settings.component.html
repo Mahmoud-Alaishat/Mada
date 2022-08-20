@@ -11,29 +11,37 @@
     height: 100%;
     opacity: 0.8;
   }
+
   .shadow-xl {
     box-shadow: 0 23px 45px -11px rgba(20, 20, 20, 0.25) !important;
   }
+
   .overflow-hidden {
     overflow: hidden !important;
   }
+
   .position-relative {
     position: relative !important;
   }
+
   .border-radius-xl {
     border-radius: 1rem;
   }
+
   .bg-gradient-dark {
     background-image: linear-gradient(310deg, #141727 0%, #3A416F 100%);
   }
+
   .card-body {
     flex: 1 1 auto;
     padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
     color: var(--bs-card-color);
   }
+
   .d-flex {
     display: flex !important;
   }
+
   .me-4 {
     margin-right: 1.5rem !important;
   }
@@ -43,7 +51,7 @@
   <div class="mcontainer">
 
     <div class="mb-6">
-      <h2 class="text-2xl font-semibold"> Setting </h2>
+      <h2 class="text-2xl font-semibold"> Settings </h2>
       <nav class="responsive-nav border-b md:m-0 -mx-4">
         <ul uk-switcher="connect: #form-type; animation: uk-animation-fade">
           <li><a href="#" class="lg:px-2"> Profile</a></li>
@@ -57,42 +65,38 @@
 
       <div class="grid lg:grid-cols-3 mt-12 gap-8">
         <div>
-          <h3 class="text-xl mb-2 font-semibold"> Basic</h3>
-          <p> Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit</p>
+          <h3 class="text-xl mb-2 font-semibold"> Profile</h3>
+          <p> You can update your profile information here</p>
         </div>
         <div class="bg-white rounded-md lg:shadow-md shadow col-span-2 lg:mx-16">
-          <form [formGroup]="UserForm" (ngSubmit)="Update(file.files)" enctype="multipart/form-data">
+          <form [formGroup]="UserForm" enctype="multipart/form-data">
             <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
               <div>
                 <label for=""> First name</label>
-                <input formControlName="FirstName" type="text" value="{{userData.firstName}}" class="shadow-none with-border">
+                <input name="FirstName" formControlName="FirstName" type="text" value="{{userData.firstName}}" class="shadow-none with-border">
               </div>
               <div>
                 <label for=""> Last name</label>
-                <input formControlName="LastName" type="text" value="{{userData.lastName}}" class="shadow-none with-border">
+                <input name="LastName" formControlName="LastName" type="text" value="{{userData.lastName}}" class="shadow-none with-border">
               </div>
-
-
               <div class="uplode-div">
                 <label for="">Profile Image</label>
-                <input formControlName="ProfilePath" #file value="{{userData.profilePath}}" style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
+                <input formControlName="ProfilePath" (change)="uploadProfileImg(file.files)" #file style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
               </div>
               <div class="uplode-div">
                 <label for="">Cover Iamge</label>
-                <input formControlName="CoverPath" style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
+                <input formControlName="CoverPath" (change)="uploadCoverImg(file1.files)" #file1 style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
               </div>
-
               <div class="col-span-2">
                 <label for="">Bio</label>
-                <textarea formControlName="Bio" value="{{userData.bio}}" id="bio" rows="3" class="with-border"></textarea>
+                <textarea name="Bio" formControlName="Bio" value="{{userData.bio}}" id="bio" rows="3" class="with-border"></textarea>
               </div>
-
               <div>
                 <label for=""> Location</label>
                 <select id="location" formControlName="Address" class="shadow-none selectpicker with-border ">
                   <option value="Amman , Jordan">Amman , Jordan</option>
                   <option value="Irbd , Jordan">Irbd , Jordan</option>
-                  <option value="Irbd , Jordan">Zarqa , Jordan</option>
+                  <option value="Zarqa , Jordan">Zarqa , Jordan</option>
                   <option value="Madaba , Jordan">Madaba , Jordan</option>
                   <option value="Al-Mafraq , Jordan">Al-Mafraq , Jordan</option>
                   <option value="Jerash , Jordan">Jerash , Jordan</option>
@@ -114,20 +118,14 @@
                 </select>
               </div>
             </div>
-
-
-            <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
-              <!--<button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>-->
-              <button type="submit" class="button bg-blue-700"> Change </button>
+            <div class="bg-gray-10 p-6 pt-0 flex justify-content-center space-x-3">
+              <button (click)="onCreate()" type="button" class="button bg-gradient-dark"> Update </button>
             </div>
           </form>
         </div>
-
       </div>
 
-
       <div class="grid lg:grid-cols-3 mt-12 gap-8">
-
         <div>
           <h3 class="text-xl mb-2 font-semibold"> Privacy</h3>
           <p> Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit</p>
@@ -183,9 +181,7 @@
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
       <div class="grid lg:grid-cols-2 mt-12 gap-4">
 
@@ -291,60 +287,38 @@
               </ul>
             </div>
           </div>
-
         </div>
-
       </div>
-
-
-
-
-
-
-
-
       <div class="grid lg:grid-cols-2 mt-12 gap-4">
-
         <div>
           <div>
-            <h3 class="text-xl mb-2 font-semibold">Delete Your Account</h3>
+            <h3 class="text-xl mb-2 font-semibold">Account</h3>
 
           </div>
         </div>
         <div class="bg-white rounded-md lg:shadow-lg shadow col-span-2 lg:p-6 p-4 lg:mx-16">
-      
-
-              <div class="flex flex-column">
-                <p>Do you want to delete your account ?</p>
-                <br/>
-                <div class="flex">
-                  <div class="switch-container">
-                    <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
-                  </div>
-                  <button style="background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(121,9,19,1) 35%, rgba(102,40,55,1) 45%);" id="delete-btn-{{userId}}" uk-toggle="target: #delete-btn" type="button" class="button "> Delete </button>
-                </div>
-
-              </div>
-            
-              <div id="delete-btn" uk-modal>
-                <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
-                  <h2 class="mb-2 uk-modal-title">Alert</h2>
-                  <p>Are you sure you want to delete your account <span class="font-bold font-semibold"></span> ?</p>
-                  <div class="uk-modal-footer text-right bg-gray-200 dark:bg-gray-900 mt-6 px-0 space-x-1">
-                    <button class="button gray uk-modal-close" type="button">Cancel</button>
-                    <button style="background-color: #e82a35" (click)="DeleteAccount()" class="button" type="button">Delete</button>
-                  </div>
-                </div>
-              </div>
+          <div class="flex flex-column">
+            <p class="font-bold mb-3">Do you want to delete your account ?</p>
+            <div class="flex">
+              <button style="background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(121,9,19,1) 35%, rgba(102,40,55,1) 45%);" id="delete-btn-{{userId}}" uk-toggle="target: #delete-btn" type="button" class="button"> Delete </button>
             </div>
 
-
-        </div>
-
-
-
+          </div>
+          <div id="delete-btn" uk-modal>
+            <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
+              <h2 class="mb-2 uk-modal-title">Alert</h2>
+              <p>Are you sure you want to delete your account <span class="font-bold font-semibold"></span> ?</p>
+              <div class="uk-modal-footer text-right bg-gray-200 dark:bg-gray-900 mt-6 px-0 space-x-1">
+                <button class="button gray uk-modal-close" type="button">Cancel</button>
+                <button style="background-color: #e82a35" (click)="DeleteAccount()" class="button" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+    </div>
+  </div>
 
 </div>
 
@@ -365,19 +339,14 @@
 
       <div class="absolute right-3 top-4 flex items-center space-x-2">
 
-        <!--<button class="uk-offcanvas-close  px-2 -mt-1 relative rounded-full inset-0 lg:hidden blcok"
-                type="button" uk-close></button>-->
-
         <a href="#" uk-toggle="target: #search;animation: uk-animation-slide-top-small">
           <i class="icon-feather-search text-gray-700 dark:text-gray-100 text-xl hover:bg-gray-100 p-1 rounded-full"></i>
         </a>
         <a href="#">
           <i class="icon-feather-settings text-gray-700 dark:text-gray-100 text-xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i>
-          <!--<i class="icon ion-md-settings text-xl hover:bg-gray-100 p-1 rounded-full"></i>-->
         </a>
         <a href="#">
           <i class="icon-feather-more-vertical text-gray-700 dark:text-gray-100 text-xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i>
-          <!--<i class="icon ion-md-ellipsis-horizontal-outline text-xl hover:bg-gray-100 p-1 rounded-full"></i>-->
         </a>
         <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700"
              uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small; offset:5">
@@ -405,27 +374,20 @@
             </li>
           </ul>
         </div>
-
-
       </div>
-
-
     </div>
-
     <div class="absolute bg-white z-10 w-full -mt-5 lg:-mt-2 transform translate-y-1.5 py-2 border-b items-center flex"
          id="search" hidden>
       <input type="text" placeholder="Search.." class="flex-1 ml-2">
       <i class="icon ion-md-close text-xl hover:bg-gray-100 p-1 rounded-full mr-4 cursor-pointer"
          uk-toggle="target: #search;animation: uk-animation-slide-top-small"></i>
     </div>
-
     <nav class="responsive-nav border-b extanded mb-2 -mt-2">
       <ul uk-switcher="connect: #chats-tab; animation: uk-animation-fade">
         <li class="uk-active"><a class="active" href="#0"> Friends </a></li>
         <li><a href="#0">Groups <span> 10 </span> </a></li>
       </ul>
     </nav>
-
     <div class="contact-list px-2 uk-switcher" id="chats-tab">
 
       <div class="p-1">
@@ -455,7 +417,6 @@
           </div>
           <div class="contact-username">Stella Johnson</div>
         </a>
-
         <a href="chats-friend.html">
           <div class="contact-avatar">
             <img src="assets/assets/images/avatars/avatar-5.jpg" alt="">
@@ -482,8 +443,6 @@
           </div>
           <div class="contact-username"> Dennis Han</div>
         </a>
-
-
       </div>
       <div class="p-1">
         <a href="chats-group.html">
@@ -512,7 +471,6 @@
           </div>
           <div class="contact-username">Stella Johnson</div>
         </a>
-
         <a href="chats-group.html">
           <div class="contact-avatar">
             <img src="assets/assets/images/avatars/avatar-5.jpg" alt="">
@@ -539,12 +497,7 @@
           </div>
           <div class="contact-username"> Dennis Han</div>
         </a>
-
-
       </div>
-
     </div>
   </div>
 </div>
-
-

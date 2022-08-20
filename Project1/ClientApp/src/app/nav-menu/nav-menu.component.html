@@ -28,16 +28,12 @@
         </li>
         <li [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }">
-          <a [routerLink]="['/contact-us']" uk-scroll> Contact Us</a>
+          <a [routerLink]="['/about']" uk-scroll> About us</a>
         </li>
         <li [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }">
-          <a [routerLink]="['/about']" uk-scroll> About Us</a>
+          <a [routerLink]="['/contact-us']" uk-scroll> Contact us</a>
         </li>
-        <!--<li [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }">
-          <a > Privecy Policy</a>
-        </li>-->
       </ul>
 
       <a *ngIf="!isUserAuthenticated()" [routerLink]="['/login']" class="bg-gradient-to-bl font-semibold from-purple-400 px-8 py-2 ml-8 rounded text-sm text-white to-blue-600 hover:shadow-lg hover:text-white">

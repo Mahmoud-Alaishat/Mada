@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Project1.Controllers
@@ -154,7 +155,15 @@ namespace Project1.Controllers
         [Route("UpdateUserProfile/{userId}")]
         public  IActionResult UpdateUserProfile(string userId, [FromBody] UserInfo user)
         {
-           
+            var file = Request.Form.Files[0];
+            var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+            var fullPath = Path.Combine("C:\\Users\\Lenovo\\source\\repos\\Mahmoud-Alaishat\\Social-Network-Website\\Project1\\ClientApp\\src\\assets\\assets\\Img\\user\\profile\\" + fileName);
+            using (var stream = new FileStream(fullPath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+
+            }
+            user.ProfilePath = fileName;
             userService.UpdateUserProfile(userId, user);
             return Ok();
         }
@@ -211,12 +220,6 @@ namespace Project1.Controllers
             }
 
         }
-        [HttpPost]
-        [Route("GetSubPostNumByUserId/{userId}")]
-        public IActionResult GetSubPostNumByUserId(string userId)
-        {
-            return Ok(userService.GetSubPostNumByUserId(userId));
-        }
         [HttpGet]
         [Route("GetUserVisa/{userId}")]
         public IActionResult GetUserVisa(string userId)
@@ -243,6 +246,70 @@ namespace Project1.Controllers
         {
             userService.Delete(userId);
             return Ok();
+        }
+
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("UploadProfileImg")]
+        public async Task<IActionResult> UploadProfileImgAsync()
+        {
+            try
+            {
+                var formCollection = await Request.ReadFormAsync();
+                var file = formCollection.Files.First();
+                var folderName = Path.Combine("Resources", "Images","user","profile");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (file.Length > 0)
+                {
+                    var fileName = Guid.NewGuid().ToString() + "_" + (ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"'));
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    return Ok(new ProfileImg { ProfilePath= fileName });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+        }
+
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("UploadCoverImg")]
+        public async Task<IActionResult> UploadCoverImgAsync()
+        {
+            try
+            {
+                var formCollection = await Request.ReadFormAsync();
+                var file = formCollection.Files.First();
+                var folderName = Path.Combine("Resources", "Images", "user","cover");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (file.Length > 0)
+                {
+                    var fileName = Guid.NewGuid().ToString() + "_" + (ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"'));
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    return Ok(new CoverImg { CoverPath = fileName });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
         [HttpPost]
         [Route("BuySubscription")]
