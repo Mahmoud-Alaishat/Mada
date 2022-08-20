@@ -1,3 +1,5 @@
+
+
 <div class="main_content">
   <div class="bg-gradient-to-tr flex from-blue-400 h-52 items-center justify-center lg:h-80 pb-10 relative to-blue-300 via-blue-400 w-full">
 
@@ -17,121 +19,103 @@
       <div class="grid md:grid-cols-3 gap-7 mt-12">
 
         <!-- Card 1 -->
-        <div *ngFor="let obj of this.subscription" class="bg-white border border-gray-100 hover:shadow-md p-6 rounded-xl">
+        <div *ngFor="let obj of subscriptions" class="bg-white border border-gray-100 hover:shadow-md p-6 rounded-xl relative">
 
-          <div class="font-bold mb-4 text-2xl "> {{obj.name}} </div>
-          <div class="font-medium mb-6 text-gray-400 text-base"> For a small company that wants to show what it's worth. </div>
 
-          <div class="border-b-2 border-blue-50 flex items-baseline mb-10 pb-8 space-x-2">
+          <span *ngIf="obj.id==subsid" class="absolute bg-blue-100 font-semibold px-2.5 py-1 right-4 rounded-full text-blue-600 text-xs"> Subscribed </span>
+
+          <div class="font-bold mb-4 text-2xl ">  {{obj.name}} </div>
+
+         
+
+          <div class="font-medium mb-6 text-gray-400 text-base"> {{obj.description}} </div>
+
+          <div *ngIf="obj.price!=0" class="border-b-2 border-blue-50 flex items-baseline mb-10 pb-8 space-x-2">
             <div class="font-semibold text-4xl">$ {{obj.price}}</div>
             <div class="font-medium text-gray-400">/Year</div>
           </div>
 
-          <div class="space-y-4 text- font-medium text-gray-400">
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Featured member </div>
-            </div>
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Verified badge </div>
-            </div>
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Boost up to 5 Posts </div>
-            </div>
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Boost up to 5 Pages </div>
-            </div>
+          <div *ngIf="obj.price==0" class="border-b-2 border-blue-50 flex items-baseline mb-10 pb-8 space-x-2">
+            <div class="font-semibold text-4xl">Free</div>
 
           </div>
 
-          <button class="bg-blue-50 mt-8 py-3 rounded-md text-blue-500 w-full font-semibold">Start 14 Days Free Trial</button>
+          <div *ngFor="let f of SplitFeatrue(obj.feature)" class="space-y-4 text- font-medium text-gray-400">
+            <div class="flex items-center space-x-5">
+              <i class="icon-feather-check font-bold text-blue-600"></i>
+              <div id="fu-0">{{f}}</div>
+            </div>
+
+
+          </div>
+          <button *ngIf="subsid == 4" id="{{obj.id}}" class="bg-blue-50 mt-8 py-3 rounded-md text-blue-500 w-full font-semibold " href="#modal-example" uk-toggle (click)="selectedSubId(obj.id,obj.price)">Start 14 Days Free Trial</button>
+
+          <!-- This is the modal -->
+          <div id="modal-example" uk-modal>
+            <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
+              <p style="font-size: 19px; font-weight: bold" class="mb-2 uk-modal-title">Please select a card:</p>
+              <div style="max-height:490px" class="dropdown_scrollbar" data-simplebar>
+                <div style="padding:10px" *ngFor="let v of visa" class="flex justify-between items-center lg:shadow-lg shadow col-span-2 lg:p-6 p-4 lg:mx-16">
+                  <div class="col-span-2">
+                    <div class="card bg-transparent shadow-xl col-span-2">
+                      <div class="col-span-2 overflow-hidden position-relative border-radius-xl" style="background-image: url('../../../assets/assets/Img/card/curved14.jpg');">
+                        <span style="position: absolute; background-size: cover; background-position: center center; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8; background-image: linear-gradient(310deg, #141727 0%, #3A416F 100%);"></span>
+
+                        <div style="padding:14px;" class="card-body position-relative z-index-1 p-3 col-span-2">
+                          <i class="icon-feather-wifi"></i>
+                          <h5 class="text-white mt-4 mb-5 pb-2">{{chunkString(v.cardNumber)}}</h5>
+                          <div class="d-flex">
+                            <div class="d-flex">
+                              <div class="me-4">
+                                <p class="text-white text-sm opacity-8 mb-0">Card Holder</p>
+                                <h6 class="text-white mb-0">{{v.holderName}}</h6>
+                              </div>
+                              <div>
+                                <p class="text-white text-sm opacity-8 mb-0">Expires</p>
+                                <h6 class="text-white mb-0">{{v.expiryMonth}}/{{v.expiryYear}}</h6>
+                              </div>
+                            </div>
+                            <div class="ms-auto w-20 d-flex align-items-end justify-content-end">
+                              <img style="width:60% !important" class="w-60 mt-2" src="../../../assets/assets/Img/card/mastercard.png" alt="logo">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex flex-column">
+                    <div class="font-bold" style="margin-bottom:20px">Balance : {{v.balance}}</div>
+                    <div class="flex">
+                      <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                          <label class="switch"><input class="cb" name="fries" type="checkbox" id="opt1" (click)="selectedCardId(v.id,v.balance)" onchange="cbChange(this)" /><span class="switch-button"></span> </label>
+                        </div>
+                      </div>
+
+
+
+                    </div>
+
+                  </div>
+                  <hr>
+
+                </div>
+              </div>
+              <div class="uk-modal-footer text-right mt-6 px-0 space-x-1 bg-gray-200">
+                <button class="button uk-modal-close" type="button" style="background-image: linear-gradient(310deg, #ffffff 0%, #f5f5f5 100%); font-size: 10px; margin: 11px; color: black; font-weight: bold;  margin: 11px; ">Cancel</button>
+                <button style="background-image: linear-gradient(310deg, #141727 0%, #1e2865 100%);" class="button" type="button" (click)="BuySubscription()">Select</button>
+              </div>
+            </div>
+          </div>
+
+
+
 
         </div>
-
-        <!-- Card 2 -->
-        <!--<div class="bg-white border border-gray-100 hover:shadow-md p-6 rounded-xl relative">
-
-          <span class="absolute bg-blue-100 font-semibold px-2.5 py-1 right-4 rounded-full text-blue-600 text-xs"> Popular </span>
-
-          <div class="font-bold mb-4 text-2xl "> Hot </div>
-          <div class="font-medium mb-6 text-gray-400 text-base"> For a small company that wants to show what it's worth. </div>
-
-          <div class="border-b-2 border-blue-50 flex items-baseline mb-10 pb-8 space-x-2">
-            <div class="font-semibold text-4xl ">$69</div>
-            <div class="font-medium text-gray-400">/Year</div>
-          </div>
-
-          <div class="space-y-4 text- font-medium text-gray-400">
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Featured member </div>
-            </div>
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Verified badge </div>
-            </div>
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Boost up to 10 Posts </div>
-            </div>
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Boost up to 10 Pages </div>
-            </div>
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Posts promotion</div>
-            </div>
-
-          </div>
-
-          <button class="mt-8 py-3 rounded-md bg-blue-500 text-white w-full font-semibold">Start 14 Days Free Trial</button>
-        </div>-->
-
-        <!-- Card 4 -->
-        <!--<div class="bg-white border border-gray-100 hover:shadow-md p-6 rounded-xl relative">
-
-          <div class="font-bold mb-4 text-2xl ">  Ultimate</div>
-          <div class="font-medium mb-6 text-gray-400 text-base"> For a small company that wants to show what it's worth. </div>
-
-          <div class="border-b-2 border-blue-50 flex items-baseline mb-10 pb-8 space-x-2">
-            <div class="font-semibold text-4xl" >$299</div>
-            <div class="font-medium text-gray-400">/Year</div>
-          </div>
-
-          <div class="space-y-4 text- font-medium text-gray-400">
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Featured member </div>
-            </div>
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Verified badge </div>
-            </div>
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Boost up to 20 Posts </div>
-            </div>
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Boost up to 20 Pages </div>
-            </div>
-            <div class="flex items-center space-x-5">
-              <i class="icon-feather-check font-bold text-blue-600"></i>
-              <div> Posts promotion</div>
-            </div>
-
-          </div>
-
-          <button class="bg-blue-50 mt-8 py-3 rounded-md text-blue-500 w-full font-semibold">Start 14 Days Free Trial</button>
-        </div>-->
-
       </div>
 
     </div>
 
   </div>
 </div>
+

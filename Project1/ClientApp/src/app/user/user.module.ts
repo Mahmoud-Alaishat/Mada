@@ -15,6 +15,7 @@ import { ChatComponent } from './chat/chat.component';
 
 
 
+
 @NgModule({
   declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, SubscriptionComponent, ChatComponent],
   imports: [

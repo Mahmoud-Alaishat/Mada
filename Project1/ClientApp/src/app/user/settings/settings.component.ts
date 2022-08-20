@@ -77,7 +77,7 @@ export class SettingsComponent implements OnInit {
     })
   }
 
- 
+
 
   onCreate() {
 
@@ -224,10 +224,10 @@ export class SettingsComponent implements OnInit {
       .subscribe({
         next: (event) => {
 
-           if (event.type === HttpEventType.Response) {
+          if (event.type === HttpEventType.Response) {
             this.message = 'Upload success.';
             this.onUploadFinished1.emit(event.body);
-             this.coverImage = event.body['coverPath'];
+            this.coverImage = event.body['coverPath'];
           }
         },
         error: (err: HttpErrorResponse) => console.log(err)

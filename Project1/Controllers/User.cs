@@ -30,7 +30,8 @@ namespace Project1.Controllers
         private readonly IAttachmentService attachmentService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
-            IAttachmentService attachmentService, ILikeService likeService,IBankService bankService, ISubscriptionService subscriptionService)
+            IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService)
+            
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
@@ -150,7 +151,7 @@ namespace Project1.Controllers
         }
         [HttpPost]
         [Route("UpdateUserProfile/{userId}")]
-        public  IActionResult UpdateUserProfile(string userId, [FromBody] UserInfo user)
+        public IActionResult UpdateUserProfile(string userId, [FromBody] UserInfo user)
         {
             userService.UpdateUserProfile(userId, user);
             return Ok();
@@ -183,7 +184,7 @@ namespace Project1.Controllers
         {
             return Ok(postService.CountLikes(postId));
         }
-       
+      
         [HttpGet]
         [Route("GetUserVisa/{userId}")]
         public IActionResult GetUserVisa(string userId)
@@ -274,6 +275,13 @@ namespace Project1.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex}");
             }
+        }
+        [HttpPost]
+        [Route("BuySubscription")]
+        public IActionResult BuySubscription([FromBody]BuySubscription buySubscription)
+        {
+            userService.BuySubscription(buySubscription);   
+            return Ok();
         }
     }
 }

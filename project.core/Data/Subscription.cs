@@ -14,6 +14,7 @@ namespace project.core.Data
         public string Description { get; set; }
         public string Feature { get; set; }
         public int LimitPost { get; set; }
-
+        public int Duration { get; set; }
+        
     }
 }

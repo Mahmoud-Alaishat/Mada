@@ -108,5 +108,15 @@ namespace project.infra.Service
 
             return userRepository.UpdateUserProfile(userId, user);
         }
+
+        public SubscriptionIDPostNum GetSubPostNumByUserId(string userId)
+        {
+            return userRepository.GetSubPostNumByUserId(userId);  
+        }
+
+        public void BuySubscription(BuySubscription buySubscription)
+        {
+            userRepository.BuySubscription(buySubscription); 
+        }
     }
 }
