@@ -13,5 +13,6 @@ namespace project.core.Data
         public string ProfilePath { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public int TypePost { get; set; }
     }
 }

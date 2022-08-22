@@ -30,11 +30,12 @@ export class FeedComponent implements OnInit {
   public selectecarid: number;
   public selectecarbalance: number;
   sendPost: MakePost = {
-      userId: '',
-      content: '',
-      typePost: 0,
-      clicks: 0,
-      isBlocked: 0
+    userId: '',
+    content: '',
+    typePost: 0,
+    clicks: 0,
+    isBlocked: 0,
+    EndDate: null
   }
   buyad: BuyAd = { price: 0, visaId: 0 }
   postcontent = new FormControl();
@@ -139,18 +140,13 @@ export class FeedComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-
-
-
-
-
   }
 
   MakePost() {
     this.sendPost.userId = this.auth.Id;
     this.sendPost.content = this.postcontent.value;
     this.sendPost.typePost = 2;
-
+    
     if (this.selectecarid == null && this.postdate.value == null) {
       this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
         headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -165,13 +161,12 @@ export class FeedComponent implements OnInit {
       })
     }
     else {
-
       this.sendPost.typePost = 3;
       this.buyad.visaId = this.selectecarid
       this.postdate2 = new Date(this.postdate.value);
       const msInDay = 24 * 60 * 60 * 1000;
       this.buyad.price = 2 * (Math.round(Math.abs(Number(this.postdate2) - Number(new Date())) / msInDay));
-      console.log(new Date() < this.postdate2);
+      this.sendPost.EndDate = this.postdate2;
       if (new Date() < this.postdate2) {
         this.http.post("https://localhost:44328/api/User/BuyAd/", this.buyad, {
           headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -391,6 +386,7 @@ interface FriendPost {
   attachment: Attachment[];
   comment: Comment[];
   like: Like[];
+  typePost: number;
 
 }
 
@@ -462,6 +458,7 @@ interface MakePost {
   typePost: number;
   clicks: number;
   isBlocked: number;
+  EndDate: Date;
 }
 
 interface BuyAd {

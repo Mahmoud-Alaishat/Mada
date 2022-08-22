@@ -49,6 +49,8 @@ namespace project.infra.Repository
             parameter.Add("isblockedpost", post.IsBlocked, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("numOfclicks", post.Clicks, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("expirydate", post.EndDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            parameter.Add("showadv", post.ShowAd, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             if (operation == "read" || operation== "readbyid")
             {

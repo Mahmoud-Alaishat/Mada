@@ -4,7 +4,7 @@
   <span uk-toggle="target: .message-content;" class="fixed left-0 top-36 bg-red-600 z-10 py-1 px-4 rounded-r-3xl text-white"> Users</span>
 
   <div class="messages-container">
-    <!--<div class="messages-container-inner">
+    <div class="messages-container-inner">
 
 
       <div class="messages-inbox">
@@ -144,94 +144,71 @@
         </div>
 
         <div class="message-content-scrolbar" data-simplebar>
-         Message Content Inner
-        <div class="message-content-inner">
-         Time Sign
-        <div class="message-time-sign">
-    <span>28 June, 2020</span>
-  </div>
+          <div class="message-content-inner">
+            <div class="message-time-sign">
+              <span>28 June, 2020</span>
+            </div>
+            <!--Sender-->
+            <div *ngFor="let mObj of msgInboxArray" class="message-bubble me">
+              <div class="message-bubble-inner">
+                <div class="message-avatar"><img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" alt=""></div>
+                <div class="message-text"><p>{{mObj.msgText}}</p></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <!--Receiver-->
+            <div class="message-bubble">
+              <div class="message-bubble-inner">
+                <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
+                <div class="message-text"><p>Laoreet.  dolore magna imperdiet quod mazim placerat facer possim. 👍</p></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
 
-  <div class="message-bubble me">
-    <div class="message-bubble-inner">
-      <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-      <div class="message-text"><p>Consectetuer adipiscing elit, sed diam nonummy nibh euismod laoreet.</p></div>
-    </div>
-    <div class="clearfix"></div>
-  </div>
+            <div class="message-time-sign">
+              <span>Yesterday</span>
+            </div>
 
-  <div class="message-bubble">
-    <div class="message-bubble-inner">
-      <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-      <div class="message-text"><p>Laoreet.  dolore magna imperdiet quod mazim placerat facer possim. 👍</p></div>
-    </div>
-    <div class="clearfix"></div>
-  </div>
+            <div class="message-bubble me">
+              <div class="message-bubble-inner">
+                <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
+                <div class="message-text"><p>Option congue nihil imperdiet mazim placerat facer possim.</p></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
 
-  <div class="message-bubble me">
-    <div class="message-bubble-inner">
-      <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-      <div class="message-text"><p>Albuom commodo consequat. 😉</p></div>
-    </div>
-    <div class="clearfix"></div>
-  </div>
-         Time Sign
-        <div class="message-time-sign">
-    <span>Yesterday</span>
-  </div>
+            <div class="message-bubble">
+              <div class="message-bubble-inner">
+                <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
+                <div class="message-text"><p>  Nam liber tempor cum soluta nobis eleifend  doming id quod mazim placerat 😎</p></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
 
-  <div class="message-bubble me">
-    <div class="message-bubble-inner">
-      <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-      <div class="message-text"><p>Option congue nihil imperdiet mazim placerat facer possim.</p></div>
-    </div>
-    <div class="clearfix"></div>
-  </div>
-
-  <div class="message-bubble">
-    <div class="message-bubble-inner">
-      <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-      <div class="message-text"><p>  Nam liber tempor cum soluta nobis eleifend  doming id quod mazim placerat 😎</p></div>
-    </div>
-    <div class="clearfix"></div>
-  </div>
-
-  <div class="message-bubble me">
-    <div class="message-bubble-inner">
-      <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-      <div class="message-text"><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, 🙂</p></div>
-    </div>
-    <div class="clearfix"></div>
-  </div>
-
-  <div class="message-bubble">
-    <div class="message-bubble-inner">
-      <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-      <div class="message-text">
-         Typing Indicator
-        <div class="typing-indicator">
-            <span></span>
-            <span></span>
-            <span></span>
+            <div class="message-bubble">
+              <div class="message-bubble-inner">
+                <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
+                <div class="message-text">
+                  <div class="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
           </div>
+
+          <div class="message-reply">
+            <textarea style="padding-left:10px" class="msg-input" [(ngModel)]="msgDto.msgText" cols="1" rows="1" placeholder="Your Message"></textarea>
+            <button (click)="send()" class="button ripple-effect"><i class="icon ion-md-send"></i></button>
+          </div>
+          <!--<input type="text" placeholder="Your name" class="name-box" [(ngModel)]="msgDto.user" />-->
         </div>
       </div>
-      <div class="clearfix"></div>
     </div>
-  </div>
-         Message Content Inner / End
-         Reply Area
-        <div class="message-reply">
-      <textarea id="tbMessage" cols="1" rows="1" placeholder="Your Message"></textarea>
-      <button id="btnSend" class="button ripple-effect">Send</button>
-    </div>
-
-  </div>
-
-      </div>
-
-
-    </div>-->
-    <div style="width:200px">
+    <!--<div style="width:200px">
       <div class="ud-header">
         <h2 class="text-center">Public Chat</h2>
       </div>
@@ -247,6 +224,6 @@
         </div>
         <input type="text" placeholder="Your name" class="name-box" [(ngModel)]="msgDto.user" />
       </div>
-    </div>
+    </div>-->
   </div>
 </div>

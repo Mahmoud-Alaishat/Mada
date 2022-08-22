@@ -20,8 +20,9 @@ namespace project.core.Data
         public ICollection<Comments> Commentss { get; set; }
         public ICollection<Attachment> Attachments { get; set; }
         public ICollection<Likes> Likess { get; set; }
+        public int ShowAd { get; set; }
 
-
+        public DateTime EndDate { get; set; }
 
     }
     }
