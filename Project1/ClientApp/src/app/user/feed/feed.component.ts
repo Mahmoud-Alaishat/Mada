@@ -1,8 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Data } from 'popper.js';
 import { AuthService } from '../../auth.service';
 
 @Component({
@@ -22,6 +24,25 @@ export class FeedComponent implements OnInit {
   last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }  
   sendcomment: SendComment = { postId: 0, userId: '', content: '', item: '' };
   content = new FormControl();
+  isShow: boolean
+  visa: Bank[];
+  totalBalance: number;
+  public selectecarid: number;
+  public selectecarbalance: number;
+  sendPost: MakePost = {
+      userId: '',
+      content: '',
+      typePost: 0,
+      clicks: 0,
+      isBlocked: 0
+  }
+  buyad: BuyAd = { price: 0, visaId: 0 }
+  postcontent = new FormControl();
+  postdate = new FormControl();
+  postdate2: Date;
+  showError: boolean;
+  showSuccess: boolean;
+
 
   constructor(private http: HttpClient,private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -109,11 +130,92 @@ export class FeedComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
 
+    this.http.get<Bank[]>("https://localhost:44328/api/User/GetUserVisa/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: Bank[]) => {
+        this.visa = response;
+        this.totalBalance = this.TotalBalance(response);
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
 
-    //this.http.post("https://localhost:44328/api/User/PostComment/")
+
+
+
+
   }
 
+  MakePost() {
+    this.sendPost.userId = this.auth.Id;
+    this.sendPost.content = this.postcontent.value;
+    this.sendPost.typePost = 2;
 
+    if (this.selectecarid == null && this.postdate.value == null) {
+      this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+        headers: new HttpHeaders({ "Content-Type": "application/json" })
+      }).subscribe({
+        next: () => {
+          this.showSuccess = true;
+          setTimeout(() => { this.showSuccess = false; }, 4000)
+        },
+        error: () => {
+          console.log("Nooooo")
+        }
+      })
+    }
+    else {
+
+      this.sendPost.typePost = 3;
+      this.buyad.visaId = this.selectecarid
+      this.postdate2 = new Date(this.postdate.value);
+      const msInDay = 24 * 60 * 60 * 1000;
+      this.buyad.price = 2 * (Math.round(Math.abs(Number(this.postdate2) - Number(new Date())) / msInDay));
+      console.log(new Date() < this.postdate2);
+      if (new Date() < this.postdate2) {
+        this.http.post("https://localhost:44328/api/User/BuyAd/", this.buyad, {
+          headers: new HttpHeaders({ "Content-Type": "application/json" })
+        }).subscribe({
+          next: () => {
+            this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+              headers: new HttpHeaders({ "Content-Type": "application/json" })
+            }).subscribe({
+              next: () => {
+                this.showSuccess = true;
+                setTimeout(() => { this.showSuccess = false; }, 4000)
+              },
+              error: () => {
+                console.log("Something went wrong")
+              }
+            })
+            //this.showError = false;
+          },
+          error: () => {
+            console.log("Something went wrong")
+          }
+        })
+        
+      }
+      else {
+        this.showError = true;
+        setTimeout(() => { this.showError = false;  }, 4000)
+      }      
+    }
+
+  }
+
+  TotalBalance(arr: Bank[]): number {
+    var sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+      sum += arr[i].balance;
+    }
+    return sum;
+  }
+  selectedCardId(id, balance) {
+    this.selectecarid = id;
+    this.selectecarbalance = balance;
+    console.log(this.selectecarid);
+  }
   getHoursDiff(hour: number): number {
 
     return new Date().getHours() - hour;
@@ -221,6 +323,7 @@ export class FeedComponent implements OnInit {
 
   }
 
+
   MakeComment(postId: number) {
     
     this.sendcomment.content = this.content.value;
@@ -251,6 +354,15 @@ export class FeedComponent implements OnInit {
   }
   GetUserId(id:string) {
     return "https://localhost:44328/user/profile/"+id;
+  }
+  Hide(): boolean {
+    var a = document.getElementById("chk");
+    console.log(a);
+    this.isShow = true;
+    return this.isShow;
+  }
+  chunkString(str: string) {
+    return str.match(/.{1,4}/g).join('  -  ');
   }
   
 }
@@ -333,4 +445,26 @@ interface SendComment {
   userId: string;
   content: string;
   item: string;
+}
+interface Bank {
+  id: number;
+  cardNumber: string;
+  cCV: number;
+  expiryMonth: number;
+  expiryYear: number;
+  holderId: string;
+  balance: number;
+  holderName: string;
+}
+interface MakePost {
+  userId: string;
+  content: string;
+  typePost: number;
+  clicks: number;
+  isBlocked: number;
+}
+
+interface BuyAd {
+  price: number;
+  visaId: number;
 }

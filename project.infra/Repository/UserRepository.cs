@@ -149,5 +149,15 @@ namespace project.infra.Repository
 
 
         }
+
+        public void BuyAd(BuyAd buyAd)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("priceofad", buyAd.Price, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("visaid", buyAd.VisaId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
+            context.dbConnection.ExecuteAsync("User_package_api.BuyAd", parameter, commandType: CommandType.StoredProcedure);
+
+        }
     }
 }

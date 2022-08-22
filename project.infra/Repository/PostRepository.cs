@@ -39,11 +39,13 @@ namespace project.infra.Repository
         {
             var parameter = new DynamicParameters();
             List<Post> re = new List<Post>();
+            DateTime localDate = DateTime.Now;
+
             parameter.Add("idofpost", post.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("idofuser", post.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("contentofpost", post.Content, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("typeofpost", post.TypePost, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            parameter.Add("dateofpost", post.PostDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            parameter.Add("dateofpost", localDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             parameter.Add("isblockedpost", post.IsBlocked, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("numOfclicks", post.Clicks, dbType: DbType.Int32, direction: ParameterDirection.Input);

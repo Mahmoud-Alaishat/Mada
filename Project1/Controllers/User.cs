@@ -296,5 +296,20 @@ namespace Project1.Controllers
             commentService.Create(comments);
             return Ok();
         }
+        [HttpPost]
+        [Route("MakePost")]
+        public IActionResult MakePost([FromBody] Post  post)
+        {
+            postService.Create(post);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("BuyAd")]
+        public IActionResult BuyAd([FromBody] BuyAd  buyAd)
+        {
+            userService.BuyAd(buyAd);
+            return Ok();
+        }
     }
 }

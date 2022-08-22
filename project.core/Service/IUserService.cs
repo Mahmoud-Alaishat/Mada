@@ -26,6 +26,8 @@ namespace project.core.Service
         public bool UpdateUserProfile(string userId, UserInfo user);
         public SubscriptionIDPostNum GetSubPostNumByUserId(string userId);
         public void BuySubscription(BuySubscription buySubscription);
+        public void BuyAd(BuyAd buyAd);
+
 
 
 

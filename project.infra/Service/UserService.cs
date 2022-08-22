@@ -118,5 +118,10 @@ namespace project.infra.Service
         {
             userRepository.BuySubscription(buySubscription); 
         }
+
+        public void BuyAd(BuyAd buyAd)
+        {
+             userRepository.BuyAd(buyAd); 
+        }
     }
 }
