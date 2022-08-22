@@ -18,6 +18,7 @@ using project.core.Service;
 using project.infra.Domain;
 using project.infra.Repository;
 using project.infra.Service;
+using Project1.Hubs;
 using System;
 using System.IO;
 using System.Text;
@@ -127,6 +128,8 @@ namespace Project1
                 o.MultipartBodyLengthLimit = int.MaxValue;
                 o.MemoryBufferThreshold = int.MaxValue;
             });
+            services.AddSignalR();
+
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -168,6 +171,10 @@ namespace Project1
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+            });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/Chat");
             });
 
             app.UseSpa(spa =>

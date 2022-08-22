@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using project.core.Data;
 using project.core.DTO;
 using project.core.Service;
+using Project1.Hubs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,12 +27,12 @@ namespace Project1.Controllers
         private readonly ILikeService likeService; 
         private readonly ISubscriptionService subscriptionService;
         private readonly IBankService bankService;
-
+        private readonly IHubContext<ChatHub> chatHub; 
 
         private readonly IAttachmentService attachmentService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
-            IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService)
+            IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub)
             
         {
             this.commentService = commentService;
@@ -43,6 +45,7 @@ namespace Project1.Controllers
             this.likeService = likeService;
             this.bankService = bankService;
             this.subscriptionService = subscriptionService;
+            this.chatHub = chatHub;
         }
 
         [HttpPost]
@@ -294,6 +297,21 @@ namespace Project1.Controllers
         public IActionResult MakeComment([FromBody]Comments comments)
         {
             commentService.Create(comments);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("sendmessage")]
+        public async Task<IActionResult> SendMessage(string user, string message)
+        {
+            await chatHub.Clients.All.SendAsync("ReceiveOne", user, message);
+            return Ok();
+        }
+        [Route("send")]                                          
+        [HttpPost]
+        public IActionResult SendRequest([FromBody] MessageDto msg)
+        {
+            chatHub.Clients.All.SendAsync("ReceiveMessage", msg.user, msg.msgText);
             return Ok();
         }
         [HttpPost]
