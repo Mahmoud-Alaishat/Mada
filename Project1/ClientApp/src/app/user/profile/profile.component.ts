@@ -321,7 +321,7 @@ interface Reply {
 }
 
 interface Like {
-  Id: string;
+  id: string;
   firstName: string;
   lastName: string;
   profilePath: string;
