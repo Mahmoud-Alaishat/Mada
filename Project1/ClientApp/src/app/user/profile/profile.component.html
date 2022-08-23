@@ -52,7 +52,7 @@
         <div class="flex items-center space-x-1.5 flex-shrink-0 pr-4 mb-2 justify-center order-1 relative">
 
           <!-- add story -->
-          <a href="#" class="flex items-center justify-center h-10 px-5 rounded-md bg-blue-600 text-white space-x-1.5 hover:text-white" uk-toggle="target: #create-post-modal">
+          <a href="#" class="flex items-center justify-center h-10 px-5 rounded-md bg-gray-600 text-white space-x-1.5 hover:text-white" uk-toggle="target: #create-post-modal">
             <i class="uil-stop-circle text-xl"></i>
             <span>Unfriend </span>
           </a>
@@ -412,12 +412,12 @@
           <div class="widget card p-5">
             <h4 class="text-lg font-semibold"> About </h4>
             <ul class="text-gray-600 space-y-3 mt-3">
-              <li class="flex items-center space-x-2">
+              <li *ngIf="userData.address != null" class="flex items-center space-x-2">
                 <i class="uil-globe rounded-full bg-gray-200 text-xl p-1 mr-3"></i>
                 Lives in <strong> {{userData.address}}  </strong>
               </li>
 
-              <li class="flex items-center space-x-2">
+              <li *ngIf="userData.relationship != null" class="flex items-center space-x-2">
                 <i class="uil-heart-alt  rounded-full bg-gray-200 text-xl p-1 mr-2"></i>
                 <strong>{{userData.relationship}}  </strong>
               </li>
