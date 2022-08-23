@@ -462,9 +462,9 @@
               <a href="#" class="text-blue-600 ">See all</a>
             </div>
             <div class="grid grid-cols-3 gap-3 text-gray-600 font-semibold">
-                <a href="{{GetUserId(friend.friendId)}}" *ngFor="let friend of friends"  style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" >
+                <a href="{{GetUserId(friend.friendId)}}" *ngFor="let friend of friends"  style="justify-content:center !important;align-items:center !important;display:flex !important;flex-direction:column !important;" class="hover:text-gray-700">
                   <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
-                    <img src="assets/assets/images/avatars/avatar-1.jpg" alt="" class="w-full h-full object-cover absolute">
+                    <img src="../../../../../Resources/Images/user/profile/{{friend.profilePath}}" alt="" class="w-full h-full object-cover absolute">
                   </div>
                   <div class="text-sm truncate capitalize">  {{trimName(friend.firstName,friend.lastName)}} </div>
                   </a>
@@ -553,12 +553,12 @@
         <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 mt-3">
 
           <div *ngFor="let friend of friends" class="card p-2">
-            <a href="timeline.html">
-              <img src="assets/assets/images/avatars/avatar-2.jpg" class="h-36 object-cover rounded-md shadow-sm w-full">
+            <a href="{{GetUserId(friend.friendId)}}">
+              <img src="../../../../../Resources/Images/user/profile/{{friend.profilePath}}" class="h-36 object-cover rounded-md shadow-sm w-full">
             </a>
             <div class="pt-3 px-1">
               <div class="flex justify-content-center capitalize">
-                <a href="{{GetUserId(friend.friendId)}}" class="text-base font-semibold mb-0.5">  {{friend.firstName}}  {{friend.lastName}}</a>
+                <a href="{{GetUserId(friend.friendId)}}" class="text-base font-semibold mb-0.5 hover:text-gray-700">  {{friend.firstName}}  {{friend.lastName}}</a>
               </div>
               <!--<p class="font-medium text-sm">843K Following </p>
                 <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
