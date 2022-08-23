@@ -359,6 +359,15 @@ export class FeedComponent implements OnInit {
   chunkString(str: string) {
     return str.match(/.{1,4}/g).join('  -  ');
   }
+
+  SetHref(id: string) {
+    if (this.auth.Id == id) {
+      return "timeline";
+    }
+    else {
+      return "profile/" + id;
+    }
+  }
   
 }
 interface UserInfo {
@@ -422,7 +431,7 @@ interface Reply {
 }
 
 interface Like {
-  Id: string;
+  id: string;
   firstName: string;
   lastName: string;
   profilePath: string;
