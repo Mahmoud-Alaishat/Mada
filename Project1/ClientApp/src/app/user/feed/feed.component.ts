@@ -49,8 +49,8 @@ export class FeedComponent implements OnInit {
   showError: boolean;
   showSuccess: boolean;
   public subscriptions: Subscription[];
-  isSubscriptionEnded:boolean;
-
+  isSubscriptionEnded: boolean;
+  count: number = 5;
 
 
   constructor(private http: HttpClient,private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
@@ -157,7 +157,6 @@ export class FeedComponent implements OnInit {
 
     
     if (this.selectecarid == null && this.postdate.value == null) {
-      console.log("is Post");
       this.http.get<Subscription[]>("https://localhost:44328/api/User/GetAllSubscriptions/", {
         headers: new HttpHeaders({ "Content-Type": "application/json" })
       }).subscribe({
@@ -167,11 +166,8 @@ export class FeedComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => console.log("no data")
       })
-      console.log(this.subscriptions[0].limitPost);
-      console.log(this.subscriptions[1].limitPost);
-      console.log(this.subscriptions[2].limitPost);
+
       if (this.userData.subscriptionId == 1 && this.userData.numOfPost < this.subscriptions[0].limitPost) {
-        console.log("Free");
         console.log(this.userData);
         console.log(this.subscriptions[0].limitPost);
         this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
@@ -179,47 +175,48 @@ export class FeedComponent implements OnInit {
         }).subscribe({
           next: () => {
             this.showSuccess = true;
-            setTimeout(() => { this.showSuccess = false; }, 4000)
+            setTimeout(() => { this.showSuccess = false; }, 4000);
             window.location.reload();
-            
           },
           error: () => {
-            console.log("Nooooo")
+            console.log("Someting went wrong")
           }
         })
       }
-      else if ((this.userData.subscriptionId == 2 && this.userData.numOfPost < this.subscriptions[1].limitPost) || (this.userData.subscriptionId == 2 && this.userData.subscribeexpiry < new Date())) {
-        console.log("Ultmit");
+      else if ((this.userData.subscriptionId == 2 && this.userData.numOfPost < this.subscriptions[1].limitPost) || (this.userData.subscriptionId == 2 && this.userData.subscribeexpiry > new Date())) {
         this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
           headers: new HttpHeaders({ "Content-Type": "application/json" })
         }).subscribe({
           next: () => {
             this.showSuccess = true;
-            setTimeout(() => { this.showSuccess = false; }, 4000)
+            setTimeout(() => { this.showSuccess = false; }, 4000);
+            window.location.reload();
           },
           error: () => {
-            console.log("Nooooo")
+            console.log("Someting went wrong")
           }
         })
       }
-      else if (this.userData.subscriptionId == 3 && (this.userData.numOfPost < this.subscriptions[1].limitPost || this.userData.subscribeexpiry < new Date())) {
-        console.log("Gold");
+      else if (this.userData.subscriptionId == 3 && (this.userData.numOfPost < this.subscriptions[2].limitPost || (this.userData.subscriptionId == 3 && this.userData.subscribeexpiry > new Date()))) {
         this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
           headers: new HttpHeaders({ "Content-Type": "application/json" })
         }).subscribe({
           next: () => {
             this.showSuccess = true;
-            setTimeout(() => { this.showSuccess = false; }, 4000)
+            setTimeout(() => { this.showSuccess = false; }, 4000);
+            window.location.reload();
           },
           error: () => {
-            console.log("Nooooo")
+            console.log("Someting went wrong")
           }
         })
       }
       else {
-        console.log("Not Posted");
         this.isSubscriptionEnded = true;
-        setTimeout(() => { this.isSubscriptionEnded = false; }, 5000)
+        setTimeout(() => { this.isSubscriptionEnded = false; }, 5000);
+        setInterval(() => { this.count -= 1; },1000);
+        setTimeout(() => { this.router.navigate(['user/subscription']) }, 5500);
+
       }
 
       

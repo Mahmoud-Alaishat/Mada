@@ -19,7 +19,7 @@
   <div *ngIf="this.isSubscriptionEnded" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute;top:75px;z-index:3 ">
     <div style="width:23rem" class="bg-red-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
       <h3 class="text-lg font-semibold text-white">Alert</h3>
-      <p class="text-white text-opacity-75">Your subscription is ended you will be redirect to the subscription page in 5 sec</p>
+      <p class="text-white text-opacity-75">Your subscription is ended you will be redirect to the subscription page in <span class="font-bold">{{this.count}}</span> sec</p>
     </div>
   </div>
 
