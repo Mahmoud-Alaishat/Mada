@@ -70,6 +70,7 @@ namespace Project1.Controllers
             userInfo.Relationship = user.Relationship;
             userInfo.Subscribeexpiry = user.SubscribeExpiry;
             userInfo.SubscriptionId = user.SubscriptionId;
+            userInfo.StaticNumPost = user.StaticNumPost;
             return Ok(userInfo);
         }
 

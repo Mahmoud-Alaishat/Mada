@@ -24,7 +24,7 @@
 
           <span *ngIf="obj.id==subsid" class="absolute bg-blue-100 font-semibold px-2.5 py-1 right-4 rounded-full text-blue-600 text-xs"> Subscribed </span>
 
-          <div class="font-bold mb-4 text-2xl ">  {{obj.name}} </div>
+          <div class="font-bold mb-4 text-2xl capitalize">  {{obj.name}} </div>
 
          
 
@@ -48,7 +48,7 @@
 
 
           </div>
-          <button *ngIf="subsid == 4" id="{{obj.id}}" class="bg-blue-50 mt-8 py-3 rounded-md text-blue-500 w-full font-semibold " href="#modal-example" uk-toggle (click)="selectedSubId(obj.id,obj.price)">Start 14 Days Free Trial</button>
+          <button *ngIf="subsid == 4" id="{{obj.id}}" class="bg-blue-50 mt-8 py-3 rounded-md text-blue-500 w-full font-semibold " href="#modal-example" uk-toggle (click)="selectedSubId(obj.id,obj.price)">Subscribe</button>
 
           <!-- This is the modal -->
           <div id="modal-example" uk-modal>
