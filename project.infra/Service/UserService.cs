@@ -123,5 +123,15 @@ namespace project.infra.Service
         {
              userRepository.BuyAd(buyAd); 
         }
+
+        public void EndSubscription(string userId)
+        {
+            userRepository.EndSubscription(userId); 
+        }
+
+        public NumOfPost NumberOFPostByUserId(string userId)
+        {
+            return userRepository.NumberOFPostByUserId(userId);
+        }
     }
 }

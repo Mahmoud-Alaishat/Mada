@@ -21,6 +21,10 @@ namespace project.core.Repository
         public SubscriptionIDPostNum GetSubPostNumByUserId(string userId);
         public void BuySubscription(BuySubscription buySubscription);
         public void BuyAd(BuyAd buyAd);
+        public void EndSubscription(string userId);
+        public NumOfPost NumberOFPostByUserId(string userId);   
+
+
 
 
     }

@@ -69,7 +69,6 @@ namespace Project1.Controllers
             userInfo.Bio = user.Bio;
             userInfo.Relationship = user.Relationship;
             userInfo.Subscribeexpiry = user.SubscribeExpiry;
-            userInfo.NumOfPost = user.NumOfPost;
             userInfo.SubscriptionId = user.SubscriptionId;
             return Ok(userInfo);
         }
@@ -337,6 +336,19 @@ namespace Project1.Controllers
         public IActionResult GetSubscriptionById(int Id)
         {
            return Ok(subscriptionService.GetSubscriptionById(Id));
+        }
+        [HttpGet]
+        [Route("EndSubscription/{userId}")]
+        public IActionResult EndSubscription(string userId)
+        {
+            userService.EndSubscription(userId);
+            return Ok();    
+        }
+        [HttpGet]
+        [Route("NumberOFPostByUserId/{userId}")]
+        public IActionResult NumberOFPostByUserId(string userId)
+        {
+            return Ok(userService.NumberOFPostByUserId(userId));
         }
     }
 }

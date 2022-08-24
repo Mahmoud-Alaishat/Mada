@@ -15,10 +15,9 @@ import { AuthService } from '../../auth.service';
 export class FeedComponent implements OnInit {
 
   userData: UserInfo = {
-      firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '',
-      subscribeexpiry: null,
-      subscriptionId: 0,
-      numOfPost: 0
+    firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '',
+    subscribeexpiry: null,
+    subscriptionId: 0
   };
   friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' };
   putLike: HitLike = { userId: '', postId: 0 }
@@ -26,7 +25,7 @@ export class FeedComponent implements OnInit {
   isAdmin: boolean = false;
   friendsCount: number = 0;
   friendPosts: FriendPost[];
-  last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }  
+  last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }
   sendcomment: SendComment = { postId: 0, userId: '', content: '', item: '' };
   content = new FormControl();
   isShow: boolean
@@ -51,9 +50,12 @@ export class FeedComponent implements OnInit {
   public subscriptions: Subscription[];
   isSubscriptionEnded: boolean;
   count: number = 5;
+  numOfPost: NumOfPost = {
+      numberOfPost: 0
+  }
 
 
-  constructor(private http: HttpClient,private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
+  constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
     this.isAuthenticate = this.auth.isUserAuthenticated();
@@ -148,6 +150,17 @@ export class FeedComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
+
+    this.http.get<NumOfPost>("https://localhost:44328/api/User/NumberOFPostByUserId/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: NumOfPost) => {
+        this.numOfPost = response;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+
+
   }
 
   MakePost() {
@@ -155,19 +168,19 @@ export class FeedComponent implements OnInit {
     this.sendPost.content = this.postcontent.value;
     this.sendPost.typePost = 2;
 
-    
+
     if (this.selectecarid == null && this.postdate.value == null) {
       this.http.get<Subscription[]>("https://localhost:44328/api/User/GetAllSubscriptions/", {
         headers: new HttpHeaders({ "Content-Type": "application/json" })
       }).subscribe({
         next: (response: Subscription[]) => {
-          this.subscriptions = response.slice(0, 3);
-          
+          this.subscriptions = response;
+
         },
         error: (err: HttpErrorResponse) => console.log("no data")
       })
 
-      if (this.userData.subscriptionId == 1 && this.userData.numOfPost < this.subscriptions[0].limitPost) {
+      if (this.userData.subscriptionId == 1 && this.numOfPost.numberOfPost < this.subscriptions[0].limitPost) {
         console.log(this.userData);
         console.log(this.subscriptions[0].limitPost);
         this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
@@ -183,7 +196,7 @@ export class FeedComponent implements OnInit {
           }
         })
       }
-      else if ((this.userData.subscriptionId == 2 && this.userData.numOfPost < this.subscriptions[1].limitPost) || (this.userData.subscriptionId == 2 && this.userData.subscribeexpiry > new Date())) {
+      else if ((this.userData.subscriptionId == 2 && this.numOfPost.numberOfPost < this.subscriptions[1].limitPost + this.numOfPost.numberOfPost) || (this.userData.subscriptionId == 2 && this.userData.subscribeexpiry > new Date())) {
         this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
           headers: new HttpHeaders({ "Content-Type": "application/json" })
         }).subscribe({
@@ -197,7 +210,7 @@ export class FeedComponent implements OnInit {
           }
         })
       }
-      else if (this.userData.subscriptionId == 3 && (this.userData.numOfPost < this.subscriptions[2].limitPost || (this.userData.subscriptionId == 3 && this.userData.subscribeexpiry > new Date()))) {
+      else if ((this.userData.subscriptionId == 3 && this.numOfPost.numberOfPost < this.subscriptions[2].limitPost + this.numOfPost.numberOfPost) || (this.userData.subscriptionId == 3 && this.userData.subscribeexpiry > new Date())) {
         this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
           headers: new HttpHeaders({ "Content-Type": "application/json" })
         }).subscribe({
@@ -212,14 +225,30 @@ export class FeedComponent implements OnInit {
         })
       }
       else {
+
         this.isSubscriptionEnded = true;
         setTimeout(() => { this.isSubscriptionEnded = false; }, 5000);
-        setInterval(() => { this.count -= 1; },1000);
+        if (this.userData.subscriptionId != 4) {
+          this.http.get("https://localhost:44328/api/User/EndSubscription/" + this.auth.Id, {
+            headers: new HttpHeaders({ "Content-Type": "application/json" })
+          }).subscribe({
+            next: () => {
+
+            },
+            error: () => {
+              console.log("Someting went wrong")
+
+            }
+          })
+        }
+
+        setInterval(() => { this.count -= 1; }, 1000);
         setTimeout(() => { this.router.navigate(['user/subscription']) }, 5500);
+
 
       }
 
-      
+
     }
     else {
       this.sendPost.typePost = 3;
@@ -250,12 +279,12 @@ export class FeedComponent implements OnInit {
             console.log("Something went wrong")
           }
         })
-        
+
       }
       else {
         this.showError = true;
-        setTimeout(() => { this.showError = false;  }, 4000)
-      }      
+        setTimeout(() => { this.showError = false; }, 4000)
+      }
     }
 
   }
@@ -380,14 +409,14 @@ export class FeedComponent implements OnInit {
 
 
   MakeComment(postId: number) {
-    
+
     this.sendcomment.content = this.content.value;
     this.sendcomment.postId = postId;
     this.sendcomment.userId = this.auth.Id;
     this.sendcomment.item = null;
 
 
-    this.http.post("https://localhost:44328/api/User/MakeComment/" , this.sendcomment, {
+    this.http.post("https://localhost:44328/api/User/MakeComment/", this.sendcomment, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
@@ -396,7 +425,7 @@ export class FeedComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-    
+
 
   }
   preventdefault(id: number) {
@@ -404,8 +433,8 @@ export class FeedComponent implements OnInit {
       event.preventDefault()
     });
   }
-  GetUserId(id:string) {
-    return "https://localhost:44328/user/profile/"+id;
+  GetUserId(id: string) {
+    return "https://localhost:44328/user/profile/" + id;
   }
   Hide(): boolean {
     var a = document.getElementById("chk");
@@ -424,7 +453,7 @@ export class FeedComponent implements OnInit {
       return "profile/" + id;
     }
   }
-  
+
 }
 interface UserInfo {
   firstName: string;
@@ -436,7 +465,6 @@ interface UserInfo {
   bio: string;
   subscribeexpiry: Date;
   subscriptionId: number;
-  numOfPost: number;
 }
 
 interface UserCount {
@@ -541,4 +569,7 @@ interface Subscription {
   description: string;
   feature: string;
   limitPost: number;
+}
+interface NumOfPost {
+  numberOfPost
 }

@@ -160,5 +160,22 @@ namespace project.infra.Repository
             context.dbConnection.ExecuteAsync("User_package_api.BuyAd", parameter, commandType: CommandType.StoredProcedure);
 
         }
+
+        public void EndSubscription(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+
+            context.dbConnection.ExecuteAsync("User_package_api.EndSubscription", parameter, commandType: CommandType.StoredProcedure);
+
+        }
+
+        public NumOfPost NumberOFPostByUserId(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<NumOfPost>("User_package_api.NumberOFPostByUserId", parameter, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
     }
 }
