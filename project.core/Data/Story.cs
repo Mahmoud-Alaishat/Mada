@@ -12,6 +12,7 @@ namespace project.core.Data
         public string Item { get; set; }
         public string UserId { get; set; }
         public DateTime StoryDate { get; set; }
+        public int IsBlocked { get; set; }
 
     }
 }

@@ -12,20 +12,21 @@ namespace project.infra.Repository
 {
     public class StoryRepository : IStoryRepository
     {
-            private readonly IDBContext context;
-            public StoryRepository(IDBContext context)
-            {
-                this.context = context;
-            }
-            public List<Story> CRUDOP(Story story, string operation)
-                    {
+        private readonly IDBContext context;
+        public StoryRepository(IDBContext context)
+        {
+            this.context = context;
+        }
+        public List<Story> CRUDOP(Story story, string operation)
+        {
             var parameter = new DynamicParameters();
             List<Story> re = new List<Story>();
             parameter.Add("idofStory", story.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("itemofStory", story.Item, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("idofUser", story.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("dateofStory", story.StoryDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-       
+            parameter.Add("blocked", story.IsBlocked, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
             if (operation == "read" || operation == "readbyid")
             {
                 var result = context.dbConnection.Query<Story>("Story_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
