@@ -14,7 +14,12 @@ import { AuthService } from '../../auth.service';
 })
 export class FeedComponent implements OnInit {
 
-  userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
+  userData: UserInfo = {
+      firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '',
+      subscribeexpiry: null,
+      subscriptionId: 0,
+      numOfPost: 0
+  };
   friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' };
   putLike: HitLike = { userId: '', postId: 0 }
   isAuthenticate: boolean = false;
@@ -35,7 +40,7 @@ export class FeedComponent implements OnInit {
     typePost: 0,
     clicks: 0,
     isBlocked: 0,
-    EndDate: null
+    EndDate: new Date()
   }
   buyad: BuyAd = { price: 0, visaId: 0 }
   postcontent = new FormControl();
@@ -43,6 +48,9 @@ export class FeedComponent implements OnInit {
   postdate2: Date;
   showError: boolean;
   showSuccess: boolean;
+  public subscriptions: Subscription[];
+  isSubscriptionEnded:boolean;
+
 
 
   constructor(private http: HttpClient,private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
@@ -146,19 +154,75 @@ export class FeedComponent implements OnInit {
     this.sendPost.userId = this.auth.Id;
     this.sendPost.content = this.postcontent.value;
     this.sendPost.typePost = 2;
+
     
     if (this.selectecarid == null && this.postdate.value == null) {
-      this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+      console.log("is Post");
+      this.http.get<Subscription[]>("https://localhost:44328/api/User/GetAllSubscriptions/", {
         headers: new HttpHeaders({ "Content-Type": "application/json" })
       }).subscribe({
-        next: () => {
-          this.showSuccess = true;
-          setTimeout(() => { this.showSuccess = false; }, 4000)
+        next: (response: Subscription[]) => {
+          this.subscriptions = response.slice(0, 3);
+          
         },
-        error: () => {
-          console.log("Nooooo")
-        }
+        error: (err: HttpErrorResponse) => console.log("no data")
       })
+      console.log(this.subscriptions[0].limitPost);
+      console.log(this.subscriptions[1].limitPost);
+      console.log(this.subscriptions[2].limitPost);
+      if (this.userData.subscriptionId == 1 && this.userData.numOfPost < this.subscriptions[0].limitPost) {
+        console.log("Free");
+        console.log(this.userData);
+        console.log(this.subscriptions[0].limitPost);
+        this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+          headers: new HttpHeaders({ "Content-Type": "application/json" })
+        }).subscribe({
+          next: () => {
+            this.showSuccess = true;
+            setTimeout(() => { this.showSuccess = false; }, 4000)
+            window.location.reload();
+            
+          },
+          error: () => {
+            console.log("Nooooo")
+          }
+        })
+      }
+      else if ((this.userData.subscriptionId == 2 && this.userData.numOfPost < this.subscriptions[1].limitPost) || (this.userData.subscriptionId == 2 && this.userData.subscribeexpiry < new Date())) {
+        console.log("Ultmit");
+        this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+          headers: new HttpHeaders({ "Content-Type": "application/json" })
+        }).subscribe({
+          next: () => {
+            this.showSuccess = true;
+            setTimeout(() => { this.showSuccess = false; }, 4000)
+          },
+          error: () => {
+            console.log("Nooooo")
+          }
+        })
+      }
+      else if (this.userData.subscriptionId == 3 && (this.userData.numOfPost < this.subscriptions[1].limitPost || this.userData.subscribeexpiry < new Date())) {
+        console.log("Gold");
+        this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+          headers: new HttpHeaders({ "Content-Type": "application/json" })
+        }).subscribe({
+          next: () => {
+            this.showSuccess = true;
+            setTimeout(() => { this.showSuccess = false; }, 4000)
+          },
+          error: () => {
+            console.log("Nooooo")
+          }
+        })
+      }
+      else {
+        console.log("Not Posted");
+        this.isSubscriptionEnded = true;
+        setTimeout(() => { this.isSubscriptionEnded = false; }, 5000)
+      }
+
+      
     }
     else {
       this.sendPost.typePost = 3;
@@ -209,7 +273,6 @@ export class FeedComponent implements OnInit {
   selectedCardId(id, balance) {
     this.selectecarid = id;
     this.selectecarbalance = balance;
-    console.log(this.selectecarid);
   }
   getHoursDiff(hour: number): number {
 
@@ -325,10 +388,7 @@ export class FeedComponent implements OnInit {
     this.sendcomment.postId = postId;
     this.sendcomment.userId = this.auth.Id;
     this.sendcomment.item = null;
-    alert(this.sendcomment.content);
-    alert(this.sendcomment.postId);
-    alert(this.sendcomment.userId);
-    alert(this.sendcomment.item);
+
 
     this.http.post("https://localhost:44328/api/User/MakeComment/" , this.sendcomment, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -352,7 +412,6 @@ export class FeedComponent implements OnInit {
   }
   Hide(): boolean {
     var a = document.getElementById("chk");
-    console.log(a);
     this.isShow = true;
     return this.isShow;
   }
@@ -378,6 +437,9 @@ interface UserInfo {
   address: string;
   relationship: string;
   bio: string;
+  subscribeexpiry: Date;
+  subscriptionId: number;
+  numOfPost: number;
 }
 
 interface UserCount {
@@ -473,4 +535,13 @@ interface MakePost {
 interface BuyAd {
   price: number;
   visaId: number;
+}
+
+interface Subscription {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  feature: string;
+  limitPost: number;
 }

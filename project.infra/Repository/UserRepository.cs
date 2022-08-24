@@ -37,6 +37,7 @@ namespace project.infra.Repository
             parameter.Add("userbio", user.Bio, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("userrelationship", user.Relationship, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("idofsubscription", user.SubscriptionId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("expdate", user.SubscribeExpiry, dbType: DbType.DateTime, direction: ParameterDirection.Input);
 
 
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
