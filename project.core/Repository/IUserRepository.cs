@@ -22,10 +22,7 @@ namespace project.core.Repository
         public void BuySubscription(BuySubscription buySubscription);
         public void BuyAd(BuyAd buyAd);
         public void EndSubscription(string userId);
-        public NumOfPost NumberOFPostByUserId(string userId);   
-
-
-
-
+        public NumOfPost NumberOFPostByUserId(string userId);
+        public PostId GetLastPost(string userId);
     }
 }

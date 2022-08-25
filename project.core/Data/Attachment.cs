@@ -15,9 +15,6 @@ namespace project.core.Data
         
         public string Item { get; set; }
 
-        [NotMapped]
-        public IFormFile ItemFile { get; set; }
-
         [ForeignKey("PostId")]
         public virtual Post Post { get; set; }
     }

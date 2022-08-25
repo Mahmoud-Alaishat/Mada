@@ -4,6 +4,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { parse } from 'path';
 import { Data } from 'popper.js';
 import { AuthService } from '../../auth.service';
 
@@ -48,7 +49,7 @@ export class FeedComponent implements OnInit {
   progress: number;
   message: string;
   @Output() public onUploadFinished = new EventEmitter();
-  attachments: Attachment[];
+  attachments: Attachments[];
   isExceededLimit: boolean;
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
@@ -162,7 +163,6 @@ export class FeedComponent implements OnInit {
     this.sendPost.userId = this.auth.Id;
     this.sendPost.content = this.postcontent.value;
     this.sendPost.typePost = 2;
-
     if (this.selectecarid == null && this.postdate.value == null) {
       this.http.get<Subscription[]>("https://localhost:44328/api/User/GetAllSubscriptions/", {
         headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -181,6 +181,20 @@ export class FeedComponent implements OnInit {
           headers: new HttpHeaders({ "Content-Type": "application/json" })
         }).subscribe({
           next: () => {
+            this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/"+ this.auth.Id, {
+              headers: new HttpHeaders({ "Content-Type": "application/json" })
+            }).subscribe({
+              next: (response: PostId) => {
+                for (let i = 0; i < this.attachments.length; i++) {
+                  this.attachments[i].postId = response.id;
+                }
+                this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe();
+              },
+              error: (err: HttpErrorResponse) => console.log("no data")
+            });
+            
             this.showSuccess = true;
             setTimeout(() => { this.showSuccess = false; }, 4000);
             window.location.reload();
@@ -195,6 +209,19 @@ export class FeedComponent implements OnInit {
           headers: new HttpHeaders({ "Content-Type": "application/json" })
         }).subscribe({
           next: () => {
+            this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
+              headers: new HttpHeaders({ "Content-Type": "application/json" })
+            }).subscribe({
+              next: (response: PostId) => {
+                for (let i = 0; i < this.attachments.length; i++) {
+                  this.attachments[i].postId = response.id;
+                }
+                this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe();
+              },
+              error: (err: HttpErrorResponse) => console.log("no data")
+            });
             this.showSuccess = true;
             setTimeout(() => { this.showSuccess = false; }, 4000);
             window.location.reload();
@@ -209,6 +236,19 @@ export class FeedComponent implements OnInit {
           headers: new HttpHeaders({ "Content-Type": "application/json" })
         }).subscribe({
           next: () => {
+              this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/"+ this.auth.Id, {
+              headers: new HttpHeaders({ "Content-Type": "application/json" })
+            }).subscribe({
+              next: (response: PostId) => {
+                for (let i = 0; i < this.attachments.length; i++) {
+                  this.attachments[i].postId = response.id;
+                }
+                this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe();
+              },
+              error: (err: HttpErrorResponse) => console.log("no data")
+            });
             this.showSuccess = true;
             setTimeout(() => { this.showSuccess = false; }, 4000);
             window.location.reload();
@@ -256,6 +296,19 @@ export class FeedComponent implements OnInit {
               headers: new HttpHeaders({ "Content-Type": "application/json" })
             }).subscribe({
               next: () => {
+                this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe({
+                  next: (response: PostId) => {
+                    for (let i = 0; i < this.attachments.length; i++) {
+                      this.attachments[i].postId = response.id;
+                    }
+                    this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
+                      headers: new HttpHeaders({ "Content-Type": "application/json" })
+                    }).subscribe();
+                  },
+                  error: (err: HttpErrorResponse) => console.log("no data")
+                });
                 this.showSuccess = true;
                 setTimeout(() => { this.showSuccess = false; }, 4000)
               },
@@ -469,13 +522,8 @@ export class FeedComponent implements OnInit {
               this.onUploadFinished.emit(event.body);
               console.log(event);
               console.log(files.length);
-              //for (let i = 0; i < files.length; i++) {
-              //  this.attachments[i] = event.body[i];
-              //  console.log("1");
-              //}
-              this.attachments[0].item = JSON.stringify(event.body[0]);
-
-              console.log(this.attachments[0]);
+              this.attachments = Object.assign([], event.body)
+              console.log(this.attachments);
             }
           },
           error: (err: HttpErrorResponse) => console.log(err)
@@ -600,4 +648,14 @@ interface Subscription {
 }
 interface NumOfPost {
   numberOfPost
+}
+
+interface Attachments {
+  id: number;
+  item: string;
+  postId: number;
+}
+
+interface PostId{
+  id:number
 }

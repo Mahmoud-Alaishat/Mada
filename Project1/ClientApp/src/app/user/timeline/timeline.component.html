@@ -204,42 +204,92 @@
             </div>
             <div uk-lightbox>
               <div *ngIf="post.attachment.length == 1" class="grid grid-cols-1 gap-2 px-4">
-                <a href="assets/assets/Img/user/post/{{post.attachment[0].item}}">
-                  <img src="assets/assets/Img/user/post/{{post.attachment[0].item}}" alt="" class="rounded-md w-full h-full">
+                <a *ngIf="isVideo(post.attachment[0].item) == false" href="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}">
+                  <img src="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}" alt="" class="rounded-md w-full h-full">
                 </a>
-              </div>
-              <div *ngIf="post.attachment.length == 2" class="grid grid-cols-2 gap-2 px-4">
-                <a href="assets/assets/Img/user/post/{{post.attachment[0].item}}">
-                  <img src="assets/assets/Img/user/post/{{post.attachment[0].item}}" alt="" class="rounded-md w-full h-full">
-                </a>
-                <a href="assets/assets/Img/user/post/{{post.attachment[1].item}}">
-                  <img src="assets/assets/Img/user/post/{{post.attachment[1].item}}" alt="" class="rounded-md w-full h-full">
+                <a  *ngIf="isVideo(post.attachment[0].item) == true" href="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}">
+                  <video class="rounded-md w-full h-full" controls>
+                    <source src="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}" type="video/mp4"/>
+                  </video>
                 </a>
 
               </div>
+              <div *ngIf="post.attachment.length == 2" class="grid grid-cols-2 gap-2 px-4">
+                <a *ngIf="isVideo(post.attachment[0].item) == false" href="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}">
+                  <img src="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}" alt="" class="rounded-md w-full h-full">
+                </a>
+                <a *ngIf="isVideo(post.attachment[0].item) == true" href="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}">
+                  <video class="rounded-md w-full h-full" controls>
+                    <source src="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}" type="video/mp4" />
+                  </video>
+                </a>
+                <a *ngIf="isVideo(post.attachment[1].item) == false" href="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}">
+                  <img src="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}" alt="" class="rounded-md w-full h-full">
+                </a>
+                <a *ngIf="isVideo(post.attachment[1].item) == true" href="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}">
+                  <video class="rounded-md w-full h-full" controls>
+                    <source src="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}" type="video/mp4" />
+                  </video>
+                </a>
+              </div>
               <div *ngIf="post.attachment.length == 3" class="grid grid-cols-2 gap-2 px-4">
-                <a href="assets/assets/Img/user/post/{{post.attachment[0].item}}" class="col-span-2">
-                  <img src="assets/assets/Img/user/post/{{post.attachment[0].item}}" alt="" class="rounded-md w-full lg:h-44 object-cover">
+                <a *ngIf="isVideo(post.attachment[0].item) == false" href="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}" class="col-span-2">
+                  <img src="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}" alt="" class="rounded-md w-full lg:h-44 object-cover">
                 </a>
-                <a href="assets/assets/Img/user/post/{{post.attachment[1].item}}">
-                  <img src="assets/assets/Img/user/post/{{post.attachment[1].item}}" alt="" class="rounded-md w-full h-full">
+                <a *ngIf="isVideo(post.attachment[0].item) == true" href="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}" class="col-span-2">
+                  <video class="rounded-md w-full lg:h-44 object-cover" controls>
+                    <source src="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}" type="video/mp4" />
+                  </video>
                 </a>
-                <a href="assets/assets/Img/user/post/{{post.attachment[2].item}}">
-                  <img src="assets/assets/Img/user/post/{{post.attachment[2].item}}" alt="" class="rounded-md w-full h-full">
+                <a *ngIf="isVideo(post.attachment[1].item) == false" href="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}">
+                  <img src="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}" alt="" class="rounded-md w-full h-full">
+                </a>
+                <a *ngIf="isVideo(post.attachment[1].item) == true" href="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}">
+                  <video class="rounded-md w-full h-full" controls>
+                    <source src="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}" type="video/mp4" />
+                  </video>
+                </a>
+                <a *ngIf="isVideo(post.attachment[2].item) == false" href="../../../../../Resources/Images/user/post/{{post.attachment[2].item}}">
+                  <img src="../../../../../Resources/Images/user/post/{{post.attachment[2].item}}" alt="" class="rounded-md w-full h-full">
+                </a>
+                <a *ngIf="isVideo(post.attachment[2].item) == true" href="../../../../../Resources/Images/user/post/{{post.attachment[2].item}}">
+                  <video class="rounded-md w-full h-full" controls>
+                    <source src="../../../../../Resources/Images/user/post/{{post.attachment[2].item}}" type="video/mp4" />
+                  </video>
                 </a>
               </div>
               <div *ngIf="post.attachment.length == 4" class="grid grid-cols-2 gap-2 px-4">
-                <a href="assets/assets/Img/user/post/{{post.attachment[0].item}}">
-                  <img src="assets/assets/Img/user/post/{{post.attachment[0].item}}" alt="" class="rounded-md w-full h-full">
+                <a *ngIf="isVideo(post.attachment[0].item) == false" href="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}">
+                  <img src="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}" alt="" class="rounded-md w-full h-full">
                 </a>
-                <a href="assets/assets/Img/user/post/{{post.attachment[1].item}}">
-                  <img src="assets/assets/Img/user/post/{{post.attachment[1].item}}" alt="" class="rounded-md w-full h-full">
+                <a *ngIf="isVideo(post.attachment[0].item) == true" href="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}">
+                  <video class="rounded-md w-full h-full" controls>
+                    <source src="../../../../../Resources/Images/user/post/{{post.attachment[0].item}}" type="video/mp4" />
+                  </video>
                 </a>
-                <a href="assets/assets/Img/user/post/{{post.attachment[2].item}}">
-                  <img src="assets/assets/Img/user/post/{{post.attachment[2].item}}" alt="" class="rounded-md w-full h-full">
+                <a *ngIf="isVideo(post.attachment[1].item) == false" href="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}">
+                  <img src="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}" alt="" class="rounded-md w-full h-full">
                 </a>
-                <a href="assets/assets/Img/user/post/{{post.attachment[3].item}}">
-                  <img src="assets/assets/Img/user/post/{{post.attachment[3].item}}" alt="" class="rounded-md w-full h-full">
+                <a *ngIf="isVideo(post.attachment[1].item) == true" href="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}">
+                  <video class="rounded-md w-full h-full" controls>
+                    <source src="../../../../../Resources/Images/user/post/{{post.attachment[1].item}}" type="video/mp4" />
+                  </video>
+                </a>
+                <a *ngIf="isVideo(post.attachment[2].item) == false" href="../../../../../Resources/Images/user/post/{{post.attachment[2].item}}">
+                  <img src="../../../../../Resources/Images/user/post/{{post.attachment[2].item}}" alt="" class="rounded-md w-full h-full">
+                </a>
+                <a *ngIf="isVideo(post.attachment[2].item) == true" href="../../../../../Resources/Images/user/post/{{post.attachment[2].item}}">
+                  <video class="rounded-md w-full h-full" controls>
+                    <source src="../../../../../Resources/Images/user/post/{{post.attachment[2].item}}" type="video/mp4" />
+                  </video>
+                </a>
+                <a *ngIf="isVideo(post.attachment[3].item) == false" href="../../../../../Resources/Images/user/post/{{post.attachment[3].item}}">
+                  <img src="../../../../../Resources/Images/user/post/{{post.attachment[3].item}}" alt="" class="rounded-md w-full h-full">
+                </a>
+                <a *ngIf="isVideo(post.attachment[3].item) == true" href="../../../../../Resources/Images/user/post/{{post.attachment[3].item}}">
+                  <video class="rounded-md w-full h-full" controls>
+                    <source src="../../../../../Resources/Images/user/post/{{post.attachment[3].item}}" type="video/mp4" />
+                  </video>
                 </a>
               </div>
             </div>
