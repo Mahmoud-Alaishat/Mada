@@ -26,6 +26,7 @@ namespace project.infra.Repository
             parameter.Add("idofUser", story.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("dateofStory", story.StoryDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             parameter.Add("blocked", story.IsBlocked, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
 
             if (operation == "read" || operation == "readbyid")
             {
@@ -35,7 +36,7 @@ namespace project.infra.Repository
             }
             else
             {
-                context.dbConnection.ExecuteAsync("Story_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                context.dbConnection.Execute("Story_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
                 return re;
             }
 

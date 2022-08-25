@@ -1,5 +1,5 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../auth.service';
@@ -28,6 +28,15 @@ export class TimelineComponent implements OnInit {
   //numberOfLikes = new BehaviorSubject(0);
   private numberOfLikes = new BehaviorSubject<Like[]>(null);
   numberOfLikes$ = this.numberOfLikes.asObservable();
+  story: Story = {
+      item: '',
+      userId: '',
+      storyDate: new Date(),
+      isBlocked: 0,
+      id: 0
+  }
+  @Output() public onUploadFinished1 = new EventEmitter();
+  storyImage: any;
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService, private router: Router) { }
 
@@ -253,6 +262,45 @@ export class TimelineComponent implements OnInit {
   GetUserId(id: string) {
     return "https://localhost:44328/user/profile/" + id;
   }
+  uploadStoryImg = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file1', fileToUpload, fileToUpload.name);
+
+    this.http.post('https://localhost:44328/api/User/UploadStoryImg', formData, { reportProgress: true, observe: 'events' })
+      .subscribe({
+        next: (event) => {
+
+          if (event.type === HttpEventType.Response) {
+
+            this.onUploadFinished1.emit(event.body);
+            this.storyImage = event.body['storyPath'];
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log(err)
+      });
+
+  }
+  MakeStory() {
+    this.story.item = this.storyImage;
+    alert(this.story.item);
+    this.story.userId = this.auth.Id;
+
+    this.http.post("https://localhost:44328/api/User/AddStory/", this.story, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+        alert("Yesss")
+
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+    
+
+  }
 
   
 
@@ -334,6 +382,15 @@ interface SendComment {
   userId: string;
   content: string;
   item: string;
+}
+
+interface Story {
+  id: number;
+  item: string;
+  userId: string;
+  storyDate: Date;
+  isBlocked:number
+
 }
 
 
