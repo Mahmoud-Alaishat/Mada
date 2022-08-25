@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { error } from '@angular/compiler/src/util';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -34,14 +34,7 @@ export class FeedComponent implements OnInit {
   totalBalance: number;
   public selectecarid: number;
   public selectecarbalance: number;
-  sendPost: MakePost = {
-    userId: '',
-    content: '',
-    typePost: 0,
-    clicks: 0,
-    isBlocked: 0,
-    EndDate: new Date()
-  }
+  sendPost: MakePost = {userId: '',content: '',typePost: 0,clicks: 0,isBlocked: 0,EndDate: new Date()}
   buyad: BuyAd = { price: 0, visaId: 0 }
   postcontent = new FormControl();
   postdate = new FormControl();
@@ -51,10 +44,12 @@ export class FeedComponent implements OnInit {
   public subscriptions: Subscription[];
   isSubscriptionEnded: boolean;
   count: number = 5;
-  numOfPost: NumOfPost = {
-      numberOfPost: 0
-  }
-
+  numOfPost: NumOfPost = {numberOfPost: 0}
+  progress: number;
+  message: string;
+  @Output() public onUploadFinished = new EventEmitter();
+  attachments: Attachment[];
+  isExceededLimit: boolean;
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -178,6 +173,7 @@ export class FeedComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => console.log("no data")
       })
+   
       if (this.userData.subscriptionId == 1 && this.numOfPost.numberOfPost < this.subscriptions[0].limitPost) {
         console.log(this.userData);
         console.log(this.subscriptions[0].limitPost);
@@ -243,8 +239,6 @@ export class FeedComponent implements OnInit {
         setInterval(() => { this.count -= 1; }, 1000);
         setTimeout(() => { this.router.navigate(['user/subscription']) }, 5500);
       }
-
-
     }
     else {
       this.sendPost.typePost = 3;
@@ -399,10 +393,7 @@ export class FeedComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-
-
   }
-
 
   MakeComment(postId: number) {
 
@@ -410,7 +401,6 @@ export class FeedComponent implements OnInit {
     this.sendcomment.postId = postId;
     this.sendcomment.userId = this.auth.Id;
     this.sendcomment.item = null;
-
 
     this.http.post("https://localhost:44328/api/User/MakeComment/", this.sendcomment, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -421,22 +411,24 @@ export class FeedComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-
-
   }
+
   preventdefault(id: number) {
     document.getElementById("mutasem-" + id).addEventListener("click", function (event) {
       event.preventDefault()
     });
   }
+
   GetUserId(id: string) {
     return "https://localhost:44328/user/profile/" + id;
   }
+
   Hide(): boolean {
     var a = document.getElementById("chk");
     this.isShow = true;
     return this.isShow;
   }
+
   chunkString(str: string) {
     return str.match(/.{1,4}/g).join('  -  ');
   }
@@ -450,6 +442,45 @@ export class FeedComponent implements OnInit {
     }
   }
 
+  uploadPostImages = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    if (files.length > 4) {
+      this.isExceededLimit = true;
+      alert("Upoload 4 images");
+    }
+
+    let filesToUpload: File[] = files;
+    const formData = new FormData();
+
+    Array.from(filesToUpload).map((file, index) => {
+      return formData.append('file' + index, file, file.name);
+    });
+
+    this.http.post('https://localhost:44328/api/User/UploadPostImages', formData, { reportProgress: true, observe: 'events' })
+      .subscribe(
+        {
+          next: (event) => {
+            if (event.type === HttpEventType.UploadProgress)
+              this.progress = Math.round(100 * event.loaded / event.total);
+            else if (event.type === HttpEventType.Response) {
+              this.message = 'Upload success.';
+              this.onUploadFinished.emit(event.body);
+              console.log(event);
+              console.log(files.length);
+              //for (let i = 0; i < files.length; i++) {
+              //  this.attachments[i] = event.body[i];
+              //  console.log("1");
+              //}
+              this.attachments[0].item = JSON.stringify(event.body[0]);
+
+              console.log(this.attachments[0]);
+            }
+          },
+          error: (err: HttpErrorResponse) => console.log(err)
+        });
+  }
 }
 interface UserInfo {
   firstName: string;
