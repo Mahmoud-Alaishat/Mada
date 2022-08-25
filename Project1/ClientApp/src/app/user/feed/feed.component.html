@@ -291,8 +291,8 @@
                       <div *ngIf="com.item != null " style="margin-left:50px" class="text-sm flex items-center space-x-3 mt-2">
                         <div class="w-56 h-56 rounded relative flex-shrink-0">
                           <div uk-lightbox>
-                            <a href="assets/assets/Img/user/comment/{{com.item}}">
-                              <img src="assets/assets/Img/user/comment/{{com.item}}" alt="" class="absolute h-full rounded w-full">
+                            <a href="../../../../../Resources/Images/user/comment/{{com.item}}">
+                              <img src="../../../../../Resources/Images/user/comment/{{com.item}}" alt="" class="absolute h-full rounded w-full">
                             </a>
                           </div>
                         </div>
@@ -343,10 +343,14 @@
                 <div class="bg-gray-100 w-full rounded-2xl relative dark:bg-gray-800 ">
                   <textarea data-gramm="false" matInput [formControl]="content" placeholder="Add your Comment.." class="bg-transparent max-h-10 pt-2 shadow-none px-5"></textarea>
                   <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-
-                    <a href="#">
-                      <i style="width:1em;height:1em;font-size:1.25rem;line-height:2.50rem" class="icon ion-md-images hover:bg-gray-200 p-1.5 rounded-full"></i>
-                    </a>
+                    <label class="mt-2" for="commentImg">
+                      <a>
+                        <i style="width:1em;height:1em;font-size:1.25rem;line-height:2.50rem" class="icon ion-md-images hover:bg-gray-200 p-1.5 rounded-full">
+                          <input id="commentImg" type="file" #file placeholder="Choose file"
+                                 (change)="uploadCommentImg(file.files)" style="display:none;" accept="image/*" multiple>
+                        </i>
+                      </a>
+                    </label>
                     <a href="https://localhost:44328/user/feed">
                       <i (click)="MakeComment(post.postId)" class="icon ion-md-send hover:bg-gray-200 p-1.5 rounded-full"></i>
                     </a>
