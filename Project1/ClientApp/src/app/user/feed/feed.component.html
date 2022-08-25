@@ -291,8 +291,8 @@
                       <div *ngIf="com.item != null " style="margin-left:50px" class="text-sm flex items-center space-x-3 mt-2">
                         <div class="w-56 h-56 rounded relative flex-shrink-0">
                           <div uk-lightbox>
-                            <a href="assets/assets/Img/user/comment/{{com.item}}">
-                              <img src="assets/assets/Img/user/comment/{{com.item}}" alt="" class="absolute h-full rounded w-full">
+                            <a href="../../../../../Resources/Images/user/comment/{{com.item}}">
+                              <img src="../../../../../Resources/Images/user/comment/{{com.item}}" alt="" class="absolute h-full rounded w-full">
                             </a>
                           </div>
                         </div>
@@ -343,10 +343,14 @@
                 <div class="bg-gray-100 w-full rounded-2xl relative dark:bg-gray-800 ">
                   <textarea data-gramm="false" matInput [formControl]="content" placeholder="Add your Comment.." class="bg-transparent max-h-10 pt-2 shadow-none px-5"></textarea>
                   <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-
-                    <a href="#">
-                      <i style="width:1em;height:1em;font-size:1.25rem;line-height:2.50rem" class="icon ion-md-images hover:bg-gray-200 p-1.5 rounded-full"></i>
-                    </a>
+                    <label class="mt-2" for="commentImg">
+                      <a>
+                        <i style="width:1em;height:1em;font-size:1.25rem;line-height:2.50rem" class="icon ion-md-images hover:bg-gray-200 p-1.5 rounded-full">
+                          <input id="commentImg" type="file" #file placeholder="Choose file"
+                                 (change)="uploadCommentImg(file.files)" style="display:none;" accept="image/*" multiple>
+                        </i>
+                      </a>
+                    </label>
                     <a href="https://localhost:44328/user/feed">
                       <i (click)="MakeComment(post.postId)" class="icon ion-md-send hover:bg-gray-200 p-1.5 rounded-full"></i>
                     </a>
@@ -926,9 +930,9 @@
           <div class="lg:block hidden ml-1"> Add to your post </div>
           <div class="flex flex-1 items-center lg:justify-end justify-center space-x-2">
             <label class="mt-2" for="postImg">
-                <svg class="bg-blue-100 h-9 p-1.5 rounded-full text-blue-600 w-9 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                <input id="postImg" type="file" #file placeholder="Choose file"
-                       (change)="uploadPostImages(file.files)" style="display:none;" accept="image/*" multiple>
+              <svg class="bg-blue-100 h-9 p-1.5 rounded-full text-blue-600 w-9 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+              <input id="postImg" type="file" #file placeholder="Choose file"
+                     (change)="uploadPostImages(file.files)" style="display:none;" accept="image/*" multiple>
             </label>
             <svg class="text-red-600 h-9 p-1.5 rounded-full bg-red-100 w-9 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"> </path></svg>
             <svg class="text-green-600 h-9 p-1.5 rounded-full bg-green-100 w-9 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>

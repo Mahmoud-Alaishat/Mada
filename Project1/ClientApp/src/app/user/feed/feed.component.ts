@@ -50,6 +50,9 @@ export class FeedComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
   attachments: Attachment[];
   isExceededLimit: boolean;
+  @Output() public onUploadFinished1 = new EventEmitter();
+  commentImage:any =null ;
+
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -400,7 +403,7 @@ export class FeedComponent implements OnInit {
     this.sendcomment.content = this.content.value;
     this.sendcomment.postId = postId;
     this.sendcomment.userId = this.auth.Id;
-    this.sendcomment.item = null;
+    this.sendcomment.item = this.commentImage;
 
     this.http.post("https://localhost:44328/api/User/MakeComment/", this.sendcomment, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -481,6 +484,31 @@ export class FeedComponent implements OnInit {
           error: (err: HttpErrorResponse) => console.log(err)
         });
   }
+
+
+  uploadCommentImg = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file1', fileToUpload, fileToUpload.name);
+
+    this.http.post('https://localhost:44328/api/User/UploadCommentImg', formData, { reportProgress: true, observe: 'events' })
+      .subscribe({
+        next: (event) => {
+
+          if (event.type === HttpEventType.Response) {
+            this.message = 'Upload success.';
+            this.onUploadFinished1.emit(event.body);
+            this.commentImage = event.body['commentPath'];
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log(err)
+      });
+
+  }
+
 }
 interface UserInfo {
   firstName: string;
