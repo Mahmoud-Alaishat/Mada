@@ -267,6 +267,7 @@
     <Folder Include="ClientApp\src\assets\assets\Img\user\cover\" />
     <Folder Include="ClientApp\src\assets\assets\Img\user\profile\" />
     <Folder Include="Resources\Images\user\cover\" />
+    <Folder Include="Resources\Images\user\comment\" />
     <Folder Include="Resources\Images\user\profile\" />
   </ItemGroup>
 

@@ -351,5 +351,36 @@ namespace Project1.Controllers
         {
             return Ok(userService.NumberOFPostByUserId(userId));
         }
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("UploadCommentImg")]
+        public async Task<IActionResult> UploadCommentImgAsync()
+        {
+            try
+            {
+                var formCollection = await Request.ReadFormAsync();
+                var file = formCollection.Files.First();
+                var folderName = Path.Combine("Resources", "Images", "user", "comment");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (file.Length > 0)
+                {
+                    var fileName = Guid.NewGuid().ToString() + "_" + (ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"'));
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    return Ok(new CommentImg { CommentPath = fileName });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+        }
     }
 }

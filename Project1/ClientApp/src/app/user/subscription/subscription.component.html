@@ -48,7 +48,7 @@
 
 
           </div>
-          <button *ngIf="subsid == 4" id="{{obj.id}}" class="bg-blue-50 mt-8 py-3 rounded-md text-blue-500 w-full font-semibold " href="#modal-example" uk-toggle (click)="selectedSubId(obj.id,obj.price)">Subscribe</button>
+          <button *ngIf="subsid == 4 && obj.id!=1" id="{{obj.id}}" class="bg-blue-50 mt-8 py-3 rounded-md text-blue-500 w-full font-semibold " href="#modal-example" uk-toggle (click)="selectedSubId(obj.id,obj.price)">Subscribe</button>
 
           <!-- This is the modal -->
           <div id="modal-example" uk-modal>

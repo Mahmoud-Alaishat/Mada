@@ -178,8 +178,6 @@ export class FeedComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => console.log("no data")
       })
-      console.log(this.userData.staticNumPost);
-      console.log(this.numOfPost.numberOfPost);
       if (this.userData.subscriptionId == 1 && this.numOfPost.numberOfPost < this.subscriptions[0].limitPost) {
         console.log(this.userData);
         console.log(this.subscriptions[0].limitPost);
@@ -244,8 +242,6 @@ export class FeedComponent implements OnInit {
 
         setInterval(() => { this.count -= 1; }, 1000);
         setTimeout(() => { this.router.navigate(['user/subscription']) }, 5500);
-
-
       }
 
 
