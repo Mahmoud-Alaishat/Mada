@@ -302,7 +302,13 @@ export class TimelineComponent implements OnInit {
 
   }
 
-  
+  isVideo(fileName: string): boolean{
+    var name = fileName.split('.').pop();
+    if (name == "mp4") {  
+      return true;
+    }
+    return false;
+  }
 
 }
 

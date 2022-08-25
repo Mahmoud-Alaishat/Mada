@@ -29,13 +29,7 @@ namespace project.core.Service
         public void BuyAd(BuyAd buyAd);
         public void EndSubscription(string userId);
         public NumOfPost NumberOFPostByUserId(string userId);
-
-
-
-
-
-
-
+        public PostId GetLastPost(string userId);
 
     }
 }

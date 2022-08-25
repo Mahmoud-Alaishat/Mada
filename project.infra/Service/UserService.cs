@@ -133,5 +133,10 @@ namespace project.infra.Service
         {
             return userRepository.NumberOFPostByUserId(userId);
         }
+
+        public PostId GetLastPost(string userId)
+        {
+            return userRepository.GetLastPost(userId);
+        }
     }
 }

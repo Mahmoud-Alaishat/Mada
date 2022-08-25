@@ -321,10 +321,9 @@ namespace Project1.Controllers
         }
         [HttpPost]
         [Route("MakePost")]
-        public IActionResult MakePost([FromBody] Post  post)
-        {
-            postService.Create(post);
-            return Ok();
+        public IActionResult MakePost([FromBody] Post post)
+        {;
+            return Ok(postService.Create(post));
         }
 
         [HttpPost]
@@ -360,7 +359,7 @@ namespace Project1.Controllers
         {
             try
             {
-                List <PostAttachments> postAttachments = new List<PostAttachments>();
+                List <Attachment> postAttachments = new List<Attachment>();
                 var files = Request.Form.Files;
                 var folderName = Path.Combine("Resources", "Images", "user", "post");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
@@ -379,7 +378,7 @@ namespace Project1.Controllers
                     {
                         file.CopyTo(stream);
                     }
-                    postAttachments.Add(new PostAttachments { Item = fileName });
+                    postAttachments.Add(new Attachment {Item= fileName});
                 }
 
                 return Ok(postAttachments);
@@ -388,6 +387,23 @@ namespace Project1.Controllers
             {
                 return StatusCode(500, "Internal server error");
             }
+        }
+        [HttpPost]
+        [Route("AddAttachment")]
+        public IActionResult AddAttachment([FromBody] List<Attachment> attachments)
+        {
+            foreach(var attachment in attachments)
+            {
+                attachmentService.Create(attachment);
+            }
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetLastPost/{userId}")]
+        public IActionResult GetLastPost(string userId)
+        {
+            return Ok(userService.GetLastPost(userId));
         }
         [HttpPost, DisableRequestSizeLimit]
         [Route("UploadCommentImg")]

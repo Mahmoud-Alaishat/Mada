@@ -16,6 +16,8 @@ namespace project.infra.Repository
     public class UserRepository : IUserRepository
     {
         private readonly IDBContext context;
+
+
         public UserRepository(IDBContext context)
         {
             this.context = context;
@@ -176,6 +178,14 @@ namespace project.infra.Repository
             var parameter = new DynamicParameters();
             parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
             var result = context.dbConnection.Query<NumOfPost>("User_package_api.NumberOFPostByUserId", parameter, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
+
+        public PostId GetLastPost(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<PostId>("User_package_api.GetLastPost", parameter, commandType: CommandType.StoredProcedure);
             return result.FirstOrDefault();
         }
     }
