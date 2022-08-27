@@ -50,7 +50,7 @@ export class FeedComponent implements OnInit {
   isExceededLimit: boolean;
   @Output() public onUploadFinished1 = new EventEmitter();
   commentImage:any =null ;
-  report: Report = { id:0, postId: 0, statusId: 0 };
+  report: Report = { id: 0, postId: 0, statusId: 0 };
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -390,6 +390,7 @@ export class FeedComponent implements OnInit {
     this.report.statusId = 1;
     this.http.post("https://localhost:44328/api/User/ReportPost", this.report, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
       next: () => {
+        this.router.navigate(['user/feed'])
         window.location.reload();
       },
       error: () => {

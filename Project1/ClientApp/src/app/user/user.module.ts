@@ -13,12 +13,13 @@ import { AuthGuard } from '../guards/auth.guard';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ChatComponent } from './chat/chat.component';
 import { ProfileComponent } from './profile/profile.component';
+import { OpenChatComponent } from './open-chat/open-chat.component';
 
 
 
 
 @NgModule({
-  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, SubscriptionComponent, ChatComponent, ProfileComponent],
+  declarations: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, SubscriptionComponent, ChatComponent, ProfileComponent, OpenChatComponent],
   imports: [
     CommonModule, ReactiveFormsModule, FormsModule,
     RouterModule.forChild(
@@ -32,6 +33,6 @@ import { ProfileComponent } from './profile/profile.component';
       ]
     )
   ],
-  exports: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, ChatComponent, ProfileComponent],
+  exports: [FeedComponent, NavBarComponent, SideBarComponent, TimelineComponent, SettingsComponent, ChatComponent, ProfileComponent, OpenChatComponent],
 })
 export class UserModule { }
