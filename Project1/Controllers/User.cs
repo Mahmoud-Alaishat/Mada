@@ -34,7 +34,7 @@ namespace Project1.Controllers
         private readonly IAttachmentService attachmentService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
-            IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub)
+           IReportService reportService, IStoryService storyService, IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub)
             
         {
             this.commentService = commentService;
@@ -48,6 +48,8 @@ namespace Project1.Controllers
             this.bankService = bankService;
             this.subscriptionService = subscriptionService;
             this.chatHub = chatHub;
+            this.storyService = storyService;
+            this.reportService=reportService;
         }
 
         [HttpPost]
@@ -438,7 +440,7 @@ namespace Project1.Controllers
         }
         [HttpPost]
         [Route("ReportPost")]
-        public IActionResult ReportPost(Reports report)
+        public IActionResult ReportPost([FromBody]Reports report)
         {
             reportService.Create(report);
             return Ok();
