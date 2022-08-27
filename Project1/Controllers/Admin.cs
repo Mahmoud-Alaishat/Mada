@@ -16,12 +16,14 @@ namespace Project1.Controllers
     {
         private readonly IUserService userService;
         private readonly ICommentService commentService;
+        private readonly IAdminService adminService;
 
         public Admin(IUserService userService,
-               ICommentService commentService)
+               ICommentService commentService, IAdminService adminService)
         {
             this.userService = userService;
             this.commentService = commentService;
+            this.adminService = adminService;   
         }
         [HttpGet]
         [Route("userCount")]
@@ -36,6 +38,12 @@ namespace Project1.Controllers
         {
             var cCount = commentService.CountComments();
             return Ok(cCount);
+        }
+        [HttpGet]
+        [Route("GetUseractivities")]
+        public IActionResult GetUseractivities()
+        {
+            return Ok(adminService.GetUseractivities());
         }
     }
 }

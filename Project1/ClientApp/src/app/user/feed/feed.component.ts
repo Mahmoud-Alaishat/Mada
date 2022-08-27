@@ -51,7 +51,7 @@ export class FeedComponent implements OnInit {
   @Output() public onUploadFinished1 = new EventEmitter();
   commentImage:any =null ;
   report: Report = { id:0, postId: 0, statusId: 0 };
-  commentImage: any = null;
+  
   friendstory: FriendStory[];
   friendstorylast5: FriendStory[];
 
