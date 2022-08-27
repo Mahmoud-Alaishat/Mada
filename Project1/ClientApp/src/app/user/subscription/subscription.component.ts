@@ -16,14 +16,16 @@ export class SubscriptionComponent implements OnInit {
   public subsid: number;
   public NumPost: number;
   public selectecarid: number;
-  public selectecarbalance:number;
+  public selectecarbalance: number;
   public selectedsubid: number;
   public priceselectedsub: number;
-  public buy = { userId: '', subscriptionId: 0, price: 0, visaID:0 }
+  public buy = { userId: '', subscriptionId: 0, price: 0, visaID: 0 }
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   visa: Bank[];
   totalBalance: number;
+  showError: boolean;
+  showSuccess: boolean;
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
@@ -74,21 +76,22 @@ export class SubscriptionComponent implements OnInit {
     return feature.split(',');
   }
 
-  selectedCardId(id,balance) {
+  selectedCardId(id, balance) {
     this.selectecarid = id;
     this.selectecarbalance = balance;
     console.log(this.selectecarid);
   }
 
-selectedSubId(id,price) {
-  this.selectedsubid = id;
-  this.priceselectedsub = price;
-  console.log(this.selectedsubid + " " + this.priceselectedsub);
+  selectedSubId(id, price) {
+    this.selectedsubid = id;
+    this.priceselectedsub = price;
+    console.log(this.selectedsubid + " " + this.priceselectedsub);
   }
 
   BuySubscription() {
     if (this.priceselectedsub > this.selectecarbalance) {
-      alert("Please select another card")
+      this.showError = true;
+      setTimeout(() => { this.showError = false; }, 4000)
       return;
     }
     this.buy.userId = this.auth.Id;
@@ -97,16 +100,18 @@ selectedSubId(id,price) {
     this.buy.visaID = this.selectecarid;
     if (this.selectecarid != null) {
       this.http.post("https://localhost:44328/api/User/BuySubscription/", this.buy, { headers: new HttpHeaders({ "Content-Type": "application/json" }) })
-            .subscribe({
-              next: () => {
-                alert("Purchase completed successfully");
-              },
-             error: (err: HttpErrorResponse) => console.log("no data")
+        .subscribe({
+          next: () => {
+            this.showSuccess = true;
+            setTimeout(() => { this.showSuccess = false; }, 4000);
+            //window.location.reload();
+          },
+          error: (err: HttpErrorResponse) => console.log("no data")
 
-            })
+        })
     }
 
-    
+
 
   }
   ButtonDisabled(id: number) {

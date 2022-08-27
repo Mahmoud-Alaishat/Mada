@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using project.core.DTO;
 using project.core.Service;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,12 @@ namespace Project1.Controllers
             this.userService = userService;
             this.commentService = commentService;
         }
-        [HttpGet,Authorize(Roles ="Admin")]
+        [HttpGet]
         [Route("userCount")]
-        public ActionResult UserCount()
+        public IActionResult UserCount()
         {
-            var uCount = userService.CountUsers();
-            return Ok(uCount);
+            var uCount = (userService.CountUsers().Count)-1;
+            return Ok(new UserCount { Count = uCount });
         }
         [HttpGet]
         [Route("commentCount")]

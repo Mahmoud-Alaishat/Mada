@@ -474,5 +474,11 @@ namespace Project1.Controllers
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }
+        [HttpGet]
+        [Route("GetFriendStory/{userId}")]
+        public IActionResult GetFriendStory(string userId)
+        {
+            return Ok(friendService.GetFriendStory(userId));    
+        }
     }
 }

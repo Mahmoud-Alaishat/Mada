@@ -1,11 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders } from '@angular/common/http';
-import { error } from '@angular/compiler/src/util';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { parse } from 'path';
-import { Data } from 'popper.js';
 import { AuthService } from '../../auth.service';
 
 @Component({
@@ -52,7 +49,9 @@ export class FeedComponent implements OnInit {
   attachments: Attachments[];
   isExceededLimit: boolean;
   @Output() public onUploadFinished1 = new EventEmitter();
-  commentImage:any =null ;
+  commentImage: any = null;
+  friendstory: FriendStory[];
+  friendstorylast5: FriendStory[];
 
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
@@ -158,6 +157,17 @@ export class FeedComponent implements OnInit {
         this.numOfPost.numberOfPost = response.numberOfPost;
       },
       error: (err: HttpErrorResponse) => console.log("no data")
+    })
+
+    this.http.get<FriendStory[]>("https://localhost:44328/api/User/GetFriendStory/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: FriendStory[]) => {
+        this.friendstory = response;
+        this.friendstorylast5 = response.slice(0, 5);
+        console.log(this.friendstory);
+      },
+      error:(err: HttpErrorResponse) => console.log("no data")
     })
 
   }
@@ -556,6 +566,9 @@ export class FeedComponent implements OnInit {
       });
 
   }
+  setUkToggleStory(id: string): void {
+    document.getElementById("story-" + id).setAttribute('uk-toggle', 'target: body ; cls: story-active' + id);
+  }
 
 }
 interface UserInfo {
@@ -686,4 +699,15 @@ interface Attachments {
 
 interface PostId{
   id:number
+}
+
+interface FriendStory {
+  id: number;
+  firstName: string;
+  lastName: string;
+  userId: string;
+  profilePath: string;
+  item: string;
+  storyDate: Date;
+
 }

@@ -60,6 +60,11 @@ namespace project.infra.Service
             return friendRepository.GetFriends(userId);
         }
 
+        public List<FriendStory> GetFriendStory(string userId)
+        {
+            return friendRepository.GetFriendStory(userId); 
+        }
+
         public List<UserFriend> GetLast6Friends(string userId)
         {
             return friendRepository.GetLast6Friends(userId);    
