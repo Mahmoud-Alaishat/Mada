@@ -15,9 +15,29 @@ namespace project.infra.Service
             this.adminRepository = adminRepository;
         }
 
+        public void BlockAdvertisement(int postId)
+        {
+            adminRepository.BlockAdvertisement(postId);
+        }
+
+        public LikeCommentPostAdCount CountLikeCommentPostAd()
+        {
+            return adminRepository.CountLikeCommentPostAd();
+        }
+
+        public VideoImageCount CountVideoImage()
+        {
+            return adminRepository.CountVideoImage();
+        }
+
         public List<Useractivities> GetUseractivities()
         {
-            return this.GetUseractivities();
+            return adminRepository.GetUseractivities();
+        }
+
+        public void UnBlockAdvertisement(int postId)
+        {
+            adminRepository.UnBlockAdvertisement(postId);
         }
     }
 }

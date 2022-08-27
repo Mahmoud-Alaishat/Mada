@@ -6,11 +6,11 @@ namespace project.core.DTO
 {
     public class Useractivities
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Posts { get; set; }
-        public int comments { get; set; }
-        public int likes { get; set; }
+        public int Comments { get; set; }
+        public int Likes { get; set; }
     }
 }

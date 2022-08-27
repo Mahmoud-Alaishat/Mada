@@ -399,11 +399,12 @@ export class FeedComponent implements OnInit {
   setUkTogglePostLike(id: string): void {
     document.getElementById("post-like-" + id).setAttribute('uk-toggle', 'target: #post-like-' + id);
   }
-  ReportPost(postid: number, statusid: number): void {
+  ReportPost(postid: number): void {
     this.report.postId = postid;
-    this.report.statusId = statusid;
+    this.report.statusId = 1;
     this.http.post("https://localhost:44328/api/User/ReportPost", this.report, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
       next: () => {
+        this.router.navigate(['user/feed'])
         window.location.reload();
       },
       error: () => {
