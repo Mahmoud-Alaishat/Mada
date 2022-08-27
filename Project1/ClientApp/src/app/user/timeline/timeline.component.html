@@ -170,20 +170,31 @@
                       </a>
                     </li>
                     <li>
-                      <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                      <a uk-toggle="target: #repoet-btn" href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                         <i class="uil-edit-alt mr-1"></i>  Edit Post
                       </a>
+                      <div id="repoet-btn" uk-modal>
+                        <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
+                          <h2 class="mb-2 uk-modal-title">Alert</h2>
+                          <p>Are you sure you want to delete this card ?</p>
+                          <div class="uk-modal-footer text-right bg-gray-200 dark:bg-gray-900 mt-6 px-0 space-x-1">
+                            <button class="button gray uk-modal-close" type="button">Cancel</button>
+                            <button style="background-color: #e82a35" class="button" type="button">Delete</button>
+                          </div>
+                        </div>
+                      </div>
                     </li>
+
                     <!--  <li>
-                      <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                        <i class="uil-comment-slash mr-1"></i>   Disable comments
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                        <i class="uil-favorite mr-1"></i>  Add favorites
-                      </a>
-                    </li>-->
+    <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+      <i class="uil-comment-slash mr-1"></i>   Disable comments
+    </a>
+  </li>
+  <li>
+    <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+      <i class="uil-favorite mr-1"></i>  Add favorites
+    </a>
+  </li>-->
                     <li>
                       <hr class="-mx-2 my-2 dark:border-gray-800">
                     </li>

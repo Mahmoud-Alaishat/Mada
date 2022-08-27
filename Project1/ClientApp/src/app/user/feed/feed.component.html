@@ -126,10 +126,21 @@
                       <i class="uil-share-alt mr-1"></i> Share
                     </a>
                   </li>
-                  <li>
-                    <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                      <i class="uil-edit-alt mr-1"></i>  Edit Post
+                  <li uk-toggle="target: #repoet-btn">
+                    <a href="#"  class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                      <i class="uil-edit-alt mr-1"></i>Report Post
+
                     </a>
+                    <div id="repoet-btn" uk-modal>
+                      <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
+                        <h2 class="mb-2 uk-modal-title">Alert</h2>
+                        <p>Are you sure you want to Report this post ?</p>
+                        <div class="uk-modal-footer text-right  dark:bg-gray-900 mt-6 px-0 space-x-1">
+                          <button class="button gray uk-modal-close" type="button">Cancel</button>
+                          <button (click)="ReportPost(post.postId,7)" style="background-color: #e82a35" class="button" type="button">Repoet</button>
+                        </div>
+                      </div>
+                    </div>
                   </li>
                   <li>
                     <hr class="-mx-2 my-2 dark:border-gray-800">

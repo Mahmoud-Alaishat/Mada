@@ -27,13 +27,14 @@ namespace Project1.Controllers
         private readonly ILikeService likeService; 
         private readonly ISubscriptionService subscriptionService;
         private readonly IBankService bankService;
-        private readonly IHubContext<ChatHub> chatHub; 
+        private readonly IHubContext<ChatHub> chatHub;
+        private readonly IReportService reportService;
         private readonly IStoryService storyService;
 
         private readonly IAttachmentService attachmentService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
-            IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub, IStoryService storyService)
+            IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub)
             
         {
             this.commentService = commentService;
@@ -47,7 +48,6 @@ namespace Project1.Controllers
             this.bankService = bankService;
             this.subscriptionService = subscriptionService;
             this.chatHub = chatHub;
-            this.storyService = storyService;   
         }
 
         [HttpPost]
@@ -437,42 +437,11 @@ namespace Project1.Controllers
             }
         }
         [HttpPost]
-        [Route("AddStory")]
-        public IActionResult AddStory([FromBody]Story story)
+        [Route("ReportPost")]
+        public IActionResult ReportPost(Reports report)
         {
-            storyService.Create(story);
-            return Ok();    
-        }
-        [HttpPost, DisableRequestSizeLimit]
-        [Route("UploadStoryImg")]
-        public async Task<IActionResult> UploadStoryImgAsync()
-        {
-            try
-            {
-                var formCollection = await Request.ReadFormAsync();
-                var file1 = formCollection.Files.First();
-                var folderName = Path.Combine("Resources", "Images", "user", "story");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                if (file1.Length > 0)
-                {
-                    var fileName = Guid.NewGuid().ToString() + "_" + (ContentDispositionHeaderValue.Parse(file1.ContentDisposition).FileName.Trim('"'));
-                    var fullPath = Path.Combine(pathToSave, fileName);
-                    var dbPath = Path.Combine(folderName, fileName);
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        file1.CopyTo(stream);
-                    }
-                    return Ok(new StoryImg {StoryPath = fileName });
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex}");
-            }
+            reportService.Create(report);
+            return Ok();
         }
     }
 }

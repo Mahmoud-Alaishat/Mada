@@ -53,7 +53,7 @@ export class FeedComponent implements OnInit {
   isExceededLimit: boolean;
   @Output() public onUploadFinished1 = new EventEmitter();
   commentImage:any =null ;
-
+  report: Report = { id:0, postId: 0, statusId: 0 };
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -388,7 +388,17 @@ export class FeedComponent implements OnInit {
   setUkTogglePostLike(id: string): void {
     document.getElementById("post-like-" + id).setAttribute('uk-toggle', 'target: #post-like-' + id);
   }
-
+  ReportPost(postid: number, statusid: number): void {
+    this.report.postId = postid;
+    this.report.statusId = statusid;
+    this.http.post("https://localhost:44328/api/User/ReportPost", this.report, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
+      next: () => {
+        window.location.reload();
+      },
+      error: () => {
+      }
+    })  }
+   
   trimName(name: string, name1: string): string {
     var fullName = name + " " + name1;
     if (fullName.length > 9) {
@@ -557,6 +567,9 @@ export class FeedComponent implements OnInit {
 
   }
 
+
+
+
 }
 interface UserInfo {
   firstName: string;
@@ -677,6 +690,13 @@ interface Subscription {
 interface NumOfPost {
   numberOfPost
 }
+
+interface Report {
+  id: number,
+  postId: number;
+  statusId: number;
+}
+
 
 interface Attachments {
   id: number;
