@@ -29,7 +29,6 @@ namespace Project1.Controllers
         private readonly IBankService bankService;
         private readonly IHubContext<ChatHub> chatHub;
         private readonly IReportService reportService;
-        private readonly IHubContext<ChatHub> chatHub; 
         private readonly IStoryService storyService;
 
         private readonly IAttachmentService attachmentService;
@@ -436,6 +435,13 @@ namespace Project1.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex}");
             }
+        }
+        [HttpPost]
+        [Route("ReportPost")]
+        public IActionResult ReportPost(Reports report)
+        {
+            reportService.Create(report);
+            return Ok();
         }
     }
 }
