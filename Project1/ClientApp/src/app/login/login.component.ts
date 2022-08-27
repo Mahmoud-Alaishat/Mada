@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
           this.auth.isUserAuthenticated();
           this.auth.isAdmin();
           if (this.auth.IsAdmin) {
-            this.router.navigate(["admin"]);
+            this.router.navigate(["admin/dashboard"]);
           }
           else {
             this.router.navigate(["user/feed"]);

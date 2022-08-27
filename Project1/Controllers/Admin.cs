@@ -22,7 +22,7 @@ namespace Project1.Controllers
             this.userService = userService;
             this.commentService = commentService;
         }
-        [HttpGet,Authorize(Roles ="Admin")]
+        [HttpGet]
         [Route("userCount")]
         public ActionResult UserCount()
         {

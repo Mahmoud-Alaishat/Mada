@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
+import { AuthGuard } from '../guards/auth.guard';
 
 
 
@@ -12,7 +13,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule.forChild(
       [
-        { path: "admin", component: DashboardComponent },
+        { path: "admin/dashboard", component: DashboardComponent, canActivate:[AuthGuard] },
         
       ]
     )
