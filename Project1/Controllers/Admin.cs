@@ -15,26 +15,64 @@ namespace Project1.Controllers
     {
         private readonly IUserService userService;
         private readonly ICommentService commentService;
-
+        private readonly IAdminService adminService;
         public Admin(IUserService userService,
-               ICommentService commentService)
+               ICommentService commentService,
+               IAdminService adminService)
         {
             this.userService = userService;
             this.commentService = commentService;
+            this.adminService = adminService;
         }
         [HttpGet]
         [Route("userCount")]
-        public ActionResult UserCount()
+        public IActionResult UserCount()
         {
-            var uCount = userService.CountUsers();
-            return Ok(uCount);
+            return Ok(userService.CountUsers());
         }
+
         [HttpGet]
         [Route("commentCount")]
-        public ActionResult CommentCount()
+        public IActionResult CommentCount()
         {
-            var cCount = commentService.CountComments();
-            return Ok(cCount);
+            return Ok(commentService.CountComments());
+        }
+
+        [HttpGet]
+        [Route("GetUseractivities")]
+        public IActionResult GetUseractivities()
+        {
+            return Ok(adminService.GetUseractivities());
+        }
+
+        [HttpGet]
+        [Route("CountVideoImage")]
+        public IActionResult CountVideoImage()
+        {
+            return Ok(adminService.CountVideoImage());
+        }
+
+        [HttpGet]
+        [Route("CountLikeCommentPostAd")]
+        public IActionResult CountLikeCommentPostAd()
+        {
+            return Ok(adminService.CountLikeCommentPostAd());
+        }
+
+        [HttpPost]
+        [Route("BlockAdvertisement")]
+        public IActionResult BlockAdvertisement([FromBody] int postId)
+        {
+            adminService.BlockAdvertisement(postId);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("UnBlockAdvertisement")]
+        public IActionResult UnBlockAdvertisement(int postId)
+        {
+            adminService.UnBlockAdvertisement(postId);
+            return Ok();
         }
     }
 }

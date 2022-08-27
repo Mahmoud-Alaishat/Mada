@@ -438,7 +438,7 @@ namespace Project1.Controllers
         }
         [HttpPost]
         [Route("ReportPost")]
-        public IActionResult ReportPost(Reports report)
+        public IActionResult ReportPost([FromBody] Reports report)
         {
             reportService.Create(report);
             return Ok();
