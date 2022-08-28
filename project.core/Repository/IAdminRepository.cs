@@ -12,6 +12,11 @@ namespace project.core.Repository
         public LikeCommentPostAdCount CountLikeCommentPostAd();
         public void BlockAdvertisement(int postId);
         public void UnBlockAdvertisement(int postId);
+        public void DeleteUser(string userId);
+        public List<FeedBackDto> GetLast2FeedBack();
+        public List<ReportDto> GetLast2Reports();
+        public List<FeedBackDto> CRUDOPFeedback(FeedBackDto feedBack, string operation);
+        public List<ReportDto> CRUDOPReport(ReportDto report, string operation);
 
     }
 }

@@ -22,7 +22,7 @@ namespace project.infra.Repository
         {
             var parameter = new DynamicParameters();
             parameter.Add("idofpost", postId, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            context.dbConnection.Execute("Admin_package_api.BlockAd",parameter, commandType: CommandType.StoredProcedure);
+            context.dbConnection.ExecuteAsync("Admin_package_api.BlockAd",parameter, commandType: CommandType.StoredProcedure);
         }
 
         public LikeCommentPostAdCount CountLikeCommentPostAd()
@@ -37,9 +37,22 @@ namespace project.infra.Repository
             return result.SingleOrDefault();
         }
 
+        public void DeleteUser(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            context.dbConnection.ExecuteAsync("Admin_package_api.DeleteUser", parameter, commandType: CommandType.StoredProcedure);
+        }
+
         public List<Useractivities> GetUseractivities()
         {
             var result = context.dbConnection.Query<Useractivities>("Admin_package_api.UserActivities", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
+        public List<FeedBackDto> GetLast2FeedBack()
+        {
+            var result = context.dbConnection.Query<FeedBackDto>("Admin_package_api.Last2FeedBack", commandType: CommandType.StoredProcedure);
             return result.ToList();
         }
 
@@ -48,6 +61,56 @@ namespace project.infra.Repository
             var parameter = new DynamicParameters();
             parameter.Add("idofpost", postId, dbType: DbType.Int32, direction: ParameterDirection.Input);
             context.dbConnection.ExecuteAsync("Admin_package_api.UnBlockAd",parameter, commandType: CommandType.StoredProcedure);
+        }
+
+        public List<ReportDto> GetLast2Reports()
+        {
+            var result = context.dbConnection.Query<ReportDto>("Admin_package_api.Last2Reports", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
+        public List<FeedBackDto> CRUDOPFeedback(FeedBackDto feedBack, string operation)
+        {
+            var parameter = new DynamicParameters();
+            List<FeedBackDto> re = new List<FeedBackDto>();
+            parameter.Add("idoffeedback", feedBack.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("feedbacktextt", feedBack.FeedbackText, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("feedbackstatuss", feedBack.FeedbackStatus, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("useridd", feedBack.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
+
+            if (operation == "read" | operation == "readbyid")
+            {
+                var result = context.dbConnection.Query<FeedBackDto>("Feedback_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                return result.ToList();
+            }
+            else
+            {
+                context.dbConnection.ExecuteAsync("Feedback_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                return re;
+            }
+        }
+
+        public List<ReportDto> CRUDOPReport(ReportDto report, string operation)
+        {
+            var parameter = new DynamicParameters();
+            List<ReportDto> re = new List<ReportDto>();
+            parameter.Add("idofRepoet", report.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("idofPost", report.PostId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("idofStatus", report.StatusId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("idofuser", report.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
+
+            if (operation == "read" | operation == "readbyid")
+            {
+                var result = context.dbConnection.Query<ReportDto>("Feedback_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                return result.ToList();
+            }
+            else
+            {
+                context.dbConnection.ExecuteAsync("Feedback_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                return re;
+            }
         }
     }
 }
