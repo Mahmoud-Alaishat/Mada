@@ -1,6 +1,18 @@
 
 
 <div class="main_content">
+  <div *ngIf="this.showError" class="w-full relative left-0" style="display: flex; justify-content: end; position: sticky;top:75px;z-index:3 ">
+    <div style="width:23rem" class="bg-red-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+      <h3 class="text-lg font-semibold text-white">Alert</h3>
+      <p class="text-white text-opacity-75">Your balance is not enough to subscribe</p>
+    </div>
+  </div>
+  <div *ngIf="this.showSuccess" class="w-full relative left-0" style="display: flex; justify-content: end; position: sticky;top:75px;z-index:3 ">
+    <div style="width:23rem" class="bg-green-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+      <h3 class="text-lg font-semibold text-white">Message</h3>
+      <p class="text-white text-opacity-75">Subscribed successfully</p>
+    </div>
+  </div>
   <div class="bg-gradient-to-tr flex from-blue-400 h-52 items-center justify-center lg:h-80 pb-10 relative to-blue-300 via-blue-400 w-full">
 
     <div class="text-center max-w-xl mx-auto z-10 relative px-5">
@@ -26,7 +38,7 @@
 
           <div class="font-bold mb-4 text-2xl capitalize">  {{obj.name}} </div>
 
-         
+
 
           <div class="font-medium mb-6 text-gray-400 text-base"> {{obj.description}} </div>
 

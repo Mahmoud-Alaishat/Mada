@@ -68,6 +68,14 @@ namespace project.infra.Repository
             return result.ToList();
         }
 
+        public List<FriendStory> GetFriendStory(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<FriendStory>("Friend_package_api.GetFriendStory", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
         public List<UserFriend> GetLast6Friends(string userId)
         {
             var parameter = new DynamicParameters();

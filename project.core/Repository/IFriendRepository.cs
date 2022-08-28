@@ -14,6 +14,7 @@ namespace project.core.Repository
 
         public List<UserFriend> GetFriends(string userId);
         public List<UserFriend> GetLast6Friends(string userId);
+        public List<FriendStory> GetFriendStory(string userId); 
 
 
 

@@ -50,7 +50,10 @@ export class FeedComponent implements OnInit {
   isExceededLimit: boolean;
   @Output() public onUploadFinished1 = new EventEmitter();
   commentImage:any =null ;
-  report: Report = { id: 0, postId: 0, statusId: 0 };
+  report: Report = { id:0, postId: 0, statusId: 0 };
+  
+  friendstory: FriendStory[];
+  friendstorylast5: FriendStory[];
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -155,6 +158,17 @@ export class FeedComponent implements OnInit {
         this.numOfPost.numberOfPost = response.numberOfPost;
       },
       error: (err: HttpErrorResponse) => console.log("no data")
+    })
+
+    this.http.get<FriendStory[]>("https://localhost:44328/api/User/GetFriendStory/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: FriendStory[]) => {
+        this.friendstory = response;
+        this.friendstorylast5 = response.slice(0, 5);
+        console.log(this.friendstory);
+      },
+      error:(err: HttpErrorResponse) => console.log("no data")
     })
 
   }
@@ -564,6 +578,9 @@ export class FeedComponent implements OnInit {
       });
 
   }
+  setUkToggleStory(id: string): void {
+    document.getElementById("story-" + id).setAttribute('uk-toggle', 'target: body ; cls: story-active' + id);
+  }
 
 
 
@@ -704,4 +721,15 @@ interface Attachments {
 
 interface PostId{
   id:number
+}
+
+interface FriendStory {
+  id: number;
+  firstName: string;
+  lastName: string;
+  userId: string;
+  profilePath: string;
+  item: string;
+  storyDate: Date;
+
 }

@@ -445,5 +445,11 @@ namespace Project1.Controllers
             reportService.Create(report);
             return Ok();
         }
+        [HttpGet]
+        [Route("GetFriendStory/{userId}")]
+        public IActionResult GetFriendStory(string userId)
+        {
+            return Ok(friendService.GetFriendStory(userId));    
+        }
     }
 }
