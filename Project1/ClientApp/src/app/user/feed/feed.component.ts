@@ -24,9 +24,13 @@ export class FeedComponent implements OnInit {
   isAdmin: boolean = false;
   friendsCount: number = 0;
   friendPosts: FriendPost[];
+  commment: Comment[];
   last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }
   sendcomment: SendComment = { postId: 0, userId: '', content: '', item: '' };
+  sendreplay: SendReplay = { commentId: 0, userId: '', content: '', item: '' };
+
   content = new FormControl();
+  replayContent = new FormControl();
   isShow: boolean
   visa: Bank[];
   totalBalance: number;
@@ -49,6 +53,12 @@ export class FeedComponent implements OnInit {
   attachments: Attachments[];
   isExceededLimit: boolean;
   @Output() public onUploadFinished1 = new EventEmitter();
+  commentImage: any = null;
+  @Output() public onUploadFinished2 = new EventEmitter();
+
+  replayImage: any = null;
+  report: Report = { id: 0, postId: 0, statusId: 0 };
+
   commentImage:any =null ;
   report: Report = { id:0, postId: 0, statusId: 0 };
   
@@ -472,7 +482,7 @@ export class FeedComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
   }
-
+  
   MakeComment(postId: number) {
 
     this.sendcomment.content = this.content.value;
@@ -490,7 +500,23 @@ export class FeedComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
   }
+  MakeReplay(comentId: number) {
 
+    this.sendreplay.content = this.replayContent.value;
+    this.sendreplay.userId = this.auth.Id;
+    this.sendreplay.commentId = comentId;
+    this.sendreplay.item = this.replayImage;
+
+    this.http.post("https://localhost:44328/api/User/MakeReplay/", this.sendreplay, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+        alert("replay done")
+
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
   preventdefault(id: number) {
     document.getElementById("mutasem-" + id).addEventListener("click", function (event) {
       event.preventDefault()
@@ -572,6 +598,29 @@ export class FeedComponent implements OnInit {
             this.message = 'Upload success.';
             this.onUploadFinished1.emit(event.body);
             this.commentImage = event.body['commentPath'];
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log(err)
+      });
+
+  }
+
+  uploadReplayImg = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file1', fileToUpload, fileToUpload.name);
+
+    this.http.post('https://localhost:44328/api/User/UploadReplayImg', formData, { reportProgress: true, observe: 'events' })
+      .subscribe({
+        next: (event) => {
+
+          if (event.type === HttpEventType.Response) {
+            this.message = 'Upload success.';
+            this.onUploadFinished2.emit(event.body);
+            this.replayImage = event.body['ReplayPath'];
           }
         },
         error: (err: HttpErrorResponse) => console.log(err)
@@ -667,6 +716,12 @@ interface IdOfLike {
 interface SendComment {
   postId: number;
   userId: string;
+  content: string;
+  item: string;
+}
+interface SendReplay {
+  userId: string;
+  commentId: number;
   content: string;
   item: string;
 }

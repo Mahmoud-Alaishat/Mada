@@ -26,7 +26,7 @@ namespace project.infra.Repository
             parameter.Add("idofcomment", reply.CommentId, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("idofuser", reply.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("contentofreplay", reply.Content, dbType: DbType.String, direction: ParameterDirection.Input);
-            parameter.Add("dateofreplay", reply.ReplyDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            parameter.Add("dateofreplay", reply.ReplayDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             parameter.Add("itemofreplay", reply.Item, dbType: DbType.String, direction: ParameterDirection.Input);
 
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
