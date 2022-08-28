@@ -40,12 +40,7 @@ namespace Project1.Controllers
             return Ok(commentService.CountComments());
         }
 
-        [HttpGet]
-        [Route("GetUseractivities")]
-        public IActionResult GetUseractivities()
-        {
-            return Ok(adminService.GetUseractivities());
-        }
+
 
         [HttpGet]
         [Route("CountVideoImage")]
@@ -62,15 +57,15 @@ namespace Project1.Controllers
         }
 
         [HttpPost]
-        [Route("BlockAdvertisement")]
-        public IActionResult BlockAdvertisement([FromBody] int postId)
+        [Route("BlockAdvertisement/{postId}")]
+        public IActionResult BlockAdvertisement( int postId)
         {
             adminService.BlockAdvertisement(postId);
             return Ok();
         }
 
         [HttpPost]
-        [Route("UnBlockAdvertisement")]
+        [Route("UnBlockAdvertisement/{postId}")]
         public IActionResult UnBlockAdvertisement(int postId)
         {
             adminService.UnBlockAdvertisement(postId);

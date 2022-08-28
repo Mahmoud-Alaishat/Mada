@@ -34,14 +34,14 @@
         <!-- user story -->
         <div class="user_story grid md:grid-cols-5 grid-cols-3 gap-2 lg:-mx-20 relative">
           <div *ngFor="let story of friendstorylast5">
-            <a  href="#create-post"  uk-toggle="">
+            <a  href="#create-post" id="story-{{story.id}}"  uk-toggle="target: body ; cls: story-active">
               <div class="single_story">
                 <img src="../../../../../Resources/Images/user/story/{{story.item}}" alt="">
                 <div class="story-avatar"> <img src="../../../../../Resources/Images/user/profile/{{story.profilePath}}" alt=""></div>
                 <div class="story-content"> <h4>{{story.firstName}} {{story.lastName}} </h4> </div>
               </div>
             </a>
-            {{setUkToggleStory(story.id)}}
+            <!--{{setUkToggleStory(story.id)}}-->
           </div>
 
           <span class="absolute bg-white lg:flex items-center justify-center p-2 rounded-full
@@ -676,7 +676,7 @@
 
         <div  uk-lightbox>
           <a  href="../../../../../Resources/Images/user/story/{{story.item}}"  data-alt="Image">
-            <img src="../../../../../Resources/Images/user/story/{{story.item}}" id="story-{{story.id}}" class="story-slider-image" data-alt="Image">
+            <img src="../../../../../Resources/Images/user/story/{{story.item}}"  class="story-slider-image" data-alt="Image">
           </a>
         </div>
 

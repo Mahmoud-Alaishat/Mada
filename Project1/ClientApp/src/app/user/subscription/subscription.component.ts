@@ -104,7 +104,7 @@ export class SubscriptionComponent implements OnInit {
           next: () => {
             this.showSuccess = true;
             setTimeout(() => { this.showSuccess = false; }, 4000);
-            //window.location.reload();
+            window.location.reload();
           },
           error: (err: HttpErrorResponse) => console.log("no data")
 
