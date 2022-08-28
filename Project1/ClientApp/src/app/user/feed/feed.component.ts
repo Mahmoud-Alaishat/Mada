@@ -59,9 +59,6 @@ export class FeedComponent implements OnInit {
   replayImage: any = null;
   report: Report = { id: 0, postId: 0, statusId: 0 };
 
-  commentImage:any =null ;
-  report: Report = { id:0, postId: 0, statusId: 0 };
-  
   friendstory: FriendStory[];
   friendstorylast5: FriendStory[];
 
