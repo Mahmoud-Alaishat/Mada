@@ -119,6 +119,27 @@ namespace project.infra.Repository
             return result.ToList();
         }
 
+        public List<UserStory> UserStory()
+        {
+            var result = context.dbConnection.Query<UserStory>("Admin_package_api.UserStory", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
+        public void BlockStory(int storyId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofstory", storyId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            context.dbConnection.ExecuteAsync("Admin_package_api.BlockStory", parameter, commandType: CommandType.StoredProcedure);
+        }
+
+        public void UnBlockStory(int storyId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofstory", storyId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            context.dbConnection.ExecuteAsync("Admin_package_api.UnBlockStory", parameter, commandType: CommandType.StoredProcedure);
+
+        }
+
         public List<RevenueDetails> RevenueDetails()
         {
             var result = context.dbConnection.Query<RevenueDetails>("Admin_package_api.RevenueDetails", commandType: CommandType.StoredProcedure);

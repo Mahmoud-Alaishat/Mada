@@ -84,6 +84,21 @@ namespace project.infra.Service
             return adminRepository.GetUserAndSubscription();
         }
 
+        public List<UserStory> UserStory()
+        {
+            return adminRepository.UserStory();
+        }
+
+        public void BlockStory(int storyId)
+        {
+             adminRepository.BlockStory(storyId);
+        }
+
+        public void UnBlockStory(int storyId)
+        {
+             adminRepository.UnBlockStory(storyId);
+        }
+
         public List<RevenueDetails> RevenueDetails()
         {
             return adminRepository.RevenueDetails();
