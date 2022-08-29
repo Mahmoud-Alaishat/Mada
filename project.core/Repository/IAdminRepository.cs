@@ -18,6 +18,8 @@ namespace project.core.Repository
         public List<FeedBackDto> CRUDOPFeedback(FeedBackDto feedBack, string operation);
         public List<ReportDto> CRUDOPReport(ReportDto report, string operation);
         public List<UserSubscription> GetUserAndSubscription();
+        public List<UserStory> UserStory();
+
 
     }
 }

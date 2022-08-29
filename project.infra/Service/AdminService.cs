@@ -83,5 +83,10 @@ namespace project.infra.Service
         {
             return adminRepository.GetUserAndSubscription();
         }
+
+        public List<UserStory> UserStory()
+        {
+            return adminRepository.UserStory();
+        }
     }
 }

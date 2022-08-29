@@ -81,5 +81,12 @@ namespace Project1.Controllers
         {
             return Ok(adminService.GetUserAndSubscription());
         }
+
+        [HttpGet]
+        [Route("UserStory")]
+        public IActionResult UserStory()
+        {
+            return Ok(adminService.UserStory());
+        }
     }
 }
