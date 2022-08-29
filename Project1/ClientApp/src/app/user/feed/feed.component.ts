@@ -196,8 +196,6 @@ export class FeedComponent implements OnInit {
       })
    
       if (this.userData.subscriptionId == 1 && this.numOfPost.numberOfPost < this.subscriptions[0].limitPost) {
-        console.log(this.userData);
-        console.log(this.subscriptions[0].limitPost);
         this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
           headers: new HttpHeaders({ "Content-Type": "application/json" })
         }).subscribe({
@@ -491,7 +489,7 @@ export class FeedComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        alert("Yesss")
+        
 
       },
       error: (err: HttpErrorResponse) => console.log("no data")
@@ -508,7 +506,7 @@ export class FeedComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        alert("replay done")
+        
 
       },
       error: (err: HttpErrorResponse) => console.log("no data")
@@ -568,10 +566,9 @@ export class FeedComponent implements OnInit {
             else if (event.type === HttpEventType.Response) {
               this.message = 'Upload success.';
               this.onUploadFinished.emit(event.body);
-              console.log(event);
-              console.log(files.length);
+
               this.attachments = Object.assign([], event.body)
-              console.log(this.attachments);
+
             }
           },
           error: (err: HttpErrorResponse) => console.log(err)

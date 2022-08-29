@@ -41,7 +41,6 @@ export class SubscriptionComponent implements OnInit {
             next: (response: SubscriptionidPostNUm) => {
               this.subsid = response.subscriptionId;
               this.NumPost = response.numberOfPost;
-              console.log(this.NumPost);
 
             },
             error: (err: HttpErrorResponse) => console.log("no data")
@@ -85,7 +84,6 @@ export class SubscriptionComponent implements OnInit {
   selectedSubId(id, price) {
     this.selectedsubid = id;
     this.priceselectedsub = price;
-    console.log(this.selectedsubid + " " + this.priceselectedsub);
   }
 
   BuySubscription() {
@@ -115,10 +113,8 @@ export class SubscriptionComponent implements OnInit {
 
   }
   ButtonDisabled(id: number) {
-    console.log(this.subsid);
     if (this.subsid == 4) {
       document.getElementById(id.toString()).removeAttribute('disabled');
-      console.log(this.subsid);
 
     }
   }

@@ -234,19 +234,15 @@ export class TimelineComponent implements OnInit {
 
     this.sendcomment.content = this.content.value;
     this.sendcomment.postId = postId;
-    alert(postId);
     this.sendcomment.userId = this.auth.Id;
     this.sendcomment.item = null;
-    alert(this.sendcomment.content);
-    alert(this.sendcomment.postId);
-    alert(this.sendcomment.userId);
-    alert(this.sendcomment.item);
+   
 
     this.http.post("https://localhost:44328/api/User/MakeComment/", this.sendcomment, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        alert("Yesss")
+        
 
       },
       error: (err: HttpErrorResponse) => console.log("no data")
@@ -286,15 +282,14 @@ export class TimelineComponent implements OnInit {
   }
   MakeStory() {
     this.story.item = this.storyImage;
-    alert(this.story.item);
+
     this.story.userId = this.auth.Id;
 
     this.http.post("https://localhost:44328/api/User/AddStory/", this.story, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        alert("Yesss")
-
+          window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
