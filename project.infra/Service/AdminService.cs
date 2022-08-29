@@ -79,6 +79,11 @@ namespace project.infra.Service
             adminRepository.CRUDOPReport(report, "update");
         }
 
+        public List<UserSubscription> GetUserAndSubscription()
+        {
+            return adminRepository.GetUserAndSubscription();
+        }
+
         public List<RevenueDetails> RevenueDetails()
         {
             return adminRepository.RevenueDetails();

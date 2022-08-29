@@ -113,6 +113,12 @@ namespace project.infra.Repository
             }
         }
 
+        public List<UserSubscription> GetUserAndSubscription()
+        {
+            var result = context.dbConnection.Query<UserSubscription>("Admin_package_api.GetUserAndSubscription", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
         public List<RevenueDetails> RevenueDetails()
         {
             var result = context.dbConnection.Query<RevenueDetails>("Admin_package_api.RevenueDetails", commandType: CommandType.StoredProcedure);

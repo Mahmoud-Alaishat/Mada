@@ -76,6 +76,12 @@ namespace Project1.Controllers
             return Ok();
         }
         [HttpGet]
+        [Route("GetUserAndSubscription")]
+        public IActionResult GetUserAndSubscription()
+        {
+            return Ok(adminService.GetUserAndSubscription());
+        }
+        [HttpGet]
         [Route("RevenueDetails")]
         public IActionResult RevenueDetails()
         {
