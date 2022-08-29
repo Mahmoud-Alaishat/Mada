@@ -608,7 +608,7 @@ export class FeedComponent implements OnInit {
     }
     let fileToUpload = <File>files[0];
     const formData = new FormData();
-    formData.append('file1', fileToUpload, fileToUpload.name);
+    formData.append('file2', fileToUpload, fileToUpload.name);
 
     this.http.post('https://localhost:44328/api/User/UploadReplayImg', formData, { reportProgress: true, observe: 'events' })
       .subscribe({
@@ -617,7 +617,7 @@ export class FeedComponent implements OnInit {
           if (event.type === HttpEventType.Response) {
             this.message = 'Upload success.';
             this.onUploadFinished2.emit(event.body);
-            this.replayImage = event.body['ReplayPath'];
+            this.replayImage = event.body['replayPath'];
           }
         },
         error: (err: HttpErrorResponse) => console.log(err)

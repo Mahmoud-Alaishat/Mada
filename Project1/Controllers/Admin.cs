@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using project.core.Data;
 using project.core.DTO;
 using project.core.Service;
 using System;
@@ -80,6 +81,48 @@ namespace Project1.Controllers
         public IActionResult GetUserAndSubscription()
         {
             return Ok(adminService.GetUserAndSubscription());
+        }
+
+        [HttpGet]
+        [Route("UserStory")]
+        public IActionResult UserStory()
+        {
+            return Ok(adminService.UserStory());
+        }
+
+        [HttpPost]
+        [Route("BlockStory/{storyId}")]
+        public IActionResult BlockStory(int storyId)
+        {
+            adminService.BlockStory(storyId);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("UnBlockStory/{storyId}")]
+        public IActionResult UnBlockStory(int storyId)
+        {
+            adminService.UnBlockStory(storyId);
+            return Ok();
+        }
+        [HttpGet]
+        [Route("RevenueDetails")]
+        public IActionResult RevenueDetails()
+        {
+            return Ok(adminService.RevenueDetails());  
+        }
+        [HttpGet]
+        [Route("UpdateDesign")]
+        public IActionResult UpdateDesign(Design design)
+        {
+            return Ok(adminService.UpdateDesign(design));
+        }
+
+        [HttpGet]
+        [Route("GetDesignById")]
+        public IActionResult GetDesignById(string designId)
+        {
+            return Ok(adminService.GetDesignById(designId));
         }
 
         [HttpGet]

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using project.core.Data;
 using project.core.Domain;
 using project.core.DTO;
 using project.core.Repository;
@@ -117,6 +118,64 @@ namespace project.infra.Repository
         {
             var result = context.dbConnection.Query<UserSubscription>("Admin_package_api.GetUserAndSubscription", commandType: CommandType.StoredProcedure);
             return result.ToList();
+        }
+
+        public List<UserStory> UserStory()
+        {
+            var result = context.dbConnection.Query<UserStory>("Admin_package_api.UserStory", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
+        public void BlockStory(int storyId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofstory", storyId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            context.dbConnection.ExecuteAsync("Admin_package_api.BlockStory", parameter, commandType: CommandType.StoredProcedure);
+        }
+
+        public void UnBlockStory(int storyId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofstory", storyId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            context.dbConnection.ExecuteAsync("Admin_package_api.UnBlockStory", parameter, commandType: CommandType.StoredProcedure);
+
+        }
+
+        public List<RevenueDetails> RevenueDetails()
+        {
+            var result = context.dbConnection.Query<RevenueDetails>("Admin_package_api.RevenueDetails", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
+        public List<Design> CRUDOPDesign(Design design, string operation)
+        {
+            var parameter = new DynamicParameters();
+            List<Design> re = new List<Design>();
+            parameter.Add("idofdesign", design.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("SlideImagee1", design.SlideImage1, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("SlideImagee2", design.SlideImage2, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("SlideImagee3", design.SlideImage3, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("SubTextt1", design.SubText1, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("SubTextt2", design.SubText2, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("SubTextt3", design.SubText3, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("MainTextt1", design.MainText1, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("MainTextt2", design.MainText2, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("MainTextt3", design.MainText3, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("UserIdd", design.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
+
+            if (operation == "readbyid")
+            {
+                var result = context.dbConnection.Query<Design>("Design_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                return result.ToList();
+            }
+            else
+            {
+                context.dbConnection.ExecuteAsync("Design_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                return re;
+            }
+
+        }
         }
 
         public List<TopPostSeen> GetTopPostSeen()

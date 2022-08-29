@@ -1,4 +1,5 @@
-﻿using project.core.DTO;
+﻿using project.core.Data;
+using project.core.DTO;
 using project.core.Repository;
 using project.core.Service;
 using System;
@@ -84,6 +85,38 @@ namespace project.infra.Service
         public List<UserSubscription> GetUserAndSubscription()
         {
             return adminRepository.GetUserAndSubscription();
+        }
+
+        public List<UserStory> UserStory()
+        {
+            return adminRepository.UserStory();
+        }
+
+        public void BlockStory(int storyId)
+        {
+             adminRepository.BlockStory(storyId);
+        }
+
+        public void UnBlockStory(int storyId)
+        {
+             adminRepository.UnBlockStory(storyId);
+        }
+
+        public List<RevenueDetails> RevenueDetails()
+        {
+            return adminRepository.RevenueDetails();
+        }
+
+        public Design UpdateDesign(Design design)
+        {
+            return adminRepository.CRUDOPDesign(design, "update").ToList().FirstOrDefault();
+        }
+
+        public Design GetDesignById(string id)
+        {
+            Design design = new Design();
+            design.Id = id;
+            return adminRepository.CRUDOPDesign(design, "readbyid").ToList().FirstOrDefault();
         }
 
         public List<TopPostSeen> GetTopPostSeen()
