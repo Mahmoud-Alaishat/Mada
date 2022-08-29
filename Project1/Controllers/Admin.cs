@@ -88,5 +88,21 @@ namespace Project1.Controllers
         {
             return Ok(adminService.UserStory());
         }
+
+        [HttpPost]
+        [Route("BlockStory/{storyId}")]
+        public IActionResult BlockStory(int storyId)
+        {
+            adminService.BlockStory(storyId);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("UnBlockStory/{storyId}")]
+        public IActionResult UnBlockStory(int storyId)
+        {
+            adminService.UnBlockStory(storyId);
+            return Ok();
+        }
     }
 }
