@@ -1,4 +1,5 @@
-﻿using project.core.DTO;
+﻿using project.core.Data;
+using project.core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,6 +23,8 @@ namespace project.core.Repository
         public void BlockStory(int storyId);
         public void UnBlockStory(int storyId);
         public List<RevenueDetails> RevenueDetails();
+        public List<Design> CRUDOPDesign(Design design, string operation);
+
 
     }
 }

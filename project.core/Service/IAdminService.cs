@@ -1,4 +1,5 @@
-﻿using project.core.DTO;
+﻿using project.core.Data;
+using project.core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,6 +25,10 @@ namespace project.core.Service
         public void BlockStory(int storyId);
         public void UnBlockStory(int storyId);
         public List<RevenueDetails> RevenueDetails();
+        public Design UpdateDesign(Design design);
+        public Design GetDesignById(string id);
+
+
 
 
     }

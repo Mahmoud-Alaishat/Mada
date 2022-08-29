@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using project.core.Data;
 using project.core.DTO;
 using project.core.Service;
 using System;
@@ -109,6 +110,19 @@ namespace Project1.Controllers
         public IActionResult RevenueDetails()
         {
             return Ok(adminService.RevenueDetails());  
+        }
+        [HttpGet]
+        [Route("UpdateDesign")]
+        public IActionResult UpdateDesign(Design design)
+        {
+            return Ok(adminService.UpdateDesign(design));
+        }
+
+        [HttpGet]
+        [Route("GetDesignById")]
+        public IActionResult GetDesignById(string designId)
+        {
+            return Ok(adminService.GetDesignById(designId));
         }
     }
 }

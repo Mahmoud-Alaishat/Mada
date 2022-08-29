@@ -1,8 +1,10 @@
-﻿using project.core.DTO;
+﻿using project.core.Data;
+using project.core.DTO;
 using project.core.Repository;
 using project.core.Service;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace project.infra.Service
@@ -102,6 +104,18 @@ namespace project.infra.Service
         public List<RevenueDetails> RevenueDetails()
         {
             return adminRepository.RevenueDetails();
+        }
+
+        public Design UpdateDesign(Design design)
+        {
+            return adminRepository.CRUDOPDesign(design, "update").ToList().FirstOrDefault();
+        }
+
+        public Design GetDesignById(string id)
+        {
+            Design design = new Design();
+            design.Id = id;
+            return adminRepository.CRUDOPDesign(design, "readbyid").ToList().FirstOrDefault();
         }
     }
 }
