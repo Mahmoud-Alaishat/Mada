@@ -75,6 +75,12 @@ namespace Project1.Controllers
             adminService.UnBlockAdvertisement(postId);
             return Ok();
         }
+        [HttpGet]
+        [Route("GetUserAndSubscription")]
+        public IActionResult GetUserAndSubscription()
+        {
+            return Ok(adminService.GetUserAndSubscription());
+        }
 
         [HttpGet]
         [Route("GetUseractivities")]

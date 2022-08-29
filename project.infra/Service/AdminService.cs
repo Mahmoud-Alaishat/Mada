@@ -78,5 +78,10 @@ namespace project.infra.Service
             report.StatusId = 3;
             adminRepository.CRUDOPReport(report, "update");
         }
+
+        public List<UserSubscription> GetUserAndSubscription()
+        {
+            return adminRepository.GetUserAndSubscription();
+        }
     }
 }
