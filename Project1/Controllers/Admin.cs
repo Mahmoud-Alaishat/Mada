@@ -199,6 +199,15 @@ namespace Project1.Controllers
         public IActionResult GetTopPostSeen()
         {
             return Ok(adminService.GetTopPostSeen());
+
         }
+        [HttpPost]
+        [Route("ReplyContactUs")]
+        public IActionResult ReplyContactUs([FromBody]EmailDto email)
+        {
+            emailService.SendEmail(email);
+            return Ok();
+        }
+
     }
 }

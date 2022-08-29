@@ -49,6 +49,12 @@
 <!-- Main Contents -->
 <div class="main_content">
   <div class="mcontainer">
+    <div *ngIf="this.showSuccess" class="w-full relative left-0" style="display: flex; justify-content: end; position: sticky;top:75px;z-index:3">
+      <div style="width:23rem" class="bg-green-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+        <h3 class="text-lg font-semibold text-white">Message</h3>
+        <p class="text-white text-opacity-75">Profile updated successfully</p>
+      </div>
+    </div>
 
     <div class="mb-6">
       <h2 class="text-2xl font-semibold"> Settings </h2>

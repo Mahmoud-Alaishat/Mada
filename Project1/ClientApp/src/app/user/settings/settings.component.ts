@@ -29,6 +29,8 @@ export class SettingsComponent implements OnInit {
 
   profileImage: any;
   coverImage: any;
+  showSuccess: boolean;
+
 
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
@@ -115,6 +117,9 @@ export class SettingsComponent implements OnInit {
     console.log(this.userData);
     this.http.post("https://localhost:44328/api/User/UpdateUserProfile/" + this.auth.Id, this.userData, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
       next: () => {
+        this.showSuccess = true;
+        setTimeout(() => { this.showSuccess = false; }, 4000);
+        window.location.reload();
       },
       error: () => {
       }

@@ -176,7 +176,7 @@ namespace project.infra.Repository
             }
 
         }
-        }
+        
 
         public List<TopPostSeen> GetTopPostSeen()
         {
