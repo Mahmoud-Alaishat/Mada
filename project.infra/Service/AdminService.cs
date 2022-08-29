@@ -3,6 +3,7 @@ using project.core.Repository;
 using project.core.Service;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace project.infra.Service
@@ -67,10 +68,11 @@ namespace project.infra.Service
             return adminRepository.CRUDOPReport(report, "read");
         }
 
-        public void AcceptReport(ReportDto report)
+        public ReportDto AcceptReport(ReportDto report)
         {
             report.StatusId = 2;
             adminRepository.CRUDOPReport(report, "update");
+           return GetReportById(report.Id);
         }
 
         public void RejectReport(ReportDto report)
@@ -82,6 +84,18 @@ namespace project.infra.Service
         public List<UserSubscription> GetUserAndSubscription()
         {
             return adminRepository.GetUserAndSubscription();
+        }
+
+        public List<TopPostSeen> GetTopPostSeen()
+        {
+            return adminRepository.GetTopPostSeen();
+        }
+
+        public ReportDto GetReportById(int reportId)
+        {
+            ReportDto report = new ReportDto();
+            report.Id = reportId;
+            return adminRepository.CRUDOPReport(report, "readbyid").ToList().SingleOrDefault();
         }
     }
 }

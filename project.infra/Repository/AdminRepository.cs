@@ -95,7 +95,7 @@ namespace project.infra.Repository
         {
             var parameter = new DynamicParameters();
             List<ReportDto> re = new List<ReportDto>();
-            parameter.Add("idofRepoet", report.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("idofReport", report.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("idofPost", report.PostId, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("idofStatus", report.StatusId, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("idofuser", report.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
@@ -103,12 +103,12 @@ namespace project.infra.Repository
 
             if (operation == "read" | operation == "readbyid")
             {
-                var result = context.dbConnection.Query<ReportDto>("Feedback_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                var result = context.dbConnection.Query<ReportDto>("Report_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
                 return result.ToList();
             }
             else
             {
-                context.dbConnection.ExecuteAsync("Feedback_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
+                context.dbConnection.ExecuteAsync("Report_package_api.CRUDOP", parameter, commandType: CommandType.StoredProcedure);
                 return re;
             }
         }
@@ -116,6 +116,12 @@ namespace project.infra.Repository
         public List<UserSubscription> GetUserAndSubscription()
         {
             var result = context.dbConnection.Query<UserSubscription>("Admin_package_api.GetUserAndSubscription", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
+        public List<TopPostSeen> GetTopPostSeen()
+        {
+            var result = context.dbConnection.Query<TopPostSeen>("Admin_package_api.TopPostSeen", commandType: CommandType.StoredProcedure);
             return result.ToList();
         }
     }

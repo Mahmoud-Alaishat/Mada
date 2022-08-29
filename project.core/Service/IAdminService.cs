@@ -17,9 +17,11 @@ namespace project.core.Service
         public List<ReportDto> GetLast2Reports();
         public List<FeedBackDto> GetFeedBack();
         public List<ReportDto> GetReport();
-        public void AcceptReport(ReportDto report);
+        public ReportDto AcceptReport(ReportDto report);
         public void RejectReport(ReportDto report);
         public List<UserSubscription> GetUserAndSubscription();
+        public List<TopPostSeen> GetTopPostSeen();
+        public ReportDto GetReportById(int reportId);
 
     }
 }

@@ -88,5 +88,74 @@ namespace Project1.Controllers
         {
             return Ok(adminService.GetUseractivities());
         }
+
+        [HttpDelete]
+        [Route("DeleteUser/{userId}")]
+        public IActionResult DeleteUser(string userId)
+        {
+            adminService.DeleteUser(userId);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetLast2Reports")]
+        public IActionResult GetLast2Reports()
+        {
+            return Ok(adminService.GetLast2Reports());
+        }
+
+        [HttpGet]
+        [Route("GetLast2FeedBack")]
+        public IActionResult GetLast2FeedBack()
+        {
+            return Ok(adminService.GetLast2FeedBack());
+        }
+
+        [HttpGet]
+        [Route("GetReport")]
+        public IActionResult GetReport()
+        {
+            return Ok(adminService.GetReport());
+        }
+
+        [HttpGet]
+        [Route("GetFeedBack")]
+        public IActionResult GetFeedBack()
+        {
+            return Ok(adminService.GetFeedBack());
+        }
+
+        [HttpPost]
+        [Route("AcceptReport")]
+        public IActionResult AcceptReport(ReportDto report)
+        {
+          var result = adminService.AcceptReport(report);
+            EmailDto email = new EmailDto();
+            email.To = result.Email;
+            email.Subject = "#"+result.Id+" Report result";
+            email.Body = "Hello "+"<strong>"+result.FirstName+" "+ result.LastName+"</strong>"+"<br><br>"+
+                         "Here at Mada we are always seeking for a safe environment where everyone can express their thoughts,<br>still, there are some rules that everybody should follow to ensure a safe and healthy atmosphere.<br><br>"+
+                         "And after taking a close look at the last content you posted we found that this content goes against our rules and therefore we decided to <strong style='color:red'>delete</strong> it<br><br>"+
+                         "We believe in the open door approach so, you can always contact us if you believe something is wrong "+
+                         "please put the report number in the email subject so we could help you easily you can also use our contact us form page<br><br><br>"+
+                         "<strong>Mada Team</strong>";
+            emailService.SendEmail(email);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("RejectReport")]
+        public IActionResult RejectReport(ReportDto report)
+        {
+            adminService.RejectReport(report);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetTopPostSeen")]
+        public IActionResult GetTopPostSeen()
+        {
+            return Ok(adminService.GetTopPostSeen());
+        }
     }
 }
