@@ -19,6 +19,8 @@ namespace project.core.Service
         public List<ReportDto> GetReport();
         public void AcceptReport(ReportDto report);
         public void RejectReport(ReportDto report);
+        public List<RevenueDetails> RevenueDetails();
+
 
     }
 }

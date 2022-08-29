@@ -75,5 +75,11 @@ namespace Project1.Controllers
             adminService.UnBlockAdvertisement(postId);
             return Ok();
         }
+        [HttpGet]
+        [Route("RevenueDetails")]
+        public IActionResult RevenueDetails()
+        {
+            return Ok(adminService.RevenueDetails());  
+        }
     }
 }

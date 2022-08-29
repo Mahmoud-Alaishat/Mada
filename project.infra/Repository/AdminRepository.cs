@@ -112,5 +112,11 @@ namespace project.infra.Repository
                 return re;
             }
         }
+
+        public List<RevenueDetails> RevenueDetails()
+        {
+            var result = context.dbConnection.Query<RevenueDetails>("Admin_package_api.RevenueDetails", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
     }
 }
