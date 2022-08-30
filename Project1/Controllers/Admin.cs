@@ -209,5 +209,20 @@ namespace Project1.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("AcceptFeedback/{feedbackId}")]
+        public IActionResult AcceptFeedback(int feedbackId)
+        {
+            adminService.AcceptFeedback(feedbackId);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("RejectFeedback/{feedbackId}")]
+        public IActionResult RejectFeedback(int feedbackId)
+        {
+            adminService.RejectFeedback(feedbackId);
+            return Ok();
+        }
     }
 }

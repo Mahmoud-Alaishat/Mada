@@ -25,7 +25,8 @@ namespace project.core.Repository
         public void UnBlockStory(int storyId);
         public List<RevenueDetails> RevenueDetails();
         public List<Design> CRUDOPDesign(Design design, string operation);
-
+        public void AcceptFeedback(int feedbackId);
+        public void RejectFeedback(int feedbackId);
 
     }
 }

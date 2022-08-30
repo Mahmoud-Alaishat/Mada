@@ -27,11 +27,10 @@ namespace project.core.Service
         public List<RevenueDetails> RevenueDetails();
         public Design UpdateDesign(Design design);
         public Design GetDesignById(string id);
-
-
-
         public List<TopPostSeen> GetTopPostSeen();
         public ReportDto GetReportById(int reportId);
+        public void AcceptFeedback(int feedbackId);
+        public void RejectFeedback(int feedbackId);
 
     }
 }

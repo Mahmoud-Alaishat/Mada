@@ -183,5 +183,19 @@ namespace project.infra.Repository
             var result = context.dbConnection.Query<TopPostSeen>("Admin_package_api.TopPostSeen", commandType: CommandType.StoredProcedure);
             return result.ToList();
         }
+
+        public void AcceptFeedback(int feedbackId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idoffeedbcak", feedbackId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            context.dbConnection.ExecuteAsync("Admin_package_api.AcceptFeedback", parameter, commandType: CommandType.StoredProcedure);
+        }
+
+        public void RejectFeedback(int feedbackId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idoffeedbcak", feedbackId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            context.dbConnection.ExecuteAsync("Admin_package_api.RejectFeedback", parameter, commandType: CommandType.StoredProcedure);
+        }
     }
 }

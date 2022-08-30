@@ -130,5 +130,15 @@ namespace project.infra.Service
             report.Id = reportId;
             return adminRepository.CRUDOPReport(report, "readbyid").ToList().SingleOrDefault();
         }
+
+        public void AcceptFeedback(int feedbackId)
+        {
+           adminRepository.AcceptFeedback(feedbackId);
+        }
+
+        public void RejectFeedback(int feedbackId)
+        {
+            adminRepository.RejectFeedback(feedbackId);
+        }
     }
 }
