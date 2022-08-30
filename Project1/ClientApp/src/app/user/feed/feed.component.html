@@ -99,12 +99,13 @@
                       <i class="uil-share-alt mr-1"></i> Share
                     </a>
                   </li>
-                  <li *ngIf="this.isReported" uk-toggle="target: #repoet-btn">
-                    <a href="#"  class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                  <li *ngIf="this.isReported">
+                    <a id="repoet-btn-{{post.postId}}" uk-toggle="" href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                       <i class="uil-edit-alt mr-1"></i>Report Post
 
                     </a>
-                    <div id="repoet-btn" uk-modal>
+                    {{setUkToggleReport((post.postId))}}
+                    <div id="repoet-{{post.postId}}" uk-modal>
                       <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
                         <h2 class="mb-2 uk-modal-title">Alert</h2>
                         <p>Are you sure you want to Report this post ?</p>
@@ -131,6 +132,7 @@
 
           <div *ngIf="post.content != '' " class="p-5 pt-0">
             {{post.content}}
+       
           </div>
           <div uk-lightbox>
             <div *ngIf="post.attachment.length == 1" class="grid grid-cols-1 gap-2 px-4">

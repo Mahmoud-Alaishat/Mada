@@ -1,5 +1,5 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../auth.service';
@@ -21,13 +21,29 @@ export class ProfileComponent implements OnInit {
   isAdmin: boolean = false;
   friendsCount: number = 0;
   posts: MyPosts[];
+  commment: Comment[];
   last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }
   sendcomment: SendComment = { postId: 0, userId: '', content: '', item: '' };
+  sendreplay: SendReplay = { commentId: 0, userId: '', content: '', item: '' };
   content = new FormControl();
   //numberOfLikes = new BehaviorSubject(0);
   private numberOfLikes = new BehaviorSubject<Like[]>(null);
   numberOfLikes$ = this.numberOfLikes.asObservable();
   id: any;
+  message: string;
+  @Output() public onUploadFinished1 = new EventEmitter();
+  commentImage: any = null;
+  @Output() public onUploadFinished2 = new EventEmitter();
+
+  replayImage: any = null;
+  report: Report = { id: 0, postId: 0, statusId: 0, userId: '' };
+  report2: Report = { id: 0, postId: 0, statusId: 0, userId: '' };
+  isReported: boolean;
+  postid: number;
+  replyShow: boolean = false;
+  commid: number;
+
+  replayContent = new FormControl();
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -222,36 +238,136 @@ export class ProfileComponent implements OnInit {
 
 
   }
+  uploadCommentImg = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file1', fileToUpload, fileToUpload.name);
 
+    this.http.post('https://localhost:44328/api/User/UploadCommentImg', formData, { reportProgress: true, observe: 'events' })
+      .subscribe({
+        next: (event) => {
+
+          if (event.type === HttpEventType.Response) {
+            this.message = 'Upload success.';
+            this.onUploadFinished1.emit(event.body);
+            this.commentImage = event.body['commentPath'];
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log(err)
+      });
+
+  }
+  uploadReplayImg = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file2', fileToUpload, fileToUpload.name);
+
+    this.http.post('https://localhost:44328/api/User/UploadReplayImg', formData, { reportProgress: true, observe: 'events' })
+      .subscribe({
+        next: (event) => {
+
+          if (event.type === HttpEventType.Response) {
+            this.message = 'Upload success.';
+            this.onUploadFinished2.emit(event.body);
+            this.replayImage = event.body['replayPath'];
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log(err)
+      });
+
+  }
+  setUkToggleReport(id: number): void {
+    document.getElementById("repoet-btn-" + id).setAttribute('uk-toggle', 'target: #repoet-' + id);
+  }
   MakeComment(postId: number) {
 
     this.sendcomment.content = this.content.value;
     this.sendcomment.postId = postId;
     this.sendcomment.userId = this.auth.Id;
-    this.sendcomment.item = null;
-    alert(this.sendcomment.content);
-    alert(this.sendcomment.postId);
-    alert(this.sendcomment.userId);
-    alert(this.sendcomment.item);
+    this.sendcomment.item = this.commentImage;
 
     this.http.post("https://localhost:44328/api/User/MakeComment/", this.sendcomment, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        alert("Yesss")
+
 
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-
-
   }
+  MakeReplay(comentId: number) {
+
+    this.sendreplay.content = this.replayContent.value;
+    this.sendreplay.userId = this.auth.Id;
+    this.sendreplay.commentId = comentId;
+    this.sendreplay.item = this.replayImage;
+
+    this.http.post("https://localhost:44328/api/User/MakeReplay/", this.sendreplay, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+
+
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
+    
+
+
   preventdefault(id: number) {
     document.getElementById("mutasem-" + id).addEventListener("click", function (event) {
       event.preventDefault()
     });
   }
 
+  ReportPost(pid: number): void {
+    this.report.postId = pid;
+   
+    this.report.statusId = 1;
+    this.report.userId = this.auth.Id;
+    this.http.post("https://localhost:44328/api/User/ReportPost", this.report, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
+      next: () => {
+        this.router.navigate(['user/profile'])
+        window.location.reload();
+      },
+      error: () => {
+      }
+    })
+  }
+  getCommentId(id: number) {
+    this.replyShow = true;
+    this.commid = id;
+    //  alert(this.commid);
+  }
+  getIdPost(id: number) {
+ /*   alert(id);*/
+    this.http.get<boolean>("https://localhost:44328/api/User/AreReport/" + this.auth.Id + "/" + id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: boolean) => {
+
+        if (response == true) {
+          this.isReported = false;
+        }
+        else
+          this.isReported = true;
+        //alert("response " + response);
+        //alert("isReported " + this.isReported);
+
+
+      },
+
+      error: (err: HttpErrorResponse) => { console.log("no data") }
+    })
+  }
   SetHref(id: string) {
     if (this.auth.Id == id) {
       return "timeline";
@@ -260,7 +376,13 @@ export class ProfileComponent implements OnInit {
       return "profile/" + id;
     }
   }
-
+  isVideo(fileName: string): boolean {
+    var name = fileName.split('.').pop();
+    if (name == "mp4") {
+      return true;
+    }
+    return false;
+  }
 
 }
 
@@ -288,6 +410,7 @@ interface MyFriends {
 
 interface MyPosts {
   id: number;
+  userId: string;
   content: string;
   postDate: Date;
   attachment: Attachment[];
@@ -337,6 +460,18 @@ interface IdOfLike {
 interface SendComment {
   postId: number;
   userId: string;
+  content: string;
+  item: string;
+}
+interface Report {
+  id: number,
+  postId: number;
+  statusId: number;
+  userId: string;
+}
+interface SendReplay {
+  userId: string;
+  commentId: number;
   content: string;
   item: string;
 }

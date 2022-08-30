@@ -473,6 +473,10 @@ export class FeedComponent implements OnInit {
       })
   }
 
+  setUkToggleReport(id: number): void {
+    document.getElementById("repoet-btn-" + id).setAttribute('uk-toggle', 'target: #repoet-' + id);
+  }
+
   HitLikes(postId: number) {
     this.putLike.postId = postId;
     this.putLike.userId = this.auth.Id;
