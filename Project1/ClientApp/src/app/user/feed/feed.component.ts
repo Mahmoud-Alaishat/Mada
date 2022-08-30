@@ -19,6 +19,7 @@ export class FeedComponent implements OnInit {
     staticNumPost:0,
   };
   friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' };
+
   putLike: HitLike = { userId: '', postId: 0 }
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
@@ -57,16 +58,20 @@ export class FeedComponent implements OnInit {
   @Output() public onUploadFinished2 = new EventEmitter();
 
   replayImage: any = null;
-  report: Report = { id: 0, postId: 0, statusId: 0 };
-
+  report: Report = { id: 0, postId: 0, statusId: 0, userId :''};
+  report2: Report = { id: 0, postId: 0, statusId: 0, userId: '' };
   friendstory: FriendStory[];
   friendstorylast5: FriendStory[];
-
+  isReported: boolean ;
+  postid: number;
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
     this.isAuthenticate = this.auth.isUserAuthenticated();
     this.isAdmin = this.auth.isAdmin();
+
+   
+    /*lllllll*/
     this.http.get<UserInfo>("https://localhost:44328/api/User/GetUserInfo/" + this.auth.Id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
@@ -392,7 +397,28 @@ export class FeedComponent implements OnInit {
   getPostId(id: string): string {
     return "post-" + id + "";
   }
+  getIdPost(id: number) {
+    this.postid = id;
+    /*alert(id);*/
+    this.http.get<boolean>("https://localhost:44328/api/User/AreReport/" + this.auth.Id +"/"+ this.postid, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: boolean) => {       
+          
+        if (response == true) {
+          this.isReported = false;
+        }
+        else
+          this.isReported = true;
+        //alert("response " + response);
+        //alert("isReported " + this.isReported);
 
+
+      },
+
+      error: (err: HttpErrorResponse) => {  console.log("no data") }
+    })
+  }
   setUkTogglePost(id: string): void {
     document.getElementById("post-" + id).setAttribute('uk-toggle', 'target: #post-comment-' + id);
   }
@@ -407,6 +433,7 @@ export class FeedComponent implements OnInit {
   ReportPost(postid: number): void {
     this.report.postId = postid;
     this.report.statusId = 1;
+    this.report.userId = this.auth.Id;
     this.http.post("https://localhost:44328/api/User/ReportPost", this.report, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
       next: () => {
         this.router.navigate(['user/feed'])
@@ -759,6 +786,7 @@ interface Report {
   id: number,
   postId: number;
   statusId: number;
+  userId: string;
 }
 
 

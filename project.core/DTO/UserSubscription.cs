@@ -12,6 +12,6 @@ namespace project.core.DTO
         public string LastName { get; set; }
         public int SubscriptionId { get; set; }
         public DateTime SubscribeDate { get; set; }
-        public string Description { get; set; }
+        public double Price { get; set; }
     }
 }

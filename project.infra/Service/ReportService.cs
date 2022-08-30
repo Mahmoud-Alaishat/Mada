@@ -19,10 +19,15 @@ namespace project.infra.Service
 
         }
 
+        public List<Reports> AreRepoet(string userId, int postId)
+        {
+            return reportRepository.AreRepoet(userId, postId);
+        }
+
         public Reports Create(Reports report)
         {
-            reportRepository.CRUDOP(report, "insert").ToList().FirstOrDefault();
-            return report;
+            return reportRepository.CRUDOP(report, "insert").ToList().SingleOrDefault();
+            
         }
 
         public void Delete(int reportId)

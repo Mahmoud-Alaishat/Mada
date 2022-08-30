@@ -8,5 +8,6 @@ namespace project.core.Repository
     public interface IReportRepository
     {
         public List<Reports> CRUDOP(Reports report, string operation);
+        public List<Reports> AreRepoet(string userId, int postId);
     }
 }

@@ -8,6 +8,7 @@ namespace project.core.DTO
     {
         public int postId { get; set; }
         public int statusId { get; set; }
+        public string userId { get; set; }
 
     }
 }

@@ -445,6 +445,17 @@ namespace Project1.Controllers
             reportService.Create(report);
             return Ok();
         }
+        
+
+        [HttpGet]
+        [Route("AreReport/{userId}/{postId}")]
+        public bool AreRepoet(string userId,int postId)
+        {
+            if (reportService.AreRepoet(userId, postId).Count >0)
+                return true;
+            else
+                return false;
+        }
         [HttpPost, DisableRequestSizeLimit]
         [Route("UploadReplayImg")]
         public async Task<IActionResult> UploadReplayImgAsync()

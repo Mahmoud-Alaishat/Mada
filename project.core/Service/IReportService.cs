@@ -11,5 +11,6 @@ namespace project.core.Service
         public Reports Update(Reports report);
         public List<Reports> GetAllReports(int reportId);
         public Reports Create(Reports report);
+        public List<Reports> AreRepoet(string userId, int postId);
     }
 }

@@ -88,8 +88,8 @@
                 <div *ngIf="post.typePost == 3" class="text-gray-700 flex items-center space-x-2">  <span class="text-sm"> Advertisement </span> <i class="icon ion-md-globe"></i></div>
               </div>
             </div>
-            <div>
-              <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> </a>
+            <div >
+              <a href="#" (click)="getIdPost(post.postId)"> <i  class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> </a>
               <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700"
                    uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small">
 
@@ -99,7 +99,7 @@
                       <i class="uil-share-alt mr-1"></i> Share
                     </a>
                   </li>
-                  <li uk-toggle="target: #repoet-btn">
+                  <li *ngIf="this.isReported" uk-toggle="target: #repoet-btn">
                     <a href="#"  class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                       <i class="uil-edit-alt mr-1"></i>Report Post
 
@@ -110,7 +110,7 @@
                         <p>Are you sure you want to Report this post ?</p>
                         <div class="uk-modal-footer text-right bg-gary-100 dark:bg-gray-700 mt-6 px-0 space-x-1">
                           <button class="button gray uk-modal-close" type="button">Cancel</button>
-                          <button (click)="ReportPost((post.postId),7)" style="background-color: #e82a35" class="button" type="button">Repoet</button>
+                          <button (click)="ReportPost(post.postId)" style="background-color: #e82a35" class="button" type="button">Report</button>
                         </div>
                       </div>
                     </div>
