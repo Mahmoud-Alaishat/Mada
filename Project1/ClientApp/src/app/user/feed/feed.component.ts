@@ -62,8 +62,11 @@ export class FeedComponent implements OnInit {
   report2: Report = { id: 0, postId: 0, statusId: 0, userId: '' };
   friendstory: FriendStory[];
   friendstorylast5: FriendStory[];
-  isReported: boolean ;
+  isReported: boolean;
   postid: number;
+  replyShow: boolean=false;
+  commid: number;
+
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -396,6 +399,12 @@ export class FeedComponent implements OnInit {
 
   getPostId(id: string): string {
     return "post-" + id + "";
+  }
+
+  getCommentId(id: number){
+    this.replyShow = true;
+    this.commid = id;
+  //  alert(this.commid);
   }
   getIdPost(id: number) {
     this.postid = id;
