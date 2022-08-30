@@ -23249,9 +23249,9 @@ hr.horizontal.gray-light {
   background-color: #fff;
 }
 
-.navbar-vertical .navbar-nav>.nav-item .nav-link.active .icon {
-  background-image: linear-gradient(310deg, #cb0c9f 0%, #cb0c9f 100%);
-}
+  .navbar-vertical .navbar-nav > .nav-item .nav-link.active .icon {
+    background-image: linear-gradient(310deg, #141727 0%, #3A416F 100%);
+  }
 
 .navbar-vertical .navbar-nav>.nav-item .nav-link.active .icon svg .color-background,
 .navbar-vertical .navbar-nav>.nav-item .nav-link.active .icon svg .color-foreground {
@@ -24562,7 +24562,6 @@ hr.horizontal.gray-light {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: #fff;
   text-align: center;
   transform: translateX(-50%);
   font-size: 1rem;
