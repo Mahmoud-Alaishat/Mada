@@ -528,5 +528,12 @@ namespace Project1.Controllers
             storyService.Create(story);
             return Ok();
         }
+
+        [HttpGet]
+        [Route("GetAcceptedFeedback")]
+        public IActionResult GetAcceptedFeedback()
+        {
+            return Ok(userService.GetAcceptedFeedback());
+        }
     }
 }

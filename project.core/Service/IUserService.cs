@@ -30,6 +30,7 @@ namespace project.core.Service
         public void EndSubscription(string userId);
         public NumOfPost NumberOFPostByUserId(string userId);
         public PostId GetLastPost(string userId);
+        public List<FeedBackDto> GetAcceptedFeedback();
 
     }
 }

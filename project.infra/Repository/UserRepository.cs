@@ -188,5 +188,11 @@ namespace project.infra.Repository
             var result = context.dbConnection.Query<PostId>("User_package_api.GetLastPost", parameter, commandType: CommandType.StoredProcedure);
             return result.FirstOrDefault();
         }
+
+        public List<FeedBackDto> GetAcceptedFeedback()
+        {
+            var result = context.dbConnection.Query<FeedBackDto>("User_package_api.GetAcceptedFeedback", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
     }
 }

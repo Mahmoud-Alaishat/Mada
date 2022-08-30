@@ -138,5 +138,10 @@ namespace project.infra.Service
         {
             return userRepository.GetLastPost(userId);
         }
+
+        public List<FeedBackDto> GetAcceptedFeedback()
+        {
+            return userRepository.GetAcceptedFeedback();
+        }
     }
 }
