@@ -141,26 +141,10 @@
                      uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small">
 
                   <ul class="space-y-1">
-                    <li>
-                      <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                        <i class="uil-share-alt mr-1"></i> Share
-                      </a>
-                    </li>
-
-
-                    <!--  <li>
-                      <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                        <i class="uil-comment-slash mr-1"></i>   Disable comments
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                        <i class="uil-favorite mr-1"></i>  Add favorites
-                      </a>
-                    </li>-->
+                
                     <li *ngIf="this.isReported">
                       <a id="repoet-btn-{{post.id}}" uk-toggle="" href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                        <i class="uil-edit-alt mr-1"></i>Report Post
+                        <i class="icon ion-md-remove-circle" style="margin-right:5px;"></i> Report Post
 
                       </a>
                       {{setUkToggleReport((post.id))}}
@@ -168,7 +152,7 @@
                         <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
                           <h2 class="mb-2 uk-modal-title">Alert</h2>
                           <p>Are you sure you want to Report this post ?</p>
-                          <div class="uk-modal-footer text-right bg-gary-100 dark:bg-gray-700 mt-6 px-0 space-x-1">
+                          <div class="uk-modal-footer text-right bg-gray-200 dark:bg-gray-900 mt-6 px-0 space-x-1">
                             <button class="button gray uk-modal-close" type="button">Cancel</button>
                             <button (click)="ReportPost(post.id)" style="background-color: #e82a35" class="button" type="button">Report</button>
                           </div>
@@ -310,6 +294,7 @@
                 </a>
               </div>
               <div class="flex items-center space-x-3 pt-2">
+                <img *ngFor="let lik of post.like" src="../../../../../Resources/Images/user/profile/{{lik.profilePath}}" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900">
 
                 <div style="cursor:pointer" id="{{getPostIdLike(post.id)}}" class="dark:text-gray-100">
                   <strong id="likes-{{post.id}}">{{post.like.length }} Likes</strong>
@@ -386,7 +371,7 @@
 
                         <div style="margin-left:50px" class="text-sm flex items-center space-x-3 mt-2  mb-4">
                           <p (click)="getCommentId(com.id)" class="text-gray-700 dark:text-gray-100" style="cursor:pointer;"> Reply </p>
-                          <span> 3d </span>
+                          <!--<span> 3d </span>-->
                           <div *ngIf="this.commid == com.id && this.replyShow == true" class="flex items-center w-full justify-between border-t p-3">
 
                             <div class="bg-gray-100 w-full rounded-2xl relative dark:bg-gray-800 ">
@@ -435,8 +420,8 @@
                             </div>
                           </div>
                           <div style="margin-left:50px" class="text-sm flex items-center space-x-3 mt-2  mb-4">
-                            <a class="text-gray-700 dark:text-gray-100" href="#"> Reply </a>
-                            <span> 3d </span>
+                  
+                            <!--<span> 3d </span>-->
                           </div>
 
                         </div>
