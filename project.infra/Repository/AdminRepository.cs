@@ -26,17 +26,12 @@ namespace project.infra.Repository
             context.dbConnection.ExecuteAsync("Admin_package_api.BlockAd",parameter, commandType: CommandType.StoredProcedure);
         }
 
-        public LikeCommentPostAdCount CountLikeCommentPostAd()
+        public DashboardCounter DashboardCounters()
         {
-            var result = context.dbConnection.Query<LikeCommentPostAdCount>("Admin_package_api.CountLikeCommentPostAd", commandType: CommandType.StoredProcedure);
+            var result = context.dbConnection.Query<DashboardCounter>("Admin_package_api.DashboardCounters", commandType: CommandType.StoredProcedure);
             return result.SingleOrDefault();
         }
 
-        public VideoImageCount CountVideoImage()
-        {
-            var result = context.dbConnection.Query<VideoImageCount>("Admin_package_api.CountVideoImage", commandType: CommandType.StoredProcedure);
-            return result.SingleOrDefault();
-        }
 
         public void DeleteUser(string userId)
         {

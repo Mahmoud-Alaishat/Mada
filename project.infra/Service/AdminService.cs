@@ -22,15 +22,11 @@ namespace project.infra.Service
             adminRepository.BlockAdvertisement(postId);
         }
 
-        public LikeCommentPostAdCount CountLikeCommentPostAd()
+        public DashboardCounter DashboardCounters()
         {
-            return adminRepository.CountLikeCommentPostAd();
+            return adminRepository.DashboardCounters();
         }
 
-        public VideoImageCount CountVideoImage()
-        {
-            return adminRepository.CountVideoImage();
-        }
 
         public void DeleteUser(string userId)
         {
