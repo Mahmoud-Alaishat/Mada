@@ -66,6 +66,15 @@ export class FeedComponent implements OnInit {
   postid: number;
   replyShow: boolean=false;
   commid: number;
+  @Output() public onUploadFinished3 = new EventEmitter();
+  storyImage: any;
+  story: Story = {
+    item: '',
+    userId: '',
+    storyDate: new Date(),
+    isBlocked: 0,
+    id: 0
+  }
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -673,6 +682,44 @@ export class FeedComponent implements OnInit {
     }
     return false;
   }
+  uploadStoryImg = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file1', fileToUpload, fileToUpload.name);
+
+    this.http.post('https://localhost:44328/api/User/UploadStoryImg', formData, { reportProgress: true, observe: 'events' })
+      .subscribe({
+        next: (event) => {
+
+          if (event.type === HttpEventType.Response) {
+
+            this.onUploadFinished3.emit(event.body);
+            this.storyImage = event.body['storyPath'];
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log(err)
+      });
+
+  }
+  MakeStory() {
+    this.story.item = this.storyImage;
+
+    this.story.userId = this.auth.Id;
+
+    this.http.post("https://localhost:44328/api/User/AddStory/", this.story, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+        window.location.reload();
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+
+
+  }
 
 }
 interface UserInfo {
@@ -827,5 +874,14 @@ interface FriendStory {
   profilePath: string;
   item: string;
   storyDate: Date;
+
+}
+
+interface Story {
+  id: number;
+  item: string;
+  userId: string;
+  storyDate: Date;
+  isBlocked: number
 
 }
