@@ -320,8 +320,6 @@ export class ProfileComponent implements OnInit {
     })
   }
     
-
-
   preventdefault(id: number) {
     document.getElementById("mutasem-" + id).addEventListener("click", function (event) {
       event.preventDefault()

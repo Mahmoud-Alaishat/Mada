@@ -15,13 +15,33 @@ import { FormControl } from '@angular/forms';
 })
 export class TimelineComponent implements OnInit {
 
-  userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
+  userData: UserInfo = {
+    firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '',
+    subscribeexpiry: null,
+    subscriptionId: 0,
+    staticNumPost: 0,
+  };
   friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' };
   putLike: HitLike = { userId: '', postId: 0 }
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   friendsCount: number = 0;
+  postdate = new FormControl();
+  postdate2: Date;
+  isExceededLimit: boolean;
+  attachments: Attachments[];
+  numOfPost: NumOfPost = { numberOfPost: 0 }
+  isShow: boolean;
+  public subscriptions: Subscription[];
+  totalBalance: number;
+  public selectecarid: number;
+  public selectecarbalance: number;
+  isSubscriptionEnded: boolean;
+  sendPost: MakePost = { userId: '', content: '', typePost: 0, clicks: 0, isBlocked: 0, EndDate: new Date() }
+  showSuccess: boolean;
+  progress: number;
   posts: MyPosts[];
+  count: number = 5;
   last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }
   sendcomment: SendComment = { postId: 0, userId: '', content: '', item: '' };
   content = new FormControl();
@@ -36,7 +56,24 @@ export class TimelineComponent implements OnInit {
       id: 0
   }
   @Output() public onUploadFinished1 = new EventEmitter();
+  @Output() public onUploadFinished5 = new EventEmitter();
   storyImage: any;
+  sendreplay: SendReplay = { commentId: 0, userId: '', content: '', item: '' };
+  id: any;
+  postcontent = new FormControl();
+  message: string;
+  @Output() public onUploadFinished3 = new EventEmitter();
+  commentImage: any = null;
+  @Output() public onUploadFinished2 = new EventEmitter();
+  showError: boolean;
+  visa: Bank[];
+  buyad: BuyAd = { price: 0, visaId: 0 }
+  replayImage: any = null;
+  postid: number;
+  replyShow: boolean = false;
+  commid: number;
+
+  replayContent = new FormControl();
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService, private router: Router) { }
 
@@ -82,10 +119,10 @@ export class TimelineComponent implements OnInit {
       next: (response: MyPosts[]) => {
         this.posts = response;
         for (let index = 0; index < this.posts.length; index++) {
-          this.http.get<Attachment[]>("https://localhost:44328/api/User/PostAttachment/" + this.posts[index].id, {
+          this.http.get<Attachments[]>("https://localhost:44328/api/User/PostAttachment/" + this.posts[index].id, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
-            next: (response: Attachment[]) => {
+            next: (response: Attachments[]) => {
               this.posts[index].attachment = response;
             },
             error: (err: HttpErrorResponse) => console.log("no data")
@@ -230,26 +267,7 @@ export class TimelineComponent implements OnInit {
     })   
 
   }
-  MakeComment(postId: number) {
-
-    this.sendcomment.content = this.content.value;
-    this.sendcomment.postId = postId;
-    this.sendcomment.userId = this.auth.Id;
-    this.sendcomment.item = null;
-   
-
-    this.http.post("https://localhost:44328/api/User/MakeComment/", this.sendcomment, {
-      headers: new HttpHeaders({ "Content-Type": "application/json" })
-    }).subscribe({
-      next: () => {
-        
-
-      },
-      error: (err: HttpErrorResponse) => console.log("no data")
-    })
-
-
-  }
+ 
   preventdefault(id: number) {
     document.getElementById("mutasem-"+id).addEventListener("click", function (event) {
       event.preventDefault()
@@ -304,7 +322,324 @@ export class TimelineComponent implements OnInit {
     }
     return false;
   }
+  setUkToggleDelete(id: number): void {
+    document.getElementById("delete-btn-" + id).setAttribute('uk-toggle', 'target: #delete-' + id);
+  }
+  uploadPostImages = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    if (files.length > 4) {
+      this.isExceededLimit = true;
+      alert("Upoload 4 images");
+    }
 
+    let filesToUpload: File[] = files;
+    const formData = new FormData();
+
+    Array.from(filesToUpload).map((file, index) => {
+      return formData.append('file' + index, file, file.name);
+    });
+
+    this.http.post('https://localhost:44328/api/User/UploadPostImages', formData, { reportProgress: true, observe: 'events' })
+      .subscribe(
+        {
+          next: (event) => {
+            if (event.type === HttpEventType.UploadProgress)
+              this.progress = Math.round(100 * event.loaded / event.total);
+            else if (event.type === HttpEventType.Response) {
+              this.message = 'Upload success.';
+              this.onUploadFinished5.emit(event.body);
+
+              this.attachments = Object.assign([], event.body)
+
+            }
+          },
+          error: (err: HttpErrorResponse) => console.log(err)
+        });
+  }
+  uploadCommentImg = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file1', fileToUpload, fileToUpload.name);
+
+    this.http.post('https://localhost:44328/api/User/UploadCommentImg', formData, { reportProgress: true, observe: 'events' })
+      .subscribe({
+        next: (event) => {
+
+          if (event.type === HttpEventType.Response) {
+            this.message = 'Upload success.';
+            this.onUploadFinished3.emit(event.body);
+            this.commentImage = event.body['commentPath'];
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log(err)
+      });
+
+  }
+  uploadReplayImg = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file2', fileToUpload, fileToUpload.name);
+
+    this.http.post('https://localhost:44328/api/User/UploadReplayImg', formData, { reportProgress: true, observe: 'events' })
+      .subscribe({
+        next: (event) => {
+
+          if (event.type === HttpEventType.Response) {
+            this.message = 'Upload success.';
+            this.onUploadFinished2.emit(event.body);
+            this.replayImage = event.body['replayPath'];
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log(err)
+      });
+
+  }
+
+  SetHref(id: string) {
+    if (this.auth.Id == id) {
+      return "timeline";
+    }
+    else {
+      return "profile/" + id;
+    }
+  }
+
+  MakeComment(postId: number) {
+
+    this.sendcomment.content = this.content.value;
+    this.sendcomment.postId = postId;
+    this.sendcomment.userId = this.auth.Id;
+    this.sendcomment.item = this.commentImage;
+
+    this.http.post("https://localhost:44328/api/User/MakeComment/", this.sendcomment, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+
+
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
+  MakeReplay(comentId: number) {
+
+    this.sendreplay.content = this.replayContent.value;
+    this.sendreplay.userId = this.auth.Id;
+    this.sendreplay.commentId = comentId;
+    this.sendreplay.item = this.replayImage;
+
+    this.http.post("https://localhost:44328/api/User/MakeReplay/", this.sendreplay, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+
+
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
+  getCommentId(id: number) {
+    this.replyShow = true;
+    this.commid = id;
+    //  alert(this.commid);
+  }
+  Hide(): boolean {
+    var a = document.getElementById("chk");
+    this.isShow = true;
+    return this.isShow;
+  }
+  MakePost() {
+    this.sendPost.userId = this.auth.Id;
+    this.sendPost.content = this.postcontent.value;
+    this.sendPost.typePost = 2;
+    if (this.selectecarid == null && this.postdate.value == null) {
+      this.http.get<Subscription[]>("https://localhost:44328/api/User/GetAllSubscriptions/", {
+        headers: new HttpHeaders({ "Content-Type": "application/json" })
+      }).subscribe({
+        next: (response: Subscription[]) => {
+          this.subscriptions = response;
+
+        },
+        error: (err: HttpErrorResponse) => console.log("no data")
+      })
+
+      if (this.userData.subscriptionId == 1 && this.numOfPost.numberOfPost < this.subscriptions[0].limitPost) {
+        this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+          headers: new HttpHeaders({ "Content-Type": "application/json" })
+        }).subscribe({
+          next: () => {
+            this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
+              headers: new HttpHeaders({ "Content-Type": "application/json" })
+            }).subscribe({
+              next: (response: PostId) => {
+                for (let i = 0; i < this.attachments.length; i++) {
+                  this.attachments[i].postId = response.id;
+                }
+                this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe();
+              },
+              error: (err: HttpErrorResponse) => console.log("no data")
+            });
+
+            this.showSuccess = true;
+            setTimeout(() => { this.showSuccess = false; }, 4000);
+            window.location.reload();
+          },
+          error: () => {
+            console.log("Someting went wrong")
+          }
+        })
+      }
+      else if ((this.userData.subscriptionId == 2 && this.numOfPost.numberOfPost < this.subscriptions[1].limitPost + this.userData.staticNumPost) || (this.userData.subscriptionId == 2 && this.userData.subscribeexpiry > new Date())) {
+        this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+          headers: new HttpHeaders({ "Content-Type": "application/json" })
+        }).subscribe({
+          next: () => {
+            this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
+              headers: new HttpHeaders({ "Content-Type": "application/json" })
+            }).subscribe({
+              next: (response: PostId) => {
+                for (let i = 0; i < this.attachments.length; i++) {
+                  this.attachments[i].postId = response.id;
+                }
+                this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe();
+              },
+              error: (err: HttpErrorResponse) => console.log("no data")
+            });
+            this.showSuccess = true;
+            setTimeout(() => { this.showSuccess = false; }, 4000);
+            window.location.reload();
+          },
+          error: () => {
+            console.log("Someting went wrong")
+          }
+        })
+      }
+      else if ((this.userData.subscriptionId == 3 && this.numOfPost.numberOfPost < this.subscriptions[2].limitPost + this.userData.staticNumPost) || (this.userData.subscriptionId == 3 && this.userData.subscribeexpiry > new Date())) {
+        this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+          headers: new HttpHeaders({ "Content-Type": "application/json" })
+        }).subscribe({
+          next: () => {
+            this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
+              headers: new HttpHeaders({ "Content-Type": "application/json" })
+            }).subscribe({
+              next: (response: PostId) => {
+                for (let i = 0; i < this.attachments.length; i++) {
+                  this.attachments[i].postId = response.id;
+                }
+                this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe();
+              },
+              error: (err: HttpErrorResponse) => console.log("no data")
+            });
+            this.showSuccess = true;
+            setTimeout(() => { this.showSuccess = false; }, 4000);
+            window.location.reload();
+          },
+          error: () => {
+            console.log("Someting went wrong")
+          }
+        })
+      }
+      else {
+
+        this.isSubscriptionEnded = true;
+        setTimeout(() => { this.isSubscriptionEnded = false; }, 5000);
+        if (this.userData.subscriptionId != 4) {
+          this.http.get("https://localhost:44328/api/User/EndSubscription/" + this.auth.Id, {
+            headers: new HttpHeaders({ "Content-Type": "application/json" })
+          }).subscribe({
+            next: () => {
+
+            },
+            error: () => {
+              console.log("Someting went wrong")
+
+            }
+          })
+        }
+
+        setInterval(() => { this.count -= 1; }, 1000);
+        setTimeout(() => { this.router.navigate(['user/subscription']) }, 5500);
+      }
+    }
+    else {
+      this.sendPost.typePost = 3;
+      this.buyad.visaId = this.selectecarid
+      this.postdate2 = new Date(this.postdate.value);
+      const msInDay = 24 * 60 * 60 * 1000;
+      this.buyad.price = 2 * (Math.round(Math.abs(Number(this.postdate2) - Number(new Date())) / msInDay));
+      this.sendPost.EndDate = this.postdate2;
+      if (new Date() < this.postdate2) {
+        this.http.post("https://localhost:44328/api/User/BuyAd/", this.buyad, {
+          headers: new HttpHeaders({ "Content-Type": "application/json" })
+        }).subscribe({
+          next: () => {
+            this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+              headers: new HttpHeaders({ "Content-Type": "application/json" })
+            }).subscribe({
+              next: () => {
+                this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe({
+                  next: (response: PostId) => {
+                    for (let i = 0; i < this.attachments.length; i++) {
+                      this.attachments[i].postId = response.id;
+                    }
+                    this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
+                      headers: new HttpHeaders({ "Content-Type": "application/json" })
+                    }).subscribe();
+                  },
+                  error: (err: HttpErrorResponse) => console.log("no data")
+                });
+                this.showSuccess = true;
+                setTimeout(() => { this.showSuccess = false; }, 4000)
+              },
+              error: () => {
+                console.log("Something went wrong")
+              }
+            })
+            //this.showError = false;
+          },
+          error: () => {
+            console.log("Something went wrong")
+          }
+        })
+
+      }
+      else {
+        this.showError = true;
+        setTimeout(() => { this.showError = false; }, 4000)
+      }
+    }
+
+  }
+  chunkString(str: string) {
+    return str.match(/.{1,4}/g).join('  -  ');
+  }
+  TotalBalance(arr: Bank[]): number {
+    var sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+      sum += arr[i].balance;
+    }
+    return sum;
+  }
+  selectedCardId(id, balance) {
+    this.selectecarid = id;
+    this.selectecarbalance = balance;
+  }
 }
 
 
@@ -316,8 +651,23 @@ interface UserInfo {
   address: string;
   relationship: string;
   bio: string;
+  subscribeexpiry: Date;
+  subscriptionId: number;
+  staticNumPost: number;
+}
+interface MakePost {
+  userId: string;
+  content: string;
+  typePost: number;
+  clicks: number;
+  isBlocked: number;
+  EndDate: Date;
 }
 
+interface BuyAd {
+  price: number;
+  visaId: number;
+}
 interface UserCount {
   count: number;
 }
@@ -331,16 +681,19 @@ interface MyFriends {
 
 interface MyPosts {
   id: number;
+  userId: string;
   content: string;
   postDate: Date;
-  attachment: Attachment[];
+  attachment: Attachments[];
   comment: Comment[];
   like: Like[];
   
 }
 
-interface Attachment {
+interface Attachments {
+  id: number;
   item: string;
+  postId: number;
 }
 interface Comment {
   id: number;
@@ -384,6 +737,12 @@ interface SendComment {
   content: string;
   item: string;
 }
+interface SendReplay {
+  userId: string;
+  commentId: number;
+  content: string;
+  item: string;
+}
 
 interface Story {
   id: number;
@@ -392,6 +751,30 @@ interface Story {
   storyDate: Date;
   isBlocked:number
 
+}
+interface PostId {
+  id: number
+}
+interface Subscription {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  feature: string;
+  limitPost: number;
+}
+interface Bank {
+  id: number;
+  cardNumber: string;
+  cCV: number;
+  expiryMonth: number;
+  expiryYear: number;
+  holderId: string;
+  balance: number;
+  holderName: string;
+}
+interface NumOfPost {
+  numberOfPost
 }
 
 
