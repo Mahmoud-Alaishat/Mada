@@ -30,35 +30,13 @@ namespace Project1.Controllers
             this.adminService = adminService;
             this.emailService = emailService;
         }
-        [HttpGet]
-        [Route("userCount")]
-        public IActionResult UserCount()
-        {
-            var uCount = (userService.CountUsers().Count)-1;
-            return Ok(new UserCount { Count = uCount });
-        }
-
-        [HttpGet]
-        [Route("commentCount")]
-        public IActionResult CommentCount()
-        {
-            return Ok(commentService.CountComments());
-        }
-
 
 
         [HttpGet]
-        [Route("CountVideoImage")]
-        public IActionResult CountVideoImage()
+        [Route("DashboardCounters")]
+        public IActionResult DashboardCounters()
         {
-            return Ok(adminService.CountVideoImage());
-        }
-
-        [HttpGet]
-        [Route("CountLikeCommentPostAd")]
-        public IActionResult CountLikeCommentPostAd()
-        {
-            return Ok(adminService.CountLikeCommentPostAd());
+            return Ok(adminService.DashboardCounters());
         }
 
         [HttpPost]
