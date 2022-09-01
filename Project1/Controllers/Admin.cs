@@ -203,8 +203,8 @@ namespace Project1.Controllers
             return Ok();
         }
         [HttpGet]
-        [Route("GetPostById/")]
-        public IActionResult GetPostById([FromBody] PostId postId)
+        [Route("GetPostById/{postId}")]
+        public IActionResult GetPostById(int postId)
         {
             return Ok(adminService.GetPostById(postId));  
         }

@@ -28,7 +28,12 @@ export class DashboardComponent implements OnInit {
   reports: Report[];
   feedbacks: Feedback[];
   userandsubscription: UserAndSubscription[];
-
+  post: PostDetails = {
+      id: 0,
+      content: '',
+      postDate: undefined,
+      userId: ''
+  }
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -121,8 +126,6 @@ export class DashboardComponent implements OnInit {
     }).subscribe({
       next: (response: UserAndSubscription[]) => {
         this.userandsubscription = response;
-        console.log(this.userandsubscription);
-
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
@@ -139,6 +142,23 @@ export class DashboardComponent implements OnInit {
       return feedback + "..";
     }
     return feedback;
+  }
+
+  GetPostById(Id: number) {
+    console.log(Id);
+    this.http.get<PostDetails>("https://localhost:44328/api/Admin/GetPostById/"+Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: PostDetails) => {
+        this.post = response;
+        console.log(this.post);
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
+
+  setUkToggleDetails(id: number): void {
+    document.getElementById("Details-btn-" + id).setAttribute('uk-toggle', 'target: #Details-' + id);
   }
 }
 
@@ -198,4 +218,11 @@ interface UserAndSubscription {
   subscriptionId: number;
   subscribeDate: Date;
   price:number
+}
+
+interface PostDetails {
+  id: number;
+  content: string;
+  postDate: Date;
+  userId: string;
 }

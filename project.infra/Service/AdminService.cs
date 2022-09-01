@@ -137,7 +137,7 @@ namespace project.infra.Service
             adminRepository.RejectFeedback(feedbackId);
         }
 
-        public PostDetails GetPostById(PostId postId)
+        public PostDetails GetPostById(int postId)
         {
             return adminRepository.GetPostById(postId); 
         }
