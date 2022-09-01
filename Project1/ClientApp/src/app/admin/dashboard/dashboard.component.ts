@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   totalAllRevenue: number = 0;
   reports: Report[];
   feedbacks: Feedback[];
-  userandsubscription: UserAndSubscription[];
+
   post: PostDetails = {
       id: 0,
       content: '',
