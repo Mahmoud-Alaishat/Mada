@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
@@ -10,10 +11,12 @@ import { ReportsComponent } from './reports/reports.component';
 
 
 
+
+
 @NgModule({
   declarations: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent],
   imports: [
-    CommonModule,
+    CommonModule, FormsModule,
     RouterModule.forChild(
       [
         { path: "admin/dashboard", component: DashboardComponent, canActivate: [AuthGuard] },
