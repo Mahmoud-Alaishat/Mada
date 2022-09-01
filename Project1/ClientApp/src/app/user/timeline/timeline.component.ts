@@ -545,7 +545,9 @@ export class TimelineComponent implements OnInit {
               error: (err: HttpErrorResponse) => console.log("no data")
             });
             this.showSuccess = true;
+
             setTimeout(() => { this.showSuccess = false; }, 4000);
+            alert(this.showSuccess);
             window.location.reload();
           },
           error: () => {
