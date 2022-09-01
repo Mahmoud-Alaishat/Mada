@@ -109,9 +109,9 @@ namespace project.infra.Repository
             }
         }
 
-        public List<UserSubscription> GetUserAndSubscription()
+        public List<UserAd> GetUserAndAd()
         {
-            var result = context.dbConnection.Query<UserSubscription>("Admin_package_api.GetUserAndSubscription", commandType: CommandType.StoredProcedure);
+            var result = context.dbConnection.Query<UserAd>("Admin_package_api.GetUserAndAd", commandType: CommandType.StoredProcedure);
             return result.ToList();
         }
 

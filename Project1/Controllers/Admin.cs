@@ -55,10 +55,10 @@ namespace Project1.Controllers
             return Ok();
         }
         [HttpGet]
-        [Route("GetUserAndSubscription")]
-        public IActionResult GetUserAndSubscription()
+        [Route("GetUserAndAd")]
+        public IActionResult GetUserAndAd()
         {
-            return Ok(adminService.GetUserAndSubscription());
+            return Ok(adminService.GetUserAndAd());
         }
 
         [HttpGet]

@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   totalAllRevenue: number = 0;
   reports: Report[];
   feedbacks: Feedback[];
-  userandsubscription: UserAndSubscription[];
+  userandsubscription: UserAndAd[];
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -116,10 +116,10 @@ export class DashboardComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
 
-    this.http.get<UserAndSubscription[]>("https://localhost:44328/api/Admin/GetUserAndSubscription/", {
+    this.http.get<UserAndAd[]>("https://localhost:44328/api/Admin/GetUserAndAd/", {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
-      next: (response: UserAndSubscription[]) => {
+      next: (response: UserAndAd[]) => {
         this.userandsubscription = response;
         console.log(this.userandsubscription);
 
@@ -192,10 +192,12 @@ interface Feedback {
   statusName: string;
 }
 
-interface UserAndSubscription {
+interface UserAndAd {
   firstName: string;
   lastName: string;
-  subscriptionId: number;
-  subscribeDate: Date;
-  price:number
+  content: string;
+  id: number;
+  postDate: Date;
+  price: number;
+  userId: string;
 }

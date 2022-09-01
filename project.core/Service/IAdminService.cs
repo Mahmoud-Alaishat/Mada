@@ -19,7 +19,7 @@ namespace project.core.Service
         public List<ReportDto> GetReport();
         public ReportDto AcceptReport(ReportDto report);
         public void RejectReport(ReportDto report);
-        public List<UserSubscription> GetUserAndSubscription();
+        public List<UserAd> GetUserAndAd();
         public List<UserStory> UserStory();
         public void BlockStory(int storyId);
         public void UnBlockStory(int storyId);

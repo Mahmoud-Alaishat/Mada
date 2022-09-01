@@ -17,7 +17,7 @@ namespace project.core.Repository
         public List<ReportDto> GetLast2Reports();
         public List<FeedBackDto> CRUDOPFeedback(FeedBackDto feedBack, string operation);
         public List<ReportDto> CRUDOPReport(ReportDto report, string operation);
-        public List<UserSubscription> GetUserAndSubscription();
+        public List<UserAd> GetUserAndAd();
         public List<TopPostSeen> GetTopPostSeen();
         public List<UserStory> UserStory();
         public void BlockStory(int storyId);
