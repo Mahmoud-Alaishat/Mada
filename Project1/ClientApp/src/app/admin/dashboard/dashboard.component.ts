@@ -25,6 +25,8 @@ export class DashboardComponent implements OnInit {
   }
   revenuedetails: RevenueDetails[];
   totalAllRevenue: number = 0;
+  reports: Report[];
+  feedbacks: Feedback[];
   userandsubscription: UserAndSubscription[];
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
@@ -96,6 +98,24 @@ export class DashboardComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
 
+    this.http.get<Report[]>("https://localhost:44328/api/Admin/GetLast2Reports/", {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: Report[]) => {
+        this.reports = response;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+
+    this.http.get<Feedback[]>("https://localhost:44328/api/Admin/GetLast2FeedBack/", {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: Feedback[]) => {
+        this.feedbacks = response;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+
     this.http.get<UserAndSubscription[]>("https://localhost:44328/api/Admin/GetUserAndSubscription/", {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
@@ -112,6 +132,14 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(["/"]);
   }
 
+  trimFeedback(feedback: string): string {
+   
+    if (feedback.length > 9) {
+      feedback = feedback.substring(0, 8);
+      return feedback + "..";
+    }
+    return feedback;
+  }
 }
 
 interface UserInfo {
@@ -140,6 +168,28 @@ interface RevenueDetails {
   totalRevenue: number;
   numberOfSubscribers: number;
   numberOfAllSubscribers: number;
+}
+
+interface Report {
+  id: number;
+  userId: string;
+  postId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  content: string;
+  statusId: number;
+  statusName: string;
+}
+
+interface Feedback {
+  id: number;
+  userId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  feedbackText: string;
+  statusName: string;
 }
 
 interface UserAndSubscription {
