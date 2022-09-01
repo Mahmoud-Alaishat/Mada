@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
     countUser: 0
   }
   revenuedetails: RevenueDetails[];
-  totalAllRevenue: number;
+  totalAllRevenue: number = 0;
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -87,7 +87,9 @@ export class DashboardComponent implements OnInit {
     }).subscribe({
       next: (response: RevenueDetails[]) => {
         this.revenuedetails = response;
-        this.totalAllRevenue = this.revenuedetails[0].totalRevenue + this.revenuedetails[1].totalRevenue;
+        for (let i = 0; i < this.revenuedetails.length; i++) {
+          this.totalAllRevenue = this.totalAllRevenue + this.revenuedetails[i].totalRevenue;
+        }
 
       },
       error: (err: HttpErrorResponse) => console.log("no data")
