@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
   }
   revenuedetails: RevenueDetails[];
   totalAllRevenue: number = 0;
+  userandsubscription: UserAndSubscription[];
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -94,6 +95,17 @@ export class DashboardComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
+
+    this.http.get<UserAndSubscription[]>("https://localhost:44328/api/Admin/GetUserAndSubscription/", {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: UserAndSubscription[]) => {
+        this.userandsubscription = response;
+        console.log(this.userandsubscription);
+
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
   }
   logOut = () => {
     localStorage.removeItem("token");
@@ -128,4 +140,12 @@ interface RevenueDetails {
   totalRevenue: number;
   numberOfSubscribers: number;
   numberOfAllSubscribers: number;
+}
+
+interface UserAndSubscription {
+  firstName: string;
+  lastName: string;
+  subscriptionId: number;
+  subscribeDate: Date;
+  price:number
 }

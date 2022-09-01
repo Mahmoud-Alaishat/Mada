@@ -136,5 +136,10 @@ namespace project.infra.Service
         {
             adminRepository.RejectFeedback(feedbackId);
         }
+
+        public PostDetails GetPostById(PostId postId)
+        {
+            return adminRepository.GetPostById(postId); 
+        }
     }
 }

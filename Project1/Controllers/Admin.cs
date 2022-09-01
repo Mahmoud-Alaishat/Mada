@@ -202,5 +202,11 @@ namespace Project1.Controllers
             adminService.RejectFeedback(feedbackId);
             return Ok();
         }
+        [HttpGet]
+        [Route("GetPostById/")]
+        public IActionResult GetPostById([FromBody] PostId postId)
+        {
+            return Ok(adminService.GetPostById(postId));  
+        }
     }
 }

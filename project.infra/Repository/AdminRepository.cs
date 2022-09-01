@@ -192,5 +192,13 @@ namespace project.infra.Repository
             parameter.Add("idoffeedbcak", feedbackId, dbType: DbType.Int32, direction: ParameterDirection.Input);
             context.dbConnection.ExecuteAsync("Admin_package_api.RejectFeedback", parameter, commandType: CommandType.StoredProcedure);
         }
+
+        public PostDetails GetPostById(PostId postId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofposts", postId.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<PostDetails>("Admin_package_api.GetPostById", parameter, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
     }
 }
