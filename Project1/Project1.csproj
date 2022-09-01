@@ -271,7 +271,6 @@
     <Folder Include="Resources\Images\user\story\" />
     <Folder Include="Resources\Images\user\post\" />
     <Folder Include="Resources\Images\user\comment\" />
-    <Folder Include="Resources\Images\user\profile\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
