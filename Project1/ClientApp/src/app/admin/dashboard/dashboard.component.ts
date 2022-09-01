@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
       userId: ''
   }
   userandsubscription: UserAndAd[];
+  showSuccess: boolean;
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -162,6 +163,61 @@ export class DashboardComponent implements OnInit {
   setUkToggleDetails(id: number): void {
     document.getElementById("Details-btn-" + id).setAttribute('uk-toggle', 'target: #Details-' + id);
   }
+  setUkToggleFeedBack(id: number): void {
+    document.getElementById("FeedBack-btn-" + id).setAttribute('uk-toggle', 'target: #FeedBack-' + id);
+  }
+
+  AcceptFeedback(Id: number) {
+    this.http.post("https://localhost:44328/api/Admin/AcceptFeedback/" + Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {        
+        this.showSuccess = true;
+        setTimeout(() => { this.showSuccess = false; }, 4000);
+        window.location.reload();
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
+
+  RejectFeedback(Id: number) {
+    this.http.post("https://localhost:44328/api/Admin/RejectFeedback/" + Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+        this.showSuccess = true;
+        setTimeout(() => { this.showSuccess = false; }, 4000);
+        window.location.reload();
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
+
+  //AcceptReport(Id: number) {
+  //  this.http.post("https://localhost:44328/api/Admin/AcceptReport/" + Id, {
+  //    headers: new HttpHeaders({ "Content-Type": "application/json" })
+  //  }).subscribe({
+  //    next: () => {
+  //      this.showSuccess = true;
+  //      setTimeout(() => { this.showSuccess = false; }, 4000);
+  //      window.location.reload();
+  //    },
+  //    error: (err: HttpErrorResponse) => console.log("no data")
+  //  })
+  //}
+
+  //RejectReport(Id: number) {
+  //  this.http.post("https://localhost:44328/api/Admin/RejectReport/" + Id, {
+  //    headers: new HttpHeaders({ "Content-Type": "application/json" })
+  //  }).subscribe({
+  //    next: () => {
+  //      this.showSuccess = true;
+  //      setTimeout(() => { this.showSuccess = false; }, 4000);
+  //      window.location.reload();
+  //    },
+  //    error: (err: HttpErrorResponse) => console.log("no data")
+  //  })
+  //}
 }
 
 interface UserInfo {

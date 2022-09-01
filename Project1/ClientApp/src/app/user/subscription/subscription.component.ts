@@ -101,6 +101,7 @@ export class SubscriptionComponent implements OnInit {
         .subscribe({
           next: () => {
             this.showSuccess = true;
+            window.scroll({ top: 0, left: 0, behavior: 'smooth' });
             setTimeout(() => { this.showSuccess = false; }, 4000);
             window.location.reload();
           },

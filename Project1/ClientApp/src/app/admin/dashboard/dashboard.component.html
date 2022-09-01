@@ -22,7 +22,7 @@
   <link rel="icon" type="image/png" href="../../../assets/assetsAdmin/img/favicon.png">
   <link href="../../../assets/assetsAdmin/scss/soft-ui-dashboard/bootstrap/bootstrap-utilities.scss" />
   <link href="../../../assets/assetsAdmin/scss/soft-ui-dashboard/bootstrap/bootstrap.scss" />
- 
+
   <title>
     Soft UI Dashboard by Creative Tim
   </title>
@@ -155,12 +155,11 @@
       flex: 0 0 auto;
       width: 100%;
     }
-
   </style>
 </head>
 
 <body class="g-sidenav-show">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "   id="sidenav-main" >
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="card" style="height:100%">
       <div class="card-body">
         <div class="sidenav-header">
@@ -348,21 +347,21 @@
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
-    <nav  class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl mt-2" id="navbarBlur" navbar-scroll="true">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl mt-2" id="navbarBlur" navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-          
+
           <h6 class="font-weight-bolder mb-0">Dashboard</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          
+
           <ul class="navbar-nav  justify-content-end">
-            
+
             <li class="nav-item d-flex align-items-center">
               <div class="header_widgets">
 
                 <a href="#">
-                  <img  src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" class="is_avatar" alt="">
+                  <img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" class="is_avatar" alt="">
                 </a>
                 <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
 
@@ -408,7 +407,7 @@
 
 
                 </div>
-                </div>
+              </div>
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
@@ -503,6 +502,12 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-2">
+      <div *ngIf="this.showSuccess" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
+        <div style="width:23rem" class="bg-green-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+          <h3 class="text-lg font-semibold text-white">Message</h3>
+          <p class="text-white text-opacity-75">Successfully</p>
+        </div>
+      </div>
       <div class="row">
         <div style="display:flex">
           <div class="col-3 col-sm-6 mb-xl-0 mb-4" style="margin-bottom:5px">
@@ -641,16 +646,17 @@
                               <div id="Details-{{report.postId}}" uk-modal>
                                 <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
                                   <h5 class="mb-2 uk-modal-title">Post details</h5>
-                                  <div  class="card lg:mx-0 uk-animation-slide-bottom-small">
+                                  <div class="card lg:mx-0 uk-animation-slide-bottom-small">
                                     <div class="flex justify-between items-center lg:p-4 p-2.5">
                                       <div class="flex flex-1 items-center space-x-4">
                                         <!--<a href="#">
-                                          <img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" class="bg-gray-200 border border-white rounded-full w-10 h-10">
-                                        </a>-->
+                                      <img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" class="bg-gray-200 border border-white rounded-full w-10 h-10">
+                                    </a>-->
                                         <div class="flex-1 font-semibold capitalize">
                                           <a href="#" class="text-gray-700 dark:text-gray-100"> {{report.firstName}} {{report.lastName}} </a>
                                           <div class="text-gray-700 flex items-center space-x-2">
-                                            {{this.post.postDate | date}} </div>
+                                            {{this.post.postDate | date}}
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -658,14 +664,14 @@
                                       {{this.post.content}}
                                     </div>
                                   </div>
-                                   
+
                                   <div class="text-right mt-6 px-0 space-x-1">
                                     <a class="btn bg-gradient-secondary mt-3 w-auto uk-modal-close" href="#">Cancel</a>
                                     <a class="btn bg-gradient-danger mt-3 w-auto" href="#">Reject</a>
                                     <a class="btn bg-gradient-success mt-3 w-auto" href="#">Accept</a>
                                   </div>
-                                  </div>
                                 </div>
+                              </div>
                             </tr>
                           </tbody>
                         </table>
@@ -715,10 +721,39 @@
                                 <span class="badge badge-sm bg-gradient-info">{{feedback.statusName}}</span>
                               </td>
                               <td class="align-middle">
-                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" id="FeedBack-btn-{{feedback.id}}" uk-toggle="" data-toggle="tooltip" data-original-title="Edit user">
                                   Details
                                 </a>
+                                {{setUkToggleFeedBack((feedback.id))}}
                               </td>
+                              <div id="FeedBack-{{feedback.id}}" uk-modal>
+                                <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
+                                  <h5 class="mb-2 uk-modal-title">Feedback details</h5>
+                                  <div class="card lg:mx-0 uk-animation-slide-bottom-small">
+                                    <div class="flex justify-between items-center lg:p-4 p-2.5">
+                                      <div class="flex flex-1 items-center space-x-4">
+
+                                        <div class="flex-1 font-semibold capitalize">
+                                          <a href="#" class="text-gray-700 dark:text-gray-100"> {{feedback.firstName}} {{feedback.lastName}} </a>
+                                          <div class="text-gray-700 flex items-center space-x-2">
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="p-5 pt-0">
+                                      {{feedback.feedbackText}}
+                                    </div>
+                                  </div>
+
+                                  <div class="text-right mt-6 px-0 space-x-1">
+                                    <a class="btn bg-gradient-secondary mt-3 w-auto uk-modal-close" href="#">Cancel</a>
+
+                                    <a class="btn bg-gradient-danger mt-3 w-auto" (click)="RejectFeedback(feedback.id)" style="cursor:pointer">Reject</a>
+                                    <a class="btn bg-gradient-success mt-3 w-auto" (click)="AcceptFeedback(feedback.id)" style="cursor:pointer">Accept</a>
+                                  </div>
+                                </div>
+                              </div>
                             </tr>
                           </tbody>
                         </table>
@@ -733,7 +768,7 @@
               </div>
             </div>
           </div>
-          </div>
+        </div>
       </div>
       <div class="row mt-8">
         <div style="display:flex">
@@ -800,21 +835,21 @@
             </div>
           </div>
           <!--<div class="col-lg-7">
-            <div class="card z-index-2">
-              <div class="card-header pb-0">
-                <h6>Sales overview</h6>
-                <p class="text-sm">
-                  <i class="fa fa-arrow-up text-success"></i>
-                  <span class="font-weight-bold">4% more</span> in 2021
-                </p>
-              </div>
-              <div class="card-body p-3">
-                <div class="chart">
-                  <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
-                </div>
-              </div>
+        <div class="card z-index-2">
+          <div class="card-header pb-0">
+            <h6>Sales overview</h6>
+            <p class="text-sm">
+              <i class="fa fa-arrow-up text-success"></i>
+              <span class="font-weight-bold">4% more</span> in 2021
+            </p>
+          </div>
+          <div class="card-body p-3">
+            <div class="chart">
+              <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
             </div>
-          </div>-->
+          </div>
+        </div>
+      </div>-->
         </div>
       </div>
       <div class="row my-4">
@@ -847,13 +882,13 @@
                             {{revenue.service}}
                           </h6>
                         </td>
-                        <td  class="align-middle text-center text-sm">
+                        <td class="align-middle text-center text-sm">
                           <span class="text-xs font-weight-bold text-gray-700 dark:text-gray-100">  {{revenue.numberOfSubscribers}} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-xs font-weight-bold text-gray-700 dark:text-gray-100"> {{revenue.numberOfAllSubscribers}} </span>
                         </td>
-                        <td  class="align-middle text-center text-sm">
+                        <td class="align-middle text-center text-sm">
                           <span class="text-xs font-weight-bold text-gray-700 dark:text-gray-100">{{revenue.totalRevenue}}</span>
                         </td>
                       </tr>
@@ -865,7 +900,7 @@
                           </h6>
                         </td>
                         <td colspan="1" class="align-middle text-center text-sm">
-                            <span class="text-xs font-weight-bolder text-white">{{this.totalAllRevenue}}</span>
+                          <span class="text-xs font-weight-bolder text-white">{{this.totalAllRevenue}}</span>
                         </td>
                       </tr>
                     </tbody>
@@ -880,7 +915,7 @@
                 <div style="margin-left:5px">
                   <h6>Advertisements</h6>
                 </div>
-                <div class="timeline timeline-one-side dropdown_scrollbar" style="max-height:190px"  data-simplebar>
+                <div class="timeline timeline-one-side dropdown_scrollbar" style="max-height:190px" data-simplebar>
                   <div *ngFor="let us of userandsubscription" class="timeline-block mb-3">
                     <span class="timeline-step" style=" background-color: transparent; ">
                       <i class="icon ion-md-card  text-gray-700 dark:text-gray-100" style="font-size:1.25rem;margin-bottom:6px"></i>
@@ -905,7 +940,7 @@
   <script src="../../../assets/assetsAdmin/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../../../assets/assetsAdmin/js/plugins/chartjs.min.js"></script>
   <script>
-  var ctx = document.getElementById("chart-bars").getContext("2d");
+    var ctx = document.getElementById("chart-bars").getContext("2d");
     new Chart(ctx, {
       type: "bar",
       data: {
@@ -1065,7 +1100,7 @@
       },
     });</script>
   <script>
-  var win = navigator.platform.indexOf('Win') > -1;
+    var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
       var options = {
         damping: '0.5'
