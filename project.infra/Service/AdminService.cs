@@ -65,18 +65,18 @@ namespace project.infra.Service
             return adminRepository.CRUDOPReport(report, "read");
         }
 
-        public ReportDto AcceptReport(ReportDto report)
-        {
-            report.StatusId = 2;
-            adminRepository.CRUDOPReport(report, "update");
-           return GetReportById(report.Id);
-        }
+        //public ReportDto AcceptReport(ReportDto report)
+        //{
+        //    report.StatusId = 2;
+        //    adminRepository.CRUDOPReport(report, "update");
+        //   return GetReportById(report.Id);
+        //}
 
-        public void RejectReport(ReportDto report)
-        {
-            report.StatusId = 3;
-            adminRepository.CRUDOPReport(report, "update");
-        }
+        //public void RejectReport(ReportDto report)
+        //{
+        //    report.StatusId = 3;
+        //    adminRepository.CRUDOPReport(report, "update");
+        //}
 
         public List<UserAd> GetUserAndAd()
         {
@@ -140,6 +140,16 @@ namespace project.infra.Service
         public PostDetails GetPostById(int postId)
         {
             return adminRepository.GetPostById(postId); 
+        }
+
+        public void AcceptReport(int postId)
+        {
+            adminRepository.AcceptReport(postId);    
+        }
+
+        public void RejectReport(int reportId)
+        {
+            adminRepository.RejectReport(reportId); 
         }
     }
 }

@@ -193,31 +193,31 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  //AcceptReport(Id: number) {
-  //  this.http.post("https://localhost:44328/api/Admin/AcceptReport/" + Id, {
-  //    headers: new HttpHeaders({ "Content-Type": "application/json" })
-  //  }).subscribe({
-  //    next: () => {
-  //      this.showSuccess = true;
-  //      setTimeout(() => { this.showSuccess = false; }, 4000);
-  //      window.location.reload();
-  //    },
-  //    error: (err: HttpErrorResponse) => console.log("no data")
-  //  })
-  //}
+  AcceptReport(Report: any) {
+    this.http.post("https://localhost:44328/api/Admin/AcceptReport/", Report, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+        this.showSuccess = true;
+        setTimeout(() => { this.showSuccess = false; }, 4000);
+        window.location.reload();
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
 
-  //RejectReport(Id: number) {
-  //  this.http.post("https://localhost:44328/api/Admin/RejectReport/" + Id, {
-  //    headers: new HttpHeaders({ "Content-Type": "application/json" })
-  //  }).subscribe({
-  //    next: () => {
-  //      this.showSuccess = true;
-  //      setTimeout(() => { this.showSuccess = false; }, 4000);
-  //      window.location.reload();
-  //    },
-  //    error: (err: HttpErrorResponse) => console.log("no data")
-  //  })
-  //}
+  RejectReport(Id: number) {
+    this.http.post("https://localhost:44328/api/Admin/RejectReport/" + Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+        this.showSuccess = true;
+        setTimeout(() => { this.showSuccess = false; }, 4000);
+        window.location.reload();
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
 }
 
 interface UserInfo {

@@ -147,28 +147,10 @@ namespace Project1.Controllers
         }
 
         [HttpPost]
-        [Route("AcceptReport")]
-        public IActionResult AcceptReport(ReportDto report)
+        [Route("RejectReport/{reportId}")]
+        public IActionResult RejectReport(int reportId)
         {
-          var result = adminService.AcceptReport(report);
-            EmailDto email = new EmailDto();
-            email.To = result.Email;
-            email.Subject = "#"+result.Id+" Report result";
-            email.Body = "Hello "+"<strong>"+result.FirstName+" "+ result.LastName+"</strong>"+"<br><br>"+
-                         "Here at Mada we are always seeking for a safe environment where everyone can express their thoughts,<br>still, there are some rules that everybody should follow to ensure a safe and healthy atmosphere.<br><br>"+
-                         "And after taking a close look at the last content you posted we found that this content goes against our rules and therefore we decided to <strong style='color:red'>delete</strong> it<br><br>"+
-                         "We believe in the open door approach so, you can always contact us if you believe something is wrong "+
-                         "please put the report number in the email subject so we could help you easily you can also use our contact us form page<br><br><br>"+
-                         "<strong>Mada Team</strong>";
-            emailService.SendEmail(email);
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("RejectReport")]
-        public IActionResult RejectReport(ReportDto report)
-        {
-            adminService.RejectReport(report);
+            adminService.RejectReport(reportId);
             return Ok();
         }
 
@@ -207,6 +189,23 @@ namespace Project1.Controllers
         public IActionResult GetPostById(int postId)
         {
             return Ok(adminService.GetPostById(postId));  
+        }
+        [HttpPost]
+        [Route("AcceptReport")]
+        public IActionResult AcceptReport(ReportDto report)
+        {
+            adminService.AcceptReport(report.PostId);
+            EmailDto email = new EmailDto();
+            email.To = report.Email;
+            email.Subject = "#" + report.Id + " Report result";
+            email.Body = "Hello " + "<strong>" + report.FirstName + " " + report.LastName + "</strong>" + "<br><br>" +
+                         "Here at Mada we are always seeking for a safe environment where everyone can express their thoughts,<br>still, there are some rules that everybody should follow to ensure a safe and healthy atmosphere.<br><br>" +
+                         "And after taking a close look at the last content you posted we found that this content goes against our rules and therefore we decided to <strong style='color:red'>delete</strong> it<br><br>" +
+                         "We believe in the open door approach so, you can always contact us if you believe something is wrong " +
+                         "please put the report number in the email subject so we could help you easily you can also use our contact us form page<br><br><br>" +
+                         "<strong>Mada Team</strong>";
+            emailService.SendEmail(email);
+            return Ok();
         }
     }
 }

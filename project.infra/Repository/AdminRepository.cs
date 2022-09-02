@@ -200,5 +200,20 @@ namespace project.infra.Repository
             var result = context.dbConnection.Query<PostDetails>("Admin_package_api.GetPostById", parameter, commandType: CommandType.StoredProcedure);
             return result.FirstOrDefault();
         }
+
+        public void AcceptReport(int postId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofpost", postId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            context.dbConnection.ExecuteAsync("Admin_package_api.AcceptReport", parameter, commandType: CommandType.StoredProcedure);
+
+        }
+
+        public void RejectReport(int reportId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofreport", reportId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            context.dbConnection.ExecuteAsync("Admin_package_api.RejectReport", parameter, commandType: CommandType.StoredProcedure);
+        }
     }
 }

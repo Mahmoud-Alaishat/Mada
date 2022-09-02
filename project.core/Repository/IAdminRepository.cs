@@ -27,6 +27,8 @@ namespace project.core.Repository
         public void AcceptFeedback(int feedbackId);
         public void RejectFeedback(int feedbackId);
         public PostDetails GetPostById(int postId);
+        public void AcceptReport(int postId);   
+        public void RejectReport(int reportId);   
 
     }
 }

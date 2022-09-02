@@ -667,8 +667,8 @@
 
                                   <div class="text-right mt-6 px-0 space-x-1">
                                     <a class="btn bg-gradient-secondary mt-3 w-auto uk-modal-close" href="#">Cancel</a>
-                                    <a class="btn bg-gradient-danger mt-3 w-auto" href="#">Reject</a>
-                                    <a class="btn bg-gradient-success mt-3 w-auto" href="#">Accept</a>
+                                    <a class="btn bg-gradient-danger mt-3 w-auto" (click)="RejectReport(report.id)" href="#">Reject</a>
+                                    <a class="btn bg-gradient-success mt-3 w-auto" (click)="AcceptReport(report)">Accept</a>
                                   </div>
                                 </div>
                               </div>

@@ -17,8 +17,6 @@ namespace project.core.Service
         public List<ReportDto> GetLast2Reports();
         public List<FeedBackDto> GetFeedBack();
         public List<ReportDto> GetReport();
-        public ReportDto AcceptReport(ReportDto report);
-        public void RejectReport(ReportDto report);
         public List<UserAd> GetUserAndAd();
         public List<UserStory> UserStory();
         public void BlockStory(int storyId);
@@ -31,6 +29,10 @@ namespace project.core.Service
         public void AcceptFeedback(int feedbackId);
         public void RejectFeedback(int feedbackId);
         public PostDetails GetPostById(int postId);
+        public void AcceptReport(int postId);
+        public void RejectReport(int reportId);
+
+
 
 
     }
