@@ -19,16 +19,18 @@ namespace Project1.Controllers
         private readonly ICommentService commentService;
         private readonly IAdminService adminService;
         private readonly IEmailService emailService;
-
+        private readonly IContactUsService contactUsService;
         public Admin(IUserService userService,
                ICommentService commentService,
                IAdminService adminService,
-               IEmailService emailService)
+               IEmailService emailService,
+               IContactUsService contactUsService)
         {
             this.userService = userService;
             this.commentService = commentService;
             this.adminService = adminService;
             this.emailService = emailService;
+            this.contactUsService = contactUsService;
         }
 
 
@@ -206,6 +208,20 @@ namespace Project1.Controllers
                          "<strong>Mada Team</strong>";
             emailService.SendEmail(email);
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetEmails")]
+        public IActionResult GetEmails()
+        {
+            return Ok(contactUsService.GetEmails());
+        }
+
+        [HttpGet]
+        [Route("GetEmailDetails/{emailId}")]
+        public IActionResult GetEmailDetails(int emailId)
+        {
+            return Ok(contactUsService.GetContactUsById(emailId));
         }
     }
 }

@@ -30,7 +30,7 @@ namespace project.infra.Service
             contactUsRepository.CRUDOP(contact, "delete");
         }
 
-        public List<ContactUs> GetAllContactUs()
+        public List<ContactUs> GetEmails()
         {
             ContactUs contact = new ContactUs();
             return contactUsRepository.CRUDOP(contact, "read");
