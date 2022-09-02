@@ -204,7 +204,7 @@ namespace project.infra.Repository
         public void AcceptReport(int postId)
         {
             var parameter = new DynamicParameters();
-            parameter.Add("idofpost", postId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("idofreport", postId, dbType: DbType.Int32, direction: ParameterDirection.Input);
             context.dbConnection.ExecuteAsync("Admin_package_api.AcceptReport", parameter, commandType: CommandType.StoredProcedure);
 
         }
