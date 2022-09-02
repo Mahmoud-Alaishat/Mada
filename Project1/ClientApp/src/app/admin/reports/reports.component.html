@@ -161,6 +161,7 @@
       box-shadow:none;
       
     }
+ 
   </style>
 </head>
 
@@ -199,7 +200,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link  " [routerLink]="['/admin/report']">
+              <a class="nav-link  " [routerLink]="['/admin/reports']">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                   <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <title>office</title>
@@ -518,19 +519,18 @@
                 <h6 class="ms-2 mt-4 mb-0"> Revenue By Service Report </h6>
                 <div class="container border-radius-lg">
                   <div class="row">
-                    <div class="lable text-gray-700 dark:text-white-50" style="display:flex; " (change)="selected($event.target.value)">
-                      <label >Select Type Of Search</label>
-                      <select style="width: 500px; margin-left: 20px; box-shadow: none; border-color: gray" class="form-select" aria-label="Default select example">
+                    <div class="d-flex" (change)="selected($event.target.value)">
+                      <label class="card-body text-uppercase mr-auto p-2" style="margin-top: 7px; "> Type Of Search</label>
+                      <select style="width: 770px ; box-shadow: none; border-color: gray" class="form-select  dark:text-white p-2" aria-label="Default select example">
                         <option selected>Open this select menu</option>
                         <option value="1">Annual</option>
                         <option value="2">Monthly</option>
-
                       </select>
                     </div>
                     <br /><br /><br />
-                    <div style="display:flex;" *ngIf="this.year == true">
-                      <label>Select Year</label>
-                      <select style="width: 500px; margin-left: 84px; box-shadow: none; border-color: gray " class="form-select" aria-label="Default select example">
+                    <div class="d-flex" *ngIf="this.year == true" >
+                      <label style="margin-top:7px" class="card-body text-uppercase mr-auto p-2"> Year</label>
+                      <select style=" width: 770px; box-shadow: none; border-color: gray " class="form-select p-2" aria-label="Default select example">
 
                         <!--<option selected>Select Year</option>-->
                         <option value="1">2021</option>
@@ -538,9 +538,9 @@
                       </select>
                     </div>
                     <br /> <br /> <br />
-                    <div style="display:flex;" *ngIf="this.manth == true">
-                      <label>Select Month</label>
-                      <select style="width: 500px; margin-left: 71px; border-color:gray; box-shadow: none;" class="form-select" aria-label="Default select example">
+                    <div class="d-flex"  *ngIf="this.manth == true" >
+                      <label style="margin-top:7px;" class="card-body text-uppercase mr-auto p-2"> Month</label>
+                      <select style=" width: 770px; border-color: gray; box-shadow: none;" class="form-select   p-2" aria-label="Default select example">
                         <!--<option selected>Select Month</option>-->
                         <option value="1">January</option>
                         <option value="2">February</option>
@@ -557,8 +557,11 @@
                       </select>
                     </div>
 
-                    <br />
-                    <button style="height: 40px; width: 120px; background-color:dodgerblue; " type="button" class="btn btn-primary">  <i class="uil-search-alt"></i> Search</button>
+                    
+                    <div>
+                      <button style="margin-top:20px; height: 40px; width: 120px; background-color:dodgerblue; " type="button" class="btn btn-primary">  <i class="uil-search-alt"></i> Search</button>
+
+                    </div>
                   </div>
                 </div>
               </div>
