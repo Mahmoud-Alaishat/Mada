@@ -32,7 +32,8 @@ export class DashboardComponent implements OnInit {
       id: 0,
       content: '',
       postDate: undefined,
-      userId: ''
+      userId: '',
+      item:''
   }
   userandsubscription: UserAndAd[];
   showSuccess: boolean;
@@ -148,13 +149,16 @@ export class DashboardComponent implements OnInit {
   }
 
   GetPostById(Id: number) {
-    console.log(Id);
-    this.http.get<PostDetails>("https://localhost:44328/api/Admin/GetPostById/"+Id, {
+    this.http.get<PostDetails[]>("https://localhost:44328/api/Admin/GetPostById/"+Id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
-      next: (response: PostDetails) => {
-        this.post = response;
-        console.log(this.post);
+      next: (response: PostDetails[]) => {
+
+        this.post = response[0];
+        this.post.item += ",";
+        for (let i = 1; i < response.length; i++) {
+          this.post.item += response[i].item + ",";
+        }
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
@@ -205,6 +209,29 @@ export class DashboardComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
   }
+  SplitImages(images: string): string[] {
+    return images.split(',').slice(0,-1);
+  }
+
+  isVideo(fileName: string): boolean {
+    var name = fileName.split('.').pop();
+    if (name == "mp4") {
+      return true;
+    }
+    return false;
+  }
+  //AcceptReport(Id: number) {
+  //  this.http.post("https://localhost:44328/api/Admin/AcceptReport/" + Id, {
+  //    headers: new HttpHeaders({ "Content-Type": "application/json" })
+  //  }).subscribe({
+  //    next: () => {
+  //      this.showSuccess = true;
+  //      setTimeout(() => { this.showSuccess = false; }, 4000);
+  //      window.location.reload();
+  //    },
+  //    error: (err: HttpErrorResponse) => console.log("no data")
+  //  })
+  //}
 
   RejectReport(Id: number) {
     this.http.post("https://localhost:44328/api/Admin/RejectReport/" + Id, {
@@ -285,4 +312,5 @@ interface PostDetails {
   content: string;
   postDate: Date;
   userId: string;
+  item: string;
 }

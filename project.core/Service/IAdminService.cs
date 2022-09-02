@@ -33,6 +33,7 @@ namespace project.core.Service
         public void RejectReport(int reportId);
 
 
+        public List<PostDetails> GetPostById(int postId);
 
 
     }

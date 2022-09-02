@@ -29,6 +29,7 @@ namespace project.core.Repository
         public PostDetails GetPostById(int postId);
         public void AcceptReport(int postId);   
         public void RejectReport(int reportId);   
+        public List<PostDetails> GetPostById(int postId);
 
     }
 }
