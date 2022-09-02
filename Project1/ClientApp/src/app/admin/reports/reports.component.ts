@@ -15,8 +15,7 @@ export class ReportsComponent implements OnInit {
   isAdmin: boolean = false;
   year: boolean;
   manth: boolean;
-  public years: Array<any> = [{ name: "Annual", value: 0 },
-                              {name:"Monthly", value:1}  ];
+
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -74,20 +73,18 @@ export class ReportsComponent implements OnInit {
   }
   
   selected (value:number) {
-    //this.year = true;
-    //this.manth = false;
-    /* alert("year =>" + this.year);*/
+ 
     if (value == 1) {
-      this.year = true;
-      this.manth = true;
-
-    }
-    if (value == 2) {
       this.year = true;
       this.manth = false;
 
     }
-    alert("year =>" + this.year + " /// manth =>" + this.manth +"////"+ value);
+    if (value == 2) {
+      this.year = true;
+      this.manth = true;
+
+    }
+   
   }
   logOut = () => {
     localStorage.removeItem("token");
