@@ -196,7 +196,7 @@ namespace Project1.Controllers
         [Route("AcceptReport")]
         public IActionResult AcceptReport(ReportDto report)
         {
-            adminService.AcceptReport(report.PostId);
+            adminService.AcceptReport(report.Id);
             EmailDto email = new EmailDto();
             email.To = report.Email;
             email.Subject = "#" + report.Id + " Report result";
