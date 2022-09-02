@@ -30,7 +30,7 @@ namespace project.core.Service
         public ReportDto GetReportById(int reportId);
         public void AcceptFeedback(int feedbackId);
         public void RejectFeedback(int feedbackId);
-        public PostDetails GetPostById(int postId);
+        public List<PostDetails> GetPostById(int postId);
 
 
     }

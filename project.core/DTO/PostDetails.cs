@@ -10,5 +10,6 @@ namespace project.core.DTO
         public string Content { get; set; }
         public DateTime PostDate { get; set; }
         public string UserId { get; set; }
+        public string Item { get; set; }
     }
 }

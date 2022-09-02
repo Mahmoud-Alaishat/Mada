@@ -26,7 +26,7 @@ namespace project.core.Repository
         public List<Design> CRUDOPDesign(Design design, string operation);
         public void AcceptFeedback(int feedbackId);
         public void RejectFeedback(int feedbackId);
-        public PostDetails GetPostById(int postId);
+        public List<PostDetails> GetPostById(int postId);
 
     }
 }
