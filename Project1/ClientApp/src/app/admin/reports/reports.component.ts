@@ -64,14 +64,7 @@ export class ReportsComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
   }
-  towSelect(){
-    
 
-  }
-  oneSelect (){
-
-  }
-  
   selected (value:number) {
  
     if (value == 1) {

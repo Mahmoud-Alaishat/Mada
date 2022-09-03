@@ -31,6 +31,7 @@ namespace project.core.Service
         public void AcceptReport(int postId);
         public void RejectReport(int reportId);
         public List<PostDetails> GetPostById(int postId);
+        public List<FeedBackDto> GetFeedbackByStatus(int status);
 
 
     }
