@@ -7,11 +7,14 @@ import { AuthGuard } from '../guards/auth.guard';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { MailboxComponent } from './mailbox/mailbox.component';
 import { ReportsComponent } from './reports/reports.component';
+import { ReportComponent } from './report/report.component';
+import { HomeDesignComponent } from './home-design/home-design.component';
+import { AboutUsDesignComponent } from './about-us-design/about-us-design.component';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent],
+  declarations: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent],
   imports: [
     CommonModule, FormsModule,
     RouterModule.forChild(
@@ -20,11 +23,14 @@ import { ReportsComponent } from './reports/reports.component';
         { path: "admin/feedback", component: FeedbackComponent, canActivate: [AuthGuard] },
         { path: "admin/mailbox", component: MailboxComponent, canActivate: [AuthGuard] },
         { path: "admin/reports", component: ReportsComponent, canActivate: [AuthGuard] },
+        { path: "admin/report", component: ReportComponent, canActivate: [AuthGuard] },
+        { path: "admin/homedesign", component: HomeDesignComponent, canActivate: [AuthGuard] },
+        { path: "admin/aboutusdesign", component: AboutUsDesignComponent, canActivate: [AuthGuard] },
 
         
       ]
     )
   ],
-  exports: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent]
+  exports: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent]
 })
 export class AdminModule { }

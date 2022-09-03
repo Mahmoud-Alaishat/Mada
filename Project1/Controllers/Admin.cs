@@ -20,17 +20,20 @@ namespace Project1.Controllers
         private readonly IAdminService adminService;
         private readonly IEmailService emailService;
         private readonly IContactUsService contactUsService;
+        private readonly IDesignService  designService;
         public Admin(IUserService userService,
                ICommentService commentService,
                IAdminService adminService,
                IEmailService emailService,
-               IContactUsService contactUsService)
+               IContactUsService contactUsService,
+               IDesignService designService)
         {
             this.userService = userService;
             this.commentService = commentService;
             this.adminService = adminService;
             this.emailService = emailService;
             this.contactUsService = contactUsService;
+            this.designService = designService;     
         }
 
 
@@ -99,7 +102,7 @@ namespace Project1.Controllers
         }
 
         [HttpGet]
-        [Route("GetDesignById")]
+        [Route("GetDesignById/{designId}")]
         public IActionResult GetDesignById(string designId)
         {
             return Ok(adminService.GetDesignById(designId));
@@ -223,5 +226,6 @@ namespace Project1.Controllers
         {
             return Ok(contactUsService.GetContactUsById(emailId));
         }
+
     }
 }
