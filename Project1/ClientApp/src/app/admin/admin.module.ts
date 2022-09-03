@@ -15,7 +15,7 @@ import { EmailComponent } from './email/email.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent],
+  declarations: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent, EmailComponent],
   imports: [
     CommonModule, FormsModule,
     RouterModule.forChild(
@@ -24,11 +24,11 @@ import { EmailComponent } from './email/email.component';
         { path: "admin/feedback", component: FeedbackComponent, canActivate: [AuthGuard] },
         { path: "admin/mailbox", component: MailboxComponent, canActivate: [AuthGuard] },
         { path: "admin/reports", component: ReportsComponent, canActivate: [AuthGuard] },
-
+        { path: "admin/mailbox/email/:id", component: EmailComponent, canActivate: [AuthGuard] },
         
       ]
     )
   ],
-  exports: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent]
+  exports: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent, EmailComponent]
 })
 export class AdminModule { }
