@@ -223,5 +223,17 @@ namespace Project1.Controllers
         {
             return Ok(contactUsService.GetContactUsById(emailId));
         }
+
+        [HttpPost]
+        [Route("SendMessage")]
+        public IActionResult SendMessage([FromBody] ContactUs contact)
+        {
+            EmailDto email=new EmailDto();  
+            email.Subject = "Re " + contact.Subject;
+            email.To = contact.Email;
+            email.Body = contact.Message;
+            emailService.SendEmail(email);
+            return Ok();
+        }
     }
 }
