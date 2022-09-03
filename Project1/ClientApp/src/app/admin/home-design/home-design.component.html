@@ -23,6 +23,8 @@
   <link href="../../../assets/assetsAdmin/scss/soft-ui-dashboard/bootstrap/bootstrap-utilities.scss" />
   <link href="../../../assets/assetsAdmin/scss/soft-ui-dashboard/bootstrap/bootstrap.scss" />
 
+
+
   <title>
     Soft UI Dashboard by Creative Tim
   </title>
@@ -139,7 +141,6 @@
     .col-9 {
       flex: 0 0 auto;
       width: 75%;
-   
     }
 
     .col-10 {
@@ -156,12 +157,38 @@
       flex: 0 0 auto;
       width: 100%;
     }
-    select:focus{
-      border-color:dodgerblue;
-      box-shadow:none;
-      
+
+    select:focus {
+      border-color: dodgerblue;
+      box-shadow: none;
     }
- 
+
+    ::-webkit-file-upload-button {
+      color: white;
+      background-image: linear-gradient(310deg, #141727 0%, #3A416F 100%);
+      padding: 11px;
+      border: none;
+      border-radius: 2px 20px 20px 2px;
+      box-shadow: 3px 5px 4px gray;
+      outline: none;
+    }
+
+      ::-webkit-file-upload-button:hover {
+        background-color: #90caf9;
+      }
+
+    button:disabled,
+    button[disabled] {
+      cursor: default;
+      background-color: darkgrey
+    }
+
+    .upload {
+      font-weight: bold;
+      color: #28a745;
+      margin-left: 15px;
+      line-height: 36px;
+    }
   </style>
 </head>
 
@@ -240,7 +267,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link  " [routerLink]="['/admin/feedback']">
+              <a class="nav-link  " href="../pages/virtual-reality.html">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                   <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <title>box-3d-50</title>
@@ -257,7 +284,7 @@
                     </g>
                   </svg>
                 </div>
-                <span class="nav-link-text ms-1">Feedback</span>
+                <span class="nav-link-text ms-1">Virtual Reality</span>
               </a>
             </li>
             <li class="nav-item">
@@ -358,7 +385,7 @@
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
 
-          <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+          <h6 class="font-weight-bolder mb-0">Home Design</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 
@@ -509,122 +536,59 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-2">
-
+      <div *ngIf="this.showSuccess" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
+        <div style="width:23rem" class="bg-green-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+          <h3 class="text-lg font-semibold text-white">Message</h3>
+          <p class="text-white text-opacity-75">Successfully</p>
+        </div>
+      </div>
       <div class="row mt-4">
         <div style="display:flex">
           <div class="col mb-lg-0 mb-4">
             <div class="card z-index-2">
               <div class="card-body p-3">
 
-                <h6 class="ms-2 mt-4 mb-0"> Revenue By Service Report </h6>
-                <div class="container border-radius-lg">
-                  <div class="row">
-                    <div class="d-flex" (change)="selected($event.target.value)">
-                      <label class="card-body text-uppercase mr-auto p-2" style="margin-top: 7px; "> Type Of Search</label>
-                      <select style="width: 770px ; box-shadow: none; border-color: gray" class="form-select  dark:text-white p-2" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">Annual</option>
-                        <option value="2">Monthly</option>
-                      </select>
-                    </div>
-                    <br /><br /><br />
-                    <div class="d-flex" *ngIf="this.year == true" >
-                      <label style="margin-top:7px" class="card-body text-uppercase mr-auto p-2"> Year</label>
-                      <select style=" width: 770px; box-shadow: none; border-color: gray " class="form-select p-2" aria-label="Default select example">
+                <h5 class="ms-2 mt-4 mb-0">Home Design</h5>
+                <form class="lg:p-10 p-6 space-y-3 relative  shadow-xl rounded-md"  enctype="multipart/form-data">
 
-                        <!--<option selected>Select Year</option>-->
-                        <option value="1">2021</option>
-                        <option value="2">2022</option>
-                      </select>
-                    </div>
-                    <br /> <br /> <br />
-                    <div class="d-flex"  *ngIf="this.manth == true" >
-                      <label style="margin-top:7px;" class="card-body text-uppercase mr-auto p-2"> Month</label>
-                      <select style=" width: 770px; border-color: gray; box-shadow: none;" class="form-select   p-2" aria-label="Default select example">
-                        <!--<option selected>Select Month</option>-->
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                      </select>
-                    </div>
-
-                    
+                  <div class="grid lg:grid-cols-2 gap-3">
                     <div>
-                      <button style="margin-top:20px; height: 40px; width: 120px; background-color:dodgerblue; " type="button" class="btn btn-primary">  <i class="uil-search-alt"></i> Search</button>
+                      <label class="mb-0">  Main text </label>
+                      <input type="text" name="MainText" id="maintext" placeholder="{{homeDesign.mainText1}}" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
+                    </div>
+                    <div>
+                      <label for="">Home Image</label>
+                      <input (change)="uploadHomeImg(file.files)" placeholder="{{homeDesign.slideImage1}}" #file  style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
 
                     </div>
                   </div>
-                </div>
+                  
+                  <div>
+                    <label for="">Sub text</label>
+                    <textarea placeholder="{{homeDesign.subText1}}" name="SubText" id="subtext" rows="3" class="with-border md:col-span-2 p-3 px-3 resize-none " required></textarea>
+                  </div>
+
+                  <div class="centered-button">
+
+                    <button type="submit" (click)="cc()" class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-30">
+                      Get Started
+                    </button>
+                  </div>
+                </form>
+
+
               </div>
             </div>
           </div>
 
         </div>
       </div>
-      <div class="row mt-4">
-        <div style="display:flex">
-          <div class="col mb-lg-0 mb-4">
-            <div class="card z-index-2">
-              <div class="card-body p-3">
-                <h6>Services Revenue</h6>
-                <div class="table-responsive">
-                  <table class="table align-items-center mb-0">
-                    <thead>
-                      <tr>
-                        <th style="padding-left:40px" class="text-uppercase text-gray-700 dark:text-gray-100 text-xxs font-weight-bolder opacity-7">Service</th>
-                        <th class="text-center text-uppercase text-gray-700 dark:text-gray-100 text-xxs font-weight-bolder opacity-7 ps-2">Revanue</th>
 
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr >
-                        <td>
-                          <h6 class="mb-0 ml-3 text-sm">
-                            <i class="icon-feather-chevrons-right mr-3 text-danger"></i>
-                            
-                          </h6>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                          <span class="text-xs font-weight-bold text-gray-700 dark:text-gray-100">   </span>
-                        </td>
-                       
-                      </tr>
-                      <!--<tr class="bg-info">
-                        <td colspan="3">
-                          <h6 class="mb-0 ml-3 text-sm font-weight-bold text-white">
-                            <i class="icon-feather-chevrons-right mr-3 text-white"></i>
-                            Total
-                          </h6>
-                        </td>
 
-                        <td colspan="1" class="align-middle text-center text-sm">
-                          <span class="text-xs font-weight-bolder text-white"></span>
-                        </td>
-                      </tr>-->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="col-lg-6 col-5 my-auto text-end">
 
-              </div>
-            </div>
-       
-          </div>
-        </div>
-      </div>
 
     </div>
-      
+
   </main>
 
   <!--   Core JS Files   -->
@@ -814,6 +778,13 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../../../assets/assetsAdmin/js/soft-ui-dashboard.min.js?v=1.0.6"></script>
+
+
+
+
+
+
+
 </body>
 
 </html>

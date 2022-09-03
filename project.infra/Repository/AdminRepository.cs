@@ -71,7 +71,7 @@ namespace project.infra.Repository
             List<FeedBackDto> re = new List<FeedBackDto>();
             parameter.Add("idoffeedback", feedBack.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("feedbacktextt", feedBack.FeedbackText, dbType: DbType.String, direction: ParameterDirection.Input);
-            parameter.Add("feedbackstatuss", feedBack.FeedbackStatus, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("feedbackstatuss", feedBack.FeedbackStatus, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("useridd", feedBack.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
 
@@ -146,8 +146,8 @@ namespace project.infra.Repository
         {
             var parameter = new DynamicParameters();
             List<Design> re = new List<Design>();
-            parameter.Add("idofdesign", design.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            parameter.Add("SlideImagee1", design.SlideImage1, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("idofdesign", design.Id, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("SlideImagee1", design.SlideImage1, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("SlideImagee2", design.SlideImage2, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("SlideImagee3", design.SlideImage3, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("SubTextt1", design.SubText1, dbType: DbType.String, direction: ParameterDirection.Input);

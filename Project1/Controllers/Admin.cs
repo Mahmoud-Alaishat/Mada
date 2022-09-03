@@ -6,7 +6,9 @@ using project.core.DTO;
 using project.core.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Project1.Controllers
@@ -20,17 +22,20 @@ namespace Project1.Controllers
         private readonly IAdminService adminService;
         private readonly IEmailService emailService;
         private readonly IContactUsService contactUsService;
+        private readonly IDesignService  designService;
         public Admin(IUserService userService,
                ICommentService commentService,
                IAdminService adminService,
                IEmailService emailService,
-               IContactUsService contactUsService)
+               IContactUsService contactUsService,
+               IDesignService designService)
         {
             this.userService = userService;
             this.commentService = commentService;
             this.adminService = adminService;
             this.emailService = emailService;
             this.contactUsService = contactUsService;
+            this.designService = designService;     
         }
 
 
@@ -91,15 +96,16 @@ namespace Project1.Controllers
         {
             return Ok(adminService.RevenueDetails());  
         }
-        [HttpGet]
+        [HttpPost]
         [Route("UpdateDesign")]
-        public IActionResult UpdateDesign(Design design)
+        public IActionResult UpdateDesign([FromBody]Design design)
         {
-            return Ok(adminService.UpdateDesign(design));
+            adminService.UpdateDesign(design);
+            return Ok();
         }
 
         [HttpGet]
-        [Route("GetDesignById")]
+        [Route("GetDesignById/{designId}")]
         public IActionResult GetDesignById(string designId)
         {
             return Ok(adminService.GetDesignById(designId));
@@ -222,6 +228,45 @@ namespace Project1.Controllers
         public IActionResult GetEmailDetails(int emailId)
         {
             return Ok(contactUsService.GetContactUsById(emailId));
+        }
+
+        
+        [HttpGet]
+        [Route("GetFeedbackByStatus/{status}")]
+        public IActionResult GetFeedbackByStatus(int status)
+        {
+            return Ok(adminService.GetFeedbackByStatus(status));
+        }
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("UploadHomeImg")]
+        public async Task<IActionResult> UploadHomeImgAsync()
+        {
+            try
+            {
+                var formCollection = await Request.ReadFormAsync();
+                var file = formCollection.Files.First();
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (file.Length > 0)
+                {
+                    var fileName = Guid.NewGuid().ToString() + "_" + (ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"'));
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    return Ok(new HomeImg { HomePath= fileName });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
 
         [HttpPost]

@@ -126,7 +126,12 @@ namespace project.infra.Service
             report.Id = reportId;
             return adminRepository.CRUDOPReport(report, "readbyid").ToList().SingleOrDefault();
         }
-
+        public List<FeedBackDto> GetFeedbackByStatus(int status)
+        {
+            FeedBackDto feedBack = new FeedBackDto();
+            feedBack.FeedbackStatus= status;
+            return adminRepository.CRUDOPFeedback(feedBack, "readbyid");
+        }
         public void AcceptFeedback(int feedbackId)
         {
            adminRepository.AcceptFeedback(feedbackId);
