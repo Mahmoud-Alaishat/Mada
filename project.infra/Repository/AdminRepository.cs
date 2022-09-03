@@ -71,7 +71,7 @@ namespace project.infra.Repository
             List<FeedBackDto> re = new List<FeedBackDto>();
             parameter.Add("idoffeedback", feedBack.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("feedbacktextt", feedBack.FeedbackText, dbType: DbType.String, direction: ParameterDirection.Input);
-            parameter.Add("feedbackstatuss", feedBack.FeedbackStatus, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("feedbackstatuss", feedBack.FeedbackStatus, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("useridd", feedBack.UserId, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
 

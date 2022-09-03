@@ -227,5 +227,12 @@ namespace Project1.Controllers
             return Ok(contactUsService.GetContactUsById(emailId));
         }
 
+        
+        [HttpGet]
+        [Route("GetFeedbackByStatus/{status}")]
+        public IActionResult GetFeedbackByStatus(int status)
+        {
+            return Ok(adminService.GetFeedbackByStatus(status));
+        }
     }
 }
