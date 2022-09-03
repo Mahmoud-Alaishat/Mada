@@ -147,7 +147,7 @@ namespace project.infra.Repository
             var parameter = new DynamicParameters();
             List<Design> re = new List<Design>();
             parameter.Add("idofdesign", design.Id, dbType: DbType.String, direction: ParameterDirection.Input);
-            parameter.Add("SlideImagee1", design.SlideImage1, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("SlideImagee1", design.SlideImage1, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("SlideImagee2", design.SlideImage2, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("SlideImagee3", design.SlideImage3, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("SubTextt1", design.SubText1, dbType: DbType.String, direction: ParameterDirection.Input);
