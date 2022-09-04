@@ -17,6 +17,8 @@
   <!-- Nucleo Icons -->
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+ 
+
   <!-- CSS Files -->
   <style>
     .row {
@@ -522,7 +524,7 @@
             </button>
             <div id="emailbox" class="w-100" [hidden]="this.show != true">
               <div class="card card-body w-100 bg-white">
-                <div  class="lg:p-10 p-6  relative shadow-xl rounded w-100">
+                <div class="lg:p-10 p-6  relative shadow-xl rounded w-100">
                   <div>
                     <label class="mb-0">  </label>
                     <textarea [(ngModel)]="this.message" rows="17" name="message" type="text" placeholder="Write your email here" class="bg-gray-100 dark:bg-gray-700  mt-2 px-3 rounded-md w-full"></textarea>
@@ -532,6 +534,12 @@
                       <i class="icon-feather-send"></i> Send
                     </button>
                   </div>
+                  <div id="editor">
+                    <p>Hello World!</p>
+                    <p>Some initial <strong>bold</strong> text</p>
+                    <p><br></p>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -718,5 +726,7 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../../../assets/assetsAdmin/js/soft-ui-dashboard.min.js?v=1.0.6"></script>
+
+  
 </body>
 </html>
