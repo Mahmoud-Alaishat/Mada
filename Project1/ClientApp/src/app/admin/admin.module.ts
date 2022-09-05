@@ -27,6 +27,8 @@ import { EmailComponent } from './email/email.component';
         { path: "admin/mailbox/email/:id", component: EmailComponent, canActivate: [AuthGuard] },
         { path: "admin/homedesign", component: HomeDesignComponent, canActivate: [AuthGuard] },
         { path: "admin/aboutusdesign", component: AboutUsDesignComponent, canActivate: [AuthGuard] },
+        { path: "admin/report", component: ReportComponent, canActivate: [AuthGuard] },
+
       ]
     )
   ],
