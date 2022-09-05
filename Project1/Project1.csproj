@@ -266,6 +266,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\assets\assets\Img\user\cover\" />
     <Folder Include="ClientApp\src\assets\assets\Img\user\profile\" />
+    <Folder Include="Resources\Images\AboutUs\" />
     <Folder Include="Resources\Images\user\cover\" />
     <Folder Include="Resources\Images\user\replay\" />
     <Folder Include="Resources\Images\user\story\" />
