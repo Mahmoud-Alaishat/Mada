@@ -22,7 +22,8 @@ export class ReportComponent implements OnInit {
     userId: '',
     item: ''
   }
-  showSuccess: boolean;
+  showAccepted: boolean;
+  showRejected: boolean;
   SelectedStatus :string;
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) {
   }
@@ -106,8 +107,8 @@ export class ReportComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        this.showSuccess = true;
-        setTimeout(() => { this.showSuccess = false; }, 4000);
+        this.showAccepted = true;
+        setTimeout(() => { this.showAccepted = false; }, 4000);
         window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")
@@ -131,8 +132,8 @@ export class ReportComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        this.showSuccess = true;
-        setTimeout(() => { this.showSuccess = false; }, 4000);
+        this.showRejected = true;
+        setTimeout(() => { this.showRejected = false; }, 4000);
         window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")

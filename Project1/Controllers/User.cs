@@ -31,9 +31,10 @@ namespace Project1.Controllers
         private readonly IReportService reportService;
         private readonly IStoryService storyService;
         private readonly IAttachmentService attachmentService;
+        private readonly IFeedbackService feedbackService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
-           IReportService reportService, IStoryService storyService, IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub)
+           IReportService reportService, IStoryService storyService, IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub, IFeedbackService feedbackService)
             
         {
             this.commentService = commentService;
@@ -49,6 +50,7 @@ namespace Project1.Controllers
             this.chatHub = chatHub;
             this.storyService = storyService;
             this.reportService=reportService;
+            this.feedbackService = feedbackService; 
         }
 
         [HttpPost]
@@ -74,6 +76,7 @@ namespace Project1.Controllers
             userInfo.Subscribeexpiry = user.SubscribeExpiry;
             userInfo.SubscriptionId = user.SubscriptionId;
             userInfo.StaticNumPost = user.StaticNumPost;
+            userInfo.IsFristPost = user.IsFirstPost;
             return Ok(userInfo);
         }
 
@@ -545,6 +548,14 @@ namespace Project1.Controllers
         public IActionResult GetAcceptedFeedback()
         {
             return Ok(userService.GetAcceptedFeedback());
+        }
+
+        [HttpPost]
+        [Route("AddFeedBack")]
+        public IActionResult AddFeedBack([FromBody] Feedback feedback)
+        {
+            feedbackService.Create(feedback);
+            return Ok();
         }
     }
 }

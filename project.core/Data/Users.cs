@@ -29,5 +29,6 @@ namespace project.core.Data
         public string Bio { get; set; }
         public DateTime SubscribeExpiry { get; set; }
         public int StaticNumPost { get; set; }
+        public int IsFirstPost { get; set; }
     }
 }

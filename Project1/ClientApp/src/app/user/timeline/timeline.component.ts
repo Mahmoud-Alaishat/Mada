@@ -20,6 +20,7 @@ export class TimelineComponent implements OnInit {
     subscribeexpiry: null,
     subscriptionId: 0,
     staticNumPost: 0,
+    isFristPost: 0
   };
   friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' };
   putLike: HitLike = { userId: '', postId: 0 }
@@ -45,15 +46,14 @@ export class TimelineComponent implements OnInit {
   last6friends: MyFriends = { friendId: '', firstName: '', lastName: '', profilePath: '' }
   sendcomment: SendComment = { postId: 0, userId: '', content: '', item: '' };
   content = new FormControl();
-  //numberOfLikes = new BehaviorSubject(0);
   private numberOfLikes = new BehaviorSubject<Like[]>(null);
   numberOfLikes$ = this.numberOfLikes.asObservable();
   story: Story = {
-      item: '',
-      userId: '',
-      storyDate: new Date(),
-      isBlocked: 0,
-      id: 0
+    item: '',
+    userId: '',
+    storyDate: new Date(),
+    isBlocked: 0,
+    id: 0
   }
   @Output() public onUploadFinished1 = new EventEmitter();
   @Output() public onUploadFinished5 = new EventEmitter();
@@ -74,6 +74,13 @@ export class TimelineComponent implements OnInit {
   commid: number;
 
   replayContent = new FormControl();
+  feedbackcontent = new FormControl();
+  feedback: Feedback = {
+    id: 0,
+    feedbackText: '',
+    feedbackStatus: 0,
+    userId: ''
+  }
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService, private router: Router) { }
 
@@ -160,6 +167,25 @@ export class TimelineComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
+
+    this.http.get<Bank[]>("https://localhost:44328/api/User/GetUserVisa/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: Bank[]) => {
+        this.visa = response;
+        this.totalBalance = this.TotalBalance(response);
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+
+    this.http.get<NumOfPost>("https://localhost:44328/api/User/NumberOFPostByUserId/" + this.auth.Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: NumOfPost) => {
+        this.numOfPost.numberOfPost = response.numberOfPost;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
   }
 
   getHoursDiff(hour: number): number {
@@ -237,12 +263,12 @@ export class TimelineComponent implements OnInit {
           this.http.post("https://localhost:44328/api/User/InsertLike", this.putLike, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
-            next: () => {                                         
+            next: () => {
               var a = (document.getElementById("likes-" + this.putLike.postId).innerHTML);
-              a = a.split(" ",2)[0];
+              a = a.split(" ", 2)[0];
               var likes = parseInt(a);
-              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes+1 ) +" Likes";
-                                          
+              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes + 1) + " Likes";
+
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
@@ -254,9 +280,9 @@ export class TimelineComponent implements OnInit {
           }).subscribe({
             next: () => {
               var a = (document.getElementById("likes-" + this.putLike.postId).innerHTML);
-              a = a.split(" ",2)[0];
+              a = a.split(" ", 2)[0];
               var likes = parseInt(a);
-              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes - 1) + " Likes";                                         
+              document.getElementById("likes-" + this.putLike.postId).innerHTML = (likes - 1) + " Likes";
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
@@ -264,12 +290,12 @@ export class TimelineComponent implements OnInit {
 
       },
       error: (err: HttpErrorResponse) => console.log("no data")
-    })   
+    })
 
   }
- 
+
   preventdefault(id: number) {
-    document.getElementById("mutasem-"+id).addEventListener("click", function (event) {
+    document.getElementById("mutasem-" + id).addEventListener("click", function (event) {
       event.preventDefault()
     });
   }
@@ -307,17 +333,17 @@ export class TimelineComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-          window.location.reload();
+        window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
-    
+
 
   }
 
-  isVideo(fileName: string): boolean{
+  isVideo(fileName: string): boolean {
     var name = fileName.split('.').pop();
-    if (name == "mp4") {  
+    if (name == "mp4") {
       return true;
     }
     return false;
@@ -449,7 +475,6 @@ export class TimelineComponent implements OnInit {
   getCommentId(id: number) {
     this.replyShow = true;
     this.commid = id;
-    //  alert(this.commid);
   }
   Hide(): boolean {
     var a = document.getElementById("chk");
@@ -466,117 +491,123 @@ export class TimelineComponent implements OnInit {
       }).subscribe({
         next: (response: Subscription[]) => {
           this.subscriptions = response;
+          if (this.userData.subscriptionId == 1 && this.numOfPost.numberOfPost < this.subscriptions[0].limitPost) {
+            this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+              headers: new HttpHeaders({ "Content-Type": "application/json" })
+            }).subscribe({
+              next: () => {
+                this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe({
+                  next: (response: PostId) => {
+                    for (let i = 0; i < this.attachments.length; i++) {
+                      this.attachments[i].postId = response.id;
+                    }
+                    this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
+                      headers: new HttpHeaders({ "Content-Type": "application/json" })
+                    }).subscribe();
+                  },
+                  error: (err: HttpErrorResponse) => console.log("no data")
+                });
 
+                this.showSuccess = true;
+                setTimeout(() => { this.showSuccess = false; }, 4000);
+                if (this.userData.isFristPost > 0) {
+                  window.location.reload();
+
+                }
+              },
+              error: () => {
+                console.log("Someting went wrong")
+              }
+            })
+          }
+          else if ((this.userData.subscriptionId == 2 && this.numOfPost.numberOfPost < this.subscriptions[1].limitPost + this.userData.staticNumPost) || (this.userData.subscriptionId == 2 && this.userData.subscribeexpiry > new Date())) {
+            this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+              headers: new HttpHeaders({ "Content-Type": "application/json" })
+            }).subscribe({
+              next: () => {
+                this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe({
+                  next: (response: PostId) => {
+                    for (let i = 0; i < this.attachments.length; i++) {
+                      this.attachments[i].postId = response.id;
+                    }
+                    this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
+                      headers: new HttpHeaders({ "Content-Type": "application/json" })
+                    }).subscribe();
+                  },
+                  error: (err: HttpErrorResponse) => console.log("no data")
+                });
+                this.showSuccess = true;
+                setTimeout(() => { this.showSuccess = false; }, 4000);
+                if (this.userData.isFristPost > 0) {
+                  window.location.reload();
+
+                }
+              },
+              error: () => {
+                console.log("Someting went wrong")
+              }
+            })
+          }
+          else if ((this.userData.subscriptionId == 3 && this.numOfPost.numberOfPost < this.subscriptions[2].limitPost + this.userData.staticNumPost) || (this.userData.subscriptionId == 3 && this.userData.subscribeexpiry > new Date())) {
+            this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
+              headers: new HttpHeaders({ "Content-Type": "application/json" })
+            }).subscribe({
+              next: () => {
+                this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
+                  headers: new HttpHeaders({ "Content-Type": "application/json" })
+                }).subscribe({
+                  next: (response: PostId) => {
+                    for (let i = 0; i < this.attachments.length; i++) {
+                      this.attachments[i].postId = response.id;
+                    }
+                    this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
+                      headers: new HttpHeaders({ "Content-Type": "application/json" })
+                    }).subscribe();
+                  },
+                  error: (err: HttpErrorResponse) => console.log("no data")
+                });
+                this.showSuccess = true;
+                setTimeout(() => { this.showSuccess = false; }, 4000);
+                if (this.userData.isFristPost > 0) {
+                  window.location.reload();
+
+                }
+              },
+              error: () => {
+                console.log("Someting went wrong")
+              }
+            })
+          }
+          else {
+
+            this.isSubscriptionEnded = true;
+            setTimeout(() => { this.isSubscriptionEnded = false; }, 5000);
+            if (this.userData.subscriptionId != 4) {
+              this.http.get("https://localhost:44328/api/User/EndSubscription/" + this.auth.Id, {
+                headers: new HttpHeaders({ "Content-Type": "application/json" })
+              }).subscribe({
+                next: () => {
+
+                },
+                error: () => {
+                  console.log("Someting went wrong")
+
+                }
+              })
+            }
+
+            setInterval(() => { this.count -= 1; }, 1000);
+            setTimeout(() => { this.router.navigate(['user/subscription']) }, 5500);
+          }
         },
         error: (err: HttpErrorResponse) => console.log("no data")
       })
 
-      if (this.userData.subscriptionId == 1 && this.numOfPost.numberOfPost < this.subscriptions[0].limitPost) {
-        this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
-          headers: new HttpHeaders({ "Content-Type": "application/json" })
-        }).subscribe({
-          next: () => {
-            this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
-              headers: new HttpHeaders({ "Content-Type": "application/json" })
-            }).subscribe({
-              next: (response: PostId) => {
-                for (let i = 0; i < this.attachments.length; i++) {
-                  this.attachments[i].postId = response.id;
-                }
-                this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
-                  headers: new HttpHeaders({ "Content-Type": "application/json" })
-                }).subscribe();
-              },
-              error: (err: HttpErrorResponse) => console.log("no data")
-            });
 
-            this.showSuccess = true;
-            window.scroll({ top: 0, left: 0, behavior: 'smooth' });
-            setTimeout(() => { this.showSuccess = false; }, 4000);
-            window.location.reload();
-          },
-          error: () => {
-            console.log("Someting went wrong")
-          }
-        })
-      }
-      else if ((this.userData.subscriptionId == 2 && this.numOfPost.numberOfPost < this.subscriptions[1].limitPost + this.userData.staticNumPost) || (this.userData.subscriptionId == 2 && this.userData.subscribeexpiry > new Date())) {
-        this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
-          headers: new HttpHeaders({ "Content-Type": "application/json" })
-        }).subscribe({
-          next: () => {
-            this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
-              headers: new HttpHeaders({ "Content-Type": "application/json" })
-            }).subscribe({
-              next: (response: PostId) => {
-                for (let i = 0; i < this.attachments.length; i++) {
-                  this.attachments[i].postId = response.id;
-                }
-                this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
-                  headers: new HttpHeaders({ "Content-Type": "application/json" })
-                }).subscribe();
-              },
-              error: (err: HttpErrorResponse) => console.log("no data")
-            });
-            this.showSuccess = true;
-            window.scroll({ top: 0, left: 0, behavior: 'smooth' });
-            setTimeout(() => { this.showSuccess = false; }, 4000);
-            window.location.reload();
-          },
-          error: () => {
-            console.log("Someting went wrong")
-          }
-        })
-      }
-      else if ((this.userData.subscriptionId == 3 && this.numOfPost.numberOfPost < this.subscriptions[2].limitPost + this.userData.staticNumPost) || (this.userData.subscriptionId == 3 && this.userData.subscribeexpiry > new Date())) {
-        this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
-          headers: new HttpHeaders({ "Content-Type": "application/json" })
-        }).subscribe({
-          next: () => {
-            this.http.get<PostId>("https://localhost:44328/api/User/GetLastPost/" + this.auth.Id, {
-              headers: new HttpHeaders({ "Content-Type": "application/json" })
-            }).subscribe({
-              next: (response: PostId) => {
-                for (let i = 0; i < this.attachments.length; i++) {
-                  this.attachments[i].postId = response.id;
-                }
-                this.http.post("https://localhost:44328/api/User/AddAttachment/", this.attachments, {
-                  headers: new HttpHeaders({ "Content-Type": "application/json" })
-                }).subscribe();
-              },
-              error: (err: HttpErrorResponse) => console.log("no data")
-            });
-            this.showSuccess = true;
-            window.scroll({top: 0,left: 0,behavior: 'smooth'});
-            setTimeout(() => { this.showSuccess = false; }, 4000);
-            window.location.reload();
-          },
-          error: () => {
-            console.log("Someting went wrong")
-          }
-        })
-      }
-      else {
-
-        this.isSubscriptionEnded = true;
-        setTimeout(() => { this.isSubscriptionEnded = false; }, 5000);
-        if (this.userData.subscriptionId != 4) {
-          this.http.get("https://localhost:44328/api/User/EndSubscription/" + this.auth.Id, {
-            headers: new HttpHeaders({ "Content-Type": "application/json" })
-          }).subscribe({
-            next: () => {
-
-            },
-            error: () => {
-              console.log("Someting went wrong")
-
-            }
-          })
-        }
-
-        setInterval(() => { this.count -= 1; }, 1000);
-        setTimeout(() => { this.router.navigate(['user/subscription']) }, 5500);
-      }
     }
     else {
       this.sendPost.typePost = 3;
@@ -614,7 +645,7 @@ export class TimelineComponent implements OnInit {
                 console.log("Something went wrong")
               }
             })
-            //this.showError = false;
+            this.showError = false;
           },
           error: () => {
             console.log("Something went wrong")
@@ -626,6 +657,9 @@ export class TimelineComponent implements OnInit {
         this.showError = true;
         setTimeout(() => { this.showError = false; }, 4000)
       }
+
+
+
     }
 
   }
@@ -643,6 +677,18 @@ export class TimelineComponent implements OnInit {
     this.selectecarid = id;
     this.selectecarbalance = balance;
   }
+  MakeFeedBack() {
+    this.feedback.userId = this.auth.Id;
+    this.feedback.feedbackText = this.feedbackcontent.value;
+    this.http.post("https://localhost:44328/api/User/AddFeedBack/", this.feedback, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+        window.location.reload();
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
 }
 
 
@@ -657,6 +703,7 @@ interface UserInfo {
   subscribeexpiry: Date;
   subscriptionId: number;
   staticNumPost: number;
+  isFristPost: number
 }
 interface MakePost {
   userId: string;
@@ -690,7 +737,7 @@ interface MyPosts {
   attachment: Attachments[];
   comment: Comment[];
   like: Like[];
-  
+
 }
 
 interface Attachments {
@@ -752,7 +799,7 @@ interface Story {
   item: string;
   userId: string;
   storyDate: Date;
-  isBlocked:number
+  isBlocked: number
 
 }
 interface PostId {
@@ -778,6 +825,13 @@ interface Bank {
 }
 interface NumOfPost {
   numberOfPost
+}
+
+interface Feedback {
+  id: number;
+  feedbackText: string;
+  feedbackStatus: number;
+  userId: string;
 }
 
 
