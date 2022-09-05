@@ -29,6 +29,6 @@ namespace project.core.Repository
         public void AcceptReport(int postId);   
         public void RejectReport(int reportId);   
         public List<PostDetails> GetPostById(int postId);
-
+        public List<RevenueByDate> GetRevenueByDate(string year,string month);
     }
 }

@@ -215,5 +215,15 @@ namespace project.infra.Repository
             parameter.Add("idofreport", reportId, dbType: DbType.Int32, direction: ParameterDirection.Input);
             context.dbConnection.ExecuteAsync("Admin_package_api.RejectReport", parameter, commandType: CommandType.StoredProcedure);
         }
+
+        public List<RevenueByDate> GetRevenueByDate(string year, string month)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("yearr", year, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("monthh", month, dbType: DbType.String, direction: ParameterDirection.Input);
+
+            var result = context.dbConnection.Query<RevenueByDate>("Admin_package_api.GetRevenueByDate", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
     }
 }
