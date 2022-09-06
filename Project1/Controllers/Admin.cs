@@ -313,12 +313,11 @@ namespace Project1.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("RevenueByDate/{year}/{month}")]
-        public IActionResult RevenueByDate(string year, string month)
+        public IActionResult RevenueByDate(string year, string month = null)
         {
-            adminService.GetRevenueByDate(year, month);
-            return Ok();
+            return Ok(adminService.GetRevenueByDate(year, month));
         }
     }
 }
