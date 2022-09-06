@@ -34,7 +34,8 @@ namespace Project1.Controllers
         private readonly IFeedbackService feedbackService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
-           IReportService reportService, IStoryService storyService, IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub, IFeedbackService feedbackService)
+           IReportService reportService, IStoryService storyService, IAttachmentService attachmentService, ILikeService likeService,
+           ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub, IFeedbackService feedbackService)
             
         {
             this.commentService = commentService;
@@ -557,5 +558,6 @@ namespace Project1.Controllers
             feedbackService.Create(feedback);
             return Ok();
         }
+
     }
 }

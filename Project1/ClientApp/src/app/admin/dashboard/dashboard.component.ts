@@ -159,6 +159,10 @@ export class DashboardComponent implements OnInit {
         for (let i = 1; i < response.length; i++) {
           this.post.item += response[i].item + ",";
         }
+        //this.post.attachments = this.SplitImages(this.post.item);
+        //console.log(this.post.attachments);
+        //console.log(this.post);
+
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
@@ -302,4 +306,5 @@ interface PostDetails {
   postDate: Date;
   userId: string;
   item: string;
+//  attachments: string[];
 }

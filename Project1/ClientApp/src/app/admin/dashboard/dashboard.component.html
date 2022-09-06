@@ -688,7 +688,7 @@
                                         <a *ngIf="isVideo(SplitImages(this.post.item)[1]) == false" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}">
                                           <img src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}" alt="" class="rounded-md w-full h-full">
                                         </a>
-                                        <a *ngIf="isVideo(post.attachment[1].item) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}">
+                                        <a *ngIf="isVideo(SplitImages(this.post.item)[1]) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}">
                                           <video class="rounded-md w-full h-full" controls>
                                             <source src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}" type="video/mp4" />
                                           </video>
