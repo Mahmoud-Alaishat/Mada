@@ -502,11 +502,13 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-2">
-      <div *ngIf="this.showSuccess" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
-        <div style="width:23rem" class="bg-green-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
-          <h3 class="text-lg font-semibold text-white">Message</h3>
-          <p class="text-white text-opacity-75">Successfully</p>
-        </div>
+      <div *ngIf="this.showSuccessR" class="alert alert-info alert-dismissible fade show" role="alert">
+        <span class="alert-icon"><i style="font-size:1.25rem" class="icon-feather-alert-circle mr-2 text-white"></i></span>
+        <span class="alert-text text-white"><strong>Report</strong>  accepted successfully</span>
+      </div>
+      <div *ngIf="this.showSuccessF" class="alert alert-info alert-dismissible fade show" role="alert">
+        <span class="alert-icon"><i style="font-size:1.25rem" class="icon-feather-alert-circle mr-2 text-white"></i></span>
+        <span class="alert-text text-white"><strong>Feedback</strong>  accepted successfully</span>
       </div>
       <div class="row">
         <div style="display:flex">
@@ -650,8 +652,8 @@
                                     <div class="flex justify-between items-center lg:p-4 p-2.5">
                                       <div class="flex flex-1 items-center space-x-4">
                                         <!--<a href="#">
-        <img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" class="bg-gray-200 border border-white rounded-full w-10 h-10">
-      </a>-->
+                                      <img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" class="bg-gray-200 border border-white rounded-full w-10 h-10">
+                                    </a>-->
                                         <div class="flex-1 font-semibold capitalize">
                                           <a href="#" class="text-gray-700 dark:text-gray-100"> {{report.firstName}} {{report.lastName}} </a>
                                           <div class="text-gray-700 flex items-center space-x-2">
@@ -838,7 +840,7 @@
                                     <div class="p-5 pt-0">
                                       {{feedback.feedbackText}}
                                     </div>
-                                  </div> 
+                                  </div>
 
                                   <div style="display:flex;justify-content:space-between" class="mt-6 px-0 space-x-1">
                                     <a class="btn bg-gradient-secondary mt-3 w-auto uk-modal-close" href="#">Close</a>

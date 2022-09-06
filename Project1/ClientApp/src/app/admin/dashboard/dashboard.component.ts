@@ -36,7 +36,9 @@ export class DashboardComponent implements OnInit {
       item:''
   }
   userandsubscription: UserAndAd[];
-  showSuccess: boolean;
+  showSuccessR: boolean;
+  showSuccessF: boolean;
+
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -180,8 +182,9 @@ export class DashboardComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {        
-        this.showSuccess = true;
-        setTimeout(() => { this.showSuccess = false; }, 4000);
+        this.showSuccessF = true;
+        document.getElementById("FeedBack-"+Id).hidden = true;
+        setTimeout(() => { this.showSuccessF = false; }, 4000);
         window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")
@@ -193,8 +196,8 @@ export class DashboardComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        this.showSuccess = true;
-        setTimeout(() => { this.showSuccess = false; }, 4000);
+        //this.showSuccess = true;
+        //setTimeout(() => { this.showSuccess = false; }, 4000);
         window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")
@@ -206,8 +209,9 @@ export class DashboardComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        this.showSuccess = true;
-        setTimeout(() => { this.showSuccess = false; }, 4000);
+        this.showSuccessR = true;
+        document.getElementById("Details-" + Report.postId).hidden = true;
+        setTimeout(() => { this.showSuccessR = false; }, 4000);
         window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")
@@ -231,8 +235,8 @@ export class DashboardComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        this.showSuccess = true;
-        setTimeout(() => { this.showSuccess = false; }, 4000);
+        //this.showSuccess = true;
+        //setTimeout(() => { this.showSuccess = false; }, 4000);
         window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")
