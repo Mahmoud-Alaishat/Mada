@@ -32,7 +32,7 @@ namespace project.core.Service
         public void RejectReport(int reportId);
         public List<PostDetails> GetPostById(int postId);
         public List<FeedBackDto> GetFeedbackByStatus(int status);
-
+        public List<RevenueByDate> GetRevenueByDate(string year, string month);
 
     }
 }

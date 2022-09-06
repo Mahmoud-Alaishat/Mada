@@ -156,5 +156,10 @@ namespace project.infra.Service
         {
             adminRepository.RejectReport(reportId); 
         }
+
+        public List<RevenueByDate> GetRevenueByDate(string year, string month)
+        {
+            return adminRepository.GetRevenueByDate(year, month);
+        }
     }
 }

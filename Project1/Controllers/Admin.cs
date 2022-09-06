@@ -312,5 +312,13 @@ namespace Project1.Controllers
             emailService.SendEmail(email);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("RevenueByDate/{year}/{month}")]
+        public IActionResult RevenueByDate(string year, string month)
+        {
+            adminService.GetRevenueByDate(year, month);
+            return Ok();
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace project.core.DTO
         public int SubscriptionId { get; set; }
         public DateTime Subscribeexpiry { get; set; }
         public int StaticNumPost { get; set; }
+        public int IsFristPost { get; set; }
 
     }
 }
