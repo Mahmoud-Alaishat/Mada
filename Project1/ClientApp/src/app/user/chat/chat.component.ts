@@ -46,7 +46,8 @@ export class ChatComponent implements OnInit {
 
   addToInbox(obj: MessageDto) {
     let newObj = new MessageDto();
-    newObj.user = obj.user;
+    newObj.sender = obj.sender;
+    newObj.receiver = obj.receiver;
     newObj.msgText = obj.msgText;
     this.msgInboxArray.push(newObj);
 

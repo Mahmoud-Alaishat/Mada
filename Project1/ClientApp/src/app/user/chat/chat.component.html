@@ -150,9 +150,13 @@
             </div>
             <!--Sender-->
             <div *ngFor="let mObj of msgInboxArray" class="message-bubble me">
+
               <div class="message-bubble-inner">
                 <div class="message-avatar"><img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" alt=""></div>
                 <div class="message-text"><p>{{mObj.msgText}}</p></div>
+                <div class="message-text"><p>Sender: {{mObj.sender}}</p></div>
+                <div class="message-text"><p>Receiver: {{mObj.receiver}}</p></div>
+
               </div>
               <div class="clearfix"></div>
             </div>
@@ -204,26 +208,59 @@
             <textarea style="padding-left:10px" class="msg-input" [(ngModel)]="msgDto.msgText" cols="1" rows="1" placeholder="Your Message"></textarea>
             <button (click)="send()" class="button ripple-effect"><i class="icon ion-md-send"></i></button>
           </div>
-          <!--<input type="text" placeholder="Your name" class="name-box" [(ngModel)]="msgDto.user" />-->
+          <input type="text" placeholder="sender" class="name-box" [(ngModel)]="msgDto.sender" />
+          <input type="text" placeholder="receiver" class="name-box" [(ngModel)]="msgDto.receiver" />
+
         </div>
+
+   
       </div>
     </div>
-    <!--<div style="width:200px">
-      <div class="ud-header">
-        <h2 class="text-center">Public Chat</h2>
-      </div>
-      <div class="ud-body">
-        <div class="msg-box">
-          <ul>
-            <li *ngFor="let mObj of msgInboxArray" >{{mObj.user}} :<br /><span class="msg-italic-style">{{mObj.msgText}}</span></li>
-          </ul>
-        </div>
-        <div class="ud-flex-row">
-          <input type="text" placeholder="Type message here" class="msg-input" [(ngModel)]="msgDto.msgText" />
-          <button class="send-btn" (click)="send()"><i class="icon-feather-send"></i></button>
-        </div>
-        <input type="text" placeholder="Your name" class="name-box" [(ngModel)]="msgDto.user" />
-      </div>
-    </div>-->
+
   </div>
 </div>
+
+
+<script>
+  "use strict";
+
+  var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+  //Disable send button until connection is established
+  document.getElementById("sendButton").disabled = true;
+
+  connection.on("ReceiveMessage", function (user, message) {
+    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    var encodedMsg = user + " says " + msg;
+    var li = document.createElement("li");
+    li.textContent = encodedMsg;
+    document.getElementById("messagesList").appendChild(li);
+  });
+
+  connection.start().then(function () {
+    document.getElementById("sendButton").disabled = false;
+  }).catch(function (err) {
+    return console.error(err.toString());
+  });
+
+  document.getElementById("sendButton").addEventListener("click", function (event) {
+    var sender = document.getElementById("senderInput").value;
+    var receiver = document.getElementById("receiverInput").value;
+    var message = document.getElementById("messageInput").value;
+
+    if (receiver != "") {
+
+      connection.invoke("SendMessageToGroup", sender, receiver, message).catch(function (err) {
+        return console.error(err.toString());
+      });
+    }
+    else {
+      connection.invoke("SendMessage", sender, message).catch(function (err) {
+        return console.error(err.toString());
+      });
+    }
+
+
+    event.preventDefault();
+  });
+</script>

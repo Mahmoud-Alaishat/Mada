@@ -1,4 +1,5 @@
 export class MessageDto {
-  public user: string = '';
+  public sender: string = '';
+  public receiver: string = '';
   public msgText: string = '';
 }

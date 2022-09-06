@@ -34,7 +34,7 @@ namespace Project1.Controllers
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
            IReportService reportService, IStoryService storyService, IAttachmentService attachmentService, ILikeService likeService, ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub)
-            
+
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
@@ -48,7 +48,7 @@ namespace Project1.Controllers
             this.subscriptionService = subscriptionService;
             this.chatHub = chatHub;
             this.storyService = storyService;
-            this.reportService=reportService;
+            this.reportService = reportService;
         }
 
         [HttpPost]
@@ -318,7 +318,7 @@ namespace Project1.Controllers
         [HttpPost]
         public IActionResult SendRequest([FromBody] MessageDto msg)
         {
-            chatHub.Clients.All.SendAsync("ReceiveMessage", msg.user, msg.msgText);
+            chatHub.Clients.Group(msg.receiver).SendAsync("ReceiveMessage", msg.sender, msg.msgText);
             return Ok();
         }
         [HttpPost]

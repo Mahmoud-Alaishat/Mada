@@ -9,7 +9,10 @@ namespace Project1.Hubs
         // <snippet_OnConnectedAsync>
         public override async Task OnConnectedAsync()
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, "SignalR Users");
+            var group = Context.GetHttpContext().Request.Query["token"];
+
+            string value = !string.IsNullOrEmpty(group.ToString()) ? group.ToString() : "default";
+            await Groups.AddToGroupAsync(Context.ConnectionId, value);
             await base.OnConnectedAsync();
         }
         // </snippet_OnConnectedAsync>
@@ -22,15 +25,17 @@ namespace Project1.Hubs
         // </snippet_OnDisconnectedAsync>
 
         // <snippet_Clients>
+
         public async Task SendMessage(string user, string message)
             => await Clients.All.SendAsync("ReceiveMessage", user, message);
 
         public async Task SendMessageToCaller(string user, string message)
             => await Clients.Caller.SendAsync("ReceiveMessage", user, message);
 
-        public async Task SendMessageToGroup(string user, string message)
-            => await Clients.Group("SignalR Users").SendAsync("ReceiveMessage", user, message);
-        // </snippet_Clients>
+        public async Task SendMessageToGroup(string sender, string receiver, string message)
+        {
+            await Clients.Group(receiver).SendAsync("ReceiveMessage", sender, message);
+        }
 
         // <snippet_HubMethodName>
         [HubMethodName("SendMessageToUser")]

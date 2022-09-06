@@ -6,7 +6,8 @@ namespace project.core.DTO
 {
     public class MessageDto
     {
-        public string user { get; set; }
+        public string sender { get; set; }
+        public string receiver { get; set; }
         public string msgText { get; set; }
     }
 }

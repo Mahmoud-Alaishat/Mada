@@ -3,13 +3,13 @@ import * as signalR from '@microsoft/signalr';          // import signalR
 import { HttpClient } from '@angular/common/http';
 import { MessageDto } from '../Dto/MessageDto';
 import { Observable, Subject } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
-
-  private connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:44328/Chat")   // mapping to the chathub as in startup.cs
+  private connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:44328/Chat?token=" + this.auth.username)   // mapping to the chathub as in startup.cs
     .configureLogging(signalR.LogLevel.Information)
     .build();
   readonly POST_URL = "https://localhost:44328/api/User/send"
@@ -17,11 +17,12 @@ export class ChatService {
   private receivedMessageObject: MessageDto = new MessageDto();
   private sharedObj = new Subject<MessageDto>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private auth: AuthService) {
+    this.auth.isUserAuthenticated()
     this.connection.onclose(async () => {
       await this.start();
     });
-    this.connection.on("ReceiveMessage", (user, message) => { this.mapReceivedMessage(user, message); });
+    this.connection.on("SendMessageToGroup", (sender, receiver, message) => { this.mapReceivedMessage(sender, receiver, message); });
     this.start();
   }
 
@@ -37,8 +38,9 @@ export class ChatService {
     }
   }
 
-  private mapReceivedMessage(user: string, message: string): void {
-    this.receivedMessageObject.user = user;
+  private mapReceivedMessage(sender: string, receiver: string, message: string): void {
+    this.receivedMessageObject.sender = sender;
+    this.receivedMessageObject.receiver = receiver;
     this.receivedMessageObject.msgText = message;
     this.sharedObj.next(this.receivedMessageObject);
   }
