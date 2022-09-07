@@ -1203,22 +1203,27 @@
       </div>
       <div class="flex items-center w-full justify-between border-t p-3">
 
-        <div class="flex justify-between items-center" style="margin-top: -16px">
-          <div class="switches-list">
-            <div class="switch-container">
-              <label class="switch" id="chk" (click)="Hide()">
-                <input type="checkbox">
-                <span class="switch-button"></span>
-              </label>
-            </div>
-          </div>
-        </div>
+        <button *ngIf="this.isShow == false" (click)="Hide()" class="bg-gray-400 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " style="color:white;cursor:pointer">
+          Is Advertisement
+        </button>
+        <button *ngIf="this.isShow == true" (click)="Hide()" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " style="color:white;cursor:pointer">
+          Is Post
+        </button>
+        <!--<div class="switches-list">
+      <div class="switch-container">
+
+        <label class="switch" id="chk" >
+          <input type="checkbox" (click)="Hide()">
+          <span class="switch-button" ></span>
+        </label>
+      </div>
+    </div>-->
 
         <div class="flex space-x-2">
-          <button *ngIf="numOfPost.numberOfPost==0" (click)="MakePost()" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " uk-toggle="target: #create-testimonial-modal" id="testimonial" style="color:white;cursor:pointer">
+          <button *ngIf="userData.isFristPost==0" (click)="MakePost()" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " uk-toggle="target: #create-testimonial-modal" id="testimonial" style="color:white;cursor:pointer">
             Share
           </button>
-          <button *ngIf="numOfPost.numberOfPost!=0" (click)="MakePost()" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " style="color:white;cursor:pointer">
+          <button *ngIf="userData.isFristPost!=0" (click)="MakePost()" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " style="color:white;cursor:pointer">
             Share
           </button>
         </div>

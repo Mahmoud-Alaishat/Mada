@@ -11,10 +11,13 @@ import { AuthService } from '../../auth.service';
 })
 export class ReportsComponent implements OnInit {
   userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
+  revenue: RevenueDetails[];
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   year: boolean;
   manth: boolean;
+  yearValue: any=null;
+  monthValue: any=null;
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -63,10 +66,26 @@ export class ReportsComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
+
+    this.http.get<RevenueDetails[]>("https://localhost:44328/api/Admin/RevenueDetails", {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: RevenueDetails[]) => {
+ 
+
+        this.revenue = response;
+        for (let i = 0; i < this.revenue.length; i++) {
+          if (this.revenue[i].name == "Ad" || this.revenue[i].name == null ) {
+            this.revenue[i].name = "Advertisement";
+            }
+        }
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
   }
 
-  selected (value:number) {
- 
+  selected(value: number) {
+
     if (value == 1) {
       this.year = true;
       this.manth = false;
@@ -77,7 +96,32 @@ export class ReportsComponent implements OnInit {
       this.manth = true;
 
     }
-   
+
+  }
+  Year(y: number) {
+    this.yearValue = y;
+  }
+  Month(m: number) {
+    this.monthValue = m;
+  }
+  Revenue() {
+    alert(this.yearValue);
+    alert(this.monthValue);
+    this.http.get<RevenueDetails[]>("https://localhost:44328/api/Admin/RevenueByDate/" + this.yearValue + "/" + this.monthValue, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: RevenueDetails[]) => {
+      
+        this.revenue = response;
+        for (let i = 0; i < this.revenue.length; i++) {
+          if (this.revenue[i].name == "Ad" || this.revenue[i].name == null) {
+            this.revenue[i].name = "Advertisement";
+          }
+        }
+          
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
   }
   logOut = () => {
     localStorage.removeItem("token");
@@ -92,4 +136,10 @@ interface UserInfo {
   address: string;
   relationship: string;
   bio: string;
+}
+
+interface RevenueDetails {
+  name: string;
+  totalRevenue: number;
+
 }
