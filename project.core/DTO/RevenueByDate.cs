@@ -6,7 +6,7 @@ namespace project.core.DTO
 {
     public class RevenueByDate
     {
-        public string Service { get; set; }
+        public string Name { get; set; }
         public int TotalRevenue { get; set; }
     }
 }
