@@ -13,8 +13,12 @@
       <p class="text-white text-opacity-75">Post uploaded successfully</p>
     </div>
   </div>
-
-
+  <div *ngIf="this.showError" class="w-full left-0" style="display: flex; justify-content: end; position: absolute;top:75px;z-index:3 ">
+    <div style="width:23rem" class="bg-red-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+      <h3 class="text-lg font-semibold text-white">Alert</h3>
+      <p class="text-white text-opacity-75">Please enter a valid date</p>
+    </div>
+  </div>
 
   <div *ngIf="this.isSubscriptionEnded" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute;top:75px;z-index:3 ">
     <div style="width:23rem" class="bg-red-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
@@ -88,16 +92,16 @@
                 <div *ngIf="post.typePost == 3" class="text-gray-700 flex items-center space-x-2">  <span class="text-sm"> Advertisement </span> <i class="icon ion-md-globe"></i></div>
               </div>
             </div>
-            <div >
-              <a href="#" (click)="getIdPost(post.postId)" > <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> </a>
+            <div>
+              <a href="#" (click)="getIdPost(post.postId)"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> </a>
               <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700"
                    uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small">
 
-                <ul *ngIf="this.isReported"  class="space-y-1">
-                
-                  <li >
+                <ul *ngIf="this.isReported" class="space-y-1">
+
+                  <li>
                     <a id="repoet-btn-{{post.postId}}" uk-toggle="" href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                      <i class="icon ion-md-remove-circle"  style="margin-right:5px;"></i>  Report Post
+                      <i class="icon ion-md-remove-circle" style="margin-right:5px;"></i>  Report Post
 
                     </a>
                     {{setUkToggleReport((post.postId))}}
@@ -105,14 +109,14 @@
                       <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
                         <h2 class="mb-2 uk-modal-title">Alert</h2>
                         <p>Are you sure you want to Report this post ?</p>
-                        <div  class="uk-modal-footer text-right bg-gray-200 dark:bg-gray-900 mt-6 px-0 space-x-1">
+                        <div class="uk-modal-footer text-right bg-gray-200 dark:bg-gray-900 mt-6 px-0 space-x-1">
                           <button class="button gray uk-modal-close" type="button">Cancel</button>
                           <button (click)="ReportPost(post.postId)" style="background-color: #e82a35" class="button" type="button">Report</button>
                         </div>
                       </div>
                     </div>
                   </li>
-              
+
                 </ul>
 
               </div>
@@ -449,9 +453,8 @@
         <div class="flex justify-center mt-6">
           <a href="#" class="bg-white text-gray-700 dark:text-gray-100 dark:bg-gray-900 font-semibold my-3 px-6 py-2 rounded-full shadow-md dark:bg-gray-800 dark:text-white">
             Load more
+
           </a>
-
-
         </div>
 
       </div>
@@ -726,14 +729,14 @@
           <div class="switches-list">
             <div class="switch-container">
               <label class="switch" id="chk" (click)="Hide()">
-                <input type="checkbox"  >
+                <input type="checkbox">
                 <span class="switch-button"></span>
               </label>
             </div>
           </div>
         </div>
 
-        <div class="flex space-x-2" >
+        <div class="flex space-x-2">
           <button *ngIf="userData.isFristPost==0" (click)="MakePost()" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " uk-toggle="target: #create-testimonial-modal" id="testimonial" style="color:white;cursor:pointer">
             Share
           </button>
@@ -864,20 +867,20 @@
 
       </div>
 
-      
+
       <div class="flex items-center w-full justify-between border-t p-3">
 
 
         <div class="flex space-x-2 centered-button">
-        <a class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " style="color:white;cursor:pointer" (click)="MakeFeedBack()">
-          Share
-        </a>
+          <a class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " style="color:white;cursor:pointer" (click)="MakeFeedBack()">
+            Share
+          </a>
+        </div>
+
+
+
       </div>
 
-
-    
-  </div>
-      
 
     </div>
   </div>

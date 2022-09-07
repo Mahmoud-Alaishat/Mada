@@ -143,7 +143,7 @@ export class ReportComponent implements OnInit {
     localStorage.removeItem("token");
     this.router.navigate(["/"]);
   }
-  MM(){    
+  SelecteStatus(){    
      this.SelectedStatus= (<HTMLSelectElement>document.getElementById('selc')).value;
 
   }

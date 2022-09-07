@@ -23,19 +23,22 @@ namespace Project1.Controllers
         private readonly IEmailService emailService;
         private readonly IContactUsService contactUsService;
         private readonly IDesignService  designService;
+        private readonly ISubscriptionService  subscriptionService;
         public Admin(IUserService userService,
                ICommentService commentService,
                IAdminService adminService,
                IEmailService emailService,
                IContactUsService contactUsService,
-               IDesignService designService)
+               IDesignService designService,
+               ISubscriptionService subscriptionService)
         {
             this.userService = userService;
             this.commentService = commentService;
             this.adminService = adminService;
             this.emailService = emailService;
             this.contactUsService = contactUsService;
-            this.designService = designService;     
+            this.designService = designService;
+            this.subscriptionService = subscriptionService;
         }
 
 
@@ -318,6 +321,13 @@ namespace Project1.Controllers
         public IActionResult RevenueByDate(string year, string month = null)
         {
             return Ok(adminService.GetRevenueByDate(year, month));
+        }
+        [HttpPost]
+        [Route("UpdateService")]
+        public IActionResult UpdateService(Subscription subscription)
+        {
+            subscriptionService.Update(subscription);
+            return Ok();    
         }
     }
 }

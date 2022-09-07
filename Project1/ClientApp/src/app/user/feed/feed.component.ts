@@ -210,7 +210,7 @@ export class FeedComponent implements OnInit {
     this.sendPost.userId = this.auth.Id;
     this.sendPost.content = this.postcontent.value;
     this.sendPost.typePost = 2;
-    if (this.selectecarid == null && this.postdate.value == null) {
+    if (this.selectecarid == null || this.postdate.value == null) {
       this.http.get<Subscription[]>("https://localhost:44328/api/User/GetAllSubscriptions/", {
         headers: new HttpHeaders({ "Content-Type": "application/json" })
       }).subscribe({
@@ -364,7 +364,9 @@ export class FeedComponent implements OnInit {
                   error: (err: HttpErrorResponse) => console.log("no data")
                 });
                 this.showSuccess = true;
-                setTimeout(() => { this.showSuccess = false; }, 4000)
+                setTimeout(() => { this.showSuccess = false; }, 4000);
+                window.location.reload();
+
               },
               error: () => {
                 console.log("Something went wrong")

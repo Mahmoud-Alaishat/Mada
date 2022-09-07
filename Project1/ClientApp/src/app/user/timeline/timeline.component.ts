@@ -485,7 +485,7 @@ export class TimelineComponent implements OnInit {
     this.sendPost.userId = this.auth.Id;
     this.sendPost.content = this.postcontent.value;
     this.sendPost.typePost = 2;
-    if (this.selectecarid == null && this.postdate.value == null) {
+    if (this.selectecarid == null || this.postdate.value == null) {
       this.http.get<Subscription[]>("https://localhost:44328/api/User/GetAllSubscriptions/", {
         headers: new HttpHeaders({ "Content-Type": "application/json" })
       }).subscribe({
@@ -511,6 +511,7 @@ export class TimelineComponent implements OnInit {
                 });
 
                 this.showSuccess = true;
+                window.scroll({ top: 0, left: 0, behavior: 'smooth' });
                 setTimeout(() => { this.showSuccess = false; }, 4000);
                 if (this.userData.isFristPost > 0) {
                   window.location.reload();
@@ -541,6 +542,7 @@ export class TimelineComponent implements OnInit {
                   error: (err: HttpErrorResponse) => console.log("no data")
                 });
                 this.showSuccess = true;
+                window.scroll({ top: 0, left: 0, behavior: 'smooth' });
                 setTimeout(() => { this.showSuccess = false; }, 4000);
                 if (this.userData.isFristPost > 0) {
                   window.location.reload();
@@ -571,6 +573,7 @@ export class TimelineComponent implements OnInit {
                   error: (err: HttpErrorResponse) => console.log("no data")
                 });
                 this.showSuccess = true;
+                window.scroll({ top: 0, left: 0, behavior: 'smooth' });
                 setTimeout(() => { this.showSuccess = false; }, 4000);
                 if (this.userData.isFristPost > 0) {
                   window.location.reload();
@@ -585,6 +588,7 @@ export class TimelineComponent implements OnInit {
           else {
 
             this.isSubscriptionEnded = true;
+            window.scroll({ top: 0, left: 0, behavior: 'smooth' });
             setTimeout(() => { this.isSubscriptionEnded = false; }, 5000);
             if (this.userData.subscriptionId != 4) {
               this.http.get("https://localhost:44328/api/User/EndSubscription/" + this.auth.Id, {
@@ -639,12 +643,14 @@ export class TimelineComponent implements OnInit {
                   error: (err: HttpErrorResponse) => console.log("no data")
                 });
                 this.showSuccess = true;
+                window.scroll({ top: 0, left: 0, behavior: 'smooth' });
                 setTimeout(() => { this.showSuccess = false; }, 4000)
               },
               error: () => {
                 console.log("Something went wrong")
               }
             })
+            window.scroll({ top: 0, left: 0, behavior: 'smooth' });
             this.showError = false;
           },
           error: () => {
@@ -654,6 +660,7 @@ export class TimelineComponent implements OnInit {
 
       }
       else {
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
         this.showError = true;
         setTimeout(() => { this.showError = false; }, 4000)
       }

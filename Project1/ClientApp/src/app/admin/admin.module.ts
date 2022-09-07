@@ -11,11 +11,14 @@ import { ReportComponent } from './report/report.component';
 import { HomeDesignComponent } from './home-design/home-design.component';
 import { AboutUsDesignComponent } from './about-us-design/about-us-design.component';
 import { EmailComponent } from './email/email.component';
+import { UserActivitiesComponent } from './user-activities/user-activities.component';
+import { ManageServicesComponent } from './manage-services/manage-services.component';
+import { ManageStoryComponent } from './manage-story/manage-story.component';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent, EmailComponent],
+  declarations: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent, EmailComponent, UserActivitiesComponent, ManageServicesComponent, ManageStoryComponent],
   imports: [
     CommonModule, FormsModule,
     RouterModule.forChild(
@@ -28,10 +31,14 @@ import { EmailComponent } from './email/email.component';
         { path: "admin/homedesign", component: HomeDesignComponent, canActivate: [AuthGuard] },
         { path: "admin/mailbox/email/:id", component: EmailComponent, canActivate: [AuthGuard] },
         { path: "admin/homedesign", component: HomeDesignComponent, canActivate: [AuthGuard] },
-        { path: "admin/aboutusdesign", component: AboutUsDesignComponent, canActivate: [AuthGuard] }
+        { path: "admin/aboutusdesign", component: AboutUsDesignComponent, canActivate: [AuthGuard] },
+        { path: "admin/useractivities", component: UserActivitiesComponent, canActivate: [AuthGuard] },
+        { path: "admin/manageservice", component: ManageServicesComponent, canActivate: [AuthGuard] },
+        { path: "admin/managestory", component: ManageStoryComponent, canActivate: [AuthGuard] }
+
       ]
     )
   ],
-  exports: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent, EmailComponent]
+  exports: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent, EmailComponent, UserActivitiesComponent, ManageServicesComponent,ManageStoryComponent]
 })
 export class AdminModule { }

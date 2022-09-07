@@ -22,7 +22,7 @@
   <link rel="icon" type="image/png" href="../../../assets/assetsAdmin/img/favicon.png">
   <link href="../../../assets/assetsAdmin/scss/soft-ui-dashboard/bootstrap/bootstrap-utilities.scss" />
   <link href="../../../assets/assetsAdmin/scss/soft-ui-dashboard/bootstrap/bootstrap.scss" />
-  
+
 
 
   <title>
@@ -161,11 +161,7 @@
     select:focus {
       border-color: dodgerblue;
       box-shadow: none;
-
-    
     }
-
-    
   </style>
 </head>
 
@@ -362,7 +358,7 @@
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
 
-          <h6 class="font-weight-bolder mb-0">Post reports</h6>
+          <h6 class="font-weight-bolder mb-0">User Story</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 
@@ -531,20 +527,8 @@
             <div class="card z-index-2">
               <div class="card-body p-3">
 
-                <h5 class="ms-2 mt-4 mb-0">Post reports</h5>
-                <div class="col-xl-6 col-md-6 mb-4">
-                  <div class="mb-3 font-medium">
-                    <h6>Select a status</h6>
-                  </div>
-                  <select class="selectpicker" id="selc">
-                    <option value="All" selected>All</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Rejected">Rejected</option>
-                    <option value="On review">On review</option>
-                  </select>
-                  <a class="btn bg-gradient-info mt-3 mr-1 w-auto" (click)="SelecteStatus()" style="cursor:pointer">Select</a>
-
-                </div>
+                <h5 class="ms-2 mt-4 mb-0">User Story</h5>
+                
                 <div class="container border-radius-lg">
                   <div class="row">
                     <div class="card mb-4 h-auto">
@@ -553,157 +537,64 @@
                           <table class="table align-items-center h-100 mb-0" id="example">
                             <thead>
                               <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
-                                <th class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Post ID</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">User</th>
+                                <th class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center">Story ID</th>
                                 <th class="text-secondary opacity-7"></th>
                               </tr>
                             </thead>
                             <tbody>
 
-                              <tr *ngFor="let report of reports">
-                                <td *ngIf="report.statusName===this.SelectedStatus ||this.SelectedStatus==='All'">
+                              <tr *ngFor="let story of userstory">
+                                <td >
                                   <div class="d-flex px-2 py-1">
                                     <div class="d-flex flex-column justify-content-center">
-                                      <h6 class="mb-0 text-sm">{{report.firstName}} {{report.lastName}}</h6>
-                                      <p class="text-xs text-secondary mb-0">{{report.email}}</p>
+                                      <h6 class="mb-0 text-sm">{{story.firstName}} {{story.lastName}}</h6>
+                                      <p class="text-xs text-secondary mb-0"> </p>
                                     </div>
                                   </div>
                                 </td>
-                                <td *ngIf="report.statusName===this.SelectedStatus ||this.SelectedStatus==='All'">
-                                  <p class="text-xs font-weight-bold mb-0">{{report.postId}}</p>
+                                <td class="text-center">
+                                  <h6 class="mb-0 text-sm">{{story.storyId}}</h6>
                                 </td>
-                                <td class="align-middle text-center text-sm" *ngIf="report.statusName===this.SelectedStatus ||this.SelectedStatus==='All'">
-                                  <span *ngIf="report.statusName==='On review'" class="badge badge-sm bg-gradient-info">{{report.statusName}}</span>
-                                  <span *ngIf="report.statusName==='Rejected'" class="badge badge-sm bg-gradient-danger">{{report.statusName}}</span>
-                                  <span *ngIf="report.statusName==='Approved'" class="badge badge-sm bg-gradient-faded-success">{{report.statusName}}</span>
-                                </td>
-                                <td class="align-middle" *ngIf="report.statusName===this.SelectedStatus ||this.SelectedStatus==='All'">
-                                  <a style="cursor:pointer" (click)="GetPostById(report.postId)" id="Details-btn-{{report.postId}}" uk-toggle="" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                               
+                                <td class="align-middle">
+                                  <a style="cursor:pointer" id="Details-btn-{{story.storyId}}" uk-toggle="" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                     Details
                                   </a>
-                                  {{setUkToggleDetails((report.postId))}}
+                                  {{setUkToggleDetails((story.storyId))}}
                                 </td>
-                                <div id="Details-{{report.postId}}" uk-modal>
+                                <div id="Details-{{story.storyId}}" uk-modal>
                                   <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
-                                    <h5 class="mb-2 uk-modal-title">Post details</h5>
+                                    <h5 class="mb-2 uk-modal-title">Story details</h5>
                                     <div class="card lg:mx-0 uk-animation-slide-bottom-small">
                                       <div class="flex justify-between items-center lg:p-4 p-2.5">
                                         <div class="flex flex-1 items-center space-x-4">
-                                          <!--<a href="#">
-                                        <img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" class="bg-gray-200 border border-white rounded-full w-10 h-10">
-                                      </a>-->
+                                          
                                           <div class="flex-1 font-semibold capitalize">
-                                            <a href="#" class="text-gray-700 dark:text-gray-100"> {{report.firstName}} {{report.lastName}} </a>
-
-                                            <div class="text-gray-700 flex items-center space-x-2">
-                                              {{this.post.postDate | date}}
-                                            </div>
+                                            <a href="#" class="text-gray-700 dark:text-gray-100">{{story.firstName}} {{story.lastName}}</a>
                                           </div>
                                         </div>
                                       </div>
-                                      <div *ngIf="this.post.content != null" class="p-5 pt-0">
-                                        {{this.post.content}}
+                                      <div  class="p-5 pt-0">
+                                        
                                       </div>
-
-                                      <div *ngIf="SplitImages(this.post.item) != 'null' " uk-lightbox>
-                                        <div *ngIf="SplitImages(this.post.item).length == 1" class="grid grid-cols-1 gap-2 px-4">
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[0]) == false" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}">
-                                            <img src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}" alt="" class="rounded-md w-full h-full">
+                                      <div  uk-lightbox>
+                                        <div  class="grid grid-cols-1 gap-2 px-4">
+                                          <a  href="../../../../../Resources/Images/user/story/{{story.storyContent}}">
+                                            <img src="../../../../../Resources/Images/user/story/{{story.storyContent}}" alt="" class="rounded-md w-full h-full">
                                           </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[0]) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}">
-                                            <video class="rounded-md w-full h-full" controls>
-                                              <source src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}" type="video/mp4" />
-                                            </video>
-                                          </a>
+                                          
 
                                         </div>
-                                        <div *ngIf="SplitImages(this.post.item).length == 2" class="grid grid-cols-2 gap-2 px-4">
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[0]) == false" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}">
-                                            <img src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}" alt="" class="rounded-md w-full h-full">
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[0]) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}">
-                                            <video class="rounded-md w-full h-full" controls>
-                                              <source src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}" type="video/mp4" />
-                                            </video>
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[1]) == false" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}">
-                                            <img src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}" alt="" class="rounded-md w-full h-full">
-                                          </a>
-                                          <a *ngIf="isVideo(post.attachment[1].item) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}">
-                                            <video class="rounded-md w-full h-full" controls>
-                                              <source src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}" type="video/mp4" />
-                                            </video>
-                                          </a>
-                                        </div>
-                                        <div *ngIf="SplitImages(this.post.item).length == 3" class="grid grid-cols-2 gap-2 px-4">
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[0]) == false" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}" class="col-span-2">
-                                            <img src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}" alt="" class="rounded-md w-full lg:h-44 object-cover">
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[0]) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}" class="col-span-2">
-                                            <video class="rounded-md w-full lg:h-44 object-cover" controls>
-                                              <source src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}" type="video/mp4" />
-                                            </video>
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[1]) == false" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}">
-                                            <img src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}" alt="" class="rounded-md w-full h-full">
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[1]) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}">
-                                            <video class="rounded-md w-full h-full" controls>
-                                              <source src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}" type="video/mp4" />
-                                            </video>
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[2]) == false" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[2]}}">
-                                            <img src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[2]}}" alt="" class="rounded-md w-full h-full">
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[2]) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[2]}}">
-                                            <video class="rounded-md w-full h-full" controls>
-                                              <source src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[2]}}" type="video/mp4" />
-                                            </video>
-                                          </a>
-                                        </div>
-                                        <div *ngIf="SplitImages(this.post.item).length == 4" class="grid grid-cols-2 gap-2 px-4">
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[0]) == false" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}">
-                                            <img src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}" alt="" class="rounded-md w-full h-full">
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[0]) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}">
-                                            <video class="rounded-md w-full h-full" controls>
-                                              <source src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[0]}}" type="video/mp4" />
-                                            </video>
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[1]) == false" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}">
-                                            <img src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}" alt="" class="rounded-md w-full h-full">
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[1]) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}">
-                                            <video class="rounded-md w-full h-full" controls>
-                                              <source src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[1]}}" type="video/mp4" />
-                                            </video>
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[2]) == false" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[2]}}">
-                                            <img src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[2]}}" alt="" class="rounded-md w-full h-full">
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[2]) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[2]}}">
-                                            <video class="rounded-md w-full h-full" controls>
-                                              <source src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[2]}}" type="video/mp4" />
-                                            </video>
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[3]) == false" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[3]}}">
-                                            <img src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[3]}}" alt="" class="rounded-md w-full h-full">
-                                          </a>
-                                          <a *ngIf="isVideo(SplitImages(this.post.item)[3]) == true" href="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[3]}}">
-                                            <video class="rounded-md w-full h-full" controls>
-                                              <source src="../../../../../Resources/Images/user/post/{{SplitImages(this.post.item)[3]}}" type="video/mp4" />
-                                            </video>
-                                          </a>
-                                        </div>
+                                       
                                       </div>
                                     </div>
 
                                     <div style="display:flex;justify-content:space-between" class="mt-6 px-0 space-x-1">
                                       <a class="btn bg-gradient-secondary mt-3 w-auto uk-modal-close" href="#">Close</a>
                                       <div>
-                                        <a class="btn bg-gradient-danger mt-3 mr-1 w-auto" (click)="RejectReport(report.id)" style="cursor:pointer">Reject</a>
-                                        <a class="btn bg-gradient-success mt-3 w-auto" (click)="AcceptReport(report)" style="cursor:pointer">Accept</a>
+                                        <a class="btn bg-gradient-danger mt-3 mr-1 w-auto"  style="cursor:pointer">Reject</a>
+                                        <a class="btn bg-gradient-success mt-3 w-auto"  style="cursor:pointer">Accept</a>
                                       </div>
                                     </div>
                                   </div>
@@ -714,7 +605,7 @@
                         </div>
                       </div>
                     </div>
-                  
+
                   </div>
                 </div>
               </div>
@@ -723,8 +614,8 @@
 
         </div>
       </div>
-      
-      
+
+
 
     </div>
 
@@ -920,7 +811,7 @@
 
 
 
-  
+
 
 
 
