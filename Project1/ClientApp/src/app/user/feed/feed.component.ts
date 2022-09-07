@@ -33,7 +33,7 @@ export class FeedComponent implements OnInit {
 
   content = new FormControl();
   replayContent = new FormControl();
-  isShow: boolean
+  isShow: boolean = false;
   visa: Bank[];
   totalBalance: number;
   public selectecarid: number;
@@ -597,7 +597,13 @@ export class FeedComponent implements OnInit {
 
   Hide(): boolean {
     var a = document.getElementById("chk");
-    this.isShow = true;
+    
+    if (this.isShow == true) {
+      this.isShow = false;
+    }
+    else
+      this.isShow = true;
+    
     return this.isShow;
   }
 

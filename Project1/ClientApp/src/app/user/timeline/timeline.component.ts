@@ -32,7 +32,7 @@ export class TimelineComponent implements OnInit {
   isExceededLimit: boolean;
   attachments: Attachments[];
   numOfPost: NumOfPost = { numberOfPost: 0 }
-  isShow: boolean;
+  isShow: boolean = false;
   public subscriptions: Subscription[];
   totalBalance: number;
   public selectecarid: number;
@@ -478,7 +478,13 @@ export class TimelineComponent implements OnInit {
   }
   Hide(): boolean {
     var a = document.getElementById("chk");
-    this.isShow = true;
+
+    if (this.isShow == true) {
+      this.isShow = false;
+    }
+    else
+      this.isShow = true;
+
     return this.isShow;
   }
   MakePost() {

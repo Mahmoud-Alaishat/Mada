@@ -1,23 +1,26 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../../auth.service';
 
 @Component({
-  selector: 'app-reports',
-  templateUrl: './reports.component.html',
-  styleUrls: ['./reports.component.css']
+  selector: 'app-top-posts',
+  templateUrl: './top-posts.component.html',
+  styleUrls: ['./top-posts.component.css']
 })
-export class ReportsComponent implements OnInit {
+export class TopPostsComponent implements OnInit {
   userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
-  revenue: RevenueDetails[];
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
-  year: boolean;
-  manth: boolean;
-  yearValue: any=null;
-  monthValue: any=null;
+  top10posts: Top10Posts[];
+  postt: PostDetails = {
+    id: 0,
+    content: '',
+    postDate: undefined,
+    userId: '',
+    item: ''
+  }
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -54,10 +57,8 @@ export class ReportsComponent implements OnInit {
       }, false);
 
     })(window, document);
-
     this.isAuthenticate = this.auth.isUserAuthenticated();
     this.isAdmin = this.auth.isAdmin();
-
     this.http.get<UserInfo>("https://localhost:44328/api/User/GetUserInfo/" + this.auth.Id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
@@ -67,67 +68,56 @@ export class ReportsComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
 
-    this.http.get<RevenueDetails[]>("https://localhost:44328/api/Admin/RevenueDetails", {
+    this.http.get<Top10Posts[]>("https://localhost:44328/api/Admin/GetTopPostSeen/" , {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
-      next: (response: RevenueDetails[]) => {
- 
-
-        this.revenue = response;
-        for (let i = 0; i < this.revenue.length; i++) {
-          if (this.revenue[i].name == "Ad" || this.revenue[i].name == null ) {
-            this.revenue[i].name = "Advertisement";
-            }
-        }
+      next: (response: Top10Posts[]) => {
+        this.top10posts = response;
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
   }
 
-  selected(value: number) {
-
-    if (value == 1) {
-      this.year = true;
-      this.manth = false;
-
-    }
-    if (value == 2) {
-      this.year = true;
-      this.manth = true;
-
-    }
-
-  }
-  Year(y: number) {
-    this.yearValue = y;
-  }
-  Month(m: number) {
-    this.monthValue = m;
-  }
-  Revenue() {
-    alert(this.yearValue);
-    alert(this.monthValue);
-    this.http.get<RevenueDetails[]>("https://localhost:44328/api/Admin/RevenueByDate/" + this.yearValue + "/" + this.monthValue, {
-      headers: new HttpHeaders({ "Content-Type": "application/json" })
-    }).subscribe({
-      next: (response: RevenueDetails[]) => {
-      
-        this.revenue = response;
-        for (let i = 0; i < this.revenue.length; i++) {
-          if (this.revenue[i].name == "Ad" || this.revenue[i].name == null) {
-            this.revenue[i].name = "Advertisement";
-          }
-        }
-          
-      },
-      error: (err: HttpErrorResponse) => console.log("no data")
-    })
-  }
   logOut = () => {
     localStorage.removeItem("token");
     this.router.navigate(["/"]);
   }
+
+  GetPostById(Id: number) {
+    this.http.get<PostDetails[]>("https://localhost:44328/api/Admin/GetPostById/" + Id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: PostDetails[]) => {
+
+        this.postt = response[0];
+        this.postt.item += ",";
+        for (let i = 1; i < response.length; i++) {
+          this.postt.item += response[i].item + ",";
+        }
+        console.log(this.postt);
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
+
+  setUkToggleDetails(id: number): void {
+    document.getElementById("Details-btn-" + id).setAttribute('uk-toggle', 'target: #Details-' + id);
+  }
+
+  SplitImages(images: string): string[] {
+    return images.split(',').slice(0, -1);
+  }
+
+  isVideo(fileName: string): boolean {
+    var name = fileName.split('.').pop();
+    if (name == "mp4") {
+      return true;
+    }
+    return false;
+  }
+
 }
+
 interface UserInfo {
   firstName: string;
   lastName: string;
@@ -138,8 +128,15 @@ interface UserInfo {
   bio: string;
 }
 
-interface RevenueDetails {
-  name: string;
-  totalRevenue: number;
+interface Top10Posts {
+  id: number;
+  summation: number;
+}
 
+interface PostDetails {
+  id: number;
+  content: string;
+  postDate: Date;
+  userId: string;
+  item: string;
 }
