@@ -11,11 +11,12 @@ import { ReportComponent } from './report/report.component';
 import { HomeDesignComponent } from './home-design/home-design.component';
 import { AboutUsDesignComponent } from './about-us-design/about-us-design.component';
 import { EmailComponent } from './email/email.component';
+import { TopPostsComponent } from './top-posts/top-posts.component';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent, EmailComponent],
+  declarations: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent, EmailComponent, TopPostsComponent],
   imports: [
     CommonModule, FormsModule,
     RouterModule.forChild(
@@ -28,10 +29,12 @@ import { EmailComponent } from './email/email.component';
         { path: "admin/homedesign", component: HomeDesignComponent, canActivate: [AuthGuard] },
         { path: "admin/mailbox/email/:id", component: EmailComponent, canActivate: [AuthGuard] },
         { path: "admin/homedesign", component: HomeDesignComponent, canActivate: [AuthGuard] },
-        { path: "admin/aboutusdesign", component: AboutUsDesignComponent, canActivate: [AuthGuard] }
+        { path: "admin/aboutusdesign", component: AboutUsDesignComponent, canActivate: [AuthGuard] },
+        { path: "admin/top10posts", component: TopPostsComponent, canActivate: [AuthGuard] }
+
       ]
     )
   ],
-  exports: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent, EmailComponent]
+  exports: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent, EmailComponent, TopPostsComponent]
 })
 export class AdminModule { }
