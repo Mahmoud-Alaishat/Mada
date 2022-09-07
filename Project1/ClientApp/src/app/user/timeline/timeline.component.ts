@@ -484,6 +484,7 @@ export class TimelineComponent implements OnInit {
     }
     else
       this.isShow = true;
+    this.selectecarid = null
 
     return this.isShow;
   }
@@ -651,6 +652,7 @@ export class TimelineComponent implements OnInit {
                 this.showSuccess = true;
                 window.scroll({ top: 0, left: 0, behavior: 'smooth' });
                 setTimeout(() => { this.showSuccess = false; }, 4000)
+                window.location.reload();
               },
               error: () => {
                 console.log("Something went wrong")

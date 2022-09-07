@@ -11,5 +11,6 @@ namespace project.core.DTO
         public string Email { get; set; }
         public int StoryId { get; set; }
         public string StoryContent { get; set; }
+        public int IsBlocked { get; set; }
     }
 }

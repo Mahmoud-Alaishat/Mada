@@ -15,6 +15,8 @@ export class ManageStoryComponent implements OnInit {
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   userstory: UserStory[];
+showUnblocked:boolean;
+showBlocked:boolean;
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -80,6 +82,32 @@ export class ManageStoryComponent implements OnInit {
   setUkToggleDetails(id: number): void {
     document.getElementById("Details-btn-" + id).setAttribute('uk-toggle', 'target: #Details-' + id);
   }
+
+  BlockStory(id:number) {
+      this.http.post("https://localhost:44328/api/Admin/BlockStory/" + id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: UserInfo) => {
+            this.showBlocked = true;
+            setTimeout(() => { this.showBlocked = false; }, 4000);
+            window.location.reload();
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
+
+   UnBlockStory(id:number) {
+      this.http.post("https://localhost:44328/api/Admin/UnBlockStory/" + id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: UserInfo) => {
+          this.showUnblocked = true;
+          setTimeout(() => { this.showUnblocked = false; }, 4000);
+           window.location.reload();
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
 }
 
 interface UserInfo {
@@ -98,4 +126,5 @@ interface UserStory {
   lastName: string;
   email: string;
   storyContent: string;
+  isBlocked:number;
 }

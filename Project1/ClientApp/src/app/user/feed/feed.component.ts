@@ -603,6 +603,8 @@ export class FeedComponent implements OnInit {
     }
     else
       this.isShow = true;
+    this.selectecarid = null
+
     
     return this.isShow;
   }
