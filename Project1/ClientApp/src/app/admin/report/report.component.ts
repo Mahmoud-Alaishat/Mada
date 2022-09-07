@@ -22,8 +22,7 @@ export class ReportComponent implements OnInit {
     userId: '',
     item: ''
   }
-  showAccepted: boolean;
-  showRejected: boolean;
+  showSuccessR: boolean;
   SelectedStatus :string;
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) {
   }
@@ -107,8 +106,9 @@ export class ReportComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        this.showAccepted = true;
-        setTimeout(() => { this.showAccepted = false; }, 4000);
+        this.showSuccessR = true;
+        document.getElementById("Details-" + Report.postId).hidden = true;
+        setTimeout(() => { this.showSuccessR = false; }, 4000);
         window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")
@@ -132,8 +132,6 @@ export class ReportComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
-        this.showRejected = true;
-        setTimeout(() => { this.showRejected = false; }, 4000);
         window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")
