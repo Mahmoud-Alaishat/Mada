@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../../auth.service';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-reports',
@@ -21,10 +23,17 @@ export class ReportsComponent implements OnInit {
   manth: boolean;
   yearValue: any= "2021";
   monthValue: any= "";
+  RevenueForm: FormGroup;
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
+    this.RevenueForm = new FormGroup({
+      SearchType: new FormControl(),
+      Year: new FormControl(),
+      Month: new FormControl()
+    });
+
     (function (window, document, undefined) {
       'use strict';
       if (!('localStorage' in window)) return;
@@ -92,14 +101,13 @@ export class ReportsComponent implements OnInit {
     if (value == 1) {
       this.year = true;
       this.manth = false;
-
+      this.RevenueForm.controls['Month'].setValue("%20");
     }
     if (value == 2) {
       this.year = true;
       this.manth = true;
 
     }
-    this.monthValue = " ";
   }
   //Year(y: number) {
   //  this.yearValue = y;
@@ -112,12 +120,12 @@ export class ReportsComponent implements OnInit {
     alert("Revenue fun!");
     var count1=0;
     var count2 = 0;
-    let maintext = (<HTMLInputElement>document.getElementById('select1')).value;
-    this.yearValue = (<HTMLInputElement>document.getElementById('select2')).value;
-    this.monthValue = (<HTMLInputElement>document.getElementById('select3')).value;
-    if (this.monthValue == "") {
-      this.monthValue = " ";
-    }
+    let maintext = this.RevenueForm.controls['SearchType'].value;
+    this.yearValue = this.RevenueForm.controls['Year'].value;
+    this.monthValue = this.RevenueForm.controls['Month'].value;
+    //if (this.monthValue == "") {
+    //  this.monthValue = " ";
+    //}
     this.http.get<RevenueByDate[]>("https://localhost:44328/api/Admin/RevenueByDate/" + this.yearValue + "/" + this.monthValue, {
         headers: new HttpHeaders({ "Content-Type": "application/json" })
       }).subscribe({

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from '../guards/auth.guard';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { MailboxComponent } from './mailbox/mailbox.component';
@@ -21,7 +22,7 @@ import { ManageStoryComponent } from './manage-story/manage-story.component';
 @NgModule({
   declarations: [DashboardComponent, FeedbackComponent, MailboxComponent, ReportsComponent, ReportComponent, HomeDesignComponent, AboutUsDesignComponent, EmailComponent, TopPostsComponent, UserActivitiesComponent, ManageServicesComponent, ManageStoryComponent],
   imports: [
-    CommonModule, FormsModule,
+    CommonModule, ReactiveFormsModule, FormsModule,
     RouterModule.forChild(
       [
         { path: "admin/dashboard", component: DashboardComponent, canActivate: [AuthGuard] },
@@ -31,7 +32,6 @@ import { ManageStoryComponent } from './manage-story/manage-story.component';
         { path: "admin/report", component: ReportComponent, canActivate: [AuthGuard] },
         { path: "admin/homedesign", component: HomeDesignComponent, canActivate: [AuthGuard] },
         { path: "admin/mailbox/email/:id", component: EmailComponent, canActivate: [AuthGuard] },
-        { path: "admin/homedesign", component: HomeDesignComponent, canActivate: [AuthGuard] },
         { path: "admin/aboutusdesign", component: AboutUsDesignComponent, canActivate: [AuthGuard] },
         { path: "admin/top10posts", component: TopPostsComponent, canActivate: [AuthGuard] },
         { path: "admin/useractivities", component: UserActivitiesComponent, canActivate: [AuthGuard] },
