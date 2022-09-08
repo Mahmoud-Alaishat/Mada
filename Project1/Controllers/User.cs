@@ -558,6 +558,20 @@ namespace Project1.Controllers
             feedbackService.Create(feedback);
             return Ok();
         }
+        [HttpGet]
+        [Route("GetChatsByUserId/{userId}")]
+        public IActionResult GetChatsByUserId(string userId)
+        {
+            return Ok(userService.GetChatsByUserId(userId));    
+        }
+
+        [HttpGet]
+        [Route("GetMessagesByChatId/{chatId}")]
+        public IActionResult GetMessagesByChatId(int chatId)
+        {
+            return Ok(userService.GetMessagesByChatId(chatId));
+        }
+
 
     }
 }

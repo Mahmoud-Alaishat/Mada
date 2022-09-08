@@ -143,5 +143,15 @@ namespace project.infra.Service
         {
             return userRepository.GetAcceptedFeedback();
         }
+
+        public List<UserChat> GetChatsByUserId(string userId)
+        {
+            return userRepository.GetChatsByUserId(userId);
+        }
+
+        public List<ChatMessages> GetMessagesByChatId(int chatId)
+        {
+            return userRepository.GetMessagesByChatId(chatId);
+        }
     }
 }
