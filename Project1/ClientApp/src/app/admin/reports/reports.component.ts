@@ -12,12 +12,15 @@ import { AuthService } from '../../auth.service';
 export class ReportsComponent implements OnInit {
   userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
   revenue: RevenueDetails[];
+  revenue1: RevenueByDate[];
+  obj1: RevenueByDate = { name: 'Ultimate', totalRevenue :0};
+  obj2: RevenueByDate = { name: 'Gold', totalRevenue: 0 };
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   year: boolean;
   manth: boolean;
-  yearValue: any=null;
-  monthValue: any=null;
+  yearValue: any= " ";
+  monthValue: any= " ";
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -75,8 +78,8 @@ export class ReportsComponent implements OnInit {
 
         this.revenue = response;
         for (let i = 0; i < this.revenue.length; i++) {
-          if (this.revenue[i].name == "Ad" || this.revenue[i].name == null ) {
-            this.revenue[i].name = "Advertisement";
+          if (this.revenue[i].service == "Ad"  ) {
+            this.revenue[i].service = "Advertisement";
             }
         }
       },
@@ -96,32 +99,55 @@ export class ReportsComponent implements OnInit {
       this.manth = true;
 
     }
-
+    this.monthValue = " ";
   }
-  Year(y: number) {
-    this.yearValue = y;
-  }
-  Month(m: number) {
-    this.monthValue = m;
-  }
+  //Year(y: number) {
+  //  this.yearValue = y;
+ 
+  //}
+  //Month(m: number) {
+  //  this.monthValue = m;
+  //}
   Revenue() {
+    alert("Revenue fun!");
+    var count1=0;
+    var count2 = 0;
+    let maintext = (<HTMLInputElement>document.getElementById('select1')).value;
+    this.yearValue = (<HTMLInputElement>document.getElementById('select2')).value;
+    this.monthValue = (<HTMLInputElement>document.getElementById('select3')).value;
+    if (this.monthValue == "") {
+      this.monthValue = " ";
+    }
+    this.http.get<RevenueByDate[]>("https://localhost:44328/api/Admin/RevenueByDate/" + this.yearValue + "/" + this.monthValue, {
+        headers: new HttpHeaders({ "Content-Type": "application/json" })
+      }).subscribe({
+        next: (response: RevenueByDate[]) => {
+
+          this.revenue1 = response;
+          for (let i = 0; i < this.revenue1.length; i++) {
+            if (this.revenue1[i].name == null) {
+              this.revenue1[i].name = "Advertisement";
+            }
+            if (this.revenue1[i].name == "Ultimate") {
+              count1++;
+            }
+            if (this.revenue1[i].name == "Gold") {
+              count2++;
+            }
+          }
+
+          if (count1 == 0) {
+            this.revenue1.push(this.obj1);
+          }
+          if (count2 == 0) {
+            this.revenue1.push(this.obj2);
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log("no data")
+      })
+   
     alert(this.yearValue);
     alert(this.monthValue);
-    this.http.get<RevenueDetails[]>("https://localhost:44328/api/Admin/RevenueByDate/" + this.yearValue + "/" + this.monthValue, {
-      headers: new HttpHeaders({ "Content-Type": "application/json" })
-    }).subscribe({
-      next: (response: RevenueDetails[]) => {
-      
-        this.revenue = response;
-        for (let i = 0; i < this.revenue.length; i++) {
-          if (this.revenue[i].name == "Ad" || this.revenue[i].name == null) {
-            this.revenue[i].name = "Advertisement";
-          }
-        }
-          
-      },
-      error: (err: HttpErrorResponse) => console.log("no data")
-    })
   }
   logOut = () => {
     localStorage.removeItem("token");
@@ -139,6 +165,11 @@ interface UserInfo {
 }
 
 interface RevenueDetails {
+   service: string;
+   totalRevenue: number;
+
+}
+interface RevenueByDate {
   name: string;
   totalRevenue: number;
 

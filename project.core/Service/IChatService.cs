@@ -11,6 +11,7 @@ namespace project.core.Service
         public void Delete(int chatId, string userId);
         public Chat GetChatById(int chatId);
         public List<Chat> GetAllChats();
-      
+        public List<Chat> FindChat(string fUserId, string sUserId);
+
     }
 }
