@@ -30,6 +30,11 @@ namespace project.infra.Service
             chatRepository.CRUDOP(chat, "delete");
         }
 
+        public List<Chat> FindChat(string fUserId, string sUserId)
+        {
+            return chatRepository.FindChat(fUserId, sUserId);
+        }
+
         public List<Chat> GetAllChats()
         {
             Chat chat = new Chat();
