@@ -9,7 +9,7 @@ import { AuthService } from '../auth.service';
   providedIn: 'root'
 })
 export class ChatService {
-  private connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:44328/Chat?token=" + this.auth.username)   // mapping to the chathub as in startup.cs
+  private connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:44328/Chat?token=" + this.auth.Id)   // mapping to the chathub as in startup.cs
     .configureLogging(signalR.LogLevel.Information)
     .build();
   readonly POST_URL = "https://localhost:44328/api/User/send"
@@ -22,7 +22,7 @@ export class ChatService {
     this.connection.onclose(async () => {
       await this.start();
     });
-    this.connection.on("SendMessageToGroup", (sender, receiver, message) => { this.mapReceivedMessage(sender, receiver, message); });
+    this.connection.on("SendMessageToGroup", (sender, message) => { this.mapReceivedMessage(sender, message); });
     this.start();
   }
 
@@ -38,9 +38,9 @@ export class ChatService {
     }
   }
 
-  private mapReceivedMessage(sender: string, receiver: string, message: string): void {
+  private mapReceivedMessage(sender: string, message: string): void {
     this.receivedMessageObject.sender = sender;
-    this.receivedMessageObject.receiver = receiver;
+    //this.receivedMessageObject.receiver = receiver;
     this.receivedMessageObject.msgText = message;
     this.sharedObj.next(this.receivedMessageObject);
   }

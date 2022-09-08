@@ -19,8 +19,8 @@ export class ReportsComponent implements OnInit {
   isAdmin: boolean = false;
   year: boolean;
   manth: boolean;
-  yearValue: any= " ";
-  monthValue: any= " ";
+  yearValue: any= "2021";
+  monthValue: any= "";
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -103,7 +103,8 @@ export class ReportsComponent implements OnInit {
   }
   Year(y: number) {
     this.yearValue = y;
-    this.monthValue = " ";
+    this.monthValue = "%20";
+    console.log(this.monthValue);
   }
   Month(m: number) {
     this.monthValue = m;

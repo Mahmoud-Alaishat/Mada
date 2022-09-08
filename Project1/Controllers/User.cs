@@ -322,7 +322,8 @@ namespace Project1.Controllers
         [HttpPost]
         public IActionResult SendRequest([FromBody] MessageDto msg)
         {
-            chatHub.Clients.Group(msg.receiver).SendAsync("ReceiveMessage", msg.sender, msg.msgText);
+            chatHub.Clients.Group(msg.sender).SendAsync("SendMessageToGroup", msg.sender, msg.msgText);
+            chatHub.Clients.Group(msg.receiver).SendAsync("SendMessageToGroup", msg.sender, msg.msgText);
             return Ok();
         }
         [HttpPost]

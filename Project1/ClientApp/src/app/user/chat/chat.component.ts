@@ -49,6 +49,7 @@ export class ChatComponent implements OnInit {
     newObj.sender = obj.sender;
     newObj.receiver = obj.receiver;
     newObj.msgText = obj.msgText;
+    console.log(newObj.msgText);
     this.msgInboxArray.push(newObj);
 
   }
