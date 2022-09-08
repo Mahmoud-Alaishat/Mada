@@ -41,5 +41,15 @@ namespace project.infra.Repository
                 return re;
             }
         }
+
+        public List<Chat> FindChat(string fUserId, string sUserId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("suserId", fUserId, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("suserId", sUserId, dbType: DbType.String, direction: ParameterDirection.Input);
+
+            var result = context.dbConnection.Query<Chat>("Chat_package_api.FindChat", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
     }
 }

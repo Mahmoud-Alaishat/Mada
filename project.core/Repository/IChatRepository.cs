@@ -8,5 +8,6 @@ namespace project.core.Repository
    public interface IChatRepository
     {
         public List<Chat> CRUDOP(Chat chat, string operation);
+        public List<Chat> FindChat(string fUserId, string sUserId);
     }
 }

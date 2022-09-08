@@ -101,20 +101,24 @@ export class ReportsComponent implements OnInit {
     }
     this.monthValue = " ";
   }
-  Year(y: number) {
-    this.yearValue = y;
+  //Year(y: number) {
+  //  this.yearValue = y;
  
-  }
-  Month(m: number) {
-    this.monthValue = m;
-  }
+  //}
+  //Month(m: number) {
+  //  this.monthValue = m;
+  //}
   Revenue() {
-
+    alert("Revenue fun!");
     var count1=0;
     var count2 = 0;
-    if (this.monthValue != " ")
-    {
-      this.http.get<RevenueByDate[]>("https://localhost:44328/api/Admin/RevenueByDate/" + this.yearValue + "/" + this.monthValue, {
+    let maintext = (<HTMLInputElement>document.getElementById('select1')).value;
+    this.yearValue = (<HTMLInputElement>document.getElementById('select2')).value;
+    this.monthValue = (<HTMLInputElement>document.getElementById('select3')).value;
+    if (this.monthValue == "") {
+      this.monthValue = " ";
+    }
+    this.http.get<RevenueByDate[]>("https://localhost:44328/api/Admin/RevenueByDate/" + this.yearValue + "/" + this.monthValue, {
         headers: new HttpHeaders({ "Content-Type": "application/json" })
       }).subscribe({
         next: (response: RevenueByDate[]) => {
@@ -141,37 +145,7 @@ export class ReportsComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => console.log("no data")
       })
-    }
-
-    if (this.monthValue == " ") {
-      this.http.get<RevenueByDate[]>("https://localhost:44328/api/Admin/RevenueByDate/" + this.yearValue +" " , {
-        headers: new HttpHeaders({ "Content-Type": "application/json" })
-      }).subscribe({
-        next: (response: RevenueByDate[]) => {
-
-          this.revenue1 = response;
-          for (let i = 0; i < this.revenue1.length; i++) {
-            if (this.revenue1[i].name == null) {
-              this.revenue1[i].name = "Advertisement";
-            }
-            if (this.revenue1[i].name == "Ultimate") {
-              count1++;
-            }
-            if (this.revenue1[i].name == "Gold") {
-              count2++;
-            }
-          }
-
-          if (count1 == 0) {
-            this.revenue1.push(this.obj1);
-          }
-          if (count2 == 0) {
-            this.revenue1.push(this.obj2);
-          }
-        },
-        error: (err: HttpErrorResponse) => console.log("no data")
-      })
-    }
+   
     alert(this.yearValue);
     alert(this.monthValue);
   }
