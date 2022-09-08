@@ -99,11 +99,11 @@ export class ReportsComponent implements OnInit {
       this.manth = true;
 
     }
-
+    this.monthValue = " ";
   }
   Year(y: number) {
     this.yearValue = y;
-    this.monthValue = " ";
+ 
   }
   Month(m: number) {
     this.monthValue = m;
@@ -112,7 +112,8 @@ export class ReportsComponent implements OnInit {
 
     var count1=0;
     var count2 = 0;
-
+    if (this.monthValue != " ")
+    {
       this.http.get<RevenueByDate[]>("https://localhost:44328/api/Admin/RevenueByDate/" + this.yearValue + "/" + this.monthValue, {
         headers: new HttpHeaders({ "Content-Type": "application/json" })
       }).subscribe({
@@ -129,26 +130,50 @@ export class ReportsComponent implements OnInit {
             if (this.revenue1[i].name == "Gold") {
               count2++;
             }
-
-
           }
 
           if (count1 == 0) {
             this.revenue1.push(this.obj1);
-
           }
           if (count2 == 0) {
             this.revenue1.push(this.obj2);
-
           }
-
-
-
         },
         error: (err: HttpErrorResponse) => console.log("no data")
       })
-    
-  
+    }
+
+    if (this.monthValue == " ") {
+      this.http.get<RevenueByDate[]>("https://localhost:44328/api/Admin/RevenueByDate/" + this.yearValue +" " , {
+        headers: new HttpHeaders({ "Content-Type": "application/json" })
+      }).subscribe({
+        next: (response: RevenueByDate[]) => {
+
+          this.revenue1 = response;
+          for (let i = 0; i < this.revenue1.length; i++) {
+            if (this.revenue1[i].name == null) {
+              this.revenue1[i].name = "Advertisement";
+            }
+            if (this.revenue1[i].name == "Ultimate") {
+              count1++;
+            }
+            if (this.revenue1[i].name == "Gold") {
+              count2++;
+            }
+          }
+
+          if (count1 == 0) {
+            this.revenue1.push(this.obj1);
+          }
+          if (count2 == 0) {
+            this.revenue1.push(this.obj2);
+          }
+        },
+        error: (err: HttpErrorResponse) => console.log("no data")
+      })
+    }
+    alert(this.yearValue);
+    alert(this.monthValue);
   }
   logOut = () => {
     localStorage.removeItem("token");

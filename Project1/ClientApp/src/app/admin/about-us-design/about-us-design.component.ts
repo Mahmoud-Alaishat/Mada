@@ -31,7 +31,7 @@ export class AboutUsDesignComponent implements OnInit {
   AboutDesignForm: FormGroup;
   @Output() public onUploadFinished = new EventEmitter();
   aboutImage: any;
-
+  showSuccess: boolean;
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -153,6 +153,8 @@ export class AboutUsDesignComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
+        this.showSuccess = true;
+        setTimeout(() => { this.showSuccess = false; }, 4000);
         window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")

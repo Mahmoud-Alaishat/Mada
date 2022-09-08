@@ -536,11 +536,9 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-2">
-      <div *ngIf="this.showSuccess" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
-        <div style="width:23rem" class="bg-green-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
-          <h3 class="text-lg font-semibold text-white">Message</h3>
-          <p class="text-white text-opacity-75">Successfully</p>
-        </div>
+      <div *ngIf="this.showSuccess" class="alert alert-info alert-dismissible fade show" role="alert">
+        <span class="alert-icon"><i style="font-size:1.25rem" class="icon-feather-alert-circle mr-2 text-white"></i></span>
+        <span class="alert-text text-white"><strong>About Us</strong>Updated successfully</span>
       </div>
       <div class="row mt-4">
         <div style="display:flex">
