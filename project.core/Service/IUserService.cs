@@ -31,6 +31,10 @@ namespace project.core.Service
         public NumOfPost NumberOFPostByUserId(string userId);
         public PostId GetLastPost(string userId);
         public List<FeedBackDto> GetAcceptedFeedback();
+        public List<UserChat> GetChatsByUserId(string userId);
+        public List<ChatMessages> GetMessagesByChatId(int chatId);
+
+
 
     }
 }

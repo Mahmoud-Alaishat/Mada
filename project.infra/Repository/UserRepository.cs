@@ -194,5 +194,21 @@ namespace project.infra.Repository
             var result = context.dbConnection.Query<FeedBackDto>("User_package_api.GetAcceptedFeedback", commandType: CommandType.StoredProcedure);
             return result.ToList();
         }
+
+        public List<UserChat> GetChatsByUserId(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<UserChat>("User_package_api.GetChatsByUserId", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
+        public List<ChatMessages> GetMessagesByChatId(int chatId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofchat", chatId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<ChatMessages>("User_package_api.GetMessagesByChatId", parameter, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
     }
 }
