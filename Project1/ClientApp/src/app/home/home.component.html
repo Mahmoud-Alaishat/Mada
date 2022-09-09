@@ -1,7 +1,7 @@
 
 <div class="overflow-x-hidden">
   <div id="Wrapper">
-    <
+
     <div class="lg:py-40 pt-24 pb-12 relative -mt-20 bg-white" id="home">
       <div class="banner1">
         <div class="objectWrapper">
@@ -44,362 +44,392 @@
             Explore our demos pages on different layout of designs. More
             demos are coming soon.
           </p>
+          <br />
+
+        </div>
+
+        <div class="w-3/4 bg-gray-100 rounded-xl mx-auto">
+          <div class="md:flex md:space-x-15">
+            <div class="md:w-full">
+              <div class="uk-position-relative uk-visible-toggle " tabindex="-1" uk-slideshow="animation: push">
+
+                <ul  class="uk-slideshow-items">
+                  <li *ngFor="let feed of feedback">
+                    <div class="text-center uk-position-top p-5 backdrop-filter backdrop-blur-md">
+                      <img src="../../../../Resources/Images/user/profile/{{feed.profilePath}}" width="300" height="300" alt="" class=" border border-white rounded-full w-20 h-20" style="margin:auto">
+                      <h2 class="font-bold text-2xl text-white mt-4">{{feed.firstName}} {{feed.lastName}}</h2>
+                      </div>
+                      <div class="text-center uk-position-center p-5 backdrop-filter backdrop-blur-md">
+                        <p class="text-lg text-white"><q>{{feed.feedbackText}}.</q></p>
+                      </div>
+                  </li>
+
+
+                </ul>
+
+                <a class="uk-position-center-left uk-position-small uk-hidden-hover text-white p-4" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover text-white p-4" href="#" uk-slidenav-next uk-slideshow-item="next" id="next"></a>
+
+
+              </div>
+            </div>
+          </div>
         </div>
 
 
         <div class="uk-child-width-1-3@m uk-child-width-1-2@s uk-flex-center"
              uk-scrollspy="target: > div; cls: uk-animation-slide-bottom-small; delay: 100" uk-grid>
 
-          <div>
-            <a target="_blank" href="landing.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/landing.png" alt="">
-                <p> landing </p>
-                <span class="new bg-red-500">New</span>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="feed-layout-2.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/feed-layout-2.png" alt="">
-                <p> feed layout 2 </p>
-                <span class="new bg-red-500">new</span>
-              </div>
-            </a>
-          </div>
+          <!--<div>
+      <a target="_blank" href="landing.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/landing.png" alt="">
+          <p> landing </p>
+          <span class="new bg-red-500">New</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="feed-layout-2.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/feed-layout-2.png" alt="">
+          <p> feed layout 2 </p>
+          <span class="new bg-red-500">new</span>
+        </div>
+      </a>
+    </div>
 
-          <div>
-            <a target="_blank" href="fundraiser.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/fundraiser.png" alt="">
-                <p> Fundraiser </p>
-                <span class="new bg-red-500">New</span>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="timeline-fundraiser.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/fundraiser-timeline.png" alt="">
-                <p> Fundraiser Timeline </p>
-                <span class="new bg-red-500">New</span>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="birthdays.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/brithdays.png" alt="">
-                <p> birthdays </p>
-                <span class="new bg-red-500">new</span>
-              </div>
-            </a>
-          </div>
+    <div>
+      <a target="_blank" href="fundraiser.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/fundraiser.png" alt="">
+          <p> Fundraiser </p>
+          <span class="new bg-red-500">New</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="timeline-fundraiser.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/fundraiser-timeline.png" alt="">
+          <p> Fundraiser Timeline </p>
+          <span class="new bg-red-500">New</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="birthdays.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/brithdays.png" alt="">
+          <p> birthdays </p>
+          <span class="new bg-red-500">new</span>
+        </div>
+      </a>
+    </div>
 
-          <div>
-            <a target="_blank" href="feed.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/feed.png" alt="">
-                <p> feed </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="products.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/products.png" alt="">
-                <p>  Marketplace  </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="product-single.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/product-preview.png" alt="">
-                <p>  product post </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="albums.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/albums.png" alt="">
-                <p> albums </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="blogs.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/blogs.png" alt="">
-                <p> Blog </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="blog-read.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/blog-description.png" alt="">
-                <p> Blog read</p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="courses.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/courses.png" alt="">
-                <p> Courses </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="course-intro.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/course-intro.png" alt="">
-                <p> Courses intro</p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="events.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/events.png" alt="">
-                <p> Events </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="forums.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/forums.png" alt="">
-                <p> Forums </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="groups.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/groups.png" alt="">
-                <p> Groups </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="chats-friend.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/chats-friend.png" alt="">
-                <p> Chat friends </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="chats-group.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/chats-group.png" alt="">
-                <p> Chat Groups</p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="games.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/games.png" alt="">
-                <p> Games </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="jobs.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/jobs.png" alt="">
-                <p> Jobs </p>
-                <span class="new bg-green-500">Update</span>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="job-details.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/jobs-description.png" alt="">
-                <p> Jobs description</p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="videos.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/videos.png" alt="">
-                <p> Video </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="video-watch.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/videos-watch.png" alt="">
-                <p>  Video Watch </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="pages.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/pages.png" alt="">
-                <p> pages </p>
-              </div>
-            </a>
-          </div>
+    <div>
+      <a target="_blank" href="feed.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/feed.png" alt="">
+          <p> feed </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="products.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/products.png" alt="">
+          <p>  Marketplace  </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="product-single.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/product-preview.png" alt="">
+          <p>  product post </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="albums.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/albums.png" alt="">
+          <p> albums </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="blogs.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/blogs.png" alt="">
+          <p> Blog </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="blog-read.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/blog-description.png" alt="">
+          <p> Blog read</p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="courses.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/courses.png" alt="">
+          <p> Courses </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="course-intro.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/course-intro.png" alt="">
+          <p> Courses intro</p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="events.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/events.png" alt="">
+          <p> Events </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="forums.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/forums.png" alt="">
+          <p> Forums </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="groups.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/groups.png" alt="">
+          <p> Groups </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="chats-friend.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/chats-friend.png" alt="">
+          <p> Chat friends </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="chats-group.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/chats-group.png" alt="">
+          <p> Chat Groups</p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="games.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/games.png" alt="">
+          <p> Games </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="jobs.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/jobs.png" alt="">
+          <p> Jobs </p>
+          <span class="new bg-green-500">Update</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="job-details.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/jobs-description.png" alt="">
+          <p> Jobs description</p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="videos.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/videos.png" alt="">
+          <p> Video </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="video-watch.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/videos-watch.png" alt="">
+          <p>  Video Watch </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="pages.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/pages.png" alt="">
+          <p> pages </p>
+        </div>
+      </a>
+    </div>
 
-          <div>
-            <a target="_blank" href="timeline.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/timeline.png" alt="">
-                <p> timeline </p>
-                <span class="new bg-green-500">Update</span>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="timeline-page.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos//timeline-page.png" alt="">
-                <p> timeline page </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="timeline-group.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/timeline-group.png" alt="">
-                <p> timeline group </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="timeline-event.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/timeline-event.png" alt="">
-                <p> timeline Event </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="pages-setting.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/pages-setting.png" alt="">
-                <p> Setting   </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="pages-setting2.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/pages-setting2.png" alt="">
-                <p> setting 2   </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="create-group.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/create-group.png" alt="">
-                <p> create-group   </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="create-page.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/create-page.png" alt="">
-                <p> create page  </p>
-              </div>
-            </a>
-          </div>
-
-
-          <div>
-            <a target="_blank" href="development-components.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/dev-components.png" alt="">
-                <p> development components </p>
-                <span class="new bg-red-500">New</span>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="development-plugins.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/dev-plugins.png" alt="">
-                <p> development plugins </p>
-                <span class="new bg-red-500">new</span>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="development-icons.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/dev-icons.png" alt="">
-                <p> development icons </p>
-                <span class="new bg-red-500">New</span>
-              </div>
-            </a>
-          </div>
-
-          <div>
-            <a target="_blank" href="pages-upgrade.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/pages-upgrade.png" alt="">
-                <p> pages upgrade </p>
-                <span class="new bg-red-500">New</span>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="pages-about.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/pages-about.png" alt="">
-                <p> pages about </p>
-                <span class="new bg-red-500">New</span>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="pages-contact.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/pages-contact-us.png" alt="">
-                <p> pages contact-us </p>
-                <span class="new bg-red-500">New</span>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="pages-privacy.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/pages-privacy.png" alt="">
-                <p> pages privacy </p>
-                <span class="new bg-red-500">New</span>
-              </div>
-            </a>
-          </div>
+    <div>
+      <a target="_blank" href="timeline.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/timeline.png" alt="">
+          <p> timeline </p>
+          <span class="new bg-green-500">Update</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="timeline-page.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos//timeline-page.png" alt="">
+          <p> timeline page </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="timeline-group.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/timeline-group.png" alt="">
+          <p> timeline group </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="timeline-event.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/timeline-event.png" alt="">
+          <p> timeline Event </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="pages-setting.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/pages-setting.png" alt="">
+          <p> Setting   </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="pages-setting2.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/pages-setting2.png" alt="">
+          <p> setting 2   </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="create-group.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/create-group.png" alt="">
+          <p> create-group   </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="create-page.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/create-page.png" alt="">
+          <p> create page  </p>
+        </div>
+      </a>
+    </div>
 
 
-          <div>
-            <a target="_blank" href="form-login.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/form-login.png" alt="">
-                <p> login </p>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="form-register.html">
-              <div class="demo-card">
-                <img src="assets/assets/images/demos/form-register.png" alt="">
-                <p> register </p>
-              </div>
-            </a>
-          </div>
+    <div>
+      <a target="_blank" href="development-components.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/dev-components.png" alt="">
+          <p> development components </p>
+          <span class="new bg-red-500">New</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="development-plugins.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/dev-plugins.png" alt="">
+          <p> development plugins </p>
+          <span class="new bg-red-500">new</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="development-icons.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/dev-icons.png" alt="">
+          <p> development icons </p>
+          <span class="new bg-red-500">New</span>
+        </div>
+      </a>
+    </div>
+
+    <div>
+      <a target="_blank" href="pages-upgrade.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/pages-upgrade.png" alt="">
+          <p> pages upgrade </p>
+          <span class="new bg-red-500">New</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="pages-about.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/pages-about.png" alt="">
+          <p> pages about </p>
+          <span class="new bg-red-500">New</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="pages-contact.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/pages-contact-us.png" alt="">
+          <p> pages contact-us </p>
+          <span class="new bg-red-500">New</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="pages-privacy.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/pages-privacy.png" alt="">
+          <p> pages privacy </p>
+          <span class="new bg-red-500">New</span>
+        </div>
+      </a>
+    </div>
+
+
+    <div>
+      <a target="_blank" href="form-login.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/form-login.png" alt="">
+          <p> login </p>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a target="_blank" href="form-register.html">
+        <div class="demo-card">
+          <img src="assets/assets/images/demos/form-register.png" alt="">
+          <p> register </p>
+        </div>
+      </a>
+    </div>-->
         </div>
       </div>
     </div>

@@ -14,5 +14,6 @@ namespace project.core.DTO
         public string FeedbackText { get; set; }
         public int FeedbackStatus { get; set; }
         public string StatusName { get; set; }
+        public string ProfilePath { get; set; }
     }
 }

@@ -572,8 +572,30 @@ namespace Project1.Controllers
             return Ok(userService.GetMessagesByChatId(chatId));
         }
 
+        [HttpGet]
+        [Route("GetUserFirstName/{userId}")]
+        public IActionResult GetUserFirstName(string userId)
+        {
+            return Ok(userService.GetUserFirstName(userId));
+        }
 
-    
+        [HttpGet]
+        [Route("GetUserLastName/{userId}")]
+        public IActionResult GetUserLastName(string userId)
+        {
+            return Ok(userService.GetUserLastName(userId));
+        }
+
+        [HttpGet]
+        [Route("GetUserImage/{userId}")]
+        public IActionResult GetUserImage(string userId)
+        {
+            return Ok(userService.GetUserImage(userId));
+        }
+
+
+
+
 
     }
 }
