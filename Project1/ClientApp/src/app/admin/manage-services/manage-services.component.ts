@@ -78,7 +78,8 @@ export class ManageServicesComponent implements OnInit {
     this.router.navigate(["/"]);
   }
 
-  SelectedService(id: string) {
+  SelectedService() {
+    let id = (<HTMLSelectElement>document.getElementById('selc')).value
     if (id != "") {
       this.http.get<Subscription>("https://localhost:44328/api/User/GetSubscriptionById/" + id, {
         headers: new HttpHeaders({ "Content-Type": "application/json" })

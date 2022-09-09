@@ -199,7 +199,6 @@ export class FeedComponent implements OnInit {
       next: (response: FriendStory[]) => {
         this.friendstory = response;
         this.friendstorylast5 = response.slice(0, 5);
-        console.log(this.friendstory);
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
