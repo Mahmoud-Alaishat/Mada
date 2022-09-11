@@ -234,5 +234,13 @@ namespace project.infra.Repository
             var result = context.dbConnection.Query<UserLastName>("User_package_api.GetUserLastName", parameter, commandType: CommandType.StoredProcedure);
             return result.FirstOrDefault();
         }
+
+        public LastMessage GetLastMessageByChatId(int chatId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofchat", chatId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<LastMessage>("User_package_api.GetLastMessageByChatId", parameter, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
     }
 }

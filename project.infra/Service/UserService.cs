@@ -168,5 +168,10 @@ namespace project.infra.Service
         {
             return userRepository.GetUserLastName(userId);  
         }
+
+        public LastMessage GetLastMessageByChatId(int chatId)
+        {
+            return userRepository.GetLastMessageByChatId(chatId);
+        }
     }
 }
