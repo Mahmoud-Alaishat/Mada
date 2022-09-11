@@ -35,8 +35,8 @@
       </div>
     </div>
 
-    <div class="lg:py-20 py-12 lg:mb-24 relative" id="demos">
-      <div class="uk-container mx-auto">
+    <div  class="lg:py-20 py-12 lg:mb-24 relative" id="demos">
+      <div style="width:100%"  class=" mx-auto">
 
         <div class="text-center lg:mb-20 mb-10 max-w-md mx-auto">
           <h1 class="lg:text-3xl text-2xl mb-2"> Explore our demos</h1>
@@ -48,27 +48,28 @@
 
         </div>
 
-        <div class="w-3/4 bg-gray-100 rounded-xl mx-auto">
-          <div class="md:flex md:space-x-15">
-            <div class="md:w-full">
-              <div class="uk-position-relative uk-visible-toggle " tabindex="-1" uk-slideshow="animation: push">
+        <div style="width:100%;margin:0px"  class="bg-gray-100 rounded-xl mx-auto">
+          <div class="flex space-x-15">
+            <div  class="w-full">
+              <div class="uk-position-relative uk-visible-toggle" tabindex="-1" uk-slideshow="animation: push">
 
-                <ul  class="uk-slideshow-items">
+                <ul style="margin-top:550px"  class="uk-slideshow-items">
                   <li *ngFor="let feed of feedback">
                     <div class="text-center uk-position-top p-5 backdrop-filter backdrop-blur-md">
                       <img src="../../../../Resources/Images/user/profile/{{feed.profilePath}}" width="300" height="300" alt="" class=" border border-white rounded-full w-20 h-20" style="margin:auto">
-                      <h2 class="font-bold text-2xl text-white mt-4">{{feed.firstName}} {{feed.lastName}}</h2>
+                      <h2 class="font-bold text-2xl dark:text-gray-200 text-gray-600 mt-4">{{feed.firstName}} {{feed.lastName}}</h2>
+                      <div class="text-center uk-position-center p-5 backdrop-filter backdrop-blur-md" style="margin-top:100px;">
+                        <p class="text-lg dark:text-gray-200 text-gray-600"><q>{{feed.feedbackText}}.</q></p>
                       </div>
-                      <div class="text-center uk-position-center p-5 backdrop-filter backdrop-blur-md">
-                        <p class="text-lg text-white"><q>{{feed.feedbackText}}.</q></p>
-                      </div>
+                    </div>
+
                   </li>
 
 
                 </ul>
 
-                <a class="uk-position-center-left uk-position-small uk-hidden-hover text-white p-4" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                <a class="uk-position-center-right uk-position-small uk-hidden-hover text-white p-4" href="#" uk-slidenav-next uk-slideshow-item="next" id="next"></a>
+                <a hidden class="uk-position-center-left uk-position-small uk-hidden-hover text-white p-4" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a hidden class="uk-position-center-right uk-position-small uk-hidden-hover text-white p-4" href="#" uk-slidenav-next uk-slideshow-item="next" id="next"></a>
 
 
               </div>

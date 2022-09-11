@@ -169,6 +169,11 @@ namespace project.infra.Service
             return userRepository.GetUserLastName(userId);  
         }
 
+        public FullNameById GetFullNameByUserId(string userId)
+        {
+            return userRepository.GetFullNameByUserId(userId);
+        }
+
         public LastMessage GetLastMessageByChatId(int chatId)
         {
             return userRepository.GetLastMessageByChatId(chatId);
