@@ -235,6 +235,14 @@ namespace project.infra.Repository
             return result.FirstOrDefault();
         }
 
+        public FullNameById GetFullNameByUserId(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<FullNameById>("User_package_api.GetFullNameByUserId", parameter, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
+
         public LastMessage GetLastMessageByChatId(int chatId)
         {
             var parameter = new DynamicParameters();
