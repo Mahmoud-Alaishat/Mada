@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace project.core.Repository
 {
-   public interface IUserRepository
+    public interface IUserRepository
     {
-        public List<Users> CRUDOP(Users user,string operation);
+        public List<Users> CRUDOP(Users user, string operation);
         public LoginResult Login(Login login);
         public string Register(Users user);
         public UserCount CountUsers();
         public void ConfirmEmail(ConfirmEmail confirmEmail);
-        public CheckEmailReceiver CheckEmail(CheckEmailSender  checkEmail);
+        public CheckEmailReceiver CheckEmail(CheckEmailSender checkEmail);
         public CheckUserNameReceiver CheckUserName(CheckUserNameSender checkUserName);
         public bool UpdateUserProfile(string userId, UserInfo user);
         public SubscriptionIDPostNum GetSubPostNumByUserId(string userId);
@@ -29,7 +29,8 @@ namespace project.core.Repository
         public List<ChatMessages> GetMessagesByChatId(int chatId);
         public UserImage GetUserImage(string userId);   
         public UserFirstName GetUserFirstName(string userId);   
-        public UserLastName GetUserLastName(string userId);   
-        public LastMessage GetLastMessageByChatId(int chatId);   
+        public UserLastName GetUserLastName(string userId);
+        public LastMessage GetLastMessageByChatId(int chatId);
+        public FullNameById GetFullNameByUserId(string userId);
     }
 }

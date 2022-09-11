@@ -601,7 +601,12 @@ namespace Project1.Controllers
         }
 
 
-
+        [HttpGet]
+        [Route("GetFullNameByUserId/{userId}")]
+        public IActionResult GetFullNameByUserId(string userId)
+        {
+            return Ok(userService.GetFullNameByUserId(userId));
+        }
 
 
     }
