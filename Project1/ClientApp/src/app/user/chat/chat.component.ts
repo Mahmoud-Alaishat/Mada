@@ -18,10 +18,11 @@ export class ChatComponent implements OnInit {
     userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
   receiver: string;
   chatId: string;
-  receiverFName: string;
-  receiverLName: string;
+  receiverFullName: string;
   receiverImage: string;
   messages: ChatMessages[];
+  messageData: Message = { id: 0, senderId: '', messageContent: '', chatId: 0, messageDate: undefined };
+  newMessage: Message = { id: 0, senderId: '', messageContent: '', chatId: 0, messageDate: undefined };
   constructor(private chatService: ChatService, private auth: AuthService, private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -37,19 +38,11 @@ export class ChatComponent implements OnInit {
     })
     this.chatService.retrieveMappedObject().subscribe((receivedObj: MessageDto) => { this.addToInbox(receivedObj); });  // calls the service method to get the new messages sent
 
-    this.http.get<UserFirstName>("https://localhost:44328/api/User/GetUserFirstName/" + this.receiver, {
+    this.http.get<FullNameById>("https://localhost:44328/api/User/GetFullNameByUserId/" + this.receiver, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
-      next: (response: UserFirstName) => {
-        this.receiverFName = response.firstName;
-      },
-      error: (err: HttpErrorResponse) => console.log("no data")
-    })
-    this.http.get<UserLastName>("https://localhost:44328/api/User/GetUserLastName/" + this.receiver, {
-      headers: new HttpHeaders({ "Content-Type": "application/json" })
-    }).subscribe({
-      next: (response: UserLastName) => {
-        this.receiverLName = response.lastName;
+      next: (response: FullNameById) => {
+        this.receiverFullName = response.fullName;
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
@@ -85,11 +78,15 @@ export class ChatComponent implements OnInit {
         this.msgDto.chatId = parseInt(this.chatId);
         this.msgDto.messageDate = new Date();
         this.chatService.broadcastMessage(this.msgDto);                 // Send the message via a service
-        this.http.post("https://localhost:44328/api/User/saveMessage", this.msgDto, {
+        this.messageData.chatId = parseInt(this.chatId);
+        this.messageData.senderId = this.auth.Id;
+        this.messageData.messageContent = this.msgDto.msgText;
+        this.messageData.messageDate = new Date();
+        this.http.post<Message>("https://localhost:44328/api/User/saveMessage", this.messageData, {
           headers: new HttpHeaders({ "Content-Type": "application/json" })
         }).subscribe({
-          next: () => {
-            console.log("Good");
+          next: (response: Message) => {
+            console.log(response);
           },
                 error: (err: HttpErrorResponse) => console.log("no data")
               })
@@ -107,6 +104,10 @@ export class ChatComponent implements OnInit {
     newObj.sender = this.auth.Id;
     newObj.receiver = this.receiver;
     newObj.msgText = obj.msgText;
+    this.newMessage.senderId = this.auth.Id;
+    this.newMessage.messageContent = obj.msgText;
+    this.newMessage.chatId = parseInt(this.chatId);
+    this.newMessage.messageDate = new Date();
     this.msgInboxArray.push(newObj);
   }
 }
@@ -120,12 +121,8 @@ interface UserInfo {
   bio: string;
 }
 
-interface UserFirstName {
-  firstName: string;
-}
-
-interface UserLastName {
-  lastName: string;
+interface FullNameById {
+  fullName: string;
 }
 
 interface UserImage {
@@ -135,5 +132,13 @@ interface UserImage {
 interface ChatMessages {
   senderId: string;
   messageContent: string;
+  messageDate: Date;
+}
+
+interface Message {
+  id: number;
+  senderId: string;
+  messageContent: string;
+  chatId: number;
   messageDate: Date;
 }

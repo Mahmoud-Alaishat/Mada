@@ -323,8 +323,9 @@ namespace Project1.Controllers
             await chatHub.Clients.All.SendAsync("ReceiveOne", user, message);
             return Ok();
         }
-        [Route("send")]                                          
+
         [HttpPost]
+        [Route("send")]
         public IActionResult SendMessage([FromBody] MessageDto msg)
         {
             chatHub.Clients.Group(msg.sender).SendAsync("SendMessageToGroup", msg.sender, msg.msgText);
@@ -332,17 +333,12 @@ namespace Project1.Controllers
             
             return Ok();
         }
-        [Route("saveMessage")]
-        [HttpPost]
-        public IActionResult SaveMessage([FromBody] MessageDto msg)
-        {
-            Message message = new Message();
-            message.SenderId = msg.sender;
-            message.ChatId = msg.chatId;
-            message.MessageContent = msg.msgText;
-            message.MessageDate = msg.messageDate;
 
-            messageService.Create(message);
+        [HttpPost]
+        [Route("saveMessage")]
+        public IActionResult SaveMessage([FromBody] Message message)
+        {
+            messageService.SaveMessage(message);
             return Ok();
         }
         [HttpPost]

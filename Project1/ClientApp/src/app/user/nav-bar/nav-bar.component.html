@@ -276,7 +276,7 @@
                       <img src="../../../../../Resources/Images/user/profile/{{chat.friendImage}}" alt="">
                     </div>
                     <div class="drop_text">
-                      <strong> {{chat.friendFName}} {{chat.friendLName}} </strong>
+                      <strong> {{chat.friendFullName}} </strong>
                       <time *ngIf="isToday(chat.chatDate | date: 'MM/dd/yyyy')">{{chat.chatDate | date:'shortTime'}}</time>
                       <time *ngIf="!isToday(chat.chatDate | date: 'MM/dd/yyyy')">{{chat.chatDate | date:'mediumDate'}}</time>
 

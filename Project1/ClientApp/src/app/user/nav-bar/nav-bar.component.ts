@@ -80,22 +80,15 @@ export class NavBarComponent implements OnInit {
           else {
             this.userChats[i].friendId = this.userChats[i].secondUserId;
           }
-          this.http.get<UserFirstName>("https://localhost:44328/api/User/GetUserFirstName/" + this.userChats[i].friendId, {
+          this.http.get<FullNameById>("https://localhost:44328/api/User/GetFullNameByUserId/" + this.userChats[i].friendId, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
-            next: (response: UserFirstName) => {
-              this.userChats[i].friendFName = response.firstName;
+            next: (response: FullNameById) => {
+              this.userChats[i].friendFullName = response.fullName;
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
-          this.http.get<UserLastName>("https://localhost:44328/api/User/GetUserLastName/" + this.userChats[i].friendId, {
-            headers: new HttpHeaders({ "Content-Type": "application/json" })
-          }).subscribe({
-            next: (response: UserLastName) => {
-              this.userChats[i].friendLName = response.lastName;
-            },
-            error: (err: HttpErrorResponse) => console.log("no data")
-          })
+         
           this.http.get<UserImage>("https://localhost:44328/api/User/GetUserImage/" + this.userChats[i].friendId, {
             headers: new HttpHeaders({ "Content-Type": "application/json" })
           }).subscribe({
@@ -166,20 +159,16 @@ interface UserChats {
   secondUserId: string;
   chatDate: Date;
   friendId: string;
-  friendFName: string;
-  friendLName: string;
+  friendFullName: string;
   friendImage: string;
   lastMessage: string;
   lastSenderId: string;
 }
 
-interface UserFirstName {
-  firstName: string;
+interface FullNameById {
+  fullName: string;
 }
 
-interface UserLastName {
-  lastName: string;
-}
 
 interface UserImage {
   profilePath: string;

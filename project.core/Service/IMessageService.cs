@@ -12,5 +12,7 @@ namespace project.core.Service
         public void Delete(int id);
         public List<Message> GetAllMessage();
         public Message GetMessageById(int id);
+        public void SaveMessage(Message message);
+
     }
 }

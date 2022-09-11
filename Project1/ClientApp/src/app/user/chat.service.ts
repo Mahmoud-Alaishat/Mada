@@ -49,7 +49,7 @@ export class ChatService {
 
   // Calls the controller method
   public broadcastMessage(msgDto: any) {
-    this.http.post(this.POST_URL, msgDto).subscribe(data => console.log(data));
+    this.http.post<MessageDto>(this.POST_URL, msgDto).subscribe(data => console.log(data));
     // this.connection.invoke("SendMessage1", msgDto.user, msgDto.msgText).catch(err => console.error(err));    // This can invoke the server method named as "SendMethod1" directly.
   }
 

@@ -8,6 +8,6 @@ namespace project.core.Repository
     public interface IMessageRepository
     {
         public List<Message> CRUDOP(Message message, string operation);
-
+        public void SaveMessage(Message message);
     }
 }

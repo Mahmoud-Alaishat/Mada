@@ -11,6 +11,12 @@ namespace project.infra.Service
     public class MessageService : IMessageService
     {
         private readonly IMessageRepository  messageRepository;
+
+        public MessageService(IMessageRepository messageRepository)
+        {
+            this.messageRepository = messageRepository;
+        }
+
         public void Delete(int id)
         {
             Message m = new Message();
@@ -42,5 +48,10 @@ namespace project.infra.Service
             messageRepository.CRUDOP(message, "update").ToList().FirstOrDefault();
             return message;
         }
+        public void SaveMessage(Message message)
+        {
+            messageRepository.SaveMessage(message);
+        }
+
     }
 }
