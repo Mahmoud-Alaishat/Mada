@@ -32,11 +32,14 @@ namespace Project1.Controllers
         private readonly IStoryService storyService;
         private readonly IAttachmentService attachmentService;
         private readonly IFeedbackService feedbackService;
+        private readonly IChatService chatService;
+        private readonly IMessageService messageService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
            IReportService reportService, IStoryService storyService, IAttachmentService attachmentService, ILikeService likeService,
-           ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub, IFeedbackService feedbackService)
-            
+           ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub, IFeedbackService feedbackService,
+           IChatService chatService, IMessageService messageService)
+
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
@@ -50,8 +53,10 @@ namespace Project1.Controllers
             this.subscriptionService = subscriptionService;
             this.chatHub = chatHub;
             this.storyService = storyService;
-            this.reportService=reportService;
-            this.feedbackService = feedbackService; 
+            this.reportService = reportService;
+            this.feedbackService = feedbackService;
+            this.chatService = chatService;
+            this.messageService = messageService;
         }
 
         [HttpPost]
@@ -313,17 +318,31 @@ namespace Project1.Controllers
 
         [HttpPost]
         [Route("sendmessage")]
-        public async Task<IActionResult> SendMessage(string user, string message)
+        public async Task<IActionResult> SendRequest(string user, string message)
         {
             await chatHub.Clients.All.SendAsync("ReceiveOne", user, message);
             return Ok();
         }
         [Route("send")]                                          
         [HttpPost]
-        public IActionResult SendRequest([FromBody] MessageDto msg)
+        public IActionResult SendMessage([FromBody] MessageDto msg)
         {
             chatHub.Clients.Group(msg.sender).SendAsync("SendMessageToGroup", msg.sender, msg.msgText);
             chatHub.Clients.Group(msg.receiver).SendAsync("SendMessageToGroup", msg.sender, msg.msgText);
+            
+            return Ok();
+        }
+        [Route("saveMessage")]
+        [HttpPost]
+        public IActionResult SaveMessage([FromBody] MessageDto msg)
+        {
+            Message message = new Message();
+            message.SenderId = msg.sender;
+            message.ChatId = msg.chatId;
+            message.MessageContent = msg.msgText;
+            message.MessageDate = msg.messageDate;
+
+            messageService.Create(message);
             return Ok();
         }
         [HttpPost]

@@ -82,7 +82,18 @@ export class ChatComponent implements OnInit {
       } else {
         this.msgDto.sender = this.auth.Id;
         this.msgDto.receiver = this.receiver;
+        this.msgDto.chatId = parseInt(this.chatId);
+        this.msgDto.messageDate = new Date();
         this.chatService.broadcastMessage(this.msgDto);                 // Send the message via a service
+        this.http.post("https://localhost:44328/api/User/saveMessage", this.msgDto, {
+          headers: new HttpHeaders({ "Content-Type": "application/json" })
+        }).subscribe({
+          next: () => {
+            console.log("Good");
+          },
+                error: (err: HttpErrorResponse) => console.log("no data")
+              })
+        
         this.msgDto.msgText = "";
 
       }
