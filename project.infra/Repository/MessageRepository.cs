@@ -22,9 +22,9 @@ namespace project.infra.Repository
             var parameter = new DynamicParameters();
             List<Message> re = new List<Message>();
             parameter.Add("idofmessage", message.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            parameter.Add("idofchat", message.ChatId, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("idofchat", message.ChatId, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("idofsender", message.SenderId, dbType: DbType.String, direction: ParameterDirection.Input);
-            parameter.Add("mssgcontent", message.MessageContent, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("mssgcontent", message.MessageContent, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("mssgdate", message.MessageDate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             parameter.Add("operation", operation, dbType: DbType.String, direction: ParameterDirection.Input);
 

@@ -100,7 +100,7 @@ export class HomeDesignComponent implements OnInit {
     localStorage.removeItem("token");
     this.router.navigate(["/"]);
   }
-  cc() {
+  UpdateHome() {
     let maintext = (<HTMLInputElement>document.getElementById('maintext')).value;
     let subtext = (<HTMLInputElement>document.getElementById('subtext')).value;
     if (maintext != "") {

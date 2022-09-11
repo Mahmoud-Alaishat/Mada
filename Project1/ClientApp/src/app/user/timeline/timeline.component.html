@@ -11,10 +11,28 @@
     <p class="text-white text-opacity-75">Post uploaded successfully</p>
   </div>
 </div>
+<div *ngIf="this.showStorySuccess" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
+  <div style="width:23rem" class="bg-green-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+    <h3 class="text-lg font-semibold text-white">Message</h3>
+    <p class="text-white text-opacity-75">Story uploaded successfully</p>
+  </div>
+</div>
 <div *ngIf="this.isSubscriptionEnded" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute;top:75px;z-index:3 ">
   <div style="width:23rem" class="bg-red-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
     <h3 class="text-lg font-semibold text-white">Alert</h3>
     <p class="text-white text-opacity-75">Your subscription is ended you will be redirect to the subscription page in <span class="font-bold">{{this.count}}</span> sec</p>
+  </div>
+</div>
+<div *ngIf="this.showDeletedStory" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
+  <div style="width:23rem" class="bg-blue-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+    <h3 class="text-lg font-semibold text-white">Message</h3>
+    <p class="text-white text-opacity-75">Story deleted successfully</p>
+  </div>
+</div>
+<div *ngIf="this.showSelectImage" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
+  <div style="width:23rem" class="bg-blue-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+    <h3 class="text-lg font-semibold text-white">Message</h3>
+    <p class="text-white text-opacity-75">Please select a image</p>
   </div>
 </div>
 <div *ngIf="isAuthenticate && !isAdmin" class="main_content">
@@ -307,13 +325,13 @@
             <div class="p-4 space-y-3">
 
               <div class="flex space-x-4 lg:font-bold">
-                <a href="#" class="flex items-center text-gray-700 dark:text-gray-100 space-x-2 " id="mutasem-{{post.id}}">
+                <a (click)="HitLikes(post.id)" class="flex items-center text-gray-700 dark:text-gray-100 space-x-2 " style="cursor:pointer" id="mutasem-{{post.id}}">
                   <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="22" height="22" class="dark:text-gray-100">
                       <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
                     </svg>
                   </div>
-                  <div (click)="HitLikes(post.id)"> Like</div>
+                  <div> Like</div>
                 </a>
                 {{preventdefault(post.id)}}
                 <a id="{{getPostId(post.id)}}" href="#" class="flex items-center text-gray-700 dark:text-gray-100 space-x-2" uk-toggle="">
@@ -1210,14 +1228,14 @@
           Is Post
         </button>
         <!--<div class="switches-list">
-      <div class="switch-container">
+          <div class="switch-container">
 
-        <label class="switch" id="chk" >
-          <input type="checkbox" (click)="Hide()">
-          <span class="switch-button" ></span>
-        </label>
-      </div>
-    </div>-->
+            <label class="switch" id="chk" >
+              <input type="checkbox" (click)="Hide()">
+              <span class="switch-button" ></span>
+            </label>
+          </div>
+        </div>-->
 
         <div class="flex space-x-2">
           <button *ngIf="userData.isFristPost==0" (click)="MakePost()" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " uk-toggle="target: #create-testimonial-modal" id="testimonial" style="color:white;cursor:pointer">
@@ -1316,15 +1334,12 @@
 
       <div class="flex space-x-2">
 
-        <a class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium" (click)=MakeStory()>
+        <a class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium" style="cursor:pointer" (click)=MakeStory()>
           Share
         </a>
       </div>
 
-      <a href="#" hidden
-         class="bg-blue-600 flex h-9 items-center justify-center rounded-lg text-white px-12 font-semibold">
-        Share
-      </a>
+
     </div>
   </div>
 </div>

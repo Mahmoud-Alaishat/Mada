@@ -13,6 +13,8 @@
       <p class="text-white text-opacity-75">Post uploaded successfully</p>
     </div>
   </div>
+  
+  
   <div *ngIf="this.showError" class="w-full left-0" style="display: flex; justify-content: end; position: absolute;top:75px;z-index:3 ">
     <div style="width:23rem" class="bg-red-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
       <h3 class="text-lg font-semibold text-white">Alert</h3>
@@ -220,13 +222,13 @@
           <div class="p-4 space-y-3">
 
             <div class="flex space-x-4 lg:font-bold">
-              <a href="#" class="flex items-center text-gray-700 dark:text-gray-100 space-x-2 " id="mutasem-{{post.postId}}">
+              <a (click)="HitLikes(post.postId)"class="flex items-center text-gray-700 dark:text-gray-100 space-x-2 " style="cursor:pointer" id="mutasem-{{post.postId}}">
                 <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="22" height="22" class="dark:text-gray-100">
                     <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
                   </svg>
                 </div>
-                <div (click)="HitLikes(post.postId)"> Like</div>
+                <div > Like</div>
               </a>
               {{preventdefault(post.postId)}}
               <a id="{{getPostId(post.postId)}}" href="#" class="flex items-center text-gray-700 dark:text-gray-100 space-x-2" uk-toggle="">
@@ -446,6 +448,8 @@
             </div>
           </div>
         </div>-->
+        
+
 
 
         <div class="flex justify-center mt-6">
@@ -454,9 +458,14 @@
 
           </a>
         </div>
-
       </div>
+
+      
+
       <div class="lg:w-72 w-full">
+
+        
+        
         <a class="text-gray-700 dark:text-gray-100" href="#birthdays" uk-toggle>
           <div class="bg-white mb-5 px-4 py-3 rounded-md shadow">
             <h3 style="font-size:15px" class="text-line-through font-semibold mb-1"> Birthdays </h3>
@@ -609,7 +618,24 @@
 <!-- open chat box -->
 <!-- story-preview -->
 <div class="story-prev">
-
+  <div *ngIf="this.showStorySuccess" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
+    <div style="width:23rem" class="bg-green-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+      <h3 class="text-lg font-semibold text-white">Message</h3>
+      <p class="text-white text-opacity-75">Story uploaded successfully</p>
+    </div>
+  </div>
+  <div *ngIf="this.showDeletedStory" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
+    <div style="width:23rem" class="bg-blue-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+      <h3 class="text-lg font-semibold text-white">Message</h3>
+      <p class="text-white text-opacity-75">Story deleted successfully</p>
+    </div>
+  </div>
+  <div *ngIf="this.showSelectImage" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
+    <div style="width:23rem" class="bg-blue-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+      <h3 class="text-lg font-semibold text-white">Message</h3>
+      <p class="text-white text-opacity-75">Please select a image</p>
+    </div>
+  </div>
   <div class="story-sidebar uk-animation-slide-left-medium">
     <div class="md:flex justify-between items-center py-2 hidden">
       <h3 class="text-2xl font-semibold"> All Story </h3>
@@ -630,26 +656,57 @@
           <div class="text-sm -mt-0.5"> Share a photo. </div>
         </div>
       </a>
+      <div>
 
-      <h3 class="text-lg font-medium lg:mt-3 mt-1"> Friends Story </h3>
+        <h3 class="text-lg font-medium lg:mt-3 mt-1">Friends Story</h3>
 
-      <div class="story-users-list" uk-switcher="connect: #story_slider ; toggle: > * ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium ">
+        <div class="story-users-list" uk-switcher="connect: #story_slider ; toggle: > * ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium ">
 
-        <a *ngFor="let story of friendstory" href="#">
-          <div class="story-media">
-            <img src="../../../../../Resources/Images/user/profile/{{story.profilePath}}" alt="">
-          </div>
-          <div class="story-text">
-            <div class="story-username"> {{story.firstName}} {{story.lastName}}</div>
-            <p> <span class="story-count"> 2 new </span> <span class="story-time"> 4Mn ago</span> </p>
-          </div>
-        </a>
+          <a *ngFor="let story of friendstory" href="#">
+
+            <div class="story-media">
+              <img src="../../../../../Resources/Images/user/profile/{{story.profilePath}}" alt="">
+            </div>
+            <div class="story-text">
+              <div class="story-username"> {{story.firstName}} {{story.lastName}}</div>
+              <!--<p> <span class="story-count"> 2 new </span> <span class="story-time"> 4Mn ago</span> </p>-->
+            </div>
+            <div *ngIf="story.userId==this.auth.Id">
+              <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i>
+              <div *ngIf="story.userId==this.auth.Id" class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700"
+                   uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small">
+
+                <ul class="space-y-1">
+
+                  <li>
+                    <a id="repoet-btn-{{story.id}}" uk-toggle="" href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                      <i class="icon ion-md-remove-circle" style="margin-right:5px;"></i>  Delete
+                    </a>
+                  </li>
+
+                </ul>
+              </div>
+              {{setUkToggleStoryReport((story.id))}}
+              <div id="repoet-{{story.id}}" uk-modal>
+                <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
+                  <h2 class="mb-2 uk-modal-title">Alert</h2>
+                  <p>Are you sure you want to Delete this story ?</p>
+                  <div class="uk-modal-footer text-right bg-gray-200 dark:bg-gray-900 mt-6 px-0 space-x-1">
+                    <button class="button gray uk-modal-close" type="button">Cancel</button>
+                    <button style="background-color: #e82a35" (click)="DeleteStory(story.id)" class="button" type="button">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
 
 
+
+
+
+        </div>
 
       </div>
-
-
     </div>
 
   </div>
@@ -729,15 +786,7 @@
           <button *ngIf="this.isShow == true" (click)="Hide()" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " style="color:white;cursor:pointer">
             Is Post
           </button>
-          <!--<div class="switches-list">
-    <div class="switch-container">
-
-      <label class="switch" id="chk" >
-        <input type="checkbox" (click)="Hide()">
-        <span class="switch-button" ></span>
-      </label>
-    </div>
-  </div>-->
+          
 
         <div class="flex space-x-2">
           <button *ngIf="userData.isFristPost==0" (click)="MakePost()" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium " uk-toggle="target: #create-testimonial-modal" id="testimonial" style="color:white;cursor:pointer">

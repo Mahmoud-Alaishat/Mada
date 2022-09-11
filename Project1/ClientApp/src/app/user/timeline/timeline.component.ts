@@ -81,6 +81,8 @@ export class TimelineComponent implements OnInit {
     feedbackStatus: 0,
     userId: ''
   }
+  showStorySuccess: boolean;
+    showSelectImage: boolean;
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private auth: AuthService, private router: Router) { }
 
@@ -328,15 +330,25 @@ export class TimelineComponent implements OnInit {
     this.story.item = this.storyImage;
 
     this.story.userId = this.auth.Id;
+    if (this.story.item != null) {
+      this.http.post("https://localhost:44328/api/User/AddStory/", this.story, {
+        headers: new HttpHeaders({ "Content-Type": "application/json" })
+      }).subscribe({
+        next: () => {
+          this.showStorySuccess = true;
+          window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+          setTimeout(() => { this.showStorySuccess = false; }, 4000);
+          window.location.reload();
+        },
+        error: (err: HttpErrorResponse) => console.log("no data")
+      })
+    }
+    else {
+      this.showSelectImage = true;
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+      setTimeout(() => { this.showSelectImage = false; }, 4000);
+    }
 
-    this.http.post("https://localhost:44328/api/User/AddStory/", this.story, {
-      headers: new HttpHeaders({ "Content-Type": "application/json" })
-    }).subscribe({
-      next: () => {
-        window.location.reload();
-      },
-      error: (err: HttpErrorResponse) => console.log("no data")
-    })
 
 
   }
