@@ -593,6 +593,13 @@ namespace Project1.Controllers
         {
             return Ok(userService.GetUserImage(userId));
         }
+        
+        [HttpGet]
+        [Route("GetLastMessageByChatId/{chaId}")]
+        public IActionResult GetLastMessageByChatId(int chaId)
+        {
+            return Ok(userService.GetLastMessageByChatId(chaId));
+        }
 
 
 

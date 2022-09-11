@@ -36,6 +36,7 @@ namespace project.core.Service
         public UserImage GetUserImage(string userId);
         public UserFirstName GetUserFirstName(string userId);
         public UserLastName GetUserLastName(string userId);
+        public LastMessage GetLastMessageByChatId(int chatId);
 
 
 
