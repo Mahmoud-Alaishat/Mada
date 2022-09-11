@@ -28,7 +28,7 @@ import { ManageStoryComponent } from './manage-story/manage-story.component';
         { path: "admin/dashboard", component: DashboardComponent, canActivate: [AuthGuard] },
         { path: "admin/feedback", component: FeedbackComponent, canActivate: [AuthGuard] },
         { path: "admin/mailbox", component: MailboxComponent, canActivate: [AuthGuard] },
-        { path: "admin/reports", component: ReportsComponent, canActivate: [AuthGuard] },
+        { path: "admin/revenuereport", component: ReportsComponent, canActivate: [AuthGuard] },
         { path: "admin/report", component: ReportComponent, canActivate: [AuthGuard] },
         { path: "admin/homedesign", component: HomeDesignComponent, canActivate: [AuthGuard] },
         { path: "admin/mailbox/email/:id", component: EmailComponent, canActivate: [AuthGuard] },

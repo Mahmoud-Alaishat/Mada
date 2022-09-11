@@ -210,5 +210,29 @@ namespace project.infra.Repository
             var result = context.dbConnection.Query<ChatMessages>("User_package_api.GetMessagesByChatId", parameter, commandType: CommandType.StoredProcedure);
             return result.ToList();
         }
+
+        public UserImage GetUserImage(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<UserImage>("User_package_api.GetUserImage", parameter, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
+
+        public UserFirstName GetUserFirstName(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<UserFirstName>("User_package_api.GetUserFirstName", parameter, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
+
+        public UserLastName GetUserLastName(string userId)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("idofuser", userId, dbType: DbType.String, direction: ParameterDirection.Input);
+            var result = context.dbConnection.Query<UserLastName>("User_package_api.GetUserLastName", parameter, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
     }
 }

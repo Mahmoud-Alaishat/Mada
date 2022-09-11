@@ -23,6 +23,7 @@ export class HomeComponent {
     mainText3: '',
     userId: ''
   }
+  feedback: FeedBack[];
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
   ngOnInit() {
     this.http.get<Design>("https://localhost:44328/api/Admin/GetDesignById/Home", {
@@ -33,7 +34,23 @@ export class HomeComponent {
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
+    this.http.get<FeedBack[]>("https://localhost:44328/api/User/GetAcceptedFeedback/", {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: FeedBack[]) => {
+        this.feedback = response
+        console.log(this.feedback);
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+    
+      setInterval(() => { document.getElementById("next").click() }, 3000);
+    
+
   }
+
+
+  
 
 }
 
@@ -51,3 +68,18 @@ interface Design {
   mainText3: string;
   userId: string;
 }
+
+interface FeedBack {
+  id: number;
+  userId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  feedbackText: string;
+  feedbackStatus: number;
+  statusName: string;
+  profilePath: string;
+
+}
+
+

@@ -153,5 +153,20 @@ namespace project.infra.Service
         {
             return userRepository.GetMessagesByChatId(chatId);
         }
+
+        public UserImage GetUserImage(string userId)
+        {
+            return userRepository.GetUserImage(userId);
+        }
+
+        public UserFirstName GetUserFirstName(string userId)
+        {
+            return userRepository.GetUserFirstName(userId); 
+        }
+
+        public UserLastName GetUserLastName(string userId)
+        {
+            return userRepository.GetUserLastName(userId);  
+        }
     }
 }

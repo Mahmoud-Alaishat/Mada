@@ -27,5 +27,8 @@ namespace project.core.Repository
         public List<FeedBackDto> GetAcceptedFeedback();
         public List<UserChat> GetChatsByUserId(string userId);
         public List<ChatMessages> GetMessagesByChatId(int chatId);
+        public UserImage GetUserImage(string userId);   
+        public UserFirstName GetUserFirstName(string userId);   
+        public UserLastName GetUserLastName(string userId);   
     }
 }
