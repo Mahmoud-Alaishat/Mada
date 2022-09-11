@@ -7,5 +7,6 @@ namespace project.core.DTO
     public class LastMessage
     {
         public string MessageContent { get; set; }
+        public string SenderId { get; set; }
     }
 }

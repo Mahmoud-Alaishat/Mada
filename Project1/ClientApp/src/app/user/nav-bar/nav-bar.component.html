@@ -280,7 +280,9 @@
                       <time *ngIf="isToday(chat.chatDate | date: 'MM/dd/yyyy')">{{chat.chatDate | date:'shortTime'}}</time>
                       <time *ngIf="!isToday(chat.chatDate | date: 'MM/dd/yyyy')">{{chat.chatDate | date:'mediumDate'}}</time>
 
-                      <p>  Last message  </p>
+                      <p *ngIf="chat.lastSenderId == this.auth.Id"><strong>Me:</strong>{{chat.lastMessage}}</p>
+                      <p *ngIf="chat.lastSenderId != this.auth.Id">{{chat.lastMessage}}</p>
+
                     </div>
                   </a>
                 </li>

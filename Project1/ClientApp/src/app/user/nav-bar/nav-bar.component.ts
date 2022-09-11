@@ -104,7 +104,17 @@ export class NavBarComponent implements OnInit {
             },
             error: (err: HttpErrorResponse) => console.log("no data")
           })
+          this.http.get<LastMessage>("https://localhost:44328/api/User/GetLastMessageByChatId/" + this.userChats[i].id, {
+            headers: new HttpHeaders({ "Content-Type": "application/json" })
+          }).subscribe({
+            next: (response: LastMessage) => {
+              this.userChats[i].lastMessage = response.messageContent;
+              this.userChats[i].lastSenderId = response.senderId;
+            },
+            error: (err: HttpErrorResponse) => console.log("no data")
+          })
         }
+       
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
@@ -136,27 +146,6 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-
-
-
-  showDate(chatDate: Date): string {
-
-    var diffDays = new Date().getDate() - chatDate.getDate(),
-      diffMonths = new Date().getMonth() - chatDate.getMonth(),
-      diffYears = new Date().getFullYear() - chatDate.getFullYear();
-
-  if (diffYears == 0 && diffDays == 0 && diffMonths == 0) {
-    return "1"; //Today
-  } else if (diffYears == 0 && diffDays == 1) {
-    return "2"; //Yesterday
-  } 
-   else if (diffYears == 0 && (diffDays < -1 && diffDays > -7)) {
-    return "3"; //This week names[chatDate.getDay()];
-  }  else {
-    return "4"; //After a week or more
-  }
-}
-
 }
 interface UserInfo {
   firstName: string;
@@ -180,6 +169,8 @@ interface UserChats {
   friendFName: string;
   friendLName: string;
   friendImage: string;
+  lastMessage: string;
+  lastSenderId: string;
 }
 
 interface UserFirstName {
@@ -192,4 +183,9 @@ interface UserLastName {
 
 interface UserImage {
   profilePath: string;
+}
+
+interface LastMessage {
+  messageContent: string;
+  senderId: string
 }
