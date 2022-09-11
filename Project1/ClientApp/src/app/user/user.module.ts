@@ -28,7 +28,7 @@ import { OpenChatComponent } from './open-chat/open-chat.component';
         { path: "user/timeline", component: TimelineComponent, canActivate: [AuthGuard] },
         { path: "user/settings", component: SettingsComponent, canActivate: [AuthGuard] },
         { path: "user/subscription", component: SubscriptionComponent, canActivate: [AuthGuard] },
-        { path: "user/chat", component: ChatComponent, canActivate: [AuthGuard] },
+        { path: "user/chat/:id/:id2", component: ChatComponent, canActivate: [AuthGuard] },
         { path: "user/profile/:id", component: ProfileComponent, canActivate: [AuthGuard] }
       ]
     )

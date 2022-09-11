@@ -20,10 +20,11 @@ export class ReportsComponent implements OnInit {
   isAuthenticate: boolean = false;
   isAdmin: boolean = false;
   year: boolean;
-  manth: boolean;
+  month: boolean;
   yearValue: any= "2021";
   monthValue: any= "";
   RevenueForm: FormGroup;
+  showDate: boolean;
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
 
@@ -79,33 +80,24 @@ export class ReportsComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log("no data")
     })
 
-    this.http.get<RevenueDetails[]>("https://localhost:44328/api/Admin/RevenueDetails", {
-      headers: new HttpHeaders({ "Content-Type": "application/json" })
-    }).subscribe({
-      next: (response: RevenueDetails[]) => {
- 
-
-        this.revenue = response;
-        for (let i = 0; i < this.revenue.length; i++) {
-          if (this.revenue[i].service == "Ad"  ) {
-            this.revenue[i].service = "Advertisement";
-            }
-        }
-      },
-      error: (err: HttpErrorResponse) => console.log("no data")
-    })
+   
   }
 
   selected(value: number) {
+    if (value == 0) {
+      this.year = false;
+      this.month = false;
 
-    if (value == 1) {
+    }
+
+   else if (value == 1) {
       this.year = true;
-      this.manth = false;
+      this.month = false;
       this.RevenueForm.controls['Month'].setValue("%20");
     }
-    if (value == 2) {
+   else if (value == 2) {
       this.year = true;
-      this.manth = true;
+      this.month = true;
 
     }
   }
@@ -153,7 +145,7 @@ export class ReportsComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => console.log("no data")
       })
-   
+    this.showDate = true;
     alert(this.yearValue);
     alert(this.monthValue);
   }

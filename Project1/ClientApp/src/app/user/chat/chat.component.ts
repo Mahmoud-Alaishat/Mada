@@ -5,6 +5,7 @@ import { ChatService } from '../chat.service';
 import { MessageDto } from '../../Dto/MessageDto';
 import { AuthService } from '../../auth.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -15,10 +16,17 @@ export class ChatComponent implements OnInit {
   msgDto: MessageDto = new MessageDto();
   msgInboxArray: MessageDto[] = [];
     userData: UserInfo = { firstName: '', lastName: '', profilePath: '', address: '', coverPath: '', bio: '', relationship: '' };
-
-  constructor(private chatService: ChatService, private auth: AuthService, private http: HttpClient) { }
+  receiver: string;
+  chatId: string;
+  receiverFName: string;
+  receiverLName: string;
+  receiverImage: string;
+  messages: ChatMessages[];
+  constructor(private chatService: ChatService, private auth: AuthService, private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.receiver = this.route.snapshot.paramMap.get('id');
+    this.chatId = this.route.snapshot.paramMap.get('id2');
     this.http.get<UserInfo>("https://localhost:44328/api/User/GetUserInfo/" + this.auth.Id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
@@ -29,6 +37,39 @@ export class ChatComponent implements OnInit {
     })
     this.chatService.retrieveMappedObject().subscribe((receivedObj: MessageDto) => { this.addToInbox(receivedObj); });  // calls the service method to get the new messages sent
 
+    this.http.get<UserFirstName>("https://localhost:44328/api/User/GetUserFirstName/" + this.receiver, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: UserFirstName) => {
+        this.receiverFName = response.firstName;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+    this.http.get<UserLastName>("https://localhost:44328/api/User/GetUserLastName/" + this.receiver, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: UserLastName) => {
+        this.receiverLName = response.lastName;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+    this.http.get<UserImage>("https://localhost:44328/api/User/GetUserImage/" + this.receiver, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: UserImage) => {
+        this.receiverImage = response.profilePath;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+    this.http.get<ChatMessages[]>("https://localhost:44328/api/User/GetMessagesByChatId/" + this.chatId, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: ChatMessages[]) => {
+        this.messages = response;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+ 
   }
  
 
@@ -39,19 +80,23 @@ export class ChatComponent implements OnInit {
         window.alert("Both fields are required.");
         return;
       } else {
-        this.chatService.broadcastMessage(this.msgDto);                   // Send the message via a service
+        this.msgDto.sender = this.auth.Id;
+        this.msgDto.receiver = this.receiver;
+        this.chatService.broadcastMessage(this.msgDto);                 // Send the message via a service
+        this.msgDto.msgText = "";
+
       }
     }
   }
 
+  
+
   addToInbox(obj: MessageDto) {
     let newObj = new MessageDto();
-    newObj.sender = obj.sender;
-    newObj.receiver = obj.receiver;
+    newObj.sender = this.auth.Id;
+    newObj.receiver = this.receiver;
     newObj.msgText = obj.msgText;
-    console.log(newObj.msgText);
     this.msgInboxArray.push(newObj);
-
   }
 }
 interface UserInfo {
@@ -62,4 +107,22 @@ interface UserInfo {
   address: string;
   relationship: string;
   bio: string;
+}
+
+interface UserFirstName {
+  firstName: string;
+}
+
+interface UserLastName {
+  lastName: string;
+}
+
+interface UserImage {
+  profilePath: string;
+}
+
+interface ChatMessages {
+  senderId: string;
+  messageContent: string;
+  messageDate: Date;
 }

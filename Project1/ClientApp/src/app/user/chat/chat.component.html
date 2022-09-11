@@ -6,188 +6,65 @@
   <div class="messages-container">
     <div class="messages-container-inner">
 
-
-      <div class="messages-inbox">
-        <div class="messages-headline">
-          <div class="input-with-icon" hidden>
-            <input id="autocomplete-input" type="text" placeholder="Search">
-            <i class="icon-material-outline-search"></i>
-          </div>
-          <h2 class="text-2xl font-semibold">Chats</h2>
-          <span class="absolute icon-feather-edit mr-4 text-xl uk-position-center-right cursor-pointer"></span>
-        </div>
-        <div class="messages-inbox-inner" data-simplebar>
-          <ul>
-
-            <li>
-              <a href="#">
-                <div class="message-avatar"><i class="status-icon status-online"></i><img src="assets/assets/images/avatars/avatar-1.jpg" alt=""></div>
-
-                <div class="message-by">
-                  <div class="message-by-headline">
-                    <h5>Stella Johnson</h5>
-                    <span>4 hours ago</span>
-                  </div>
-                  <p>laoreet dolore magna aliquam erat volutpat sed diam nonummy</p>
-                </div>
-              </a>
-            </li>
-
-            <li class="active-message">
-              <a href="#">
-                <div class="message-avatar"><i class="status-icon status-offline"></i><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-
-                <div class="message-by">
-                  <div class="message-by-headline">
-                    <h5>Adrian Mohani</h5>
-                    <span>Yesterday</span>
-                  </div>
-                  <p>Sed diam nonummy nibh euismod tincidunt ut laoreet dolore</p>
-                </div>
-              </a>
-            </li>
-
-            <li>
-              <a href="#">
-                <div class="message-avatar"><i class="status-icon status-offline"></i><img src="assets/assets/images/avatars/avatar-3.jpg" alt=""></div>
-
-                <div class="message-by">
-                  <div class="message-by-headline">
-                    <h5>Alia Dolgove</h5>
-                    <span>2 days ago</span>
-                  </div>
-                  <p>Dipiscing elit, sed diam nonummy nibh euismod tincidunt </p>
-                </div>
-              </a>
-            </li>
-
-            <li>
-              <a href="#">
-                <div class="message-avatar"><i class="status-icon status-online"></i><img src="assets/assets/images/avatars/avatar-4.jpg" alt=""></div>
-
-                <div class="message-by">
-                  <div class="message-by-headline">
-                    <h5>Jonathan Madano</h5>
-                    <span>2 days ago</span>
-                  </div>
-                  <p>Nisl ut aliquip ex ea commodo consequa!</p>
-                </div>
-              </a>
-            </li>
-
-            <li>
-              <a href="#">
-                <div class="message-avatar"><i class="status-icon status-online"></i><img src="assets/assets/images/avatars/avatar-6.jpg" alt=""></div>
-
-                <div class="message-by">
-                  <div class="message-by-headline">
-                    <h5>Stella Johnson</h5>
-                    <span>4 hours ago</span>
-                  </div>
-                  <p>laoreet dolore magna aliquam erat volutpat sed diam nonummy</p>
-                </div>
-              </a>
-            </li>
-
-            <li>
-              <a href="#">
-                <div class="message-avatar"><i class="status-icon status-offline"></i><img src="assets/assets/images/avatars/avatar-5.jpg" alt=""></div>
-
-                <div class="message-by">
-                  <div class="message-by-headline">
-                    <h5>Adrian Mohani</h5>
-                    <span>Yesterday</span>
-                  </div>
-                  <p>Hi Tom! Hate to break it to you but I'm actually on vacation</p>
-                </div>
-              </a>
-            </li>
-
-            <li>
-              <a href="#">
-                <div class="message-avatar"><i class="status-icon status-offline"></i><img src="assets/assets/images/avatars/avatar-1.jpg" alt=""></div>
-
-                <div class="message-by">
-                  <div class="message-by-headline">
-                    <h5>Alia Dolgove</h5>
-                    <span>2 days ago</span>
-                  </div>
-                  <p>Dipiscing elit, sed diam nonummy nibh euismod tincidunt </p>
-                </div>
-              </a>
-            </li>
-
-            <li>
-              <a href="#">
-                <div class="message-avatar"><i class="status-icon status-online"></i><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-
-                <div class="message-by">
-                  <div class="message-by-headline">
-                    <h5>Jonathan Madano</h5>
-                    <span>2 days ago</span>
-                  </div>
-                  <p>Nisl ut aliquip ex ea commodo consequa</p>
-                </div>
-              </a>
-            </li>
-
-          </ul>
-        </div>
-      </div>
-
-
       <div class="message-content">
 
         <div class="messages-headline">
-          <h4> Stella Johnson </h4>
+          <h4> {{this.receiverFName}} {{this.receiverLName}} </h4>
           <a href="#" style="color: #f44336;" class="message-action text-red-500"><i class="icon-feather-trash-2"></i> <span class="md:inline hidden"> Delete Conversation</span> </a>
         </div>
 
-        <div class="message-content-scrolbar" data-simplebar>
-          <div class="message-content-inner">
-            <div class="message-time-sign">
-              <span>28 June, 2020</span>
-            </div>
-            <!--Sender-->
-            <div *ngFor="let mObj of msgInboxArray" class="message-bubble me">
+        <div id="messageBox"  style="max-height:490px" class="message-content-scrolbar" data-simplebar>
+          <div  class="message-content-inner">
+            <!--Old messages--> 
+            <div *ngFor="let message of messages">
 
-              <div class="message-bubble-inner">
-                <div class="message-avatar"><img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" alt=""></div>
-                <div class="message-text"><p>{{mObj.msgText}}</p></div>
-                <!--<div class="message-text"><p>Sender: {{mObj.sender}}</p></div>
-                <div class="message-text"><p>Receiver: {{mObj.receiver}}</p></div>-->
-
+              <div *ngIf="message.senderId == this.auth.Id" class="message-bubble me">
+                <div class="message-bubble-inner">
+                  <div class="message-avatar"><img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" alt=""></div>
+                  <div class="message-text"><p>{{message.messageContent}}</p></div>
+                </div>
+                  <div class="clearfix"></div>
+              </div>
+              <div *ngIf="message.senderId == this.receiver" class="message-bubble">
+                <div class="message-bubble-inner">
+                  <div class="message-avatar"><img src="../../../../../Resources/Images/user/profile/{{this.receiverImage}}" alt=""></div>
+                  <div class="message-text"><p>{{message.messageContent}}</p></div>
+                </div>
+                <div class="clearfix"></div>
               </div>
               <div class="clearfix"></div>
             </div>
-            <!--Receiver-->
-            <div class="message-bubble">
-              <div class="message-bubble-inner">
-                <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-                <div class="message-text"><p>Laoreet.  dolore magna imperdiet quod mazim placerat facer possim. 👍</p></div>
+            <!--<div class="message-time-sign">
+    <span>28 June, 2020</span>
+  </div>-->
+
+            <!--New messages-->
+            <div *ngFor="let mObj of msgInboxArray">
+
+              <!--<div *ngIf=" this.msgDto.sender == this.auth.Id" class="message-bubble me">
+      <div class="message-bubble-inner">
+        <div class="message-avatar"><img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" alt=""></div>
+        <div class="message-text"><p>{{mObj.msgText}}</p></div>
+      </div>
+      <div class="clearfix"></div>
+    </div>-->
+              <div *ngFor="let mObj of msgInboxArray" class="message-bubble">
+                <div class="message-bubble-inner">
+                  <div class="message-avatar"><img src="../../../../../Resources/Images/user/profile/{{this.receiverImage}}" alt=""></div>
+                  <div class="message-text"><p>{{mObj.msgText}}</p></div>
+                </div>
+                <div class="clearfix"></div>
               </div>
               <div class="clearfix"></div>
             </div>
 
-            <div class="message-time-sign">
-              <span>Yesterday</span>
-            </div>
+            <!--<div class="message-time-sign">
+    <span>Yesterday</span>
+  </div>-->
 
-            <div class="message-bubble me">
-              <div class="message-bubble-inner">
-                <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-                <div class="message-text"><p>Option congue nihil imperdiet mazim placerat facer possim.</p></div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
 
-            <div class="message-bubble">
-              <div class="message-bubble-inner">
-                <div class="message-avatar"><img src="assets/assets/images/avatars/avatar-2.jpg" alt=""></div>
-                <div class="message-text"><p>  Nam liber tempor cum soluta nobis eleifend  doming id quod mazim placerat 😎</p></div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
+
+
 
             <div class="message-bubble">
               <div class="message-bubble-inner">
@@ -203,21 +80,21 @@
               <div class="clearfix"></div>
             </div>
           </div>
-
-          <div class="message-reply">
-            <textarea style="padding-left:10px" class="msg-input" [(ngModel)]="msgDto.msgText" cols="1" rows="1" placeholder="Your Message"></textarea>
-            <button (click)="send()" class="button ripple-effect"><i class="icon ion-md-send"></i></button>
-          </div>
-          <input type="text" placeholder="sender" class="name-box" [(ngModel)]="msgDto.sender" />
-          <input type="text" placeholder="receiver" class="name-box" [(ngModel)]="msgDto.receiver" />
-
         </div>
 
-   
+        <div class="message-reply">
+          <textarea id="messageinput" style="padding-left:10px" class="msg-input" [(ngModel)]="msgDto.msgText" cols="1" rows="1" placeholder="Your Message"></textarea>
+          <button (click)="send()" class="button ripple-effect"><i class="icon ion-md-send"></i></button>
+        </div>
+        <!--<input value="{{this.auth.Id}}" type="text" placeholder="sender" class="name-box" />-->
+        <!--<input value="{{this.receiver}}" type="text" placeholder="receiver" class="name-box"  />-->
+
+
+
+
       </div>
     </div>
 
   </div>
 </div>
-
 

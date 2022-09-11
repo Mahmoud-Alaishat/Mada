@@ -11,6 +11,7 @@ namespace project.core.DTO
         public string LastName { get; set; }
         public string ProfilePath { get; set; }
         public DateTime ChatDate { get; set; }
+        public string FirstUserId { get; set; }
         public string SecondUserId { get; set; }
     }
 }

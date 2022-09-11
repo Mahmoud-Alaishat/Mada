@@ -359,7 +359,7 @@
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
 
-          <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+          <h6 class="font-weight-bolder mb-0">Revenue report</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 
@@ -526,60 +526,31 @@
 
                     <form [formGroup]="RevenueForm" (ngSubmit)="Revenue()">
 
-                      <!--<div>
-                        <label for="stype"> Type of search</label>
-                        <select id="stype" formControlName="SearchType" class="shadow-none selectpicker with-border" (change)="selected($event.target.value)">
-                          <option selected>Select type of search</option>
-                          <option value="1">Annually</option>
-                          <option value="2">Monthly</option>
-                        </select>
-                      </div>-->
+                      
+
                       <div class="d-flex" (change)="selected($event.target.value)">
-                        <label class="card-body text-uppercase mr-auto p-2" style="margin-top: 7px; "> Type Of Search</label>
-                        <select formControlName="SearchType" id="select1" style="width: 770px ; box-shadow: none; border-color: gray" class="form-select  dark:text-white p-2" aria-label="Default select example">
-                          <option selected>Open this select menu</option>
-                          <option value="1">Annual</option>
+                        <label class="card-body text-uppercase w-15 mr-1 p-2" style="margin-top: 7px; "> Type Of Search</label>
+                        <select formControlName="SearchType" id="select1" style=" box-shadow: none; border-color: gray; " class="form-select text-gray-700 dark:text-gray-100 p-2 w-85" aria-label="Default select example">
+                          <option value="0" selected>Select type of search</option>
+                          <option value="1">Annually</option>
                           <option value="2">Monthly</option>
                         </select>
                       </div>
                       <br />
-                      <!--<div *ngIf="this.year == true">
-    <label for="year"> Year</label>
-    <select id="year" formControlName="Year" class="shadow-none selectpicker with-border ">
-      <option value="2021" selected>2021</option>
-      <option value="2022">2022</option>
-      <option value="2023">2023</option>
-    </select>
-  </div>-->
+                      
                       <div class="d-flex" *ngIf="this.year == true">
-                        <label style="margin-top:7px" class="card-body text-uppercase mr-auto p-2"> Year</label>
-                        <select formControlName="Year" id="select2" style=" width: 770px; box-shadow: none; border-color: gray " class="form-select p-2" aria-label="Default select example">
+                        <label style="margin-top:7px" class="card-body text-uppercase w-15 mr-1 p-2"> Year</label>
+                        <select formControlName="Year" id="select2" style=" width: 770px; box-shadow: none; border-color: gray " class="form-select text-gray-700 dark:text-gray-100 p-2 w-85" aria-label="Default select example">
                           <option selected value="2021">2021</option>
                           <option value="2022">2022</option>
                           <option value="2023">2023</option>
                         </select>
                       </div>
                       <br />
-                      <!--<div *ngIf="this.manth == true">
-    <label for="month"> Month </label>
-    <select id="month" formControlName="Month" class="shadow-none selectpicker with-border ">
-      <option value="1" selected>January</option>
-      <option value="2">February</option>
-      <option value="3">March</option>
-      <option value="4">April</option>
-      <option value="5">May</option>
-      <option value="6">June</option>
-      <option value="7">July</option>
-      <option value="8">August</option>
-      <option value="9">September</option>
-      <option value="10">October</option>
-      <option value="11">November</option>
-      <option value="12">December</option>
-    </select>
-  </div>-->
-                      <div class="d-flex" *ngIf="this.manth == true">
-                        <label style="margin-top:7px;" class="card-body text-uppercase mr-auto p-2"> Month</label>
-                        <select formControlName="Month" id="select3" style=" width: 770px; border-color: gray; box-shadow: none;" class="form-select   p-2" aria-label="Default select example">
+                     
+                      <div class="d-flex" *ngIf="this.month == true">
+                        <label style="margin-top:7px;" class="card-body text-uppercase w-15 mr-1 p-2"> Month</label>
+                        <select formControlName="Month" id="select3" style=" width: 770px; border-color: gray; box-shadow: none;" class="form-select text-gray-700 dark:text-gray-100 p-2 w-85" aria-label="Default select example">
                           <option selected value="1">January</option>
                           <option value="2">February</option>
                           <option value="3">March</option>
@@ -594,8 +565,8 @@
                           <option value="12">December</option>
                         </select>
                       </div>
-                      <div class="bg-gray-10 p-6 pt-0 flex justify-content-center space-x-3">
-                        <button type="submit" class="btn font-semibold p-2 mt-5 rounded-md text-center text-white w-20" style="background-color: #4040e9;font-size:15px">
+                      <div class="mt-3  flex justify-content-center space-x-3">
+                        <button type="submit" class="btn bg-gradient-dark font-semibold rounded-md text-center text-white w-15" style="padding:0.72rem !important">
                           <i class="uil-search-alt"></i> Search
                         </button>
                       </div>
@@ -614,7 +585,13 @@
           <div class="col mb-lg-0 mb-4">
             <div class="card z-index-2">
               <div class="card-body p-3">
-                <h6>Services Revenue</h6>
+                <div class="d-flex justify-content-between">
+                  <h6>Services Revenue</h6>
+                  <span style="margin-right:80px" *ngIf="this.showDate && this.monthValue != '%20' " class="text-xs font-weight-bolder">Monthly</span>
+                  <span style="margin-right:80px" *ngIf="this.showDate && this.monthValue == '%20' " class="text-xs font-weight-bolder">Annually</span>
+                  <span *ngIf="this.showDate && this.monthValue != '%20' " class="text-xs font-weight-bolder mr-2">{{this.yearValue}}-{{this.monthValue}}</span>
+                  <span *ngIf="this.showDate && this.monthValue == '%20' " class="text-xs font-weight-bolder mr-2">{{this.yearValue}}</span>
+                </div>
                 <div class="table-responsive">
                   <table class="table align-items-center mb-0" id="example">
                     <thead>
