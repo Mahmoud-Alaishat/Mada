@@ -637,7 +637,7 @@ export class TimelineComponent implements OnInit {
       this.buyad.visaId = this.selectecarid
       this.postdate2 = new Date(this.postdate.value);
       const msInDay = 24 * 60 * 60 * 1000;
-      this.buyad.price = 2 * (Math.round(Math.abs(Number(this.postdate2) - Number(new Date())) / msInDay));
+      this.buyad.price = 2 * ((Math.round(Math.abs(Number(this.postdate2) - Number(new Date())) / msInDay)) + 1);
       this.sendPost.EndDate = this.postdate2;
       if (new Date() < this.postdate2 && this.buyad.price <= this.selectecarbalance) {
         this.http.post("https://localhost:44328/api/User/BuyAd/", this.buyad, {

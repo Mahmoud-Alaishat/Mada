@@ -30,6 +30,8 @@ export class SettingsComponent implements OnInit {
   profileImage: any;
   coverImage: any;
   showSuccess: boolean;
+    showSuccessCard: boolean;
+    showDeletedCard: boolean;
 
 
 
@@ -114,7 +116,6 @@ export class SettingsComponent implements OnInit {
       profilePath: this.userData.profilePath,
       coverPath: this.userData.coverPath
     }
-    console.log(this.userData);
     this.http.post("https://localhost:44328/api/User/UpdateUserProfile/" + this.auth.Id, this.userData, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe({
       next: () => {
         this.showSuccess = true;
@@ -141,6 +142,9 @@ export class SettingsComponent implements OnInit {
       .subscribe({
         next: () => {
           this.router.navigate(['user/settings'])
+          this.showDeletedCard = true;
+          window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+          setTimeout(() => { this.showDeletedCard = false; }, 4000)
           window.location.reload();
         },
         error: () => {
@@ -184,6 +188,9 @@ export class SettingsComponent implements OnInit {
           next: (response: Bank) => {
             this.CardForm.reset();
             this.router.navigate(["user/settings"]);
+            this.showSuccessCard = true;
+            window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+            setTimeout(() => { this.showSuccessCard = false; }, 4000)
             window.location.reload();
           },
           error: () => {

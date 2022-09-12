@@ -415,34 +415,7 @@
         </div>
 
 
-        <!--<div *ngFor="let post of friendPosts">
-          <div>
-            {{post.firstName}}  {{post.lastName}}
-          </div>
-          <div>
-            {{post.content}}
-          </div>
-          <div>
-            {{post.commentdat}}
-          </div>
-          <div>
-            {{post.postId}}
-          </div>
-          <div>
-            {{post.userId}}
-          </div>
-          <div *ngFor="let lik of post.like">
-            {{lik.firstName}} {{lik.lastName}}
-          </div>
-          <div *ngFor="let com of post.comment">
-            <div>{{com.firstName}} {{com.lastName}}</div>
-            <div> {{com.content}}</div>
-            <div  *ngFor="let re of com.reply" >
-              <div> {{re.firstName}} {{re.lastName}}</div>
-              <div>{{re.content}}</div>
-            </div>
-          </div>
-        </div>-->
+      
         
 
 
@@ -620,13 +593,13 @@
     </div>
   </div>
   <div *ngIf="this.showDeletedStory" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
-    <div style="width:23rem" class="bg-blue-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+    <div style="width:23rem" class="bg-red-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
       <h3 class="text-lg font-semibold text-white">Message</h3>
       <p class="text-white text-opacity-75">Story deleted successfully</p>
     </div>
   </div>
   <div *ngIf="this.showSelectImage" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute; top: 75px; z-index: 3 ">
-    <div style="width:23rem" class="bg-blue-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
+    <div style="width:23rem" class="bg-red-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
       <h3 class="text-lg font-semibold text-white">Message</h3>
       <p class="text-white text-opacity-75">Please select a image</p>
     </div>
@@ -795,7 +768,8 @@
       </div>
       <div *ngIf="isShow" style="margin-bottom:50px">
         <div class="bsolute bottom-0 p-4 space-x-4 w-full">
-          <input class="flex bg-gray-50 border border-purple-100 rounded-2xl p-2 shadow-sm items-center" type="date" id="birthday" matInput [formControl]="postdate" name="birthday">
+          <label class="mb-0 card-body  mr-auto p-2">Expiry date<span class="text-xs mb-0 card-body p-2 d-block" style="margin-left:-1px">*2 dollars per day</span></label>
+          <input class="flex bg-gray-50 border border-purple-100 rounded-2xl p-2 shadow-sm items-center" type="date" id="birthday" matInput [formControl]="postdate" name="birthday" style="margin:auto">
         </div>
         <div style="max-height:270px; margin-bottom:20px" class="dropdown_scrollbar" data-simplebar id="hhh">
           <div style="padding:10px" *ngFor="let v of visa" class="flex justify-between items-center">
