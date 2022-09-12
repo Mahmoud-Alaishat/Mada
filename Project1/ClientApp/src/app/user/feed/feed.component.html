@@ -1,12 +1,7 @@
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
 <div *ngIf="isAuthenticate && !isAdmin" class="main_content relative">
-  <div *ngIf="this.showError" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute;top:75px;z-index:3 ">
-    <div style="width:23rem" class="bg-red-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
-      <h3 class="text-lg font-semibold text-white">Alert</h3>
-      <p class="text-white text-opacity-75">Please enter a valid date</p>
-    </div>
-  </div>
+
   <div *ngIf="this.showSuccess" class="w-full relative left-0" style="display: flex; justify-content: end; position: absolute;top:75px;z-index:3 ">
     <div style="width:23rem" class="bg-green-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
       <h3 class="text-lg font-semibold text-white">Message</h3>
@@ -18,7 +13,7 @@
   <div *ngIf="this.showError" class="w-full left-0" style="display: flex; justify-content: end; position: absolute;top:75px;z-index:3 ">
     <div style="width:23rem" class="bg-red-500 border p-4 relative rounded-md  left-0 top-0" uk-alert>
       <h3 class="text-lg font-semibold text-white">Alert</h3>
-      <p class="text-white text-opacity-75">Please enter a valid date</p>
+      <p class="text-white text-opacity-75">Please check expiry date and the balance of the selected card</p>
     </div>
   </div>
 

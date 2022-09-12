@@ -23,8 +23,8 @@ namespace project.infra.Repository
             var parameter = new DynamicParameters();
             List<Chat> re = new List<Chat>();
             parameter.Add("chatid", chat.Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            parameter.Add("fuserid", chat.FirstUserId, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            parameter.Add("suserid", chat.SecondUserId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            parameter.Add("fuserid", chat.FirstUserId, dbType: DbType.String, direction: ParameterDirection.Input);
+            parameter.Add("suserid", chat.SecondUserId, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("statusfuser", chat.StatusInFUser, dbType: DbType.Int32, direction: ParameterDirection.Input);
             parameter.Add("statussuser", chat.StatusInSUser, dbType: DbType.Int32, direction: ParameterDirection.Input);
            

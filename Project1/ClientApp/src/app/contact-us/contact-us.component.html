@@ -46,16 +46,16 @@
           <textarea formControlName="Message" placeholder="How can we help?" rows="5" class="with-border md:col-span-2 p-5 px-7 resize-none h-72" required></textarea>
           <mat-error class="err" *ngIf="ContactForm.controls['Message'].hasError('required')&&(ContactForm.controls['Message'].dirty || ContactForm.controls['Message'].touched)">Message is <strong>required</strong></mat-error>
         </div>
-        <div class="checkbox">
+        <!--<div class="checkbox">
           <input type="checkbox" id="chekcbox1" checked="">
           <label for="chekcbox1">
             <span class="checkbox-icon"></span> I agree to the <a href="pages-terms.html" target="_blank" class="uk-text-bold uk-text-small uk-link-reset"> Terms and Conditions </a>
           </label>
-        </div>
+        </div>-->
 
         <div>
           <button type="submit" [disabled]="!ContactForm.valid" class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full">
-            Get Started
+            Send
           </button>
         </div>
       </form>

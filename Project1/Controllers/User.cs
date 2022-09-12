@@ -33,10 +33,11 @@ namespace Project1.Controllers
         private readonly IAttachmentService attachmentService;
         private readonly IFeedbackService feedbackService;
         private readonly IMessageService messageService;
+        private readonly IChatService chatService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
            IReportService reportService, IStoryService storyService, IAttachmentService attachmentService, ILikeService likeService,
-           ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub, IFeedbackService feedbackService, IMessageService messageService)
+           ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub, IFeedbackService feedbackService, IMessageService messageService, IChatService chatService)
             
         {
             this.commentService = commentService;
@@ -54,6 +55,7 @@ namespace Project1.Controllers
             this.reportService=reportService;
             this.feedbackService = feedbackService;
             this.messageService = messageService;
+            this.chatService = chatService; 
         }
 
         [HttpPost]
@@ -625,6 +627,12 @@ namespace Project1.Controllers
             return Ok(userService.GetFullNameByUserId(userId));
         }
 
+        [HttpGet]
+        [Route("GetChatById/{chatId}")]
+        public IActionResult GetChatById(int chatId)
+        {
+            return Ok(chatService.GetChatById(chatId));
+        }
 
     }
 }
