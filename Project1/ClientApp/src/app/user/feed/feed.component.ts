@@ -83,6 +83,10 @@ export class FeedComponent implements OnInit {
     feedbackStatus: 0,
     userId: ''
   }
+  mystory: FriendStory[];
+  showStorySuccess: boolean;
+    showSelectImage: boolean;
+    showDeletedStory: boolean;
 
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService, private auth: AuthService) { }
@@ -199,6 +203,14 @@ export class FeedComponent implements OnInit {
       next: (response: FriendStory[]) => {
         this.friendstory = response;
         this.friendstorylast5 = response.slice(0, 5);
+        
+        for (let i = 0; i < response.length; i++) {
+          if (response[i].userId == this.auth.Id) {
+            this.mystory.push(response[i]);
+            
+          }
+        }
+        console.log(this.mystory);
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
@@ -508,6 +520,9 @@ export class FeedComponent implements OnInit {
   setUkToggleReport(id: number): void {
     document.getElementById("repoet-btn-" + id).setAttribute('uk-toggle', 'target: #repoet-' + id);
   }
+  setUkToggleStoryReport(id: number): void {
+    document.getElementById("repoet-btn-" + id).setAttribute('uk-toggle', 'target: #repoet-' + id);
+  }
 
   HitLikes(postId: number) {
     this.putLike.postId = postId;
@@ -739,15 +754,25 @@ export class FeedComponent implements OnInit {
     this.story.item = this.storyImage;
 
     this.story.userId = this.auth.Id;
-
-    this.http.post("https://localhost:44328/api/User/AddStory/", this.story, {
-      headers: new HttpHeaders({ "Content-Type": "application/json" })
-    }).subscribe({
-      next: () => {
-        window.location.reload();
-      },
-      error: (err: HttpErrorResponse) => console.log("no data")
-    })
+    if (this.story.item != null) {
+      this.http.post("https://localhost:44328/api/User/AddStory/", this.story, {
+        headers: new HttpHeaders({ "Content-Type": "application/json" })
+      }).subscribe({
+        next: () => {
+          this.showStorySuccess = true;
+          window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+          setTimeout(() => { this.showStorySuccess = false; }, 4000);
+          window.location.reload();
+        },
+        error: (err: HttpErrorResponse) => console.log("no data")
+      })
+    }
+    else {
+      this.showSelectImage = true;
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+      setTimeout(() => { this.showSelectImage = false; }, 4000);
+    }
+    
 
 
   }
@@ -758,6 +783,19 @@ export class FeedComponent implements OnInit {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
       next: () => {
+        window.location.reload();
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+  }
+  DeleteStory(id:number) {
+    this.http.post("https://localhost:44328/api/User/DeleteStory/"+ id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: () => {
+        this.showDeletedStory = true;
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+        setTimeout(() => { this.showDeletedStory = false; }, 4000);
         window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")

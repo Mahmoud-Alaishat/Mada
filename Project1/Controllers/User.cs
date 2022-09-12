@@ -37,9 +37,8 @@ namespace Project1.Controllers
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
            IReportService reportService, IStoryService storyService, IAttachmentService attachmentService, ILikeService likeService,
-           ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub, IFeedbackService feedbackService,
-           IChatService chatService, IMessageService messageService)
-
+           ISubscriptionService subscriptionService, IBankService bankService, IHubContext<ChatHub> chatHub, IFeedbackService feedbackService)
+            
         {
             this.commentService = commentService;
             this.contactUsService = contactUsService;
@@ -53,10 +52,8 @@ namespace Project1.Controllers
             this.subscriptionService = subscriptionService;
             this.chatHub = chatHub;
             this.storyService = storyService;
-            this.reportService = reportService;
-            this.feedbackService = feedbackService;
-            this.chatService = chatService;
-            this.messageService = messageService;
+            this.reportService=reportService;
+            this.feedbackService = feedbackService; 
         }
 
         [HttpPost]
@@ -614,6 +611,21 @@ namespace Project1.Controllers
         public IActionResult GetLastMessageByChatId(int chaId)
         {
             return Ok(userService.GetLastMessageByChatId(chaId));
+        }
+        
+        [HttpPost]
+        [Route("DeleteStory/{storyId}")]
+        public IActionResult DeleteStory(int storyId)
+        {
+            storyService.Delete(storyId);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("saveMessage")]
+        public IActionResult SaveMessage([FromBody] Message message)
+        {
+            return Ok(messageService.Create(message));
         }
 
 

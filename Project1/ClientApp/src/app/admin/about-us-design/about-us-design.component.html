@@ -407,46 +407,46 @@
               <div class="card-body p-3">
 
                 <h5 class="ms-2 mt-4 mb-0">About us design</h5>
-                <form class="lg:p-10 p-6 space-y-3 relative  shadow-xl rounded-md" enctype="multipart/form-data">
+                <form class="lg:p-10 p-6 space-y-3 relative  shadow-xl rounded-md" (ngSubmit)="UpdateAboutUs()" enctype="multipart/form-data">
 
                   <div class="grid lg:grid-cols-2 gap-3">
                     <div>
-                      <label class="mb-0">First Main text </label>
+                      <label class="mb-0 card-body  mr-auto p-2">First Main text </label>
                       <input type="text" name="MainText" id="maintext" placeholder="{{aboutDesign.mainText1}}" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
                     </div>
                     <div>
-                      <label for="">About Us Image</label>
+                      <label class=" card-body  mr-auto p-2" for="">About Us Image</label>
                       <input (change)="uploadAboutImg(file.files)" placeholder="{{aboutDesign.slideImage1}}" #file style="padding-left: 0px;" type="file" class="uploade" accept="image/*" />
 
                     </div>
                   </div>
 
                   <div>
-                    <label for="">First Sub text</label>
+                    <label class="mb-0 card-body  mr-auto p-2" for="">First Sub text</label>
                     <textarea placeholder="{{aboutDesign.subText1}}" name="SubText" id="subtext" rows="3" class="with-border md:col-span-2 p-3 px-3 resize-none " required></textarea>
                   </div>
                   <div>
-                    <label class="mb-0">Second Main text </label>
+                    <label class="mb-0 card-body  mr-auto p-2">Second Main text </label>
                     <input type="text" name="MainText" id="maintext1" placeholder="{{aboutDesign.mainText2}}" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
                   </div>
 
                   <div>
-                    <label for="">Second Sub text</label>
+                    <label class="mb-0 card-body  mr-auto p-2" for="">Second Sub text</label>
                     <textarea placeholder="{{aboutDesign.subText2}}" name="SubText" id="subtext1" rows="3" class="with-border md:col-span-2 p-3 px-3 resize-none " required></textarea>
                   </div>
                   <div>
-                    <label class="mb-0">Third Main text </label>
+                    <label class="mb-0 card-body  mr-auto p-2" >Third Main text </label>
                     <input type="text" name="MainText" id="maintext2" placeholder="{{aboutDesign.mainText3}}" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" required>
                   </div>
                   <div>
-                    <label for="">Third Sub text</label>
-                    <textarea placeholder="{{aboutDesign.subText3}}" name="SubText" id="subtext2" rows="3" class="with-border md:col-span-2 p-3 px-3 resize-none " required></textarea>
+                    <label class="mb-0 card-body  mr-auto p-2" for="">Third Sub text</label>
+                    <textarea placeholder="{{aboutDesign.subText3}}" name="SubText" id="subtext2" rows="8" class="with-border md:col-span-2 p-3 px-3 resize-none "   required></textarea>
                   </div>
                   <div class="centered-button">
-
-                    <button type="submit" (click)="UpdateAboutUs()" class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-30">
-                      Get Started
+                    <button type="submit" class="btn font-semibold p-2 mt-5 rounded-md text-center text-white w-20" style="background-color: #4040e9;font-size:15px">
+                      Update
                     </button>
+
                   </div>
                 </form>
 
