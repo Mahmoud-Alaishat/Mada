@@ -23,6 +23,20 @@ export class ChatComponent implements OnInit {
   messages: ChatMessages[];
   messageData: Message = { id: 0, senderId: '', messageContent: '', chatId: 0, messageDate: undefined };
   newMessage: Message = { id: 0, senderId: '', messageContent: '', chatId: 0, messageDate: undefined };
+  chatInfo: UserChats = {
+      id: 0,
+      firstName: '',
+      lastName: '',
+      profilePath: '',
+      firstUserId: '',
+      secondUserId: '',
+      chatDate: undefined,
+      friendId: '',
+      friendFullName: '',
+      friendImage: '',
+      lastMessage: '',
+      lastSenderId: ''
+  }
   constructor(private chatService: ChatService, private auth: AuthService, private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -33,6 +47,21 @@ export class ChatComponent implements OnInit {
     }).subscribe({
       next: (response: UserInfo) => {
         this.userData = response;
+      },
+      error: (err: HttpErrorResponse) => console.log("no data")
+    })
+    this.http.get<UserChats>("https://localhost:44328/api/User/GetChatById/" + this.chatId, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    }).subscribe({
+      next: (response: UserChats) => {
+        this.chatInfo = response;
+        if (this.chatInfo.firstUserId != this.auth.Id) {
+          this.chatInfo.friendId = this.chatInfo.firstUserId
+        }
+        else {
+          this.chatInfo.friendId = this.chatInfo.secondUserId;
+        }
+        console.log(this.chatInfo.friendId);
       },
       error: (err: HttpErrorResponse) => console.log("no data")
     })
@@ -77,6 +106,8 @@ export class ChatComponent implements OnInit {
         this.msgDto.receiver = this.receiver;
         this.msgDto.chatId = parseInt(this.chatId);
         this.msgDto.messageDate = new Date();
+        console.log(this.msgDto);
+
         this.chatService.broadcastMessage(this.msgDto);                 // Send the message via a service
         this.messageData.chatId = parseInt(this.chatId);
         this.messageData.senderId = this.auth.Id;
@@ -100,15 +131,16 @@ export class ChatComponent implements OnInit {
   
 
   addToInbox(obj: MessageDto) {
-    let newObj = new MessageDto();
-    newObj.sender = this.auth.Id;
-    newObj.receiver = this.receiver;
+    const newObj = new MessageDto();
+    newObj.sender = obj.sender;
+    newObj.receiver = obj.receiver;
     newObj.msgText = obj.msgText;
     this.newMessage.senderId = this.auth.Id;
     this.newMessage.messageContent = obj.msgText;
     this.newMessage.chatId = parseInt(this.chatId);
     this.newMessage.messageDate = new Date();
     this.msgInboxArray.push(newObj);
+    console.log(this.msgInboxArray);
   }
 }
 interface UserInfo {
@@ -141,4 +173,19 @@ interface Message {
   messageContent: string;
   chatId: number;
   messageDate: Date;
+}
+
+interface UserChats {
+  id: number;
+  firstName: string;
+  lastName: string;
+  profilePath: string;
+  firstUserId: string;
+  secondUserId: string;
+  chatDate: Date;
+  friendId: string;
+  friendFullName: string;
+  friendImage: string;
+  lastMessage: string;
+  lastSenderId: string;
 }

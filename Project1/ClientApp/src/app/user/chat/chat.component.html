@@ -41,14 +41,14 @@
             <!--New messages-->
             <div *ngFor="let mObj of msgInboxArray">
 
-              <div *ngIf=" this.msgDto.sender == this.auth.Id" class="message-bubble me">
+              <div *ngIf=" mObj.sender === this.auth.Id" class="message-bubble me">
                  <div class="message-bubble-inner">
                    <div class="message-avatar"><img src="../../../../../Resources/Images/user/profile/{{userData.profilePath}}" alt=""></div>
                    <div class="message-text"><p>{{mObj.msgText}}</p></div>
                  </div>
                  <div class="clearfix"></div>
                </div>
-              <div *ngIf=" this.msgDto.sender != this.auth.Id" class="message-bubble">
+              <div *ngIf=" mObj.sender !== this.auth.Id" class="message-bubble">
                 <div class="message-bubble-inner">
                   <div class="message-avatar"><img src="../../../../../Resources/Images/user/profile/{{this.receiverImage}}" alt=""></div>
                   <div class="message-text"><p>{{mObj.msgText}}</p></div>
@@ -83,11 +83,11 @@
         </div>
 
         <div class="message-reply">
-          <textarea id="messageinput" style="padding-left:10px" class="msg-input" [(ngModel)]="msgDto.msgText" cols="1" rows="1" placeholder="Your Message"></textarea>
+          <textarea id="messageinput" style="padding-left:10px" class="msg-input" [(ngModel)]="msgDto.msgText" cols="1" rows="1" placeholder="Your Message" autofocus></textarea>
           <button (click)="send()" class="button ripple-effect"><i class="icon ion-md-send"></i></button>
         </div>
-        <!--<input value="{{this.auth.Id}}" type="text" placeholder="sender" class="name-box" />-->
-        <!--<input value="{{this.receiver}}" type="text" placeholder="receiver" class="name-box"  />-->
+        <input hidden value="{{this.auth.Id}}" type="text" placeholder="sender" class="name-box" />
+        <input hidden value="{{this.receiver}}" type="text" placeholder="receiver" class="name-box"  />
 
 
 
