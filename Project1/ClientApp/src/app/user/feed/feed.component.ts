@@ -258,7 +258,7 @@ export class FeedComponent implements OnInit {
               }
             })
           }
-          else if ((this.userData.subscriptionId == 2 && this.numOfPost.numberOfPost < this.subscriptions[1].limitPost + this.userData.staticNumPost) || (this.userData.subscriptionId == 2 && this.userData.subscribeexpiry > new Date())) {
+          else if ((this.userData.subscriptionId == 2 && this.numOfPost.numberOfPost <  this.userData.staticNumPost) || (this.userData.subscriptionId == 2 && this.userData.subscribeexpiry > new Date())) {
             this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
               headers: new HttpHeaders({ "Content-Type": "application/json" })
             }).subscribe({
@@ -288,7 +288,7 @@ export class FeedComponent implements OnInit {
               }
             })
           }
-          else if ((this.userData.subscriptionId == 3 && this.numOfPost.numberOfPost < this.subscriptions[2].limitPost + this.userData.staticNumPost) || (this.userData.subscriptionId == 3 && this.userData.subscribeexpiry > new Date())) {
+          else if ((this.userData.subscriptionId == 3 && this.numOfPost.numberOfPost <  this.userData.staticNumPost) || (this.userData.subscriptionId == 3 && this.userData.subscribeexpiry > new Date())) {
             this.http.post("https://localhost:44328/api/User/MakePost/", this.sendPost, {
               headers: new HttpHeaders({ "Content-Type": "application/json" })
             }).subscribe({
@@ -350,9 +350,10 @@ export class FeedComponent implements OnInit {
       this.buyad.visaId = this.selectecarid
       this.postdate2 = new Date(this.postdate.value);
       const msInDay = 24 * 60 * 60 * 1000;
-      this.buyad.price = 2 * (Math.round(Math.abs(Number(this.postdate2) - Number(new Date())) / msInDay));
+      this.buyad.price = 2 * ((Math.round(Math.abs(Number(this.postdate2) - Number(new Date())) / msInDay))+1);
       this.sendPost.EndDate = this.postdate2;
-      if (new Date() < this.postdate2) {
+
+      if (new Date() < this.postdate2 && this.buyad.price <= this.selectecarbalance) {
         this.http.post("https://localhost:44328/api/User/BuyAd/", this.buyad, {
           headers: new HttpHeaders({ "Content-Type": "application/json" })
         }).subscribe({

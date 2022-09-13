@@ -89,6 +89,7 @@ export class SubscriptionComponent implements OnInit {
   BuySubscription() {
     if (this.priceselectedsub > this.selectecarbalance) {
       this.showError = true;
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
       setTimeout(() => { this.showError = false; }, 4000)
       return;
     }
