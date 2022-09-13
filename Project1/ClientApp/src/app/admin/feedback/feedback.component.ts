@@ -122,6 +122,7 @@ export class FeedbackComponent implements OnInit {
     }).subscribe({
       next: () => {
         this.showSuccess = true;
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
         setTimeout(() => { this.showSuccess = false; }, 4000);
         window.location.reload();
       },
@@ -133,9 +134,7 @@ export class FeedbackComponent implements OnInit {
     this.http.post("https://localhost:44328/api/Admin/RejectFeedback/" + Id, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
     }).subscribe({
-      next: () => {
-        this.showSuccess = true;
-        setTimeout(() => { this.showSuccess = false; }, 4000);
+      next: () => {        
         window.location.reload();
       },
       error: (err: HttpErrorResponse) => console.log("no data")
