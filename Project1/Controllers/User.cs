@@ -34,7 +34,6 @@ namespace Project1.Controllers
         private readonly IFeedbackService feedbackService;
         private readonly IChatService chatService;
         private readonly IMessageService messageService;
-        private readonly IChatService chatService;
         public User(ICommentService commentService, IContactUsService contactUsService,
             IUserService userService, IFriendService friendService, IPostService postService, IReplyService replyService,
            IReportService reportService, IStoryService storyService, IAttachmentService attachmentService, ILikeService likeService,
@@ -637,13 +636,6 @@ namespace Project1.Controllers
         public IActionResult GetFullNameByUserId(string userId)
         {
             return Ok(userService.GetFullNameByUserId(userId));
-        }
-
-        [HttpGet]
-        [Route("GetChatById/{chatId}")]
-        public IActionResult GetChatById(int chatId)
-        {
-            return Ok(chatService.GetChatById(chatId));
         }
 
     }

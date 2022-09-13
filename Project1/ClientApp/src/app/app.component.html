@@ -2,7 +2,6 @@
 <app-nav-bar *ngIf="isUserAuthenticated() && !isAdmin()"></app-nav-bar>
 <app-side-bar *ngIf="isUserAuthenticated() && !isAdmin()"></app-side-bar>
 <app-nav-menu *ngIf="!isUserAuthenticated()"></app-nav-menu>
-<app-open-chat *ngIf="isUserAuthenticated() && !isAdmin()"></app-open-chat>
 
 <router-outlet></router-outlet>
 

@@ -109,7 +109,6 @@ export class ReportsComponent implements OnInit {
   //  this.monthValue = m;
   //}
   Revenue() {
-    alert("Revenue fun!");
     var count1=0;
     var count2 = 0;
     let maintext = this.RevenueForm.controls['SearchType'].value;
@@ -146,8 +145,6 @@ export class ReportsComponent implements OnInit {
         error: (err: HttpErrorResponse) => console.log("no data")
       })
     this.showDate = true;
-    alert(this.yearValue);
-    alert(this.monthValue);
   }
   logOut = () => {
     localStorage.removeItem("token");

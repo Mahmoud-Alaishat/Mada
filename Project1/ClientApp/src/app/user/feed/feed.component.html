@@ -462,7 +462,7 @@
             <div *ngFor="let friend of friends">
               <a href="#">
                 <div class="contact-avatar">
-                  <img src="assets/assets/images/avatars/avatar-1.jpg" alt="">
+                  <img src="../../../../../Resources/Images/user/profile/{{friend.profilePath}}" alt="">
                   <span class="user_status status_online"></span>
                 </div>
                 <div class="contact-username capitalize"> {{friend.firstName}}  {{friend.lastName}} </div>
@@ -470,7 +470,7 @@
               <div uk-drop="pos: left-center ;animation: uk-animation-slide-left-small">
                 <div class="contact-list-box">
                   <div class="contact-avatar">
-                    <img src="assets/assets/images/avatars/avatar-2.jpg" alt="">
+                    <img src="../../../../../Resources/Images/user/profile/{{friend.profilePath}}" alt="">
                     <span class="user_status status_online"></span>
                   </div>
                   <div class="contact-username capitalize">   {{friend.firstName}}  {{friend.lastName}}</div>

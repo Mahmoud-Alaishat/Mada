@@ -367,7 +367,7 @@
                   <h6 class="text-dark">
                     <strong class="text-dark">From:</strong> {{Email.name}}<br /><small class="text-muted">{{Email.email}}</small>
                   </h6>
-                  <small class="text-dark">date</small>
+                  <small class="text-dark"> {{Email.date | date:'mediumDate'}} {{Email.date | date:'shortTime'}}</small>
                 </div>
                 <p class="mb-3 text-dark">
                   <strong class="text-dark">Subject:</strong> {{Email.subject}}
@@ -393,12 +393,7 @@
                     <button (click)="sendEmail()" class="btn bg-gradient-dark font-semibold  mt-3 w-10">
                       <i class="icon-feather-send"></i> Send
                     </button>
-                  </div>
-                  <div id="editor">
-                    <p>Hello World!</p>
-                    <p>Some initial <strong>bold</strong> text</p>
-                    <p><br></p>
-                  </div>
+                  </div> 
 
                 </div>
               </div>
