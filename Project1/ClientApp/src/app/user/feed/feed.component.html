@@ -82,7 +82,8 @@
               </a>
               <div class="flex-1 font-semibold capitalize">
                 <a href="https://localhost:44328/user/{{SetHref(post.userId)}}" class="text-gray-700 dark:text-gray-100"> {{post.firstName}} {{post.lastName}} </a>
-                <div *ngIf="isToday(post.postDate | date: 'MM/dd/yyyy') && post.typePost == 2" class="text-gray-700 flex items-center space-x-2">  <span class="text-sm">{{getHoursDiff(post.postDate | date:'HH')}} hrs </span> <i class="icon ion-md-people"></i></div>
+                <div *ngIf="isToday(post.postDate | date: 'MM/dd/yyyy') && post.typePost == 2 && getHoursDiff(post.postDate | date:'HH') == 0" class="text-gray-700 flex items-center space-x-2">  <span class="text-sm"> Now </span> <i class="icon ion-md-people"></i></div>
+                <div *ngIf="isToday(post.postDate | date: 'MM/dd/yyyy') && post.typePost == 2 && getHoursDiff(post.postDate | date:'HH') > 0" class="text-gray-700 flex items-center space-x-2">  <span class="text-sm">{{getHoursDiff(post.postDate | date:'HH')}} hrs </span> <i class="icon ion-md-people"></i></div>
                 <div *ngIf="!isToday(post.postDate | date: 'MM/dd/yyyy') && post.typePost == 2" class="text-gray-700 flex items-center space-x-2">  <span class="text-sm"> {{post.postDate | date}} </span> <i class="icon ion-md-people"></i></div>
                 <div *ngIf="post.typePost == 3" class="text-gray-700 flex items-center space-x-2">  <span class="text-sm"> Advertisement </span> <i class="icon ion-md-globe"></i></div>
               </div>
@@ -626,7 +627,7 @@
       </a>
       <div>
 
-        <h3 class="text-lg font-medium lg:mt-3 mt-1">Friends Story</h3>
+        <h3 class="text-lg font-medium lg:mt-3 mt-1">Story</h3>
 
         <div class="story-users-list" uk-switcher="connect: #story_slider ; toggle: > * ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium ">
 

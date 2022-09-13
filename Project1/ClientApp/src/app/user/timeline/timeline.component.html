@@ -184,7 +184,8 @@
                 </a>
                 <div class="flex-1 font-semibold capitalize">
                   <a href="https://localhost:44328/user/timeline" class="text-gray-700 dark:text-gray-100"> {{userData.firstName}} {{userData.lastName}} </a>
-                  <div *ngIf="isToday(post.postDate | date: 'MM/dd/yyyy')" class="text-gray-700 flex items-center space-x-2"> {{getHoursDiff(post.postDate | date:'HH')}} <span> hrs </span> <i class="icon ion-md-people"></i></div>
+                  <div *ngIf="isToday(post.postDate | date: 'MM/dd/yyyy') && getHoursDiff(post.postDate | date:'HH') == 0" class="text-gray-700 flex items-center space-x-2"> Now <span>  </span> <i class="icon ion-md-people"></i></div>
+                  <div *ngIf="isToday(post.postDate | date: 'MM/dd/yyyy') && getHoursDiff(post.postDate | date:'HH') > 0" class="text-gray-700 flex items-center space-x-2"> {{getHoursDiff(post.postDate | date:'HH')}} <span> hrs </span> <i class="icon ion-md-people"></i></div>
                   <div *ngIf="!isToday(post.postDate | date: 'MM/dd/yyyy')" class="text-gray-700 flex items-center space-x-2"> {{post.postDate | date}} <span>  </span> <i class="icon ion-md-people"></i></div>
                 </div>
               </div>
@@ -571,68 +572,6 @@
             </div>
             <a href="#" class="button gray mt-3 w-full">  See all </a>
           </div>
-
-          <div class="widget card p-5 border-t">
-            <div class="flex items-center justify-between mb-2">
-              <div>
-                <h4 class="text-lg font-semibold"> Groups </h4>
-              </div>
-              <a href="#" class="text-blue-600 "> See all</a>
-            </div>
-            <div>
-
-              <div class="flex items-center space-x-4 rounded-md -mx-2 p-2 hover:bg-gray-50">
-                <a href="timeline-group.html" class="w-12 h-12 flex-shrink-0 overflow-hidden rounded-full relative">
-                  <img src="assets/assets/images/group/group-3.jpg" class="absolute w-full h-full inset-0 " alt="">
-                </a>
-                <div class="flex-1">
-                  <a href="timeline-page.html" class="text-base font-semibold capitalize"> Graphic Design  </a>
-                  <div class="text-sm text-gray-500 mt-0.5"> 345K  Following</div>
-                </div>
-                <a href="timeline-page.html" class="flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold bg-blue-500 text-white">
-                  Join
-                </a>
-              </div>
-              <div class="flex items-center space-x-4 rounded-md -mx-2 p-2 hover:bg-gray-50">
-                <a href="timeline-group.html" class="w-12 h-12 flex-shrink-0 overflow-hidden rounded-full relative">
-                  <img src="assets/assets/images/group/group-4.jpg" class="absolute w-full h-full inset-0 " alt="">
-                </a>
-                <div class="flex-1">
-                  <a href="timeline-page.html" class="text-base font-semibold capitalize"> Mountain Riders </a>
-                  <div class="text-sm text-gray-500 mt-0.5"> 452k Following </div>
-                </div>
-                <a href="timeline-page.html" class="flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold bg-blue-500 text-white">
-                  Join
-                </a>
-              </div>
-              <div class="flex items-center space-x-4 rounded-md -mx-2 p-2 hover:bg-gray-50">
-                <a href="timeline-group.html" class="w-12 h-12 flex-shrink-0 overflow-hidden rounded-full relative">
-                  <img src="assets/assets/images/group/group-2.jpg" class="absolute w-full h-full inset-0" alt="">
-                </a>
-                <div class="flex-1">
-                  <a href="timeline-page.html" class="text-base font-semibold capitalize">  Coffee Addicts  </a>
-                  <div class="text-sm text-gray-500 mt-0.5"> 845K Following</div>
-                </div>
-                <a href="timeline-page.html" class="flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold bg-blue-500 text-white">
-                  Join
-                </a>
-              </div>
-              <div class="flex items-center space-x-4 rounded-md -mx-2 p-2 hover:bg-gray-50">
-                <a href="timeline-group.html" class="w-12 h-12 flex-shrink-0 overflow-hidden rounded-full relative">
-                  <img src="assets/assets/images/group/group-1.jpg" class="absolute w-full h-full inset-0" alt="">
-                </a>
-                <div class="flex-1">
-                  <a href="timeline-page.html" class="text-base font-semibold capitalize"> Architecture    </a>
-                  <div class="text-sm text-gray-500 mt-0.5"> 237K Following</div>
-                </div>
-                <a href="timeline-page.html" class="flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold bg-blue-500 text-white">
-                  Join
-                </a>
-              </div>
-
-            </div>
-          </div>
-
         </div>
       </div>
 
@@ -676,7 +615,7 @@
 
       </div>
       <!-- Photos  -->
-      <div class="card md:p-6 p-2 max-w-3xl mx-auto">
+      <!--<div class="card md:p-6 p-2 max-w-3xl mx-auto">
 
         <div class="flex justify-between items-start relative md:mb-4 mb-3">
           <div class="flex-1">
@@ -700,9 +639,9 @@
         <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 mt-5">
           <div>
             <div class="bg-green-400 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-              <img src="assets/assets/images/post/img-1.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="assets/assets/images/post/img-1.jpg" class="w-full h-full absolute object-cover inset-0">-->
               <!-- overly-->
-              <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
+              <!--<div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
               <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
                 <div class="text-base"> Image description  </div>
                 <div class="flex justify-between text-xs">
@@ -715,9 +654,9 @@
           </div>
           <div>
             <div class="bg-gray-200 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-              <img src="assets/assets/images/post/img-2.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="assets/assets/images/post/img-2.jpg" class="w-full h-full absolute object-cover inset-0">-->
               <!-- overly-->
-              <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
+              <!--<div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
               <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
                 <div class="text-base"> Image description  </div>
                 <div class="flex justify-between text-xs">
@@ -730,9 +669,9 @@
           </div>
           <div>
             <div class="bg-gray-200 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-              <img src="assets/assets/images/avatars/avatar-3.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="assets/assets/images/avatars/avatar-3.jpg" class="w-full h-full absolute object-cover inset-0">-->
               <!-- overly-->
-              <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
+              <!--<div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
               <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
                 <div class="text-base"> Image description  </div>
                 <div class="flex justify-between text-xs">
@@ -745,9 +684,9 @@
           </div>
           <div>
             <div class="bg-gray-200 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-              <img src="assets/assets/images/post/img-4.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="assets/assets/images/post/img-4.jpg" class="w-full h-full absolute object-cover inset-0">-->
               <!-- overly-->
-              <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
+              <!--<div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
               <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
                 <div class="text-base"> Image description  </div>
                 <div class="flex justify-between text-xs">
@@ -760,9 +699,9 @@
           </div>
           <div>
             <div class="bg-gray-200 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-              <img src="assets/assets/images/avatars/avatar-7.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="assets/assets/images/avatars/avatar-7.jpg" class="w-full h-full absolute object-cover inset-0">-->
               <!-- overly-->
-              <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
+              <!--<div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
               <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
                 <div class="text-base"> Image description  </div>
                 <div class="flex justify-between text-xs">
@@ -775,9 +714,9 @@
           </div>
           <div>
             <div class="bg-gray-200 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-              <img src="assets/assets/images/avatars/avatar-4.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="assets/assets/images/avatars/avatar-4.jpg" class="w-full h-full absolute object-cover inset-0">-->
               <!-- overly-->
-              <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
+              <!--<div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
               <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
                 <div class="text-base"> Image description  </div>
                 <div class="flex justify-between text-xs">
@@ -790,9 +729,9 @@
           </div>
           <div>
             <div class="bg-gray-200 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-              <img src="assets/assets/images/post/img-1.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="assets/assets/images/post/img-1.jpg" class="w-full h-full absolute object-cover inset-0">-->
               <!-- overly-->
-              <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
+              <!--<div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
               <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
                 <div class="text-base"> Image description  </div>
                 <div class="flex justify-between text-xs">
@@ -805,9 +744,9 @@
           </div>
           <div>
             <div class="bg-gray-200 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-              <img src="assets/assets/images/post/img-2.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="assets/assets/images/post/img-2.jpg" class="w-full h-full absolute object-cover inset-0">-->
               <!-- overly-->
-              <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
+              <!--<div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
               <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
                 <div class="text-base"> Image description  </div>
                 <div class="flex justify-between text-xs">
@@ -826,9 +765,9 @@
           </a>
         </div>
 
-      </div>
+      </div>-->
       <!-- Pages  -->
-      <div class="card md:p-6 p-2 max-w-3xl mx-auto">
+      <!--<div class="card md:p-6 p-2 max-w-3xl mx-auto">
 
         <h2 class="text-xl font-bold"> Pages</h2>
         <nav class="responsive-nav border-b md:m-0 -mx-4">
@@ -954,9 +893,9 @@
           </a>
         </div>
 
-      </div>
+      </div>-->
       <!-- Groups  -->
-      <div class="card md:p-6 p-2 max-w-3xl mx-auto">
+      <!--<div class="card md:p-6 p-2 max-w-3xl mx-auto">
 
         <div class="flex justify-between items-start relative md:mb-4 mb-3">
           <div class="flex-1">
@@ -1081,9 +1020,9 @@
           </a>
         </div>
 
-      </div>
+      </div>-->
       <!-- Videos -->
-      <div class="card md:p-6 p-2 max-w-3xl mx-auto">
+      <!--<div class="card md:p-6 p-2 max-w-3xl mx-auto">
 
         <h2 class="text-xl font-semibold"> Friend</h2>
         <nav class="responsive-nav border-b">
@@ -1167,7 +1106,7 @@
           </a>
         </div>
 
-      </div>
+      </div>-->
 
 
     </div>
